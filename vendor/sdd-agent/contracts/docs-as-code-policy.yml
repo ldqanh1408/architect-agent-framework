@@ -1,0 +1,58 @@
+# Docs-as-Code changed-path policy (RI-11A, advisory).
+#
+# A feature change that ships without its specification is how documentation
+# drifts. This config maps source paths to the specification scope that must move
+# with them. It runs ADVISORY: the PR check reports, it does not block. Promotion
+# to merge-blocking is a separate, explicitly approved rollout - a policy that
+# blocks before its false-positive rate is measured gets disabled, which is worse
+# than not having it.
+#
+# Fails closed on its own integrity: an unparseable or internally inconsistent
+# mapping is an error, not a silent pass.
+
+version: 1
+mode: advisory # advisory | blocking - only a recorded approval flips this
+
+# Paths whose change requires a matching specification change.
+mappings:
+  - id: DAC-1
+    name: skill behaviour
+    when_changed: ["*/SKILL.md", "*/agents/**", "*/references/design/**"]
+    requires_change_in: ["*/references/**", "docs/**", "CHANGELOG.md"]
+    rationale: "A skill's behaviour is its contract; changing it without touching a reference or the changelog leaves consumers reading a stale contract."
+
+  - id: DAC-2
+    name: validator semantics
+    when_changed: ["scripts/check_*.py", "01-system-architect/scripts/check_*.py", "hooks/check_*.py"]
+    requires_change_in: ["tests/**", "_shared-master/output-contract.md", "docs/**"]
+    rationale: "A validator that changes what it accepts must move its fixtures or the contract it enforces; otherwise the rule and the documented rule disagree."
+
+  - id: DAC-3
+    name: workspace layout
+    when_changed: ["_workspace-template/**", "contracts/skeleton-profiles.yml"]
+    requires_change_in: ["_shared-master/output-contract.md", "01-system-architect/references/design/workspace-skeleton-maximal.md"]
+    rationale: "The generated shape and the documented shape are one claim; they cannot move apart."
+
+  - id: DAC-4
+    name: shared contracts
+    when_changed: ["_shared-master/**"]
+    requires_change_in: ["tests/**", "CHANGELOG.md"]
+    rationale: "Shared masters propagate to every skill package, so a change without evidence or a changelog entry is unreviewable."
+
+# Doc-neutral changes. Each bypass is auditable: it names who may use it and what
+# the reviewer sees, so "no docs needed" stays a claim someone made rather than a
+# default that quietly erodes the gate.
+bypass:
+  label: docs-neutral
+  metadata_key: docs_neutral_reason
+  requires_reason: true
+  audit: "The advisory report prints the bypass reason and the PR author, so a reviewer sees the claim rather than silence."
+
+# Never require a documentation change for these.
+exempt_paths:
+  - ".github/**"
+  - "**/__pycache__/**"
+  - "*.lock"
+  - ".gitignore"
+  - ".gitattributes"
+  - "tests/fixtures/**"

@@ -1,0 +1,5 @@
+schema_version: "1.0"
+provenance_classes: [provided, observed, derived, decided, assumed, unknown]
+required_fields: [claim, provenance_class, source_paths, stable_ids, source_hash]
+blocking_classes: [assumed, unknown]
+blocking_when_affecting: [contract, security, data, SLA, cost, acceptance]

@@ -1,0 +1,24 @@
+# Candidate support and claims
+
+This 2.0.0-alpha.3 stabilization candidate uses one revision-bound core. Historical observations below do not qualify this candidate; current source/public/installed results are in the detached stabilization evidence. Qualification E2E identifies the current continuation and companion artifact/test evidence; direct verification retains the earlier dated run. The imported assurance index describes earlier inputs. A synthetic test does not qualify an operator's host, physical key, model quality or real-user usability.
+
+| Claim | Supported behavior and boundary | Acceptance |
+|---|---|---|
+| Local core | Historical Linux/Python 3.12 profile and the separately recorded native Windows/Python 3.14.4 continuation profile; other OS and host-account verification requires its own evidence | C-01–C-06, E2E-14 |
+| Host adapters | Claude/Codex manifests and launcher/MCP conformance; execution is host-managed. Native Codex calls have direct evidence. The owner reports Claude testing complete; other account/OS coverage requires its own evidence | C-02, C-50, HUMAN-04 |
+| Authoring | Isolated exact-revision proposals under accepted grants. Package text and templates cannot extend a grant | C-13–C-21 |
+| Task scheduling | At most 100 tasks, 200 operations per task and 5 MiB per plan. Default concurrency is one; concurrency two has process conformance tests. No nested run spawning | C-59–C-63, C-76 |
+| Human control | Trusted dispatch signatures authorize an attempt. Document review, acceptance and publication have separate revision-bound authority | C-41–C-46, C-66–C-70 |
+| Observation | Durable cursor polling with partial coverage, causal event IDs and a table alternative to the graph. Graph visualization is bounded to 50 nodes | C-64–C-65, C-77–C-80 |
+| Browser accessibility | Actual local-console E2E covers keyboard navigation, focus restoration, visible focus contrast and 320px reflow, with 13 rendered axe states. Automated results do not establish complete WCAG conformance, a screen reader test or real-user usability | HUMAN-01/02 |
+| Host outcomes | Host tool calls, tokens, spend and process termination are unknown unless supplied by a trusted host integration. Cancel fences commits; it does not kill a host process | C-70–C-72 |
+| Semantic judge | Jev-only typed verdicts and source-span selection support related documents in one packet. Grounded review and qualification checks share one facade and budget. Missing or stale qualification retains advisory/manual scope. No quality or cascade saving is certified here | C-31–C-40, HUMAN-03/05 |
+| Review size | Default packet bound is 200,000 bytes; the Jev request envelope also has this limit and supports at most 127 source paragraphs. Exceeding the supported context returns INCOMPLETE; it does not silently truncate a correctness claim | C-37 |
+| Writing | `aaf-ste80-v1` is a partial advisory profile. Three heuristics run locally. Default per-rule Jev assessment binds all eight declared checks to exact sentence/source/profile/glossary digests. Missing vocabulary authority stays unknown and model coverage is advisory. See EVALUATION-AND-LANGUAGE.md; no 80% qualification or ASD certification is claimed | C-51–C-56, HUMAN-03/05 |
+| Repair | At most two unpublished repair rounds. Protected literals, quantities, normative terms, quotes and ordered meaning tokens are preserved. Only declared plain-term replacements are automatic; broader rewriting requires independent review | C-52, C-54 |
+| Diagnostics | Doctor emits allowlisted metadata only. Optional `aaf-otel-events/v1` export is observational. Export failure grants no authority and changes no run state | C-73, C-75, C-80 |
+| Retention | Preserve local history by default; no automatic purge or deletion guarantee. Use SQLite backup and preserve the source before explicit recovery | C-80, C-89 |
+| Migration | Separate offline reader, separate destination, exact resume checks and a loss report. Old approvals and pending runs remain inert | C-10, C-29–C-30, C-84, C-89 |
+| Distribution | Historical strict corpus reports describe earlier inputs. This candidate still requires a fresh complete original-corpus scan. Paid descriptors are private; public discovery contains only the four free catalog skills. Installed packs provide their own descriptors. Public, wheel, sdist and host payloads require a new hash-bound scan after every rebuild. Private inputs stay outside distributed content; protected-CI provisioning is separate | C-48–C-49, C-86, C-90, HUMAN-06 |
+
+Historical human verification exceptions are recorded as `SKIPPED_USER_AUTHORIZED`; none is a software PASS or a product permission. No new human approval or waiver is inferred from automated tests. This candidate has no release approval or publication instruction.

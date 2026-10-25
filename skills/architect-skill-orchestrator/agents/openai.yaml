@@ -1,0 +1,17 @@
+name: architect-skill-orchestrator
+description: Use when an architecture request must be routed to the smallest compatible
+  domain/task leaf set without loading the full skill library. Lists compact metadata,
+  blocks ambiguity, and emits an explicit progressive load plan.
+system_prompt_path: ../SKILL.md
+temperature: 0.2
+tools:
+- read_file
+- search_files
+- write_file
+- terminal
+interface:
+  display_name: "Architect Skill Orchestrator"
+  short_description: "Execute architect-skill-orchestrator architectural workflow"
+  default_prompt: "Use $architect-skill-orchestrator for this architectural task."
+policy:
+  allow_implicit_invocation: true

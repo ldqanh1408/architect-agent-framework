@@ -1,0 +1,11 @@
+adapter_name: ollama
+model_name: llama3:latest
+provider: ollama
+temperature: 0.2
+max_tokens: 4096
+top_p: 0.95
+system_prompt_format: markdown
+enable_structured_outputs: false
+stop_sequences: []
+extra_params:
+  endpoint: http://localhost:11434

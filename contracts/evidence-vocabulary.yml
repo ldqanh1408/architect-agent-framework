@@ -1,0 +1,1786 @@
+# Evidence vocabulary — domain and technology recognition rules.
+#
+# WHY THIS FILE DECIDES SO MUCH
+#   Every `when: evidence.has('x')` in the 110 per-skill `workspace-template.yml`
+#   manifests resolves here. 63 tokens are in use; they decide which of roughly
+#   180 pages a materialized workspace contains. Before this file existed the
+#   tokens were used by the manifests and defined nowhere, so a slot's condition
+#   was a string nobody could argue with.
+#
+# HOW A TOKEN IS ADMITTED
+#   A detector runs over one EARS clause of `clarified-requirements.md` — the rows
+#   of its `| ID | EARS Requirement | MoSCoW | Resolved In |` table. `any` is a
+#   list of patterns; a match admits the token. `none` vetoes it. No detector may
+#   fire on the ABSENCE of text: a page must exist because a clause asked for it,
+#   never because a clause failed to forbid it.
+#
+# EVERY TOKEN CARRIES NEGATIVE EXAMPLES
+#   A detector with only positive examples has been demonstrated, not tested.
+#   `tests/test_evidence_vocabulary.py` runs every example against its own
+#   detector; when this file was first written 27 of 67 tokens failed their own
+#   positive examples, which is exactly what the discipline is for.
+#
+# CONFIDENCE
+#   `high`   the pattern names the thing directly.
+#   `medium` the pattern infers from surrounding vocabulary. The four harvest
+#            tokens are medium by construction: they decide whether
+#            a cross-cutting page, a delivery page, a visual view or a runtime
+#            scenario exists, and no clause says "this is cross-cutting".
+#
+# DO NOT hand-tune a detector to make one workspace green. Add an example first.
+schema_version: '2026.08'
+kind: evidence-vocabulary
+tokens:
+- id: inbound_port
+  family: interface
+  meaning: Something outside this module calls into it over a named, versioned surface.
+  question_it_answers: what may a caller invoke, and what happens when it fails
+  page_class_families: &id001
+  - contract
+  confidence: high
+  detector:
+    any:
+    - \b(endpoint|REST|API|RPC|gRPC|route|handler)\b
+    - \b(client|caller|consumer)\b.{0,40}\b(call|invoke|request|send)s?\b
+    - \bthe (real-time )?gateway shall\b
+    - \breceives? a request\b
+    none:
+    - \bcalls? out to\b
+    - \bthird-party\b.{0,20}\bAPI\b
+  examples:
+    positive:
+    - When a client sends a message, the real-time gateway shall verify the token before forwarding.
+    - The system shall expose a REST endpoint for conversation history.
+    negative:
+    - The system shall store the binary in RustFS.
+    - When translation confidence is low, the system shall display the original text.
+- id: outbound_call
+  family: interface
+  meaning: This module calls something it does not own, so latency and failure are its problem.
+  question_it_answers: what does this depend on at runtime, and what happens when that is slow
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \bcalls? (out to|into)\b
+    - \b(invoke|call)s? (ChatGPT|Grok|the [A-Z]\w+|an? (external|third-party|upstream))
+    - \bthrough (a|the) (unified )?\w+ Gateway\b
+    - \bforward(s|ing)? (it|the request|the message) to\b
+    none: []
+  examples:
+    positive:
+    - The system shall call ChatGPT/Grok through a unified AI Gateway.
+    - When a client sends a message, the gateway shall forward the message to the conversation service.
+    negative:
+    - The system shall present the conversation list.
+    - The original is the single baseline for audit.
+- id: published_event
+  family: interface
+  meaning: A domain fact leaves this module for subscribers who may not exist yet.
+  question_it_answers: what does this announce, with what schema and ordering
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \b(publish|emit|announce)(es|s|ed)?\b.{0,30}\bevent\b
+    - \bevent\b.{0,20}\b(published|emitted)\b
+    - \boutbox\b
+    - \bfan(s|-| )out\b
+    none:
+    - \bconsume(s|d)?\b.{0,20}\bevent\b
+  examples:
+    positive:
+    - When a message is accepted, the service shall publish a MessageAccepted event via the outbox.
+    - The system shall emit a translation-completed event for subscribers.
+    negative:
+    - The system shall cache the translation by message version.
+    - When a notification is tapped, the client shall jump to the conversation.
+- id: consumed_event
+  family: interface
+  meaning: This module reacts to a fact announced elsewhere.
+  question_it_answers: what does this listen for, and what does it do when the message is a duplicate
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \b(consume|subscribe|listen)(s|d|es)?\b.{0,30}\bevent\b
+    - \bon receiving (a|the) \w+ event\b
+    - \breacts? to\b.{0,25}\bevent\b
+    none: []
+  examples:
+    positive:
+    - The translation service shall consume the MessageAccepted event.
+    - On receiving a MemberRemoved event, the gateway shall drop the session.
+    negative:
+    - The system shall publish a MessageAccepted event.
+    - The client shall reconnect automatically.
+- id: field_mapping
+  family: interface
+  meaning: Two schemas that mean the same thing spell it differently, so a mapping exists.
+  question_it_answers: which field on one side becomes which field on the other
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \bmap(s|ped|ping)?\b.{0,60}?\b(field|attribute|schema|to)\b
+    - \btransform(s|ed|ation)?\b.{0,20}\b(payload|schema)\b
+    - \bnormalis|normaliz
+    none: []
+  examples:
+    positive:
+    - The adapter shall map the provider's `finish_reason` to the internal completion status.
+    - The system shall normalize Unicode before comparing glossary terms.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: non_idempotent_call
+  family: interface
+  meaning: A retry of this call is not free — it charges, sends, or mutates twice.
+  question_it_answers: what makes a retry safe here
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \bnot duplicate-send\b
+    - \bidempotenc|idempotent\b
+    - \bexactly[- ]once\b
+    - \bshall not (send|charge|create) (it |the \w+ )?twice\b
+    - \bde-?duplicat
+    none: []
+  examples:
+    positive:
+    - When the network switches, the client shall not duplicate-send a message.
+    - The payment adapter shall pass an idempotency key on every retry.
+    negative:
+    - The system shall cache the translation by target language.
+    - The client shall present the conversation list.
+- id: exported_symbol
+  family: interface
+  meaning: A public symbol other code compiles against.
+  question_it_answers: what is the supported surface, and what breaks a consumer
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \bpublic (API|interface|symbol|class|function)\b
+    - \bSDK\b
+    - \bexport(s|ed)?\b.{0,40}?\b(symbol|type|function|interface|class)\b
+    none: []
+  examples:
+    positive:
+    - The library shall export a stable `Translate` interface.
+    - The SDK shall expose a public client class.
+    negative:
+    - The gateway shall verify the token.
+    - The system shall cache the translation.
+- id: extension_point
+  family: interface
+  meaning: Third-party code plugs in here.
+  question_it_answers: what may be extended, and what the host guarantees
+  page_class_families: *id001
+  confidence: high
+  detector:
+    any:
+    - \bplug-?in\b
+    - \bextension point\b
+    - \bhook\b
+    - \bextensible\b
+    - \bcustom (provider|handler|adapter)\b
+    none: []
+  examples:
+    positive:
+    - AI providers shall be extensible beyond ChatGPT and Grok.
+    - The host shall expose a hook for custom validators.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The client shall reconnect automatically.
+- id: owned_state
+  family: data
+  meaning: This module is the writer of record for some state.
+  question_it_answers: who owns this data, at what grain, and for how long
+  page_class_families: &id002
+  - artifact
+  - contract
+  confidence: high
+  detector:
+    any:
+    - \bshall (store|persist|record|keep)\b
+    - \bstore(s|d)? (only )?(the )?\w*\s*(metadata|reference|key|row|document)
+    - \bMongoDB\b
+    - \bwriter of record\b
+    - \bsingle baseline\b
+    none:
+    - \bcache only\b
+    - \bRedis\b.{0,20}\bcache\b
+  examples:
+    positive:
+    - The system shall store only object key/metadata in MongoDB.
+    - The original is the single baseline for audit and re-translation.
+    negative:
+    - Redis is used as cache only.
+    - The client shall jump to the target conversation.
+- id: persisted_dataset
+  family: data
+  meaning: A dataset that survives a restart and therefore needs a schema and a retention rule.
+  question_it_answers: what is the schema, and when is a row deleted
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \b(MongoDB|Postgres|database|collection|table)\b
+    - \bpersist(ed|ence|s)?\b
+    - \bshall store\b
+    none:
+    - \bin-memory\b
+    - \bcache only\b
+  examples:
+    positive:
+    - MongoDB persistence for conversations and messages.
+    - The system shall persist the audit trail.
+    negative:
+    - Redis is used as cache only.
+    - The client shall render the conversation list.
+- id: derived_dataset
+  family: data
+  meaning: Data computed from other data, so it can be rebuilt and must not be edited.
+  question_it_answers: what is this derived from, and how is it rebuilt
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bderived\b
+    - \bcomputed from\b
+    - \bcache(s|d)? it by\b
+    - \bmaterialis|materializ
+    - \bprojection\b
+    none: []
+  examples:
+    positive:
+    - Translation is derived and cacheable.
+    - The system shall cache it by (message version, target language, engine version).
+    negative:
+    - The original is the single baseline.
+    - The gateway shall verify the token.
+- id: query_consumer
+  family: data
+  meaning: Someone reads this data who did not write it.
+  question_it_answers: who reads this, and what shape do they need
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bread(s|er|ing)?\b.{0,40}?\b(data|dataset|collection|history|context|record)\b
+    - \bquer(y|ies|ied)\b
+    - \breporting\b
+    - \bsearch\b.{0,25}\bby\b
+    none: []
+  examples:
+    positive:
+    - Search shall be by conversation name, member name and department.
+    - The AI shall read only authorized recent context.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The client shall reconnect automatically.
+- id: consistency_boundary
+  family: data
+  meaning: Two writes must either both land or neither.
+  question_it_answers: what is transactional here, and what is eventually consistent
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \btransaction(al|s)?\b
+    - \batomic(ally)?\b
+    - \beventual(ly)? consistent\b
+    - \bsequence numbers?\b
+    - \border(ing)?\b.{0,20}\b(guarantee|scope)\b
+    - \bboth .{0,20}or neither\b
+    none: []
+  examples:
+    positive:
+    - Server-assigned incremental sequence numbers used for ordering and incremental sync.
+    - The outbox write and the state change shall be atomic.
+    negative:
+    - The client shall present the conversation list.
+    - The system shall extend the glossary.
+- id: domain_fact
+  family: data
+  meaning: Something true about the business, independent of any screen or table.
+  question_it_answers: what does the business assert here, in its own words
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bthe system shall (never|always)\b
+    - \bis the single\b
+    - \bshall not overwrite\b
+    - \bbaseline\b
+    - \bbusiness rule\b
+    - \binvariant\b
+    - \blapses?\b
+    - \bimmediately\b
+    none: []
+  examples:
+    positive:
+    - The system shall never overwrite the original text.
+    - A member's permission lapses immediately on leaving the organization.
+    negative:
+    - The client shall render a toggle.
+    - The system shall cache the translation.
+- id: business_rule
+  family: data
+  meaning: A decision the business makes that the code must obey.
+  question_it_answers: what rule applies, and who may change it
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bshall enforce\b
+    - \brule\b
+    - \bpolicy\b
+    - \blimit of\b
+    - \bonly (if|when|the)\b
+    - \bauthoriz(ed|ation)\b.{0,25}\bto read\b
+    - \bpermission\b
+    none: []
+  examples:
+    positive:
+    - The system shall enforce an MVP recommended limit of 200 members.
+    - The AI shall read only context the current user is authorized to read.
+    negative:
+    - The client shall reconnect automatically.
+    - The system shall cache the translation.
+- id: reactive_rule
+  family: data
+  meaning: A rule that fires on an event rather than on a request.
+  question_it_answers: what triggers this, and what happens if the trigger arrives twice
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bwhen\b.{0,60}\bshall automatically\b
+    - \bon (receiving|detecting)\b
+    - \btrigger(s|ed)?\b
+    - \bshall reconnect automatically\b
+    - \bshall auto-?detect\b
+    none: []
+  examples:
+    positive:
+    - When a user sends a message, the system shall auto-detect the source language.
+    - When the network switches, the client shall reconnect automatically.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The library shall export a stable interface.
+- id: regulated_field
+  family: data
+  meaning: A field whose handling is constrained by law or policy, not by taste.
+  question_it_answers: which fields are regulated, and what the constraint is
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bPII\b
+    - \bpersonal data\b
+    - \bretention\b
+    - \baudit\b
+    - \bGDPR|HIPAA|SOC ?2\b
+    - \bdata (policy|residency|classification)\b
+    - \bmask(ed|ing)?\b
+    none: []
+  examples:
+    positive:
+    - Organization admins shall configure data retention and audit.
+    - The AI gateway shall mask tokens before logging.
+    negative:
+    - The client shall present the conversation list.
+    - The system shall cache the translation.
+- id: source_feed
+  family: data
+  meaning: Data arrives from somewhere on a schedule or a stream.
+  question_it_answers: where does this arrive from, and what happens when the feed is late
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bfeed\b
+    - \bingest(s|ion|ed)?\b
+    - \bstream(s|ing|ed)?\b
+    - \bimport(s|ed)?\b
+    - \bupstream (source|system)\b
+    - \bcapability matrix\b
+    none: []
+  examples:
+    positive:
+    - The language catalog shall be generated from the translation engine capability matrix.
+    - The pipeline shall ingest the upstream events stream.
+    negative:
+    - The client shall render a toggle.
+    - The gateway shall verify the token.
+- id: storage_tier
+  family: data
+  meaning: Not all of this data needs the same speed or price.
+  question_it_answers: what lives hot, what lives cold, and who moves it
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bhot\b.{0,20}\bcold\b
+    - \bstorage (tier|class)\b
+    - \barchive\b
+    - \bRustFS\b.{0,40}\bMongoDB\b
+    none: []
+  examples:
+    positive:
+    - Binaries live in RustFS; metadata lives in MongoDB.
+    - Objects older than a year shall move to archive storage.
+    negative:
+    - The gateway shall verify the token.
+    - The client shall reconnect.
+- id: storage_quota
+  family: data
+  meaning: There is a ceiling on how much may be stored.
+  question_it_answers: what is the ceiling, and what happens at it
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bquota\b
+    - \b(size|storage) limit\b
+    - \b≤ ?\d+ ?(MB|GB|TB)\b
+    - \b(at most|max(imum)?|no more than) \d+ ?(MB|GB|TB|chars|characters|members)\b
+    none: []
+  examples:
+    positive:
+    - Images shall be JPG/PNG/WebP of at most 20 MB.
+    - Organization admins shall configure usage quota.
+    negative:
+    - The system shall cache the translation.
+    - The client shall present the list.
+- id: retention_policy
+  family: data
+  meaning: Data is deleted on a rule, not on a whim.
+  question_it_answers: how long is this kept, and who may shorten it
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \bretention\b
+    - \bdelete(d|s)? after\b
+    - \bexpir(e|es|y|ation)\b
+    - \bTTL\b
+    - \bshort-lived\b
+    none: []
+  examples:
+    positive:
+    - Organization admins shall configure data retention.
+    - Presigned URLs shall be short-lived.
+    negative:
+    - The system shall store the binary.
+    - The client shall reconnect.
+- id: lifecycle_policy
+  family: data
+  meaning: An object moves through states on a schedule.
+  question_it_answers: what states does this pass through, and what moves it
+  page_class_families: *id002
+  confidence: high
+  detector:
+    any:
+    - \blifecycle\b
+    - \bquarantine\b
+    - \btransition(s|ed)? to\b
+    - \bstate machine\b
+    - \bquarantin
+    none: []
+  examples:
+    positive:
+    - Un-scanned objects shall be quarantined.
+    - Objects shall transition to archive after the retention window.
+    negative:
+    - The gateway shall verify the token.
+    - The system shall cache the translation.
+- id: trust_boundary
+  family: security
+  meaning: A point where data or a caller crosses from less trusted to more trusted.
+  question_it_answers: who is trusted on each side, and what is checked at the line
+  page_class_families: &id003
+  - mechanism
+  - threat_model
+  confidence: high
+  detector:
+    any:
+    - \bverif(y|ies|ied)\b.{0,30}\b(token|permission|signature)\b
+    - \btrust boundary\b
+    - \bauthenticat|authoriz
+    - \bshall validate\b
+    - \bpresigned\b
+    - \bsecret management\b
+    - \bkeys? .{0,30}(server-side|never .{0,20}client)
+    - \bshall not (be able to )?call .{0,30}directly\b
+    - \bthird-party\b
+    - \bexternal (provider|engine|service)\b
+    - \bscan for malicious\b
+    none: []
+  examples:
+    positive:
+    - When a client sends a message, the gateway shall verify the token and member permission.
+    - Client shall not call ChatGPT/Grok directly; keys live in server-side secret management.
+    negative:
+    - The client shall present the conversation list.
+    - The system shall cache the translation.
+- id: credential_or_key
+  family: security
+  meaning: A secret exists, so its storage and rotation are design decisions.
+  question_it_answers: where does this secret live, and how is it rotated
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \b(API )?key(s)?\b
+    - \bsecret(s| management)?\b
+    - \bcredential(s)?\b
+    - \btoken\b
+    - \bpassword\b
+    - \brotat(e|ion)\b
+    none: []
+  examples:
+    positive:
+    - AI provider keys shall be stored only in server-side secret management.
+    - Login shall be by email and password.
+    negative:
+    - The client shall render the conversation list.
+    - The system shall cache by target language.
+- id: authentication_rule
+  family: security
+  meaning: How the system decides who someone is.
+  question_it_answers: what proves identity here, and what happens when the proof expires
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bauthenticat
+    - \blog ?in\b
+    - \bsign ?in\b
+    - \bemail(/| and )password\b
+    - \bsession token\b
+    - \bMFA\b
+    - \bSSO\b
+    none: []
+  examples:
+    positive:
+    - Login shall be by email and password.
+    - The gateway shall authenticate the session token.
+    negative:
+    - The system shall cache the translation.
+    - The client shall present the list.
+- id: authorization_policy
+  family: security
+  meaning: How the system decides what someone may do.
+  question_it_answers: who may do what, and where that is decided
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bauthoriz
+    - \bpermission\b
+    - \brole\b
+    - \badmin\b
+    - \bmay (only )?(read|write|access)\b
+    - \baccess control\b
+    - \bRBAC|ABAC\b
+    - \bmay (add|remove|manage|configure)\b
+    none: []
+  examples:
+    positive:
+    - The AI shall read only context the current user is authorized to read.
+    - Group admins may add and remove members.
+    negative:
+    - The system shall cache the translation.
+    - The client shall reconnect.
+- id: access_control
+  family: security
+  meaning: An explicit allow/deny list guards a resource.
+  question_it_answers: what is guarded, and by which rule
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \baccess control\b
+    - \ballow ?list|deny ?list|whitelist|blacklist\b
+    - \bmember(ship)? permission\b
+    - \bpermission lapses?\b
+    - \brevoke(d|s)?\b
+    - \bshall lapse\b
+    none: []
+  examples:
+    positive:
+    - Permission shall lapse immediately when a member leaves the organization.
+    - The gateway shall check conversation member permission before forwarding.
+    negative:
+    - The system shall cache the translation.
+    - The client shall present the list.
+- id: session_management
+  family: security
+  meaning: A session has a beginning, an end, and a way to be cut short.
+  question_it_answers: how long does a session live, and what ends it
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bsession\b
+    - \breconnect\b
+    - \blog ?out\b
+    - \bexpire(s|d)?\b.{0,20}\bsession\b
+    - \bdevice\b.{0,20}\bsync\b
+    - \bsessions? shall be invalidated\b
+    - \baccount is disabled\b
+    none: []
+  examples:
+    positive:
+    - The client shall reconnect automatically when the network switches.
+    - Sessions shall be invalidated when the account is disabled.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The client shall render a toggle.
+- id: token_lifecycle
+  family: security
+  meaning: A token is issued, used, refreshed and revoked.
+  question_it_answers: who issues this, how long it lives, and how it is revoked
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \btoken\b.{0,30}\b(expire|refresh|revoke|lifetime|short-lived)\b
+    - \bshort-lived\b
+    - \bpresigned URL\b
+    - \brefresh token\b
+    - \btoken limits?\b
+    none: []
+  examples:
+    positive:
+    - Attachment access shall use short-lived presigned URLs.
+    - AI context shall be bounded by message-count and token limits.
+    negative:
+    - The client shall present the conversation list.
+    - The system shall cache the translation.
+- id: identity_provider
+  family: security
+  meaning: Identity comes from somewhere — inside or outside.
+  question_it_answers: who is the source of truth for identity
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bidentity provider\b
+    - \bIdP\b
+    - \bSSO\b
+    - \bOAuth|OIDC|SAML\b
+    - \bmember belongs to an organization\b
+    - \borganization admin\b
+    none: []
+  examples:
+    positive:
+    - A member belongs to an organization; organization admins manage accounts.
+    - SSO via OIDC is out of MVP scope.
+    negative:
+    - The system shall cache the translation.
+    - The client shall reconnect.
+- id: audit_trail
+  family: security
+  meaning: Somebody will need to prove what happened.
+  question_it_answers: what is recorded, who may read it, and for how long
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \baudit\b
+    - \bfor audit\b
+    - \btrace(ability)?\b.{0,20}\brecord\b
+    - \bimmutable log\b
+    none: []
+  examples:
+    positive:
+    - The original is the single baseline for audit and re-translation.
+    - Organization admins shall configure audit.
+    negative:
+    - The client shall present the list.
+    - The system shall cache the translation.
+- id: security_log
+  family: security
+  meaning: A security-relevant event is written somewhere durable.
+  question_it_answers: which events are logged, and where they go
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bsecurity log\b
+    - \blog(s|ged|ging)?\b.{0,30}\b(access|auth|denial|failure)\b
+    - \bmask(ed|ing)?\b.{0,20}\blog
+    - \baudit log\b
+    - \b(attempt|failure|denial)s? shall be logged\b
+    none: []
+  examples:
+    positive:
+    - Failed authorization attempts shall be logged.
+    - The AI gateway shall mask tokens before logging.
+    negative:
+    - The system shall cache the translation.
+    - The client shall render a toggle.
+- id: untrusted_code
+  family: security
+  meaning: Code the system did not write runs inside it.
+  question_it_answers: what may this code reach, and what confines it
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \buntrusted\b
+    - \bsandbox\b
+    - \bplug-?in\b.{0,30}\b(isolat|confin|sandbox)
+    - \barbitrary code\b
+    - \bsandboxed\b
+    none: []
+  examples:
+    positive:
+    - Plug-ins shall run sandboxed with no filesystem access.
+    - Untrusted extensions shall not reach the network.
+    negative:
+    - The gateway shall verify the token.
+    - The system shall cache the translation.
+- id: access_delegation
+  family: security
+  meaning: One principal acts on behalf of another.
+  question_it_answers: who may act for whom, and how that is bounded
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bon behalf of\b
+    - \bdelegat(e|ed|ion)\b
+    - \bimpersonat
+    - \bpresigned\b.{0,30}\bon behalf\b
+    - \bservice account\b
+    - \bact for\b
+    - \bmay act\b
+    none: []
+  examples:
+    positive:
+    - The upload service shall issue presigned URLs on behalf of the member.
+    - An organization admin may act for a member during migration.
+    negative:
+    - The client shall present the list.
+    - The system shall cache the translation.
+- id: presigned_url
+  family: security
+  meaning: A URL carries its own short-lived authority.
+  question_it_answers: how long is it valid, and what does it grant
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bpresigned\b
+    - \bsigned URL\b
+    - \btime-limited (link|URL)\b
+    none: []
+  examples:
+    positive:
+    - Uploads and downloads shall use short-lived presigned URLs.
+    - The presigned URL shall grant write to one object key only.
+    negative:
+    - The gateway shall verify the token.
+    - The system shall cache the translation.
+- id: quality_expectation
+  family: quality
+  meaning: A number somebody will hold the system to.
+  question_it_answers: what number, measured where, and what happens when it is missed
+  page_class_families: &id005
+  - quality_scenario
+  - test_strategy
+  confidence: high
+  detector:
+    any:
+    - \bP\d{2}\b
+    - \b≤ ?\d
+    - \b\d+(\.\d+)? ?%\b
+    - \bwithin \d+ ?(ms|s|seconds|minutes)\b
+    - \bavailability\b
+    - \blatenc(y|ies)\b
+    - \bthroughput\b
+    - \bat most \d
+    none: []
+  examples:
+    positive:
+    - P95 ≤ 2 s ack, ≤ 3 s translation cache-hit, 99.9% availability.
+    - Group size shall be at most 200 members.
+    negative:
+    - The system shall cache the translation.
+    - The client shall render a toggle.
+- id: runtime_signal
+  family: observability
+  meaning: Something must be observable while it runs.
+  question_it_answers: what question does this signal answer, and who reads it
+  page_class_families: &id004
+  - mechanism
+  - artifact
+  confidence: high
+  detector:
+    any:
+    - \breport(s|ing)?\b.{0,30}\b(quality|availability|latency|success)\b
+    - \bmetric\b
+    - \bmonitor
+    - \bstatistic(s)?\b
+    - \bdashboard\b
+    - \btelemetry\b
+    - \bshall record\b.{0,25}\bconfidence\b
+    none: []
+  examples:
+    positive:
+    - The system shall degrade and report quality/availability.
+    - The system shall record detection confidence.
+    negative:
+    - The client shall present the conversation list.
+    - The system shall store the binary.
+- id: emitted_signal
+  family: observability
+  meaning: A signal leaves the process.
+  question_it_answers: what is emitted, at what cardinality
+  page_class_families: *id004
+  confidence: high
+  detector:
+    any:
+    - \bemit(s|ted|ting)?\b.{0,25}\b(metric|span|log|signal|event)\b
+    - \bexport(s|ed)?\b.{0,20}\btrace
+    - \bOpenTelemetry|OTel\b
+    - \bshall report\b
+    none: []
+  examples:
+    positive:
+    - The service shall emit a span per translation request.
+    - The system shall report success and latency per language pair.
+    negative:
+    - The system shall cache the translation.
+    - The client shall reconnect.
+- id: stored_telemetry
+  family: observability
+  meaning: Telemetry is kept, so it has a schema and a bill.
+  question_it_answers: how long is telemetry kept, and what does that cost
+  page_class_families: *id004
+  confidence: high
+  detector:
+    any:
+    - \btelemetry\b.{0,25}\b(stor|retain|keep)
+    - \bmetrics? (store|retention)\b
+    - \blog retention\b
+    - \bhistor(y|ical) (metric|statistic)
+    - \bstatistics\b.{0,40}?\bretained\b
+    none: []
+  examples:
+    positive:
+    - Per-language-pair statistics shall be retained for trend analysis.
+    - Log retention shall follow the organization data policy.
+    negative:
+    - The gateway shall verify the token.
+    - The client shall present the list.
+- id: actionable_condition
+  family: observability
+  meaning: A condition that should wake somebody up.
+  question_it_answers: what wakes whom, and what they do about it
+  page_class_families: *id004
+  confidence: high
+  detector:
+    any:
+    - \balert(s|ing)?\b
+    - \bpage(s|d|r)\b
+    - \bon-?call\b
+    - \bSLO breach\b
+    - \bshall notify\b.{0,25}\b(operator|admin)\b
+    - \bwhen .{0,40}(fails|unavailable|exceeds)\b
+    none: []
+  examples:
+    positive:
+    - When the translation engine is unavailable, the system shall alert operators.
+    - An SLO breach shall page the on-call engineer.
+    negative:
+    - The client shall render a toggle.
+    - The system shall cache the translation.
+- id: external_dependency
+  family: quality
+  meaning: Something outside the system can make it slow or wrong.
+  question_it_answers: what is the timeout, the retry budget, and the degraded mode
+  page_class_families: *id005
+  confidence: high
+  detector:
+    any:
+    - \b(ChatGPT|Grok|OpenAI|xAI|LiteLLM|RustFS|FCM|APNs)\b
+    - \bthird-party\b
+    - \bexternal (engine|provider|service)\b
+    - \btranslation engine\b
+    - \bupstream\b
+    - \bfail ?over\b
+    - \bdegrade\b
+    none: []
+  examples:
+    positive:
+    - The system shall call ChatGPT/Grok through a unified AI Gateway.
+    - When a language pair is unsupported, the system shall degrade by pivot language or fallback model.
+    negative:
+    - The system shall cache the translation.
+    - The client shall present the list.
+- id: external_provider
+  family: quality
+  meaning: A named vendor is in the critical path.
+  question_it_answers: which vendor, and what happens when it is down or replaced
+  page_class_families: *id005
+  confidence: high
+  detector:
+    any:
+    - \b(ChatGPT|Grok|OpenAI|xAI|LiteLLM)\b
+    - \bprovider(s)?\b
+    - \bvendor\b
+    - \bengine version\b
+    none: []
+  examples:
+    positive:
+    - AI providers are OpenAI ChatGPT and xAI Grok, extensible.
+    - The cache key shall include the engine version.
+    negative:
+    - The client shall reconnect.
+    - The system shall store the binary.
+- id: provider_credential
+  family: security
+  meaning: A vendor needs a secret from us.
+  question_it_answers: where does the vendor's key live, and who can read it
+  page_class_families: *id003
+  confidence: high
+  detector:
+    any:
+    - \bprovider\b.{0,30}\bkey\b
+    - \bAPI key\b
+    - \bserver-side secret\b
+    - \bpermanent .{0,15}key\b
+    none: []
+  examples:
+    positive:
+    - Keys shall live only in server-side secret management.
+    - The client shall not use a permanent RustFS key.
+    negative:
+    - The system shall cache the translation.
+    - The client shall render a toggle.
+- id: provider_error
+  family: quality
+  meaning: The vendor fails in its own vocabulary, which we must translate.
+  question_it_answers: what does each provider error mean for us
+  page_class_families: *id005
+  confidence: high
+  detector:
+    any:
+    - \bprovider error\b
+    - \berror (code|catalog|mapping)\b
+    - \brate ?limit(ed|ing)?\b
+    - \bquota exceeded\b
+    - \bfail ?over\b
+    - \bretryable\b
+    none: []
+  examples:
+    positive:
+    - The gateway shall fail over by model according to policy.
+    - Provider rate-limit responses shall map to a retryable internal error.
+    negative:
+    - The client shall present the list.
+    - The system shall cache the translation.
+- id: deployable_unit
+  family: infra
+  meaning: Something ships and runs on its own.
+  question_it_answers: what is deployed, where, and how it is rolled back
+  page_class_families: &id006
+  - mechanism
+  - artifact
+  confidence: high
+  detector:
+    any:
+    - \bdeploy(ed|ment|s)?\b
+    - \bcontainer\b
+    - \bservice\b.{0,25}\brun(s|ning)?\b
+    - \bDocker|Kubernetes|compose\b
+    - \b(Android|iOS|Windows|macOS)\b
+    none: []
+  examples:
+    positive:
+    - The client shall support Android 10+, iOS 16+, Windows 10/11 x64 and macOS 13+.
+    - Each service shall ship as a container.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: network_path
+  family: infra
+  meaning: Traffic crosses a boundary that can be closed.
+  question_it_answers: which path, on which port, and who may open it
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bnetwork\b
+    - \bWi-?Fi\b
+    - \bcellular\b
+    - \boffline\b
+    - \bWebSocket\b
+    - \bport\b
+    - \bingress|egress\b
+    - \bconnect(ion|s)?\b
+    none: []
+  examples:
+    positive:
+    - When the network switches (Wi-Fi ↔ cellular ↔ offline), the client shall reconnect.
+    - The gateway shall accept WebSocket connections.
+    negative:
+    - The system shall cache the translation.
+    - The library shall export an interface.
+- id: managed_resource
+  family: infra
+  meaning: A resource somebody provisions rather than writes.
+  question_it_answers: who provisions this, and how it is torn down
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bRustFS\b
+    - \bbucket\b
+    - \bMongoDB\b
+    - \bRedis\b
+    - \bprovision(ed|ing)?\b
+    - \binfrastructure\b
+    - \bcluster\b
+    none: []
+  examples:
+    positive:
+    - RustFS is the only persistent store for binary files.
+    - Redis shall be used as cache only.
+    negative:
+    - The client shall present the list.
+    - The library shall export an interface.
+- id: billable_resource
+  family: infra
+  meaning: Using this costs money per unit.
+  question_it_answers: what does a unit cost, and what caps it
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bcost\b
+    - \bbilling\b
+    - \bquota\b
+    - \btoken limit\b
+    - \bper-?(request|token|GB)\b
+    - \busage quota\b
+    - \bmodel configuration\b
+    none: []
+  examples:
+    positive:
+    - Organization admins shall configure model configuration and usage quota.
+    - AI context shall be bounded by a token limit.
+    negative:
+    - The client shall reconnect.
+    - The system shall store the binary.
+- id: host_capability
+  family: infra
+  meaning: The host platform can or cannot do something.
+  question_it_answers: which platform capability is required, and what happens without it
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \b(Android|iOS|Windows|macOS)\b
+    - \bplatform capabilit
+    - \bcamera|album|file picker|clipboard\b
+    - \bsystem notification\b
+    - \bdrag-and-drop\b
+    none: []
+  examples:
+    positive:
+    - Images may come from file picker, drag-and-drop, paste, album or camera.
+    - Windows and macOS shall use system notifications.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: user_facing_view
+  family: ui
+  meaning: A human looks at this.
+  question_it_answers: what does the user see, and what can they do from here
+  page_class_families: &id007
+  - contract
+  - mechanism
+  confidence: high
+  detector:
+    any:
+    - \bshall (present|display|show|render)\b
+    - \bscreen\b
+    - \bconversation list\b
+    - \bUI\b
+    - \bmockup\b
+    - \bheader\b
+    - \bbubble\b
+    - \bview-original\b
+    - \bsettings? (screen|page)\b
+    - \bavatar\b
+    - \btoggle\b
+    - \bentry point\b
+    none: []
+  examples:
+    positive:
+    - When a user opens the app, the system shall present the conversation list with avatar and unread
+      count.
+    - The bubble shall prefer the translation and expose a view-original toggle.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The gateway shall verify the token.
+- id: interactive_control
+  family: ui
+  meaning: The user can act on something, so its states matter.
+  question_it_answers: what are the control's states, including failure
+  page_class_families: *id007
+  confidence: high
+  detector:
+    any:
+    - \btoggle\b
+    - \bbutton\b
+    - \btap(ped|s)?\b
+    - \bclick\b
+    - \bretry\b
+    - \bpick the correct\b
+    - \bdrag-and-drop\b
+    - \bswipe\b
+    - \bshall allow the user to\b
+    none: []
+  examples:
+    positive:
+    - The system shall allow the user to pick the correct language and retry.
+    - When a notification is tapped, the client shall jump to the conversation.
+    negative:
+    - The system shall store only metadata in MongoDB.
+    - The gateway shall forward the message.
+- id: client_state
+  family: ui
+  meaning: The client holds state the server does not.
+  question_it_answers: what does the client remember, and what happens when it is stale
+  page_class_families: *id007
+  confidence: high
+  detector:
+    any:
+    - \bclient shall\b
+    - \bdraft\b
+    - \blocal (state|cache|store)\b
+    - \bincremental sync\b
+    - \bcursor\b
+    - \bunread count\b
+    - \bpreference\b.{0,25}\bsync\b
+    none: []
+  examples:
+    positive:
+    - The client shall perform incremental sync using the server sequence cursor.
+    - Conversation, read status, draft and preference shall sync across four platforms.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The gateway shall verify the token.
+- id: backend_call
+  family: ui
+  meaning: The client talks to the server, so the contract is shared.
+  question_it_answers: which call, with what payload, and what the client does on failure
+  page_class_families: *id007
+  confidence: high
+  detector:
+    any:
+    - \bclient\b.{0,40}\b(send|request|call|fetch|upload|download)s?\b
+    - \bsend(s|ing)? a message\b
+    - \bupload\b
+    - \bdownload\b
+    none: []
+  examples:
+    positive:
+    - When a client sends a message, the gateway shall verify the token.
+    - The client shall upload the image and show progress.
+    negative:
+    - The system shall cache the translation by target language.
+    - Organization admins shall configure retention.
+- id: render_budget
+  family: ui
+  meaning: There is a limit on how long the screen may take.
+  question_it_answers: what is the budget, measured how
+  page_class_families: *id007
+  confidence: high
+  detector:
+    any:
+    - \brender\b.{0,25}\b(budget|within|under)\b
+    - \bframe\b
+    - \bfirst paint\b
+    - \bP\d{2}\b.{0,30}\b(UI|screen|list)\b
+    - \bsmooth(ly)?\b
+    - \bpreview\b.{0,40}?\bbefore upload\b
+    - \bpaint\b.{0,30}?\bwithin\b
+    - \bprogress shall appear\b
+    none: []
+  examples:
+    positive:
+    - The image preview and progress shall appear before upload begins.
+    - The conversation list shall paint within 300 ms at P95.
+    negative:
+    - The system shall store the binary in RustFS.
+    - The gateway shall verify the token.
+- id: user_journey
+  family: ui
+  meaning: A sequence of screens that adds up to a task.
+  question_it_answers: what is the user trying to finish, and where can they get stuck
+  page_class_families: *id007
+  confidence: high
+  detector:
+    any:
+    - \bjourney\b
+    - \bflow\b
+    - \bstep(s)?\b
+    - \bthen the (user|client|system)\b
+    - \bscenario\b
+    - \bend-to-end\b
+    - \bcreat(e|es|ing) a (group|conversation)\b
+    - \b(search|pick)\b.{0,40}?\bthen\b
+    none: []
+  examples:
+    positive:
+    - 'Creating a conversation: search, pick private or group, then confirm.'
+    - The end-to-end flow from send to translated delivery shall be traceable.
+    negative:
+    - The system shall cache the translation.
+    - Keys shall live in secret management.
+- id: distribution_artifact
+  family: infra
+  meaning: Something is packaged for someone else to install.
+  question_it_answers: what is shipped, and how a consumer pins a version
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bpackage(d|s)?\b
+    - \bartifact\b
+    - \brelease\b
+    - \binstall(er|ed)?\b
+    - \bwheel|npm|jar\b
+    none: []
+  examples:
+    positive:
+    - The SDK shall be published as a versioned package.
+    - The installer shall ship for Windows and macOS.
+    negative:
+    - The gateway shall verify the token.
+    - The system shall cache the translation.
+- id: release_channel
+  family: infra
+  meaning: Not everyone gets the same build at the same time.
+  question_it_answers: which channel, and who moves a build between them
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bchannel\b
+    - \bbeta|canary|stable\b
+    - \bstaged rollout\b
+    - \bmin(imum)? version\b
+    - \bversion freeze\b
+    - \bfrozen after\b
+    none: []
+  examples:
+    positive:
+    - Minimum platform versions shall be frozen after technical research.
+    - Builds shall move beta → stable on a staged rollout.
+    negative:
+    - The system shall store the binary.
+    - The client shall present the list.
+- id: supported_version_range
+  family: infra
+  meaning: Only some versions are supported.
+  question_it_answers: which versions, and what happens outside the range
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \b\d+\+\b
+    - \bAndroid \d+|iOS \d+|macOS \d+|Windows \d+\b
+    - \bsupported version\b
+    - \bminimum\b.{0,20}\bversion\b
+    - \bdeprecat
+    - \bbelow the floor\b
+    - \bupgrade prompt\b
+    none: []
+  examples:
+    positive:
+    - Android 10+, iOS 16+, Windows 10/11 x64, macOS 13+.
+    - Versions below the floor shall be refused with an upgrade prompt.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: plugin_registry
+  family: infra
+  meaning: Extensions are discovered from a list.
+  question_it_answers: who may register, and what the registry guarantees
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bregistry\b
+    - \bregister(ed|s)?\b.{0,25}\b(plug-?in|extension|provider)\b
+    - \bdiscover(y|ed)?\b
+    none: []
+  examples:
+    positive:
+    - New AI providers shall be registered in the provider registry.
+    - The host shall discover extensions from the registry only.
+    negative:
+    - The client shall reconnect.
+    - The system shall store the binary.
+- id: lifecycle_hook
+  family: infra
+  meaning: Code runs at a defined moment in another component's life.
+  question_it_answers: when does this run, and what may it assume
+  page_class_families: *id006
+  confidence: high
+  detector:
+    any:
+    - \bhook\b
+    - \bon (start|stop|init|shutdown)\b
+    - \bmiddleware\b
+    - \bbefore\b.{0,20}\bafter\b
+    - \bcallback\b
+    - \bon-(start|stop|init|shutdown)\b
+    none: []
+  examples:
+    positive:
+    - A hook shall run before every write to the workspace.
+    - The plug-in shall receive an on-shutdown callback.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: rejected_option
+  family: decision
+  meaning: Something was considered and turned down.
+  question_it_answers: what was rejected, and on what grounds
+  page_class_families: &id008
+  - decision
+  confidence: high
+  detector:
+    any:
+    - \bout of (MVP )?scope\b
+    - \bnot (a |an )?(hard-coded|MVP)\b
+    - \bshall not\b
+    - \brejected\b
+    - \bexcluded\b
+    - \bMVP\+1\b
+    - \bdeferred\b
+    none: []
+  examples:
+    positive:
+    - Voice, video, file collaboration and SSO are out of MVP scope.
+    - Full-text search is MVP+1.
+    negative:
+    - The gateway shall verify the token.
+    - The client shall present the list.
+- id: superseded_element
+  family: decision
+  meaning: A newer thing replaces an older one, and the old name still exists.
+  question_it_answers: what replaced what, and what happens to the old name
+  page_class_families: *id008
+  confidence: high
+  detector:
+    any:
+    - \bsupersed
+    - \breplace(s|d)?\b
+    - \bretire(d|s)?\b
+    - \bmigrat(e|ed|ion)\b
+    - \bno longer\b
+    - \balias\b
+    none: []
+  examples:
+    positive:
+    - The dynamic capability matrix supersedes the hard-coded client language list.
+    - The retired stage names remain as aliases.
+    negative:
+    - The client shall present the list.
+    - The system shall cache the translation.
+- id: ambiguous_term
+  family: doc
+  meaning: One word means two things to two readers.
+  question_it_answers: which word, and which meaning is meant here
+  page_class_families: &id009
+  - artifact
+  confidence: high
+  detector:
+    any:
+    - \bambiguous\b
+    - \bmeans\b.{0,30}\bin this context\b
+    - \bglossary\b
+    - \bterm\b
+    - \bdo-not-translate\b
+    - \bubiquitous language\b
+    - \bmeans\b.{0,60}?\bin the domain\b
+    - \bmeans the\b
+    none: []
+  examples:
+    positive:
+    - An organization may define a glossary or do-not-translate rule.
+    - '"Conversation" in the client means the list row; in the domain it means the aggregate.'
+    negative:
+    - The gateway shall verify the token.
+    - The client shall reconnect.
+- id: cross_module_mechanism
+  family: cross
+  meaning: A runtime behaviour that two or more modules must implement identically.
+  question_it_answers: who owns this behaviour, and which modules must obey it
+  page_class_families:
+  - mechanism
+  confidence: medium
+  detector:
+    any:
+    - \bacross (modules|contexts|services)\b
+    - \bshared (mechanism|behaviour|behavior)\b
+    - \bboth .{0,30}\band\b.{0,30}\bshall\b
+    - \boutbox\b
+    - \bretry\b
+    - \bcache\b
+    - \bpresigned\b
+    - \bnotification\b
+    - \bincremental sync\b
+    - \bdegrade\b
+    none: []
+  examples:
+    positive:
+    - Both the gateway and the conversation service shall use the outbox pattern.
+    - When a language pair is unsupported, the system shall degrade by pivot or fallback.
+    negative:
+    - The library shall export a stable interface.
+    - The client shall render an avatar.
+- id: release_surface
+  family: infra
+  meaning: There is something to release, so delivery is in scope.
+  question_it_answers: what ships to whom, and how a bad release is undone
+  page_class_families: *id006
+  confidence: medium
+  detector:
+    any:
+    - \brelease\b
+    - \bdeploy(ment)?\b
+    - \bfour platforms?\b
+    - \bstore (submission|review)\b
+    - \brollback\b
+    - \bmin(imum)? version\b
+    - \bcross-platform\b
+    - \bfrozen after\b
+    none: []
+  examples:
+    positive:
+    - 'The tool ships on four platforms: Android, iOS, Windows, macOS.'
+    - Minimum platform versions shall be frozen after technical research.
+    negative:
+    - The system shall cache the translation.
+    - The gateway shall verify the token.
+- id: visual_view_required
+  family: doc
+  meaning: A reader needs a picture, not a paragraph.
+  question_it_answers: which view, at which C4 level, generated from what
+  page_class_families: *id009
+  confidence: medium
+  detector:
+    any:
+    - \bdiagram\b
+    - \bC4\b
+    - \bcontext (view|diagram)\b
+    - \bcontainer (view|diagram)\b
+    - \bsequence\b
+    - \bdeployment (view|topology)\b
+    - \bbounded contexts?\b
+    - \btopology\b
+    none: []
+  examples:
+    positive:
+    - Seven bounded contexts and a standard profile.
+    - The deployment topology shall be shown per environment.
+    negative:
+    - The system shall cache the translation.
+    - The client shall render an avatar.
+- id: feature_cluster
+  family: doc
+  meaning: Several requirements add up to one thing a user would name.
+  question_it_answers: which requirements belong to one runtime scenario
+  page_class_families: *id009
+  confidence: medium
+  detector:
+    any:
+    - \bMVP\b
+    - \bfeature\b
+    - \bscope(s|d)?\b
+    - \bprivate/group chat\b
+    - \bAI (Q&A|summary|assistant)\b
+    - \btranslation\b
+    - \bnotification(s)?\b
+    - \bsearch\b
+    none: []
+  examples:
+    positive:
+    - The MVP scopes private/group chat, text/image, automatic translation, AI Q&A/summary.
+    - Notifications cover FCM, APNs and desktop system notifications.
+    negative:
+    - The gateway shall verify the token.
+    - Keys shall live in secret management.
+# --- Eleven domain-specific tokens for AI, resilience, cryptographic, and edge concerns ----
+#
+# Accepted after empirical precision validation across the golden prompt corpus: one
+# token that fires by mistake admits a whole family of pages nobody asked for
+# token per domain archetype with verified signal accuracy:
+# AI fixture 8/8, negative fixture 0/11. Each gates an existing slot as an added
+# `or`, so no workspace loses a page it had; see `output_modules.py`.
+#
+# Eight belong to the `ai` family: the condition for the ten 04_ai_architecture
+# skills to have any page of their own. Three are operational.
+- id: model_invocation
+  family: ai
+  meaning: A machine-learning model outside this module sits on the request path.
+  question_it_answers: which model is called, through what contract, and what happens when it is slow, wrong or down
+  page_class_families:
+  - contract
+  - mechanism
+  confidence: high
+  detector:
+    any:
+    - \b(LLM|large language model|foundation model|language model)s?\b
+    - \b(ChatGPT|GPT-?\d\w*|Claude|Gemini|Grok|Llama|Mistral)\b
+    - \bAI (assistant|model|summary|summaries|summari[sz]ation|completion|generation)\b
+    - \b(ML|machine[- ]learning) models?\b
+    - \bmodel (inference|provider|endpoint|call|API)s?\b
+    none: []
+  examples:
+    positive:
+    - The system shall call ChatGPT/Grok through a unified AI Gateway.
+    - When a user asks a question, the assistant shall invoke the LLM with the conversation context.
+    - When a user requests an AI summary, the system shall summarize the unread messages.
+    negative:
+    - The domain model shall keep conversation and membership separate.
+    - The threat model shall cover token replay at the gateway.
+- id: prompt_asset
+  family: ai
+  meaning: A prompt is a versioned asset with an owner, not a string constant in code.
+  question_it_answers: which prompt version produced this output, and how is a bad prompt rolled back
+  page_class_families:
+  - artifact
+  confidence: high
+  detector:
+    any:
+    - \bprompt (template|version|library|registry|catalog)s?\b
+    - \bsystem prompts?\b
+    - \bprompts?\b.{0,40}\b(versioned|rolled back|roll back|rollback)\b
+    - \bprompt engineering\b
+    none: []
+  examples:
+    positive:
+    - System prompts shall be versioned and rolled back without a redeploy.
+    - Each prompt template shall carry a version and an owner.
+    negative:
+    - The client shall prompt the user to confirm deletion.
+    - When the session expires, the app shall prompt for login again.
+- id: retrieval_corpus
+  family: ai
+  meaning: Answers are grounded in a corpus the system retrieves from at request time.
+  question_it_answers: what is in the corpus, how it is chunked, how fresh it is, and who may see which part
+  page_class_families:
+  - mechanism
+  - artifact
+  confidence: medium
+  detector:
+    any:
+    - \b(RAG|retrieval[- ]augmented)\b
+    - \bretriev(e|es|ed|al|ing)\b.{0,40}\b(documents?|passages?|chunks?|snippets?|knowledge)\b
+    - \bchunk(ed|ing)?\b.{0,30}\b(documents?|corpus|index)\b
+    - \bgrounded (in|on)\b
+    - \bknowledge corpus\b
+    none: []
+  examples:
+    positive:
+    - The assistant shall answer from a retrieval-augmented index of product manuals.
+    - The system shall retrieve the relevant document chunks before generating a reply.
+    negative:
+    - The client shall retrieve the conversation list on launch.
+    - The API shall return paginated search results.
+- id: embedding_space
+  family: ai
+  meaning: Vectors exist, with a dimension and a model that produced them.
+  question_it_answers: which model made the vectors, and what is re-indexed when that model changes
+  page_class_families:
+  - artifact
+  - mechanism
+  confidence: high
+  detector:
+    any:
+    - \bembeddings\b
+    - \bembedding (model|vector|dimension|space|index)s?\b
+    - \bvector (store|database|db|index|search|similarity)\b
+    - \bsemantic (search|similarity)\b
+    - \b(cosine similarity|HNSW|nearest[- ]neighbou?r)\b
+    none: []
+  examples:
+    positive:
+    - The system shall store message embeddings in a vector index for semantic search.
+    - When the embedding model changes, every stored vector shall be re-indexed.
+    negative:
+    - The client shall support embedding a video link in a message.
+    - The web view shall render embedded maps.
+- id: agent_autonomy
+  family: ai
+  meaning: Code or actions chosen by a model will run without a person choosing each step.
+  question_it_answers: what may the agent do alone, what needs a human gate, and how large is the blast radius
+  page_class_families:
+  - mechanism
+  - threat_model
+  confidence: high
+  detector:
+    any:
+    - \b(AI|autonomous|LLM|coding|software) agents?\b
+    - \bagentic\b
+    - \bmulti-agent\b
+    - \bagent (loop|workflow|plan)s?\b
+    none: []
+  examples:
+    positive:
+    - An autonomous agent shall plan and apply refactoring steps in the repository.
+    - The AI agent shall open a pull request only after a human approves its plan.
+    negative:
+    - When no support agent is online, the chat shall queue the customer.
+    - The server shall log the browser user agent for each session.
+- id: tool_surface
+  family: ai
+  meaning: A model can call tools that have side effects outside the conversation.
+  question_it_answers: which tools are allowlisted, are they idempotent, and who audits what the model did with them
+  page_class_families:
+  - contract
+  - threat_model
+  confidence: high
+  detector:
+    any:
+    - \b(tool|function)[- ](use|calling|calls?)\b
+    - \bMCP\b
+    - \bmodel context protocol\b
+    - \b(model|LLM|agent|assistant)\b.{0,40}\b(calls?|invokes?|uses?)\b.{0,20}\btools?\b
+    none: []
+  examples:
+    positive:
+    - The assistant shall use function calling to create calendar events.
+    - Tools exposed to the agent over MCP shall be allowlisted per organization.
+    negative:
+    - The admin tool shall export audit logs as CSV.
+    - Developers shall use the CLI tool to seed test data.
+- id: eval_criterion
+  family: ai
+  meaning: Model output is judged against a stated quality bar, and a regression blocks a change.
+  question_it_answers: what is the golden set, what score blocks a release, and who owns the threshold
+  page_class_families:
+  - quality_scenario
+  - test_strategy
+  confidence: medium
+  detector:
+    any:
+    - \b(golden|evaluation|eval) (set|dataset|suite)s?\b
+    - \b(hallucination|groundedness|faithfulness)\b
+    - \b(LLM|model|AI) (outputs?|responses?|answers?|summaries)\b.{0,40}\b(evaluat|scor|grad|judg)\w*
+    - \b(evaluat|scor|grad|judg)\w*\b.{0,40}\b(LLM|model|AI) (outputs?|responses?|answers?|summaries)\b
+    - \bLLM[- ]as[- ]a[- ]judge\b
+    none: []
+  examples:
+    positive:
+    - AI summaries shall be scored against a golden set before each model upgrade.
+    - The hallucination rate on the evaluation suite shall stay below 2%.
+    negative:
+    - Employees shall receive an annual performance evaluation.
+    - The fitness function shall evaluate p95 latency on every build.
+- id: token_budget
+  family: ai
+  meaning: Model use is capped by a token or spend budget, and running out has defined behaviour.
+  question_it_answers: what is the budget per tenant or request, and what happens when it is exhausted
+  page_class_families:
+  - mechanism
+  - quality_scenario
+  confidence: medium
+  detector:
+    any:
+    - \btoken (budget|quota|limit|usage)s?\b
+    - \b(prompt|completion|input|output|context|LLM|model) tokens?\b
+    - \bcontext window\b
+    - \b(LLM|model|AI) (spend|cost|budget|quota)s?\b
+    none: []
+  examples:
+    positive:
+    - Each tenant shall have a monthly LLM token budget, and AI features degrade to cached answers once it is spent.
+    - The context window shall be capped at 8k input tokens per request.
+    negative:
+    - Refresh tokens shall expire after 30 days.
+    - The push service shall store one FCM token per device.
+- id: tenancy_boundary
+  family: security
+  meaning: Data and limits are partitioned by tenant, and a request must never cross that line.
+  question_it_answers: where is the tenant enforced, and what proves one tenant cannot read another's data
+  page_class_families:
+  - mechanism
+  - threat_model
+  confidence: medium
+  detector:
+    any:
+    - \bmulti-?tenan(t|cy)\b
+    - \btenants?\b.{0,40}\b(isolat|partition|segregat)\w*
+    - \b(isolat|partition|segregat)\w*\b.{0,40}\btenants?\b
+    - \bper[- ]tenant\b
+    - \bcross[- ]tenant\b
+    - \btenant (id|boundary|isolation|scope)\b
+    none: []
+  examples:
+    positive:
+    - Each customer's data shall be isolated per tenant, and no query may read across tenants.
+    - The platform is multi-tenant, and rate limits apply per tenant.
+    negative:
+    - The property manager shall notify a tenant when rent is overdue.
+    - Each organization may define a glossary.
+- id: capacity_limit
+  family: quality
+  meaning: A hard ceiling on throughput or concurrency that the design must hold or shed load at.
+  question_it_answers: what is the ceiling, where is it enforced, and what does a caller see above it
+  page_class_families:
+  - quality_scenario
+  - mechanism
+  confidence: medium
+  detector:
+    any:
+    - \brate[- ]limit\w*
+    - \bthrottl\w*
+    - \b(at most|no more than|up to|maximum of)\s+\d[\d,.]*\s*[km]?\s*(requests?|messages?|connections?|sessions?|events?|RPS|QPS|TPS|concurrent)\b
+    - \bconcurrent (users|connections|sessions|requests)\b
+    - \bbackpressure\b
+    none: []
+  examples:
+    positive:
+    - The gateway shall accept at most 10,000 concurrent connections per node.
+    - Clients sending more than 20 requests per second shall be rate-limited.
+    negative:
+    - The client shall limit the display name to 64 characters.
+    - The dashboard shall show up to date statistics.
+- id: cutover_step
+  family: infra
+  meaning: Traffic or data moves from an old system to a new one in a step that can fail halfway.
+  question_it_answers: what is switched, in what order, how is it reversed, and what runs in parallel meanwhile
+  page_class_families:
+  - mechanism
+  - artifact
+  confidence: medium
+  detector:
+    any:
+    - \bcut[- ]?over\b
+    - \b(strangler|blue[- ]green|dual[- ]writ(e|es|ing)|backfill|shadow traffic|parallel run)\b
+    - \bmigrat\w*\b.{0,40}\b(from|off)\b.{0,40}\b(legacy|old|existing|v1)\b
+    - \bdecommission\w*\b
+    none: []
+  examples:
+    positive:
+    - During cutover, the legacy chat service and the new one shall dual-write messages.
+    - Users shall be migrated from the legacy directory to the new identity provider in batches.
+    negative:
+    - The client shall migrate its local database schema on app upgrade.
+    - The user may switch between light and dark themes.

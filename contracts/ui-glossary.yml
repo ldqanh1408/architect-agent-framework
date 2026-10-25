@@ -1,0 +1,52 @@
+# The words every user-facing surface uses across CLI, Web Console, and Skills.
+#
+# One concept, one word, in each language. The console's help dialog shows this table; the
+# slash commands and the README use the same words. A code shown on screen (HG-2, a flag) has
+# a row here, so a person who meets it can find out what it means without asking.
+#
+# Plain language (Federal Plain Language Guidelines, "Avoid jargon"): keep a technical term
+# when no plain one is correct, and say what it means once.
+schema_version: 1
+terms:
+  - id: console
+    vi: {term: bàn duyệt, means: "Trang chạy trên máy bạn để đọc bộ tài liệu và ký quyết định."}
+    en: {term: review console, means: "The page on your machine where you read the document set and sign decisions."}
+  - id: workspace
+    vi: {term: workspace, means: "Thư mục chứa yêu cầu, kế hoạch và toàn bộ tài liệu kiến trúc của một dự án."}
+    en: {term: workspace, means: "The folder that holds a project's requirements, plan and architecture documents."}
+  - id: node
+    vi: {term: node, means: "Một hệ, một module hoặc một hệ ngoài trên sơ đồ; mỗi node sở hữu một nhánh tài liệu."}
+    en: {term: node, means: "A system, module or external system on the map; each owns a branch of documents."}
+  - id: page
+    vi: {term: trang, means: "Một tệp Markdown trong cây tài liệu."}
+    en: {term: page, means: "One Markdown file in the document tree."}
+  - id: checkpoint
+    vi: {term: quyết định của người (CD-01…CD-04 / HG-1…HG-4), means: "Bốn chỗ chỉ người mới ký được: chốt yêu cầu, chốt ranh giới module, chấp nhận rủi ro còn lại, bàn giao."}
+    en: {term: human checkpoint (CD-01…CD-04 / HG-1…HG-4), means: "The four points only a person can sign: requirements, module boundaries, residual risk, handoff."}
+  - id: packet
+    vi: {term: gói quyết định, means: "Nội dung cố định mà người ký đọc; chữ ký gắn với đúng gói đó."}
+    en: {term: decision packet, means: "The fixed text the signer reads; the signature is bound to exactly that packet."}
+  - id: passkey
+    vi: {term: passkey, means: "Khóa đăng nhập trên máy bạn (Windows Hello, Touch ID, khóa bảo mật); dùng để ký, không cần mật khẩu."}
+    en: {term: passkey, means: "A sign-in key on your device (Windows Hello, Touch ID, a security key); it signs without a password."}
+  - id: clause
+    vi: {term: khoản, means: "Một dòng có mã trong yêu cầu đã làm rõ: yêu cầu (CLR), giả định (ASM), câu hỏi mở (OQ)."}
+    en: {term: clause, means: "One numbered line of the clarified requirements: requirement (CLR), assumption (ASM), open question (OQ)."}
+  - id: trace
+    vi: {term: truy vết, means: "Khoản nào đã có trang trả lời, khoản nào chưa."}
+    en: {term: trace, means: "Which clauses a page answers, and which no page answers yet."}
+  - id: scaffold-slot
+    vi: {term: khung trống, means: "Trang mới có tiêu đề, chưa có nội dung."}
+    en: {term: empty scaffold, means: "A page with a title and no content yet."}
+  - id: unrendered-template
+    vi: {term: chưa điền mẫu, means: "Trang còn nguyên mẫu, chưa ai viết vào."}
+    en: {term: unfilled template, means: "A page that is still the template nobody has written into."}
+  - id: run
+    vi: {term: run, means: "Một lần chạy pipeline: các agent viết trang theo kế hoạch, dừng ở chỗ cần người."}
+    en: {term: run, means: "One pipeline run: agents write pages to the plan and stop where a person is needed."}
+  - id: slot
+    vi: {term: khe skill, means: "Chỗ trong khung dành cho một skill; khe rỗng thì phần việc đó không có hướng dẫn chuyên môn."}
+    en: {term: skill slot, means: "A place in the framework for one skill; an empty slot means that work has no expert guidance."}
+  - id: content
+    vi: {term: ruột skill, means: "Nội dung chuyên môn lắp vào một khe; bản miễn phí hoặc bản bạn mua."}
+    en: {term: skill content, means: "The expert content that fills a slot; a free one or one you bought."}

@@ -1,0 +1,13 @@
+# Every file in exported_skills/ is hashed into package.yml and
+# release-manifest.yml. If git rewrites line endings on checkout, those hashes
+# stop matching the working tree and `release-check` fails on Windows while
+# passing in CI -- so the catalog is pinned to LF regardless of core.autocrlf.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.gz binary

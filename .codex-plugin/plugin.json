@@ -1,0 +1,51 @@
+{
+  "name": "architect-agent-framework",
+  "version": "2.0.0",
+  "description": "Architecture routing and specification workflows: four free catalog skills, three SDD foundation skills, an optional runtime, revision-bound document regression and signed human acceptance.",
+  "author": {
+    "name": "Le Dac Quoc Anh",
+    "url": "https://github.com/ldqanh1408"
+  },
+  "homepage": "https://github.com/ldqanh1408/Architect-Agent-Framework",
+  "repository": "https://github.com/ldqanh1408/Architect-Agent-Framework",
+  "license": "MIT",
+  "keywords": [
+    "architecture",
+    "multi-agent",
+    "human-in-the-loop"
+  ],
+  "interface": {
+    "displayName": "Architect Agent Framework",
+    "shortDescription": "Prepare scoped architecture candidates and review exact revisions",
+    "longDescription": "Plan bounded core tasks under accepted grants, coordinate host-managed workers, observe durable task events and require trusted human signatures for dispatch and document acceptance.",
+    "developerName": "Architect Agent Framework",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use architect-runtime to plan the agents for this workspace.",
+      "Use architect-runtime to continue the current run."
+    ]
+  },
+  "skills": "./skills/",
+  "mcpServers": "./codex.mcp.json",
+  "hooks": {
+    "hooks": {
+      "PreToolUse": [
+        {
+          "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell|apply_patch|write_file|edit_file|shell|exec_command|local_shell|pwsh|bash|sh|write|edit|multiedit|create_file|replace_in_file|notebookedit|zsh|cmd|terminal",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python \"${PLUGIN_ROOT}/scripts/architect_runtime.py\" --bootstrap hook pre-tool-use",
+              "timeout": 30
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

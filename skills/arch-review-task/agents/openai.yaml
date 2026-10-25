@@ -1,0 +1,15 @@
+name: arch-review-task
+description: Conduct formal architecture review against ISO 42010 standards.
+system_prompt_path: ../SKILL.md
+temperature: 0.2
+tools:
+- read_file
+- search_files
+- write_file
+- terminal
+interface:
+  display_name: "Arch Review Task"
+  short_description: "Execute arch-review-task architectural workflow"
+  default_prompt: "Use $arch-review-task for this architectural task."
+policy:
+  allow_implicit_invocation: true

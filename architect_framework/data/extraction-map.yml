@@ -1,0 +1,26 @@
+# The extraction map for structural document sections.
+#
+# What a blackbox needs, and where each spine keeps it. This is the closed set:
+# a child page cannot smuggle new prose upward by writing in a section the map
+# does not read.
+fields:
+  responsibility:                       # 1 paragraph, the "what it is"
+    spine_a: {section: "Summary",             take: first_paragraph}
+    spine_b: {section: "Summary",             take: first_paragraph}
+    spine_c: {section: null,                  take: lead_paragraph}   # between TOC and first ##
+  interfaces:                           # table -> rows where direction is external
+    spine_a: {section: "Ownership and Handoffs", table: true, filter: "direction != internal"}
+    spine_b: {section: "Detailed Tables",        table: true, filter: "has(Interface)"}
+    spine_c: {section: "Element Description",    table: true, filter: "*"}
+  stable_ids:
+    any: {scan: '\\b(?:CLR|REQ|ADR|API|MSG|ENTITY|FIT|QA)-[A-Z0-9-]+\\b', scope: [responsibility, "Traceability", "Element Traceability", "Upstream Coverage"]}
+  verdicts:
+    spine_a: {section: "Verification",  table: true, column: "Exit"}
+    spine_c: {section: "Self-Check",    table: true, column: "Status"}
+    fitness: {section: "Fitness Self-Check", table: true, column: "Status"}
+
+detection:
+  spine_a: has_all(["Summary","Detailed Description","Traceability","Verification"])
+  spine_c: has_all(["Source Specifications","Element Traceability"])
+  spine_b: has_all(["Summary"]) and has_any(["Self-Check","Assumptions & Open Questions"])
+  # no match -> UNSLICEABLE, reported, no empty band emitted

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Specification Critic"
+  short_description: "Review spec consistency with exact evidence and repair owners"
+  default_prompt: "Use $02-spec-critic to review these documents and their accepted guarantees."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,387 @@
+templates:
+  # ─────────────────── C4 Model Artifacts ───────────────────
+  - id: "c4-context-spec"
+    name: "C4 Context Diagram Spec"
+    format_type: "Mermaid / PlantUML"
+    structure_schema: "C4Context diagram describing Users, System, and External System dependencies."
+    required_sections: ["Title", "System Boundary", "User Personas", "External Systems", "Relationships"]
+
+  - id: "c4-container-spec"
+    name: "C4 Container Diagram Spec"
+    format_type: "Mermaid / PlantUML"
+    structure_schema: "C4Container diagram showing deployable applications, databases, and message queues."
+    required_sections: ["Title", "Containers List", "Protocols", "Data Stores", "Container Interactions"]
+
+  - id: "c4-component-spec"
+    name: "C4 Component Diagram Spec"
+    format_type: "Mermaid / PlantUML"
+    structure_schema: "C4Component diagram showing internal components within a single container."
+    required_sections: ["Title", "Container Scope", "Component List", "Dependencies", "Interfaces"]
+
+  - id: "c4-code-spec"
+    name: "C4 Code / Class Diagram Spec"
+    format_type: "Mermaid classDiagram"
+    structure_schema: "Class diagram showing code-level entities, relationships, and interfaces."
+    required_sections: ["Class Definitions", "Relationships (extends/implements/uses)", "Key Methods"]
+
+  - id: "deployment-diagram-spec"
+    name: "Deployment Diagram Spec"
+    format_type: "Mermaid / PlantUML"
+    structure_schema: "Deployment diagram showing Kubernetes nodes, pods, services, and ingress topology."
+    required_sections: ["Infrastructure Nodes", "Deployed Containers", "Network Topology", "Load Balancers"]
+
+  - id: "sequence-diagram-spec"
+    name: "Sequence Diagram Spec"
+    format_type: "Mermaid sequenceDiagram"
+    structure_schema: "Sequence diagram illustrating the chronological message flow between actors and systems."
+    required_sections: ["Participants", "Message Flow", "Activation Bars", "Error / Alt Paths"]
+
+  - id: "network-diagram-spec"
+    name: "Network Topology Diagram Spec"
+    format_type: "Mermaid flowchart / Draw.io"
+    structure_schema: "Network topology diagram showing VPCs, subnets, security groups, and peering connections."
+    required_sections: ["VPC/Network Boundaries", "Subnets", "Security Groups", "Peering/Connectivity"]
+
+  # ─────────────────── ADR / Decision Templates ───────────────────
+  - id: "nygard-adr"
+    name: "Nygard Architecture Decision Record (ADR)"
+    format_type: "Markdown"
+    structure_schema: |
+      # {Number}. {Title}
+      Date: {YYYY-MM-DD}
+      ## Status
+      {Proposed | Accepted | Deprecated | Superseded}
+      ## Context
+      {Context description}
+      ## Decision
+      {Architectural decision details}
+      ## Consequences
+      {Positive and negative consequences}
+    required_sections: ["Title", "Status", "Context", "Decision", "Consequences"]
+
+  - id: "madr-adr"
+    name: "MADR Architecture Decision Record"
+    format_type: "Markdown"
+    structure_schema: |
+      # {Title}
+      ## Status: {Proposed | Accepted | Deprecated}
+      ## Context and Problem Statement
+      ## Decision Drivers
+      ## Considered Options
+      ## Decision Outcome
+      ### Pros and Cons of the Options
+    required_sections: ["Title", "Status", "Context and Problem Statement", "Considered Options", "Decision Outcome"]
+
+  - id: "rfc-template"
+    name: "Request for Comments (RFC) Template"
+    format_type: "Markdown"
+    structure_schema: |
+      # RFC-{number}: {Title}
+      - Author: {name}
+      - Date: {YYYY-MM-DD}
+      - Status: {Draft | In Review | Accepted | Rejected}
+      ## Summary
+      ## Motivation
+      ## Detailed Design
+      ## Drawbacks
+      ## Alternatives
+      ## Unresolved Questions
+    required_sections: ["Summary", "Motivation", "Detailed Design", "Drawbacks", "Alternatives"]
+
+  # ─────────────────── API Specification Templates ───────────────────
+  - id: "openapi-spec"
+    name: "OpenAPI 3.1 Specification"
+    format_type: "YAML / JSON Schema"
+    structure_schema: "Standard OpenAPI 3.1 spec describing paths, operations, parameters, and request/response schemas."
+    required_sections: ["openapi", "info", "paths", "components"]
+
+  - id: "asyncapi-spec"
+    name: "AsyncAPI 3.0 Specification"
+    format_type: "YAML"
+    structure_schema: "Standard AsyncAPI 3.0 spec for event-driven channels, operations, and message payloads."
+    required_sections: ["asyncapi", "info", "channels", "operations", "components"]
+
+  - id: "grpc-proto-spec"
+    name: "gRPC Protobuf Definition"
+    format_type: "Protocol Buffers (.proto)"
+    structure_schema: |
+      syntax = "proto3";
+      package {service_name}.v1;
+      service {ServiceName} {
+        rpc {MethodName} ({RequestMessage}) returns ({ResponseMessage});
+      }
+      message {RequestMessage} { ... }
+    required_sections: ["syntax", "package", "service definition", "message definitions"]
+
+  - id: "graphql-schema-spec"
+    name: "GraphQL Schema Definition"
+    format_type: "GraphQL SDL"
+    structure_schema: |
+      type Query { ... }
+      type Mutation { ... }
+      type Subscription { ... }
+      type {EntityType} { ... }
+      input {InputType} { ... }
+    required_sections: ["Query type", "Mutation type", "Entity types", "Input types"]
+
+  - id: "webhook-spec"
+    name: "Webhook Event Spec"
+    format_type: "Markdown + JSON Schema"
+    structure_schema: |
+      # Webhook: {event_name}
+      ## Trigger Condition
+      ## Payload Schema (JSON)
+      ## Retry Policy
+      ## Security (HMAC Signature)
+    required_sections: ["Trigger Condition", "Payload Schema", "Retry Policy", "Signature Verification"]
+
+  # ─────────────────── Security Templates ───────────────────
+  - id: "stride-threat-spec"
+    name: "STRIDE Threat Model Matrix"
+    format_type: "Markdown Table"
+    structure_schema: "Table classifying Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege."
+    required_sections: ["Element", "Threat Category", "Description", "Mitigation Strategy", "Risk Score"]
+
+  - id: "iam-policy-spec"
+    name: "IAM Policy Specification"
+    format_type: "Markdown + YAML"
+    structure_schema: |
+      # IAM Policy: {service_name}
+      ## Roles
+      | Role | Description | Permissions |
+      ## Service Accounts
+      ## RBAC / ABAC Rules
+      ## Secret Access Grants
+    required_sections: ["Roles", "Service Accounts", "Permission Matrix", "Secret Access Grants"]
+
+  - id: "data-classification-spec"
+    name: "Data Classification Specification"
+    format_type: "Markdown Table"
+    structure_schema: |
+      # Data Classification: {system_name}
+      | Data Field | Classification | Storage | Encryption | Access Control | Retention |
+    required_sections: ["Data Field", "Classification Tier", "Encryption Standard", "Retention Policy", "Access Control"]
+
+  # ─────────────────── Infrastructure Templates ───────────────────
+  - id: "terraform-module-spec"
+    name: "Terraform Module Architecture Spec"
+    format_type: "Markdown + HCL"
+    structure_schema: |
+      # Terraform Module: {module_name}
+      ## Variables (inputs)
+      ## Resources Provisioned
+      ## Outputs
+      ## Provider Requirements
+    required_sections: ["Variables", "Resources", "Outputs", "Provider Versions"]
+
+  - id: "helm-chart-spec"
+    name: "Helm Chart Design Spec"
+    format_type: "Markdown + YAML"
+    structure_schema: |
+      # Helm Chart: {chart_name}
+      ## Chart.yaml metadata
+      ## Values.yaml schema
+      ## Template files list
+      ## Deployment, Service, ConfigMap, Ingress specs
+    required_sections: ["Chart Metadata", "Values Schema", "Template List", "Resource Specs"]
+
+  - id: "kubernetes-manifest-spec"
+    name: "Kubernetes Manifest Specification"
+    format_type: "YAML"
+    structure_schema: |
+      # K8s Resources for {service_name}
+      ## Deployment (replicas, resources, probes)
+      ## Service (ClusterIP/LoadBalancer)
+      ## HPA (min/max replicas, CPU target)
+      ## ConfigMap / Secret refs
+    required_sections: ["Deployment", "Service", "HPA", "Resource Requests/Limits", "Health Probes"]
+
+  - id: "network-policy-spec"
+    name: "Kubernetes Network Policy Spec"
+    format_type: "YAML + Markdown"
+    structure_schema: |
+      # Network Policy: {service_name}
+      ## Ingress Rules (allowed sources)
+      ## Egress Rules (allowed destinations)
+      ## Default-deny policy
+    required_sections: ["Ingress Rules", "Egress Rules", "Label Selectors", "Default Deny"]
+
+  # ─────────────────── Data / Schema Templates ───────────────────
+  - id: "erd-spec"
+    name: "Entity Relationship Diagram (ERD) Spec"
+    format_type: "Mermaid erDiagram"
+    structure_schema: |
+      erDiagram
+        ENTITY_A {
+          type field_name PK
+        }
+        ENTITY_A ||--o{ ENTITY_B : "relationship"
+    required_sections: ["Entity Definitions", "Attribute Types", "Primary/Foreign Keys", "Relationships"]
+
+  - id: "data-schema-spec"
+    name: "Database Schema Specification"
+    format_type: "Markdown + SQL DDL"
+    structure_schema: |
+      # Schema: {table_name}
+      ## Columns (name, type, nullable, default)
+      ## Indexes
+      ## Constraints (PK, FK, Unique, Check)
+      ## Partitioning Strategy
+    required_sections: ["Column Definitions", "Index Strategy", "Constraints", "Partition Plan"]
+
+  - id: "data-pipeline-spec"
+    name: "Data Pipeline Architecture Spec"
+    format_type: "Markdown + Mermaid"
+    structure_schema: |
+      # Pipeline: {pipeline_name}
+      ## Source Systems
+      ## Transformation Logic
+      ## Sink/Destination
+      ## SLA (latency, throughput)
+      ## Error Handling & DLQ
+    required_sections: ["Source", "Transformations", "Sink", "SLA", "Error Handling"]
+
+  # ─────────────────── Observability Templates ───────────────────
+  - id: "slo-sla-spec"
+    name: "SLO / SLA Definition Spec"
+    format_type: "Markdown Table"
+    structure_schema: |
+      # SLO/SLA: {service_name}
+      | SLI | SLO Target | SLA Commitment | Error Budget | Measurement Window |
+      ## Alerting Rules
+      ## Escalation Policy
+    required_sections: ["SLI Definitions", "SLO Targets", "Error Budget", "Alert Thresholds", "Escalation"]
+
+  - id: "runbook-spec"
+    name: "Operational Runbook Template"
+    format_type: "Markdown"
+    structure_schema: |
+      # Runbook: {incident_name}
+      ## Alert Condition
+      ## Impact Assessment
+      ## Diagnosis Steps
+      ## Mitigation Steps
+      ## Escalation Path
+      ## Post-Incident Review
+    required_sections: ["Alert Condition", "Impact", "Diagnosis", "Mitigation Steps", "Escalation Path"]
+
+  - id: "dashboard-spec"
+    name: "Grafana Dashboard Spec"
+    format_type: "Markdown + JSON"
+    structure_schema: |
+      # Dashboard: {service_name}
+      ## Panels (metric, query, visualization type)
+      ## Alert Rules
+      ## Variables / Filters
+      ## Data Sources
+    required_sections: ["Panel Definitions", "Alert Thresholds", "Variables", "Time Range Defaults"]
+
+  # ─────────────────── Testing Templates ───────────────────
+  - id: "test-strategy-spec"
+    name: "Test Strategy Document"
+    format_type: "Markdown"
+    structure_schema: |
+      # Test Strategy: {system_name}
+      ## Testing Pyramid Ratios
+      ## Unit Testing Approach
+      ## Integration Testing Scope
+      ## Contract Testing Plan
+      ## E2E Testing Coverage
+      ## Load / Performance Test Targets
+      ## Quality Gates (CI thresholds)
+    required_sections: ["Testing Pyramid", "Unit", "Integration", "E2E", "Performance Targets", "Quality Gates"]
+
+  - id: "load-test-spec"
+    name: "Load Test Specification"
+    format_type: "Markdown + k6 / Gatling script"
+    structure_schema: |
+      # Load Test: {service_name}
+      ## Test Scenarios (normal, spike, soak)
+      ## Target Throughput (RPS)
+      ## SLO Pass/Fail Criteria
+      ## Tool Configuration
+    required_sections: ["Scenarios", "Target Throughput", "SLO Criteria", "Test Script"]
+
+  # ─────────────────── Documentation Templates ───────────────────
+  - id: "architecture-spec"
+    name: "Architecture Specification Document"
+    format_type: "Markdown"
+    structure_schema: |
+      # Architecture Specification: {component_name}
+      ## Executive Summary
+      ## Problem Statement
+      ## Architecture Overview (C4 Diagrams)
+      ## Design Decisions (ADRs)
+      ## Quality Attribute Requirements (ISO 25010)
+      ## Security Design
+      ## Infrastructure Design
+      ## Open Questions
+    required_sections: ["Executive Summary", "C4 Overview", "ADRs", "NFR Requirements", "Security", "Infrastructure"]
+
+  - id: "atam-report-spec"
+    name: "ATAM Evaluation Report"
+    format_type: "Markdown Report"
+    structure_schema: "Formal ATAM report detailing scenarios, sensitivity points, and tradeoff points."
+    required_sections: ["Executive Summary", "Quality Attribute Scenarios", "Tradeoff Points", "Sensitivity Points", "Verdict"]
+
+  - id: "migration-guide-spec"
+    name: "Migration Guide Specification"
+    format_type: "Markdown"
+    structure_schema: |
+      # Migration Guide: {system_name}
+      ## Pre-Migration Checklist
+      ## Migration Steps (ordered)
+      ## Rollback Plan
+      ## Data Migration Strategy
+      ## Cutover Window
+      ## Post-Migration Validation
+    required_sections: ["Pre-Migration Checklist", "Migration Steps", "Rollback Plan", "Data Migration", "Validation"]
+
+  # ─────────────────── CI/CD Templates ───────────────────
+  - id: "cicd-pipeline-spec"
+    name: "CI/CD Pipeline Specification"
+    format_type: "Markdown + YAML"
+    structure_schema: |
+      # CI/CD Pipeline: {service_name}
+      ## Build Stage (lint, test, build image)
+      ## Test Stage (unit, integration, contract)
+      ## Security Stage (SAST, DAST, dependency scan)
+      ## Deploy Stage (dev, staging, prod)
+      ## Quality Gates
+    required_sections: ["Build", "Test", "Security Scan", "Deploy Stages", "Quality Gates"]
+
+  - id: "deployment-strategy-spec"
+    name: "Deployment Strategy Spec"
+    format_type: "Markdown"
+    structure_schema: |
+      # Deployment Strategy: {service_name}
+      ## Strategy Type (Canary / Blue-Green / Rolling)
+      ## Traffic Splitting Rules
+      ## Rollback Trigger Conditions
+      ## Smoke Test Suite
+      ## Rollback Procedure
+    required_sections: ["Strategy Type", "Traffic Rules", "Rollback Conditions", "Smoke Tests"]
+
+  # ─────────────────── Cost & Capacity Templates ───────────────────
+  - id: "capacity-model-spec"
+    name: "Capacity Planning Model"
+    format_type: "Markdown + Spreadsheet"
+    structure_schema: |
+      # Capacity Model: {service_name}
+      ## Current Baseline (RPS, CPU, Memory)
+      ## Growth Projections (6/12/24 months)
+      ## Scaling Strategy (horizontal / vertical)
+      ## Resource Cost Estimate
+    required_sections: ["Baseline Metrics", "Growth Projections", "Scaling Strategy", "Cost Estimate"]
+
+  - id: "tco-analysis-spec"
+    name: "TCO / ROI Analysis Template"
+    format_type: "Markdown + Table"
+    structure_schema: |
+      # TCO Analysis: {system_name}
+      ## Infrastructure Costs (compute, storage, network)
+      ## Licensing Costs
+      ## Engineering Costs (FTE)
+      ## Operational Costs
+      ## ROI Calculation
+    required_sections: ["Infrastructure Costs", "Licensing", "Engineering FTE", "ROI", "Payback Period"]

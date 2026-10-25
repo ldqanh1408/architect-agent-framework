@@ -1,0 +1,12 @@
+adapter_name: deepseek
+model_name: deepseek-reasoner
+provider: deepseek
+temperature: 0.0
+max_tokens: 8192
+top_p: 1.0
+system_prompt_format: markdown
+enable_structured_outputs: false
+stop_sequences: []
+extra_params:
+  reasoning_mode: true
+  strip_think_tags_on_save: true

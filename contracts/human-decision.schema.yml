@@ -1,0 +1,96 @@
+# Schema of one human decision record.
+#
+# One file per checkpoint, inside the workspace:  <workspace>/decisions/HG-<n>.yml
+# A superseded record is kept under               <workspace>/decisions/history/HG-<n>.<stamp>.yml
+# (the rubber-stamp warning signal reads the decision history).
+#
+# The gate that enforces this schema is GATE-HUMAN-DECISION
+# (architect_framework/gates/human_decision.py). Its constants mirror this file and
+# tests/test_human_decision.py pins that the two agree, so neither can drift alone.
+#
+# Identity is NOT re-defined here. `decided_by` is checked by the runtime's one rule,
+# `architect_framework.runtime.ledgers.validate_human`: empty, a skill id,
+# or a process name (`source-derived`, `claude`, `agent`, ...) is refused.
+schema_version: "2026.09"
+kind: human-decision-schema
+title: One human decision at one pipeline checkpoint, bound to the digests it decided on
+
+record:
+  kind: human-decision
+  required_fields:
+    - schema_version
+    - kind
+    - checkpoint
+    - artifacts
+    - packet_sha256
+    - packet_rendered_at
+    - decision
+    - covers
+    - conditions
+    - rationale
+    - decided_by
+    - decided_at
+  artifact_fields: [path, sha256]
+  # Review console: a record signed with a
+  # passkey carries `channel: console-passkey`, optional per-item `notes`, and an
+  # `attestation` — the WebAuthn assertion over the SHA-256 of the record without it.
+  optional_fields: [mode, channel, notes, attestation]
+  attestation_fields: [credential_id, payload_sha256, client_data_json, authenticator_data, signature]
+  # A directory artifact (path ending in `/`) is digested as the sorted list of
+  # (relative path, sha256) of every file under it, so editing one page moves it.
+  decisions: [approve, approve-with-conditions, reject]
+  timestamps: ISO-8601 UTC, e.g. 2026-09-25T10:04:00Z
+
+# Four checkpoints per run. `artifacts` are the files a decision binds;
+# only the ones present on disk are bound. `mode` is the minimum; a record may ask
+# for `mode: signed`, never for less than its checkpoint's mode.
+checkpoints:
+  HG-1:
+    title: chốt yêu cầu
+    boundary: Phase 0 → 1
+    artifacts: [clarified-requirements.md, clarification-ledger.yml]
+    must_cover: every ASM-, OQ- and GAP- id in clarified-requirements.md
+    required_when: any Phase 1 artifact exists, or the clarification ledger says complete
+    pipeline: enforced via architect-runtime sdd gate / review console before Phase 1 materialization
+    mode: recorded
+  HG-2:
+    title: chốt ranh giới module
+    boundary: 1a → 1b (after step 3b, before plan build)
+    artifacts: [module-charter.yml, harvest.yml]
+    must_cover: every module the router refused, won by at most one point, or resolved by architect-tiebreak
+    required_when: module-charter.yml exists
+    pipeline: enforced via architect-runtime sdd gate / review console before target tree plan approval
+    mode: recorded
+  HG-3:
+    title: chấp nhận rủi ro còn lại
+    boundary: inside Phase 1, after the critic
+    # The critic's review sits at the root or, in the legacy layout, under its package folder.
+    artifacts: [design-review.md, 02-spec-critic/reviews/design-review.md, seam-ledger.yml]
+    must_cover: every RISK- of severity major or blocker, every SEAM- in state downgraded
+    required_when: verdict APPROVED-WITH-CONCERNS, a downgraded seam, or more than 2 consecutive REJECTED critic rounds
+    mode: recorded
+  HG-4:
+    title: bàn giao
+    boundary: Phase 1 → site
+    artifacts: [architecture/, seam-ledger.yml]
+    packet: the pipeline scorecard; packet_sha256 is the scorecard digest
+    must_cover: none
+    required_when: a handoff; a local site build without it carries the "chưa duyệt" band (H8)
+    mode: signed
+
+modes:
+  recorded: layers 1–2 — the deny rules and the gate
+  signed: layers 1–3 — either the record's passkey attestation verifies against .architect/reviewers.yml (review console), or the last commit touching the record is signed by a key in gpg.ssh.allowedSignersFile (git log %G? = G) and the record has no uncommitted change
+
+# Finding codes emitted by human decision validation.
+codes:
+  HUMAN-DECISION-MISSING: a checkpoint due at the workspace's current state has no record
+  HUMAN-DECISION-STALE: a bound artifact, or the packet, changed after the decision
+  HUMAN-DECISION-UNCOVERED: an id the checkpoint must decide on is absent from covers
+  HUMAN-DECISION-NO-RATIONALE: rationale empty, or naming no id from covers
+  HUMAN-DECISION-AGENT-IDENTITY: decided_by is not a person (validate_human refused it)
+  HUMAN-DECISION-REJECTED: decision reject; everything downstream is blocked
+  HUMAN-DECISION-UNSIGNED: signed mode, and the record is uncommitted or its commit is not validly signed
+  HUMAN-DECISION-INVALID: the file is not a readable record of this schema
+  HUMAN-DECISION-RUBBER-STAMP: warning only — the last 10 records of a checkpoint all approve with median review under 60 s
+  HUMAN-DECISION-ATTESTATION: a record signed on the review console whose passkey signature does not verify (edited after signing, unknown or later-enrolled key, no user verification)

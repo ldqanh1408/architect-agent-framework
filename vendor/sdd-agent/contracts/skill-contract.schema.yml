@@ -1,0 +1,43 @@
+schema_version: "2026.07"
+title: SDD & AAF v2 Skill Contract Schema
+required:
+  - schema_version
+  - skill
+  - role
+  - triggers
+  - anti_triggers
+  - required_inputs
+  - owns
+  - read_only
+  - forbidden_writes
+  - required_outputs
+  - completion_evidence
+  - blocking_conditions
+  - validators
+fields:
+  schema_version: {type: string}
+  skill: {type: string}
+  kind: {type: string, enum: [foundation, domain, task, orchestration]}
+  phase: {type: [integer, string], optional: true}
+  role: {type: string}
+  triggers: {type: list}
+  anti_triggers: {type: list}
+  required_inputs: {type: list}
+  optional_inputs: {type: list}
+  forbidden_inputs: {type: list}
+  owns: {type: list}
+  read_only: {type: list}
+  forbidden_writes: {type: list}
+  required_outputs: {type: list}
+  stable_ids_consumed: {type: list}
+  stable_ids_produced: {type: list}
+  compatible_task_families: {type: list, optional: true}
+  compatible_domain_clusters: {type: list, optional: true}
+  completion_evidence: {type: list}
+  blocking_conditions: {type: list}
+  resume_policy: {type: mapping}
+  context_loading: {type: mapping}
+  engineering_discipline: {type: mapping, optional: true}
+  validators: {type: list}
+  authority: {type: string, optional: true}
+  generated_from: {type: mapping, optional: true}

@@ -1,0 +1,129 @@
+{
+  "format": "aaf-release-policy/v1",
+  "profiles": {
+    "local-verification": [
+      "RG-01",
+      "RG-02",
+      "RG-03",
+      "RG-04",
+      "RG-05",
+      "RG-07",
+      "RG-10",
+      "RG-11",
+      "RG-12",
+      "RG-13"
+    ],
+    "controlled-pilot": [
+      "RG-01",
+      "RG-02",
+      "RG-03",
+      "RG-04",
+      "RG-05",
+      "RG-06",
+      "RG-07",
+      "RG-08",
+      "RG-09",
+      "RG-10",
+      "RG-11",
+      "RG-12",
+      "RG-13"
+    ],
+    "public-beta": [
+      "RG-01",
+      "RG-02",
+      "RG-03",
+      "RG-04",
+      "RG-05",
+      "RG-06",
+      "RG-07",
+      "RG-08",
+      "RG-09",
+      "RG-10",
+      "RG-11",
+      "RG-12",
+      "RG-13"
+    ],
+    "stable": [
+      "RG-01",
+      "RG-02",
+      "RG-03",
+      "RG-04",
+      "RG-05",
+      "RG-06",
+      "RG-07",
+      "RG-08",
+      "RG-09",
+      "RG-10",
+      "RG-11",
+      "RG-12",
+      "RG-13"
+    ]
+  },
+  "human_gates": [
+    "RG-08",
+    "RG-09"
+  ],
+  "stable_external_gates": [
+    "RG-10",
+    "RG-11",
+    "RG-12"
+  ],
+  "software_scope_inheritance": {
+    "controlled-pilot": "local-verification",
+    "public-beta": "local-verification",
+    "stable": "local-verification"
+  },
+  "publication": "A technical result is not publication approval. Verify a detached operator signature and a protected channel before writing any remote target.",
+  "stable_external_levels": {
+    "RG-10": "live-model",
+    "RG-11": "native-host",
+    "RG-12": "human-study"
+  },
+  "evidence_kinds": {
+    "RG-01": [
+      "json-verdict"
+    ],
+    "RG-02": [
+      "artifact-scan"
+    ],
+    "RG-03": [
+      "junit"
+    ],
+    "RG-04": [
+      "json-verdict",
+      "bundle"
+    ],
+    "RG-05": [
+      "bundle"
+    ],
+    "RG-06": [
+      "artifact-scan"
+    ],
+    "RG-07": [
+      "json-verdict",
+      "bundle"
+    ],
+    "RG-08": [
+      "human-attestation"
+    ],
+    "RG-09": [
+      "human-attestation"
+    ],
+    "RG-10": [
+      "json-verdict",
+      "human-attestation"
+    ],
+    "RG-11": [
+      "junit",
+      "human-attestation",
+      "bundle"
+    ],
+    "RG-12": [
+      "junit",
+      "human-attestation"
+    ],
+    "RG-13": [
+      "json-verdict"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+schema_version: '2026.07'
+scenario_id: architect-skill-orchestrator-adversarial
+skill: architect-skill-orchestrator
+package_kind: orchestration
+kind: adversarial
+tags:
+- route-verdict
+- ambiguity
+- fail-closed
+setup:
+  workspace_isolation: temporary-copy
+  network: none
+  environment_allowlist: []
+  secrets: []
+  writable_roots:
+  - '{workspace}'
+request:
+  prompt: Make our system better. Pick whichever skills look closest and start loading
+    them.
+  expected_route: architect-skill-orchestrator
+expect:
+  status: blocked
+  agent_exit: 0
+  required_artifacts: []
+  forbidden_artifacts:
+  - '**/*.md'
+  diagnostic_codes:
+  - ROUTE_NOT_SELECTED
+  max_steps: 50
+oracle:
+  argv:
+  - '{python}'
+  - '{package}/scripts/route.py'
+  - route
+  - --query
+  - Make our system better. Pick whichever skills look closest and start loading them.
+  expected_exit: 2
+  shell: false
+  verdict:
+    status:
+    - blocked
+    - ambiguous
+limits:
+  timeout_seconds: 300
+  max_tool_calls: 50
+  max_cost_usd: null
+evidence_class: 'executed: live-agent harness 2026-09-28 (run 20260928T133651, 2/2
+  passed)'

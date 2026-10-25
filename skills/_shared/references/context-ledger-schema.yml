@@ -1,0 +1,27 @@
+schema_version: '2026.07'
+state_enum:
+- blocked
+- resumable
+- revising
+- validating
+- complete
+required_fields:
+- run_id
+- skill
+- output_root
+- state
+- next_allowed
+- source_hashes
+- artifact_hashes
+- validator_evidence
+validator_evidence_fields:
+- argv
+- exit_code
+- validator
+- timestamp
+- output_digest
+invariants:
+- complete requires exit_code zero
+- complete requires next_allowed true
+- all non-complete states require next_allowed false
+- state file is replaced atomically after postflight

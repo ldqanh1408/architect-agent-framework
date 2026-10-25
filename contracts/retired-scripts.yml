@@ -1,0 +1,132 @@
+# Retired scripts register.
+#
+# A script under scripts/, vendor/sdd-agent/scripts/ or plugins/ may be deleted
+# or moved only together with a row here.
+#
+# Row schema (every field required, none empty):
+#   script       the repository-relative path that no longer exists
+#   replacement  what callers use now: a gate id, a CLI argv, or a path
+#   reason       why the script was retired
+#   review       verification summary
+schema_version: '2026.09'
+kind: retired-scripts
+retired:
+- script: vendor/sdd-agent/scripts/check_workspace_all.py
+  replacement: python -m architect_framework.cli.main gate run --scope workspace <workspace>
+    [--phase N]
+  reason: A gate that ran ~22 other gates from its own hard-coded list (GATE-WORKSPACE-ALL).
+    The registry is the one list; `gate run --scope workspace` runs every registered
+    workspace gate. `run_hooks.py --check-workspace-all` now delegates to it, and
+    AGENTS.md names it directly. Expected findings on .tests/requirement were recorded
+    before deletion in tests/fixtures/workspace-all/.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/check_source_map_typed.py
+  replacement: scripts/check_source_map_typed.py (GATE-SOURCE-MAP-TYPED)
+  reason: A wrapper that only delegated to the repository-root implementation, kept
+    so the eval harness's `{repo_root}/scripts/` allowlist could reach it. run_skill_eval.py
+    now allowlists `{framework_root}/scripts/check_source_map_typed.py` directly.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/check_seam_coverage.py
+  replacement: GATE-SEAM-LEDGER (finding SEAM-UNMET-HANDOFF; seam_ledger.unmet_handoffs)
+  reason: Inferred a seam's state from whether a file matched a glob — the weaker
+    form of the typed seam ledger. Its rule and its code moved into GATE-SEAM-LEDGER,
+    which also refuses a scaffold-only page as the answer (F-2).
+  review: Verified all callers migrated and replacement tests pass
+- script: scripts/rewrite_domain_contracts.py
+  replacement: python -m architect_framework.cli.main tool domain-contracts
+  reason: 'Tier D: only the registry roll-call called it (TOOL-DOMAIN-CONTRACTS).
+    Moved the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool domain-contracts` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: scripts/generate_claude_code_skills.py
+  replacement: python -m architect_framework.cli.main tool claude-code-skills
+  reason: 'Tier D: only the registry roll-call called it (TOOL-GENERATE-CLAUDE-CODE-SKILLS).
+    Moved the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool claude-code-skills` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/classify_sdd_source.py
+  replacement: python -m architect_framework.cli.main tool sdd-source
+  reason: 'Tier D: only the registry roll-call called it (TOOL-SDD-SOURCE). Moved
+    the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool sdd-source` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/render_source_intake_status.py
+  replacement: python -m architect_framework.cli.main tool source-intake-status
+  reason: 'Tier D: only the registry roll-call called it (TOOL-SOURCE-INTAKE-STATUS).
+    Moved the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool source-intake-status` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/extract_submodule_docs.py
+  replacement: python -m architect_framework.cli.main tool submodule-docs
+  reason: 'Tier D: only the registry roll-call called it (TOOL-SUBMODULE-DOCS). Moved
+    the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool submodule-docs` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/render_workflow_contract.py
+  replacement: python -m architect_framework.cli.main tool workflow-contract
+  reason: 'Tier D: only the registry roll-call called it (TOOL-WORKFLOW-CONTRACT).
+    Moved the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool workflow-contract` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/migrate_workspace_layout.py
+  replacement: python -m architect_framework.cli.main tool workspace-layout
+  reason: 'Tier D: only the registry roll-call called it (TOOL-WORKSPACE-LAYOUT).
+    Moved the code into architect_framework/tools/ unchanged in behaviour; `architect-cli
+    tool workspace-layout` runs it and `architect-cli --help` lists it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/drift_reconciler.py
+  replacement: 'none: reconciling a spec against delivered code is outside this distribution'
+  reason: 'TOOL-DRIFT-RECONCILER. A prototype from the ported 24-skill project (SDD
+    Limitation #6): it reconciles an acceptance report against code. Acceptance and
+    delivery are retired stages; only a run_hooks flag called it, no CI, no test,
+    no runtime path.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/gherkin_compiler.py
+  replacement: 'none: compiling Gherkin from specs belongs to the retired test stage'
+  reason: TOOL-GHERKIN-COMPILER. A prototype that writes feature files for the retired
+    07 test stage; only a run_hooks flag called it.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/semantic_validator.py
+  replacement: 'none: checking delivered source against API specs is outside this
+    distribution'
+  reason: 'TOOL-SEMANTIC-VALIDATOR. A prototype (SDD Limitation #2) that parses a
+    src/ tree; this distribution stops at the Phase 1 architecture. Only a run_hooks
+    flag called it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/traceability_dashboard.py
+  replacement: python -m architect_framework.cli.main gate run GATE-TRACEABILITY-GRAPH
+    <workspace> (the traceability check that runs)
+  reason: TOOL-TRACEABILITY-DASHBOARD. An HTML report over docs and a src/ tree; only
+    a run_hooks flag called it and nothing read its output.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/semantic_merge.py
+  replacement: 'none: a three-way merge of Markdown specs is version control''s job'
+  reason: TOOL-SEMANTIC-MERGE. A prototype from the ported project; only a run_hooks
+    flag called it.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/spec_federation.py
+  replacement: 'none: the stable-ID families are checked by GATE-TRACEABILITY-GRAPH'
+  reason: 'TOOL-SPEC-FEDERATION. A prototype (SDD Limitation #4) for splitting a requirements
+    file across domains with ID ranges; only a run_hooks flag called it.'
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/scripts/check_child_ownership.py
+  replacement: GATE-SUBMODULE-SEQUENCE (child-run ownership against the exported catalog,
+    D-1)
+  reason: GATE-CHILD-OWNERSHIP asserted the retired tier-ownership model (tier children
+    14-23 owning outer slots) and reported not-applicable on every workspace; its
+    own message named check_submodule_sequence.py as the successor. Before that it
+    ran one more check, nested copies of a ledger module under the pre-D-1 flat layout
+    (`02-domains/<NN>-<slug>/`, promotion into `modules/`); under D-1 a ledger root
+    ends in the skill folder, so that check no longer names a real defect.
+  review: Verified all callers migrated and replacement tests pass
+- script: vendor/sdd-agent/hooks/check_workflow_delivery.py
+  replacement: 'none: the hook checked the outputs of the retired delivery stages
+    (08, 10, 13)'
+  reason: The Phase 4-7 workflow hook. It was not a registered gate; only run_hooks.py
+    --check-workflow-delivery and two run_hooks fixture checks called it.
+  review: Verified all callers migrated and replacement tests pass
+- script: plugins/architect-agent-framework/scripts/runtime.sh
+  replacement: python "${CLAUDE_PLUGIN_ROOT}/scripts/architect_runtime.py" --bootstrap
+  reason: POSIX shell wrapper retired in favor of cross-platform Python launcher architect_runtime.py
+    --bootstrap.
+  review: Verified all callers migrated and replacement tests pass

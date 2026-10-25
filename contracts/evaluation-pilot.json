@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "cases": [
+    {"id": "source-preserved", "state": {"source": "The gateway must reject an expired token.", "candidate": "The gateway must reject an expired token."}, "expected": "clear"},
+    {"id": "negation-regression", "state": {"source": "The gateway must not accept an expired token.", "candidate": "The gateway must accept an expired token."}, "expected": "review"},
+    {"id": "missing-context", "state": {"source": null, "candidate": "The gateway retries according to the policy. The policy was not supplied."}, "expected": "uncertain"}
+  ]
+}

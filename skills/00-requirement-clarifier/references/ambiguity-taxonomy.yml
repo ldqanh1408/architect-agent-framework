@@ -1,0 +1,15 @@
+schema_version: "1.0"
+categories:
+  actor: "Action lacks an accountable actor or authority boundary."
+  scope: "In/out scope is missing or contradictory."
+  behavior: "Trigger, precondition, response or result is unclear."
+  failure-behavior: "Invalid input or dependency failure semantics are missing."
+  nfr: "A vague quality adjective lacks a measurable criterion."
+  constraint: "A load-bearing deadline, budget, compatibility or legal constraint is unknown."
+  priority: "Requirement priority or release horizon is missing."
+  verification: "No observable acceptance signal exists."
+  contradiction: "Two clauses require incompatible outcomes."
+  vocabulary: "A domain term has multiple plausible meanings."
+  assumption: "A proposed default is not explicitly confirmed."
+  placeholder: "TBD, TODO, unknown or unspecified remains."
+closure_states: [confirmed, not-applicable-confirmed, out-of-scope-confirmed, withdrawn-by-user]

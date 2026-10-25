@@ -1,0 +1,488 @@
+technologies:
+  # ─────────────────── Relational Databases ───────────────────
+  - id: "postgresql"
+    name: "PostgreSQL"
+    category: "Relational Database"
+    nfr_attributes:
+      acid_compliance: "Full"
+      max_throughput_rps: 50000
+      latency_p99_ms: 5
+      replication: "Streaming physical / logical"
+    operational_limits: ["Single primary write bottleneck unless using Citus extension"]
+    cost_model: "Open source (Free) / Managed Cloud instance hourly pricing"
+    best_used_for: ["Transactional core business data", "Complex SQL analytics", "JSON document storage"]
+
+  - id: "mysql"
+    name: "MySQL"
+    category: "Relational Database"
+    nfr_attributes:
+      acid_compliance: "Full (InnoDB)"
+      max_throughput_rps: 40000
+      latency_p99_ms: 5
+      replication: "Binary log replication / Group Replication"
+    operational_limits: ["Limited JSON support vs PostgreSQL", "Full-text search less powerful"]
+    cost_model: "Open source / AWS RDS per instance hour"
+    best_used_for: ["Web applications", "E-commerce", "WordPress/CMS platforms"]
+
+  - id: "sqlserver"
+    name: "Microsoft SQL Server"
+    category: "Relational Database"
+    nfr_attributes:
+      acid_compliance: "Full"
+      max_throughput_rps: 60000
+      latency_p99_ms: 3
+      replication: "Always On Availability Groups"
+    operational_limits: ["High licensing cost", "Windows-centric operations"]
+    cost_model: "Enterprise license / Azure SQL managed instance"
+    best_used_for: [".NET enterprise applications", "Business intelligence", "SSRS/SSAS reporting"]
+
+  # ─────────────────── NoSQL Databases ───────────────────
+  - id: "mongodb"
+    name: "MongoDB"
+    category: "Document Database"
+    nfr_attributes:
+      acid_compliance: "Single document / Multi-document (4.0+)"
+      max_throughput_rps: 100000
+      latency_p99_ms: 8
+      replication: "Replica Set / Sharded Cluster"
+    operational_limits: ["Joins require $lookup aggregation", "Large documents cause RAM pressure"]
+    cost_model: "Open source / MongoDB Atlas pay-per-hour cluster"
+    best_used_for: ["Content management", "User profiles", "Flexible schema applications", "IoT data"]
+
+  - id: "cassandra"
+    name: "Apache Cassandra"
+    category: "Wide-Column Store"
+    nfr_attributes:
+      acid_compliance: "Eventual consistency by default / Lightweight transactions for single row"
+      max_throughput_rps: 1000000
+      latency_p99_ms: 10
+      replication: "Multi-region active-active"
+    operational_limits: ["No ad-hoc queries without full table scan", "Schema design must follow query patterns"]
+    cost_model: "Open source / DataStax Astra serverless pricing"
+    best_used_for: ["Time-series data", "IoT ingestion", "Global distributed writes", "Messaging metadata"]
+
+  - id: "dynamodb"
+    name: "AWS DynamoDB"
+    category: "Managed NoSQL Key-Value"
+    nfr_attributes:
+      acid_compliance: "Single item / Transactions up to 25 items"
+      latency_p99_ms: 1
+      throughput: "Unlimited with on-demand capacity"
+      replication: "Global Tables multi-region active-active"
+    operational_limits: ["400KB item size limit", "Query requires partition key; scan is expensive"]
+    cost_model: "Pay-per-request / Provisioned capacity units"
+    best_used_for: ["Session storage", "Shopping carts", "Leaderboards", "Serverless microservices"]
+
+  - id: "elasticsearch"
+    name: "Elasticsearch"
+    category: "Search & Analytics Engine"
+    nfr_attributes:
+      max_throughput_rps: 50000
+      latency_p99_ms: 20
+      indexing_throughput: "Millions of docs/sec per cluster"
+      full_text_search: "Lucene-based, relevance ranking"
+    operational_limits: ["JVM heap tuning required", "Split-brain risk without proper quorum"]
+    cost_model: "Open source / Elastic Cloud pay-per-hour"
+    best_used_for: ["Full-text search", "Log analytics (ELK)", "Product search", "Geo-spatial queries"]
+
+  # ─────────────────── Caching ───────────────────
+  - id: "redis"
+    name: "Redis"
+    category: "In-Memory Cache & Key-Value Store"
+    nfr_attributes:
+      latency_p99_ms: 1
+      throughput_rps: 100000
+      data_structures: ["String", "Hash", "List", "Set", "Sorted Set", "PubSub", "HyperLogLog", "Streams"]
+    operational_limits: ["RAM size bound", "Single-threaded execution per node"]
+    cost_model: "Open source / AWS ElastiCache per node hour"
+    best_used_for: ["L2 Caching", "Session storage", "Distributed locks", "Rate limiting", "Real-time leaderboards"]
+
+  - id: "memcached"
+    name: "Memcached"
+    category: "Distributed Memory Cache"
+    nfr_attributes:
+      latency_p99_ms: 0.5
+      throughput_rps: 200000
+      data_model: "Simple key-value strings only"
+    operational_limits: ["No persistence", "No pub/sub", "No replication natively"]
+    cost_model: "Open source / AWS ElastiCache Memcached"
+    best_used_for: ["Simple session caching", "Database query result caching", "High-throughput simple cache"]
+
+  # ─────────────────── Message Queues & Event Streaming ───────────────────
+  - id: "apache-kafka"
+    name: "Apache Kafka"
+    category: "Distributed Event Streaming"
+    nfr_attributes:
+      throughput: "1,000,000+ msg/sec per cluster"
+      latency_p99_ms: 10
+      durability: "Disk-backed log replication (ISR)"
+      partition_ordering: "Guaranteed per partition"
+    operational_limits: ["Requires Zookeeper or KRaft consensus", "Partition count scaling requires rebalancing"]
+    cost_model: "Open source / Confluent Cloud capacity pricing"
+    best_used_for: ["Event sourcing", "High-throughput log streaming", "CDC data pipelines"]
+
+  - id: "rabbitmq"
+    name: "RabbitMQ"
+    category: "Message Broker"
+    nfr_attributes:
+      throughput: "100,000+ msg/sec"
+      latency_p99_ms: 5
+      routing: "Topic, Direct, Fanout, Headers exchanges"
+      durability: "Persistent queues with disk ack"
+    operational_limits: ["Not designed for log retention / replay", "Memory pressure on high queue depth"]
+    cost_model: "Open source / CloudAMQP managed plans"
+    best_used_for: ["Task queues", "Work distribution", "Request/reply patterns", "Complex routing topologies"]
+
+  - id: "aws-sqs"
+    name: "AWS SQS"
+    category: "Managed Message Queue"
+    nfr_attributes:
+      throughput: "Unlimited standard queue / 3000 TPS FIFO"
+      latency_ms: "Milliseconds"
+      delivery: "At-least-once (Standard) / Exactly-once (FIFO)"
+      max_message_size_kb: 256
+    operational_limits: ["14-day message retention max", "FIFO limited to 3000 TPS"]
+    cost_model: "Pay-per-million requests"
+    best_used_for: ["Decoupling microservices", "Fan-out with SNS", "Dead letter queue patterns"]
+
+  - id: "nats"
+    name: "NATS"
+    category: "Cloud-Native Messaging"
+    nfr_attributes:
+      throughput: "Multi-million msg/sec"
+      latency_p99_ms: 0.5
+      delivery: "At-most-once (Core) / At-least-once (JetStream)"
+      protocols: ["Pub/Sub", "Request/Reply", "Queue Groups", "JetStream persistent streams"]
+    operational_limits: ["Less mature ecosystem vs Kafka for complex EDA"]
+    cost_model: "Open source / Synadia managed cloud"
+    best_used_for: ["Microservice communication", "IoT messaging", "Edge computing", "Low-latency pub/sub"]
+
+  # ─────────────────── Vector Databases ───────────────────
+  - id: "qdrant"
+    name: "Qdrant"
+    category: "Vector Database"
+    nfr_attributes:
+      search_speed_ms: 15
+      indexing_algorithm: "HNSW"
+      payload_filtering: "Rich JSON metadata filtering"
+      distance_metrics: ["Cosine", "Euclidean", "Dot product"]
+    operational_limits: ["Memory usage scales with vector dimensions and HNSW m parameter"]
+    cost_model: "Open source / Managed Cloud vector unit hours"
+    best_used_for: ["RAG vector retrieval", "Semantic similarity search", "Recommendation engines"]
+
+  - id: "pinecone"
+    name: "Pinecone"
+    category: "Managed Vector Database"
+    nfr_attributes:
+      search_speed_ms: 10
+      indexing_algorithm: "Proprietary ANNS"
+      max_dimensions: 20000
+      multi_tenancy: "Namespaces per index"
+    operational_limits: ["Fully managed, limited self-hosting", "Cost scales with vector count"]
+    cost_model: "Pay-per-query + storage per GB/month"
+    best_used_for: ["Production RAG applications", "Semantic search at scale", "LLM knowledge bases"]
+
+  - id: "weaviate"
+    name: "Weaviate"
+    category: "Vector Database"
+    nfr_attributes:
+      search_speed_ms: 20
+      indexing_algorithm: "HNSW + BM25 hybrid"
+      built_in_vectorization: "Supports OpenAI, Cohere, HuggingFace embeddings"
+      distance_metrics: ["Cosine", "L2", "Dot product", "Hamming"]
+    operational_limits: ["Higher operational complexity than Pinecone", "Memory-intensive for large datasets"]
+    cost_model: "Open source / Weaviate Cloud pay-per-unit"
+    best_used_for: ["Hybrid search (semantic + keyword)", "Multi-modal search", "Enterprise RAG"]
+
+  # ─────────────────── Container & Orchestration ───────────────────
+  - id: "kubernetes"
+    name: "Kubernetes (K8s)"
+    category: "Container Orchestrator"
+    nfr_attributes:
+      max_nodes_per_cluster: 5000
+      max_pods_per_node: 110
+      reconciliation_latency: "< 1s"
+    operational_limits: ["High control plane cognitive complexity", "Requires dedicated platform engineers"]
+    cost_model: "Open source / EKS/GKE control plane flat hourly fee + worker node costs"
+    best_used_for: ["Microservices orchestration", "Cloud-native platform engineering", "Auto-scaling web apps"]
+
+  - id: "docker"
+    name: "Docker"
+    category: "Container Runtime"
+    nfr_attributes:
+      container_start_time_ms: 500
+      image_format: "OCI-compliant"
+      networking: "Bridge, Host, Overlay networks"
+    operational_limits: ["Single host; Swarm mode limited vs Kubernetes for complex orchestration"]
+    cost_model: "Open source / Docker Hub paid plans for private registry"
+    best_used_for: ["Local development", "CI/CD image builds", "Simple containerization"]
+
+  - id: "aws-eks"
+    name: "AWS Elastic Kubernetes Service (EKS)"
+    category: "Managed Kubernetes"
+    nfr_attributes:
+      control_plane_sla: "99.95% uptime"
+      max_nodes: 3000
+      integration: "IAM, ALB Ingress, EBS, EFS, Fargate"
+    operational_limits: ["EKS control plane cost per cluster/hour", "Fargate slower cold start vs EC2"]
+    cost_model: "$0.10/hour per cluster + EC2/Fargate node costs"
+    best_used_for: ["Production Kubernetes on AWS", "Multi-tenant SaaS platforms", "Serverless containers via Fargate"]
+
+  # ─────────────────── Service Mesh ───────────────────
+  - id: "istio"
+    name: "Istio"
+    category: "Service Mesh"
+    nfr_attributes:
+      sidecar_overhead_cpu_percent: 5
+      sidecar_memory_mb: 50
+      features: ["mTLS", "Traffic shaping", "Distributed tracing", "Circuit breaking", "Authorization policies"]
+    operational_limits: ["High operational complexity", "Istiod control plane resource overhead"]
+    cost_model: "Open source (Envoy proxy based)"
+    best_used_for: ["Zero Trust inter-service security", "Advanced traffic management", "Service-to-service observability"]
+
+  - id: "linkerd"
+    name: "Linkerd"
+    category: "Service Mesh"
+    nfr_attributes:
+      sidecar_overhead_cpu_percent: 1
+      sidecar_memory_mb: 20
+      features: ["mTLS", "Traffic splitting", "Retries", "P99 latency monitoring"]
+    operational_limits: ["Less feature-rich than Istio (no WASM extensions)", "Limited to TCP/HTTP protocols"]
+    cost_model: "Open source / Buoyant Cloud managed"
+    best_used_for: ["Lightweight mTLS", "Low-overhead service mesh", "Teams wanting simplicity over features"]
+
+  # ─────────────────── Observability & Monitoring ───────────────────
+  - id: "prometheus"
+    name: "Prometheus"
+    category: "Metrics & Alerting"
+    nfr_attributes:
+      scrape_interval_default_s: 15
+      retention_days: 15
+      query_language: "PromQL"
+      alert_manager: "Alertmanager"
+    operational_limits: ["Single-node storage (HA requires Thanos/Cortex)", "Long-term storage costs with remote write"]
+    cost_model: "Open source"
+    best_used_for: ["Kubernetes cluster metrics", "Service RED metrics", "SLO/SLA alerting"]
+
+  - id: "grafana"
+    name: "Grafana"
+    category: "Visualization & Dashboards"
+    nfr_attributes:
+      datasource_plugins: "Prometheus, Loki, Tempo, InfluxDB, PostgreSQL, CloudWatch, Datadog..."
+      alert_rules: "Unified alerting across datasources"
+      dashboard_as_code: "Grafonnet / Terraform provider"
+    operational_limits: ["Heavy dashboard queries can strain datasource backends"]
+    cost_model: "Open source / Grafana Cloud (free tier + pay-per-usage)"
+    best_used_for: ["Metrics dashboards", "SLO visualization", "Operations center displays"]
+
+  - id: "opentelemetry"
+    name: "OpenTelemetry (OTel)"
+    category: "Observability Framework"
+    nfr_attributes:
+      signals: ["Traces", "Metrics", "Logs", "Baggage"]
+      protocol: "OTLP (gRPC/HTTP)"
+      vendor_neutral: "True — backend agnostic"
+    operational_limits: ["SDK overhead varies by language", "OTLP collector requires its own resources"]
+    cost_model: "Open source (CNCF project)"
+    best_used_for: ["Distributed tracing across microservices", "Vendor-neutral instrumentation", "Correlation of traces, metrics, and logs"]
+
+  - id: "jaeger"
+    name: "Jaeger"
+    category: "Distributed Tracing"
+    nfr_attributes:
+      storage_backends: ["Elasticsearch", "Cassandra", "BadgerDB"]
+      ui: "Trace visualization, dependency graphs"
+      sampling: "Probabilistic / Rate-limiting"
+    operational_limits: ["Requires separate storage backend at scale", "No built-in metric correlation"]
+    cost_model: "Open source (CNCF project)"
+    best_used_for: ["Distributed request tracing", "Latency root cause analysis", "Service dependency mapping"]
+
+  - id: "datadog"
+    name: "Datadog"
+    category: "Managed Observability Platform"
+    nfr_attributes:
+      features: ["APM", "Logs", "Metrics", "RUM", "Security Monitoring", "Synthetics"]
+      integrations: "600+ integrations"
+      ai_ops: "Anomaly detection, forecasting"
+    operational_limits: ["High cost at scale (per host/container/log GB pricing)", "Vendor lock-in risk"]
+    cost_model: "Pay-per-host/month + per-product SKU"
+    best_used_for: ["Full-stack observability", "Enterprise APM", "Cloud-native monitoring without self-management"]
+
+  # ─────────────────── CI/CD ───────────────────
+  - id: "github-actions"
+    name: "GitHub Actions"
+    category: "CI/CD"
+    nfr_attributes:
+      runner_types: ["GitHub hosted (Ubuntu/Mac/Windows)", "Self-hosted runners"]
+      concurrency: "20 concurrent jobs (free), unlimited (enterprise)"
+      integration: "Native GitHub pull request workflows"
+    operational_limits: ["6-hour job timeout (GitHub hosted)", "Limited caching on free tier"]
+    cost_model: "Free for public repos / Minutes-based pricing for private repos"
+    best_used_for: ["GitHub-based monorepo CI/CD", "Open source project automation", "Docker build + push workflows"]
+
+  - id: "argocd"
+    name: "ArgoCD"
+    category: "GitOps Continuous Delivery"
+    nfr_attributes:
+      sync_strategy: "Auto-sync or manual approval"
+      multi_cluster: "Multi-cluster deployment support"
+      rollback: "Git history-based one-click rollback"
+    operational_limits: ["Requires Git as source of truth", "Secret management requires external solution (Sealed Secrets, ESO)"]
+    cost_model: "Open source / Akuity managed"
+    best_used_for: ["GitOps Kubernetes deployments", "Multi-environment promotion", "Infrastructure state reconciliation"]
+
+  - id: "jenkins"
+    name: "Jenkins"
+    category: "CI/CD"
+    nfr_attributes:
+      plugins: "1800+ plugins"
+      pipeline_as_code: "Jenkinsfile (Declarative/Scripted)"
+      distributed_builds: "Master-agent architecture"
+    operational_limits: ["High operational overhead to maintain", "Scaling Jenkins itself is complex"]
+    cost_model: "Open source (high hidden ops cost)"
+    best_used_for: ["On-premise CI/CD", "Legacy enterprise environments", "Complex custom build orchestration"]
+
+  # ─────────────────── Cloud Providers / Services ───────────────────
+  - id: "aws-lambda"
+    name: "AWS Lambda"
+    category: "Serverless Compute"
+    nfr_attributes:
+      cold_start_ms: "100-2000 depending on runtime and package size"
+      max_execution_time_s: 900
+      max_memory_mb: 10240
+      concurrency: "1000 concurrent executions per account (adjustable)"
+    operational_limits: ["15-min max execution limit", "Cold starts affect latency-sensitive APIs", "No persistent local storage"]
+    cost_model: "Pay-per-invocation + GB-second compute"
+    best_used_for: ["Event-driven processing", "Scheduled jobs", "API backends with sporadic traffic", "Data transformation"]
+
+  - id: "aws-rds"
+    name: "AWS RDS"
+    category: "Managed Relational Database"
+    nfr_attributes:
+      engines: ["PostgreSQL", "MySQL", "MariaDB", "Oracle", "SQL Server"]
+      multi_az: "Synchronous standby in second AZ"
+      read_replicas: "Up to 15 read replicas per primary"
+      storage_max_gb: 64000
+    operational_limits: ["Cannot access OS layer", "Limited to supported engine versions"]
+    cost_model: "Per-instance hourly + storage GB-month + I/O"
+    best_used_for: ["Managed RDBMS without DBA overhead", "Multi-AZ HA for business-critical data", "Easy vertical scaling"]
+
+  - id: "aws-s3"
+    name: "AWS S3"
+    category: "Object Storage"
+    nfr_attributes:
+      durability: "99.999999999% (11 nines)"
+      availability: "99.99%"
+      max_object_size_tb: 5
+      throughput: "5500 GET + 3500 PUT requests/sec per prefix"
+    operational_limits: ["Not a file system (no rename/move as atomic ops)", "Strong consistency only from 2020"]
+    cost_model: "Per-GB-month storage + per-request + egress bandwidth"
+    best_used_for: ["Static asset hosting", "Data lake raw storage", "Backup and archival", "ML training datasets"]
+
+  - id: "cloudflare-workers"
+    name: "Cloudflare Workers"
+    category: "Edge Compute"
+    nfr_attributes:
+      cold_start_ms: 0
+      max_cpu_time_ms: 50
+      execution_model: "V8 Isolates (no containers)"
+      global_edge_locations: 300
+    operational_limits: ["50ms CPU time limit", "Limited runtime APIs (no Node.js stdlib)", "Stateful data requires KV/Durable Objects"]
+    cost_model: "100k free req/day, $0.50/million additional"
+    best_used_for: ["Edge caching", "A/B testing at edge", "API authentication at edge", "Bot mitigation"]
+
+  # ─────────────────── AI / LLM ───────────────────
+  - id: "claude-3-5-sonnet"
+    name: "Anthropic Claude 3.5 Sonnet"
+    category: "Large Language Model"
+    nfr_attributes:
+      context_window_tokens: 200000
+      input_cost_per_m_tokens: 3.00
+      output_cost_per_m_tokens: 15.00
+      reasoning_benchmark_score: "High"
+    operational_limits: ["Rate limits per minute (RPM/TPM)", "API latency 1-5 seconds depending on completion length"]
+    cost_model: "Pay-per-token API"
+    best_used_for: ["Code generation", "Architectural reasoning", "Document analysis", "Multi-agent workflows"]
+
+  - id: "gpt-4o"
+    name: "OpenAI GPT-4o"
+    category: "Large Language Model"
+    nfr_attributes:
+      context_window_tokens: 128000
+      input_cost_per_m_tokens: 2.50
+      output_cost_per_m_tokens: 10.00
+      multimodal: "Text, Image, Audio"
+    operational_limits: ["Rate limits per tier", "Max output tokens 16k by default"]
+    cost_model: "Pay-per-token API"
+    best_used_for: ["General-purpose reasoning", "Function calling", "Multimodal analysis", "Agent tool use"]
+
+  - id: "gemini-2-flash"
+    name: "Google Gemini 2.0 Flash"
+    category: "Large Language Model"
+    nfr_attributes:
+      context_window_tokens: 1000000
+      input_cost_per_m_tokens: 0.075
+      output_cost_per_m_tokens: 0.30
+      speed: "Ultra-fast inference"
+    operational_limits: ["1M token context can increase latency on large documents", "Rate limits via Vertex AI / AI Studio"]
+    cost_model: "Pay-per-token via Google AI API / Vertex AI"
+    best_used_for: ["High-throughput document processing", "Long-context analysis", "Cost-efficient agentic workflows"]
+
+  - id: "ollama"
+    name: "Ollama (Local LLM Runtime)"
+    category: "Local LLM Serving"
+    nfr_attributes:
+      supported_models: ["Llama 3", "Mistral", "Gemma", "Phi-4", "CodeLlama", "DeepSeek"]
+      inference_speed: "Model-dependent (GPU recommended)"
+      privacy: "100% local, no data sent to cloud"
+    operational_limits: ["Hardware-bound; large models require 16GB+ VRAM", "No built-in autoscaling"]
+    cost_model: "Free (open source) / hardware cost"
+    best_used_for: ["Air-gapped environments", "Privacy-sensitive local inference", "Dev/test without API costs"]
+
+  # ─────────────────── IaC Tools ───────────────────
+  - id: "terraform"
+    name: "HashiCorp Terraform"
+    category: "Infrastructure as Code"
+    nfr_attributes:
+      language: "HCL (HashiCorp Configuration Language)"
+      provider_ecosystem: "3000+ providers"
+      state_management: "Local / Remote state (S3, Terraform Cloud)"
+      plan_preview: "terraform plan shows changes before apply"
+    operational_limits: ["State file locking required for team use", "Drift detection requires explicit plan run"]
+    cost_model: "Open source / Terraform Cloud paid plans"
+    best_used_for: ["Multi-cloud infrastructure provisioning", "Declarative infrastructure lifecycle", "Immutable infrastructure"]
+
+  - id: "pulumi"
+    name: "Pulumi"
+    category: "Infrastructure as Code"
+    nfr_attributes:
+      language: "TypeScript, Python, Go, C#, Java"
+      provider_ecosystem: "Compatible with Terraform providers"
+      state_management: "Pulumi Cloud / S3"
+    operational_limits: ["Smaller community vs Terraform", "Higher learning curve for non-devs"]
+    cost_model: "Open source / Pulumi Cloud paid tiers"
+    best_used_for: ["IaC with real programming languages", "Dynamic infrastructure generation", "Teams with strong software engineering background"]
+
+  # ─────────────────── API Gateway ───────────────────
+  - id: "kong"
+    name: "Kong API Gateway"
+    category: "API Gateway"
+    nfr_attributes:
+      throughput: "100k+ req/sec"
+      latency_overhead_ms: 1
+      plugins: "Auth, Rate Limiting, Caching, Logging, AI LLM proxying"
+    operational_limits: ["Plugin complexity grows with microservice count", "Kong Manager UI is paid feature"]
+    cost_model: "Open source / Kong Konnect paid plans"
+    best_used_for: ["Microservice API gateway", "Auth centralization", "Rate limiting", "AI LLM proxying"]
+
+  - id: "aws-api-gateway"
+    name: "AWS API Gateway"
+    category: "Managed API Gateway"
+    nfr_attributes:
+      throughput: "10,000 RPS default (adjustable)"
+      latency_overhead_ms: 10
+      integration: "Lambda, HTTP backends, VPC Link, AWS services"
+      protocols: ["REST", "HTTP API", "WebSocket"]
+    operational_limits: ["29-second integration timeout", "Limited transformation capabilities vs Kong"]
+    cost_model: "Per-million API calls + data transfer"
+    best_used_for: ["Serverless API backends", "Lambda integration", "AWS-native API management"]

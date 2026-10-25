@@ -1,0 +1,6 @@
+interface:
+  display_name: "Requirement Clarifier"
+  short_description: "Clarify sourced requirements and controlled deltas"
+  default_prompt: "Use $00-requirement-clarifier to clarify this brief and preserve its source coverage."
+policy:
+  allow_implicit_invocation: true

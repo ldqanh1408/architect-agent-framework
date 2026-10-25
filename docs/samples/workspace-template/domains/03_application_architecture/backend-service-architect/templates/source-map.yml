@@ -1,0 +1,50 @@
+# Typed relations for one module. This file is the graph's input — a `mappings:`-only
+# file is a stub and fails check_source_map_typed.py.
+#
+# Both reference workspaces in this repo ship stubs today:
+#   Crosstalk        : sources: [clarified-requirements.md]        (×7, identical)
+#   quickcart        : one `mappings:` entry, no typed relation
+# So nothing in the toolchain has ever produced a typed relation. This template is
+# where that changes.
+
+# Placeholders are quoted so this template itself parses as YAML — a template that
+# cannot be loaded cannot be checked before substitution.
+
+schema_version: '2026.08'
+subject: '{{MODULE_NAME}}'        # must equal the 01-<module>/ folder name AND the overview title
+owner:
+  skill: backend-service-architect
+  cluster: 03_application_architecture
+  selected_by: router             # never "the tier", never a hand-written owner
+
+sources:                          # what this module was designed FROM
+  - path: clarified-requirements.md
+    ids: ['{{CLR_IDS}}']
+
+relations:                        # what this module CONNECTS to. Reverse edges are
+                                  # derived — never author consumesApi at both ends.
+  - kind: providesApi
+    to: '{{CONSUMER_MODULE_OR_EXTERNAL}}'
+    contract: 'architecture/02-domains/_shared-contracts/02-apis/{{API_DOC}}.md'
+    protocol: '{{PROTOCOL}}'      # https-json | grpc | amqp | …
+    evidence: '{{PATH}}#L{{LINE}}'
+
+  - kind: consumesApi
+    to: '{{PROVIDER_MODULE_OR_EXTERNAL}}'
+    contract: '{{PATH_OR_EXTERNAL}}'
+    protocol: '{{PROTOCOL}}'
+    evidence: '{{PATH}}#L{{LINE}}'
+
+  - kind: publishesEvent
+    to: '{{TOPIC_OR_CONSUMER}}'
+    contract: 'architecture/02-domains/_shared-contracts/03-messages/{{MSG_DOC}}.md'
+    evidence: '{{PATH}}#L{{LINE}}'
+
+  - kind: dependsOn
+    to: '{{MODULE}}'
+    reason: '{{WHY}}'
+    evidence: '{{PATH}}#L{{LINE}}'
+
+# Every relation kind must be declared in the metamodel, whose machine-readable form
+# already exists: architect_framework/data/correspondence_rules.yaml (16 rules,
+# 26 viewpoints). A kind not declared there fails V-6.

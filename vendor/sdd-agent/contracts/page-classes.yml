@@ -1,0 +1,519 @@
+schema_version: "2.0"
+prose_first_rule: "Lists and tables may organize evidence but never replace the explanatory narrative."
+
+# The page-class vocabulary is a CLOSED set, and each entry is a
+# content contract, not a label.
+#
+# `page_class` is to this tree what `kind` is to a Backstage `catalog-info.yaml`:
+# a slot may only declare a name that exists here, and every name here must be
+# claimed by at least one slot. That two-way closure is H-2 in
+# the page-class specification, and `tests/test_page_class_closure.py`
+# is the test.
+#
+# Five fields per class. The first three are machine-read:
+#   question          the one question a reader opens this page to answer
+#   required_sections ordered headings, each with what it must actually contain
+#   forbidden         shapes that pass a keyword check but defeat the purpose
+#   example           a worked page that satisfies the contract
+#   checked_by        the gate that enforces `required_sections` against real headings
+#
+# `summary_semantics` / `detail_semantics` stay because
+# vendor/sdd-agent/tests/test_contract_model.py requires them on every content
+# page. They describe prose depth; `required_sections` describes page shape.
+
+page_classes:
+
+  overview:
+    question: "What does this branch own, and what does it deliberately refuse?"
+    summary_semantics: "Explain the context purpose, responsibility, and system outcome."
+    detail_semantics: "Describe operating model, design rationale, dependencies, boundaries, and deliberately omitted scope."
+    required_sections:
+      - id: scope
+        must_contain: "what this branch covers, named concretely"
+      - id: responsibilities
+        must_contain: "what it is accountable for producing or guaranteeing"
+      - id: boundaries
+        must_contain: "where it stops and who owns the other side"
+      - id: not-doing
+        must_contain: "what it deliberately does not cover, and why that is safe"
+      - id: read-next
+        must_contain: "where a reader goes for the next level of detail"
+    forbidden:
+      - "a file listing that never says what the branch is for"
+      - "a scope section that only repeats the directory name"
+    example: "docs/samples/page-classes/overview.md"
+    checked_by: "manual-source-grounded-review"
+
+  requirement:
+    question: "What must the system do, and what number decides whether it did?"
+    summary_semantics: "Explain scope, stakeholder outcome, and why the requirement matters."
+    detail_semantics: "State trigger, system response, rationale, measurable verification, boundaries, and unknowns."
+    required_sections:
+      - id: statement
+        must_contain: "one testable sentence with a stable REQ id"
+      - id: trigger-and-response
+        must_contain: "what starts it and what the system does in return"
+      - id: rationale
+        must_contain: "who is hurt if this is not met"
+      - id: measurable-threshold
+        must_contain: "a number and the unit it is measured in"
+      - id: boundaries
+        must_contain: "the cases this requirement does not govern"
+      - id: unknowns
+        must_contain: "what is still unconfirmed, and what breaks if it is wrong"
+    forbidden:
+      - "a threshold written as 'fast', 'reliable', or 'scalable' with no number"
+      - "a statement that restates the feature name"
+    example: "docs/samples/page-classes/requirement.md"
+    checked_by: "manual-source-grounded-review"
+
+  use_case:
+    question: "Who can do what, through which steps, and where does it go when it breaks?"
+    summary_semantics: "Explain which actor achieves which outcome, and what makes the attempt succeed or fail."
+    detail_semantics: "Describe actors and trigger, preconditions, a numbered main flow, alternate and exception branches by step number, postconditions on both paths, observable acceptance, and traceability."
+    required_sections:
+      - id: actor-and-trigger
+        must_contain: "primary actor, secondary actors, and the event that starts it"
+      - id: preconditions
+        must_contain: "the state that must hold before the first step, and who guarantees it"
+      - id: main-flow
+        must_contain: "numbered steps, each one action by one party, no branching"
+      - id: alternate-flows
+        must_contain: "branch points keyed to main-flow step numbers, and the way back"
+      - id: exception-flows
+        must_contain: "which step fails, what the system returns, and the state data is left in"
+      - id: postconditions
+        must_contain: "the state after success, and the state after failure"
+      - id: acceptance
+        must_contain: "how to observe that this use case ran correctly"
+      - id: traceability
+        must_contain: "which REQ, API or message, SCN, and module this touches"
+    forbidden:
+      - "a role x goal permission matrix standing in for the flow"
+      - "steps that describe screen widgets instead of actions and results"
+    example: "docs/samples/page-classes/use-case.md"
+    checked_by: "manual-source-grounded-review"
+
+  adr:
+    question: "What was decided, why, and what was traded away?"
+    summary_semantics: "Explain the decision, context, and expected consequence."
+    detail_semantics: "Describe options, evidence, trade-offs, decision, enforcement, and supersession policy."
+    required_sections:
+      - id: status
+        must_contain: "proposed, accepted, or 'superseded by ADR-nnnn' (MADR)"
+      - id: context
+        must_contain: "the forces that made a decision necessary"
+      - id: options
+        must_contain: "the candidates that were genuinely considered"
+      - id: evidence
+        must_contain: "which measurement or assessment page backs the choice"
+      - id: decision
+        must_contain: "what was chosen, stated as a commitment"
+      - id: consequences
+        must_contain: "what becomes harder as a result"
+      - id: enforcement
+        must_contain: "which gate or review keeps this decision true"
+      - id: reversal-conditions
+        must_contain: "the observation that would justify superseding this ADR"
+    forbidden:
+      - "editing a decided ADR in place instead of superseding it"
+      - "an options section listing only the option that won"
+    example: "docs/samples/page-classes/adr.md"
+    checked_by: "manual-source-grounded-review"
+
+  decision:
+    question: "What is the evidence behind a decision?"
+    summary_semantics: "Explain what was compared, against which criteria, and which candidate lost."
+    detail_semantics: "Describe weighted criteria, candidates, per-criterion scores, the losing case stated fairly, and the ADR that consumes this assessment."
+    required_sections:
+      - id: criteria-and-weights
+        must_contain: "each criterion and the weight it carries, with the weighting justified"
+      - id: candidates
+        must_contain: "every option scored, including ones ruled out early"
+      - id: scores
+        must_contain: "per-criterion score for each candidate, and where the number came from"
+      - id: losing-case
+        must_contain: "the strongest argument for the option that lost"
+      - id: consumed-by
+        must_contain: "the ADR id that cites this assessment"
+    forbidden:
+      - "a score with no stated source"
+      - "an assessment written after the ADR to justify it"
+    example: "docs/samples/page-classes/decision.md"
+    checked_by: "manual-source-grounded-review"
+
+  api_contract:
+    question: "What can be called, how does it fail, and how far does compatibility reach?"
+    summary_semantics: "Explain the operation, consumer outcome, and ownership boundary."
+    detail_semantics: "Describe semantics, invariants, idempotency, errors, compatibility, security, and verification."
+    required_sections:
+      - id: operations
+        must_contain: "each callable operation and what it changes"
+      - id: parameters-and-representation
+        must_contain: "inputs, outputs, and the wire representation"
+      - id: errors
+        must_contain: "coded errors and the condition that raises each"
+      - id: idempotency
+        must_contain: "what a repeated call does"
+      - id: versioning-and-compatibility
+        must_contain: "which versions are supported and the notice period for a break"
+      - id: security
+        must_contain: "who may call it and how they are authenticated"
+      - id: verification
+        must_contain: "the command or test that proves the surface behaves"
+      - id: spec-reference
+        must_contain: "a link to the OpenAPI or gRPC spec, which this page does not copy"
+    forbidden:
+      - "restating the machine-readable spec in prose instead of linking it"
+      - "an error section with messages but no codes"
+    example: "docs/samples/page-classes/api-contract.md"
+    checked_by: "manual-source-grounded-review"
+
+  data_entity:
+    question: "What is this entity, and who is allowed to write it?"
+    summary_semantics: "Explain grain, ownership, and lifecycle purpose."
+    detail_semantics: "Describe identity, lifecycle, constraints, retention, consistency, privacy, and failure behavior."
+    required_sections:
+      - id: identity-and-grain
+        must_contain: "the key, and what exactly one row represents"
+      - id: lifecycle
+        must_contain: "how an instance is created, changed, and ended"
+      - id: invariants
+        must_contain: "what must always be true, stated as predicates"
+      - id: writer
+        must_contain: "the single component permitted to write it"
+      - id: retention-and-deletion
+        must_contain: "how long it is kept and what deletion actually removes"
+      - id: privacy
+        must_contain: "which fields are regulated and under which rule"
+      - id: consistency
+        must_contain: "what readers may observe during a write"
+    forbidden:
+      - "a column list with no owner named"
+      - "a lifecycle section with no terminal state"
+    example: "docs/samples/page-classes/data-entity.md"
+    checked_by: "manual-source-grounded-review"
+
+  event_message:
+    question: "What does this event say has already happened?"
+    summary_semantics: "Explain why the event exists and which state transition it represents."
+    detail_semantics: "Describe producer/consumer semantics, ordering, delivery, idempotency, schema evolution, and failures."
+    required_sections:
+      - id: business-meaning
+        must_contain: "the fact about the world this event asserts"
+      - id: producer
+        must_contain: "the single component that emits it, and when"
+      - id: consumers
+        must_contain: "who listens and what each does with it"
+      - id: schema-and-evolution
+        must_contain: "the payload shape and the rule for changing it"
+      - id: ordering-and-duplication
+        must_contain: "ordering guarantee, and what a consumer does with a repeat"
+      - id: failure-handling
+        must_contain: "where an unprocessable message ends up"
+      - id: spec-reference
+        must_contain: "a link to the AsyncAPI document, which this page does not retell"
+    forbidden:
+      - "retelling channels and operations instead of linking the AsyncAPI document"
+      - "an event named as a command"
+    example: "docs/samples/page-classes/event-message.md"
+    checked_by: "manual-source-grounded-review"
+
+  mechanism:
+    question: "How does this mechanism run, and which failure does it prevent?"
+    summary_semantics: "Explain the runtime decision and the failure it prevents."
+    detail_semantics: "Describe trigger, preconditions, ordered algorithm, contracts, concrete defaults, failure modes, guardrails, and verification."
+    required_sections:
+      - id: trigger
+        must_contain: "what causes this mechanism to run"
+      - id: preconditions
+        must_contain: "the state required before it may run"
+      - id: algorithm
+        must_contain: "ordered steps, specific enough to implement from"
+      - id: defaults
+        must_contain: "concrete default values, with units"
+      - id: failure-modes
+        must_contain: "how it degrades, and what the caller sees"
+      - id: verification
+        must_contain: "the command or test that proves it behaves"
+    forbidden:
+      - "a defaults section with placeholders instead of values"
+      - "an algorithm described as a goal rather than as steps"
+    example: "docs/samples/page-classes/mechanism.md"
+    checked_by: "manual-source-grounded-review"
+
+  diagram:
+    question: "Which question does this picture answer, and for whom?"
+    summary_semantics: "Explain the view, audience, and question answered."
+    detail_semantics: "Explain element behavior, source IDs, boundaries, interactions, omissions, and staleness evidence."
+    required_sections:
+      - id: question-and-audience
+        must_contain: "the question this view answers and who asks it"
+      - id: source
+        must_contain: "the model or ids the drawing is generated or derived from"
+      - id: elements-and-relations
+        must_contain: "each element by stable id, and what each edge means"
+      - id: omissions
+        must_contain: "what was deliberately left out, and why"
+      - id: freshness
+        must_contain: "the evidence that the picture still matches the system"
+    forbidden:
+      - "a picture with no stated question"
+      - "element names that appear in no other view"
+    example: "docs/samples/page-classes/diagram.md"
+    checked_by: "manual-source-grounded-review"
+
+  runtime_scenario:
+    question: "How does one real flow move through the blocks, and how long does it take?"
+    summary_semantics: "Explain what happens in this flow and which quality goal it makes falsifiable."
+    detail_semantics: "Describe trigger, preconditions, participating building blocks by stable ID, ordered steps with contracts and timing, at least one failure branch, and how the quality claim will be measured."
+    required_sections:
+      - id: context
+        must_contain: "what starts this flow and why it is architecturally interesting"
+      - id: steps
+        must_contain: "ordered hops between building blocks, each named by stable id"
+      - id: failure-branch
+        must_contain: "at least one branch where a hop fails, and what happens next"
+      - id: observable-measures
+        must_contain: "the latency, throughput, or error number this flow is judged on"
+      - id: quality-goal
+        must_contain: "the quality attribute this scenario makes falsifiable"
+    forbidden:
+      - "a happy path with no failure branch"
+      - "steps between components that no structure view declares"
+    example: "docs/samples/page-classes/runtime-scenario.md"
+    checked_by: "manual-source-grounded-review"
+
+  verification:
+    question: "What does this unit check about itself, and with which command?"
+    summary_semantics: "Explain what the module proves about itself and by running what."
+    detail_semantics: "Describe the checked claim, the exact argv, the expected exit code, and what deliberately is not checked."
+    required_sections:
+      - id: claims-checked
+        must_contain: "each claim this check actually proves"
+      - id: command
+        must_contain: "the exact argv a reader can paste"
+      - id: expected-exit
+        must_contain: "the exit code that means pass, and what a failure prints"
+      - id: not-checked
+        must_contain: "what this cannot check, and why that gap is accepted"
+    forbidden:
+      - "a claim with no command behind it"
+      - "'all tests pass' with no argv"
+    example: "docs/samples/page-classes/verification.md"
+    checked_by: "manual-source-grounded-review"
+
+  artifact:
+    question: "What is this artifact, and who depends on it?"
+    summary_semantics: "Explain what the artifact is, who produces it, and who breaks if it changes."
+    detail_semantics: "Describe its identity, content, constraints, consumers, and the blast radius of a change."
+    required_sections:
+      - id: identity
+        must_contain: "the artifact name and the id it is referenced by"
+      - id: description
+        must_contain: "what it contains, concretely"
+      - id: constraints
+        must_contain: "format, size, or schema rules it must satisfy"
+      - id: consumers
+        must_contain: "who reads it and for what"
+      - id: blast-radius
+        must_contain: "what breaks if it changes shape"
+    forbidden:
+      - "a description that only repeats the filename"
+      - "no named consumer"
+    example: "docs/samples/page-classes/artifact.md"
+    checked_by: "manual-source-grounded-review"
+
+  test_strategy:
+    question: "Which quality risk is this, and how is it covered?"
+    summary_semantics: "Explain the quality risk and coverage objective."
+    detail_semantics: "Describe test level, source contracts, setup, assertions, failure interpretation, and execution evidence."
+    required_sections:
+      - id: risk
+        must_contain: "the failure this testing exists to catch"
+      - id: levels
+        must_contain: "which test level covers it, and why that level"
+      - id: data-and-environment
+        must_contain: "the fixtures and environment the tests need"
+      - id: pass-criteria
+        must_contain: "what counts as passing, in observable terms"
+      - id: reading-failures
+        must_contain: "how to tell a real failure from a flake"
+    forbidden:
+      - "a coverage percentage used as the pass criterion"
+      - "a risk section naming no concrete failure"
+    example: "docs/samples/page-classes/test-strategy.md"
+    checked_by: "manual-source-grounded-review"
+
+  standard_entry:
+    question: "Which standard applies, and where is it in its lifecycle?"
+    summary_semantics: "Explain what new work must conform to and who is bound by it."
+    detail_semantics: "Describe the specification, its architecture domain, lifecycle status, scope, owner, source class, exemption path, and what a fitness rule may enforce."
+    required_sections:
+      - id: statement
+        must_contain: "the rule, written so conformance is decidable"
+      - id: scope
+        must_contain: "which work is bound by it"
+      - id: lifecycle-status
+        must_contain: "proposed, active, deprecated, or retired"
+      - id: enforcement
+        must_contain: "the gate or review that catches a violation"
+      - id: exemptions
+        must_contain: "approved exceptions and who approved them"
+    forbidden:
+      - "a rule whose conformance cannot be decided by reading it"
+      - "an active standard with no enforcement named"
+    example: "docs/samples/page-classes/standard-entry.md"
+    checked_by: "manual-source-grounded-review"
+
+  governance_record:
+    question: "Who decided what, and on what basis?"
+    summary_semantics: "Explain what was assessed, against which decision or standard, and what was found."
+    detail_semantics: "Describe checkpoint, scope assessed, assessor, findings with the decision or standard each violates, recommended action, owner, and resolution state."
+    required_sections:
+      - id: event
+        must_contain: "the governance event being recorded"
+      - id: decider
+        must_contain: "the person or role who decided"
+      - id: basis
+        must_contain: "the standard, clause, or decision relied on"
+      - id: affected-scope
+        must_contain: "what the decision binds"
+      - id: timestamp
+        must_contain: "when it was decided"
+    forbidden:
+      - "a record with no named decider"
+      - "a basis cited as 'best practice'"
+    example: "docs/samples/page-classes/governance-record.md"
+    checked_by: "manual-source-grounded-review"
+
+  audit_report:
+    question: "What was inspected, what was found, and who fixes it?"
+    summary_semantics: "Explain audited scope, evidence basis, and verdict."
+    detail_semantics: "Describe method, evidence, findings, limitations, remediation owner, and recheck criteria."
+    required_sections:
+      - id: scope
+        must_contain: "exactly what was inspected, and what was not"
+      - id: method
+        must_contain: "how the inspection was carried out, reproducibly"
+      - id: evidence
+        must_contain: "the command output or artifact each finding rests on"
+      - id: findings
+        must_contain: "findings graded by severity"
+      - id: owner
+        must_contain: "who is accountable for each remedy"
+      - id: recheck
+        must_contain: "the condition under which this is audited again"
+    forbidden:
+      - "a finding with no evidence attached"
+      - "a verdict of pass on a scope that was not inspected"
+    example: "docs/samples/page-classes/audit-report.md"
+    checked_by: "manual-source-grounded-review"
+
+  planning:
+    question: "What ships first, and why that order?"
+    summary_semantics: "Explain delivery outcome, scope slice, and sequencing rationale."
+    detail_semantics: "Describe dependency order, source IDs, measurable exit criteria, risks, and deferrals."
+    required_sections:
+      - id: slices
+        must_contain: "each deliverable slice, scoped so it can ship alone"
+      - id: dependencies
+        must_contain: "what must exist before each slice starts"
+      - id: order
+        must_contain: "the sequence, with the reason it is that sequence"
+      - id: exit-criteria
+        must_contain: "a measurable condition per slice"
+      - id: risks-and-deferrals
+        must_contain: "what was consciously postponed, and the cost of postponing"
+    forbidden:
+      - "dates used in place of exit criteria"
+      - "a slice that cannot ship without another slice not listed as a dependency"
+    example: "docs/samples/page-classes/planning.md"
+    checked_by: "manual-source-grounded-review"
+
+  viewpoint:
+    question: "Which view serves which concern?"
+    summary_semantics: "Explain which stakeholder concerns this convention frames and why they need their own view."
+    detail_semantics: "Describe the concerns framed, model kinds and notation, what the viewpoint deliberately excludes, the views realising it, and the consistency obligations it carries."
+    required_sections:
+      - id: concerns
+        must_contain: "the stakeholder concerns this viewpoint frames"
+      - id: audience
+        must_contain: "who reads views built from it"
+      - id: notation
+        must_contain: "the model kinds and notation used"
+      - id: realising-views
+        must_contain: "the views in this workspace that implement it"
+      - id: correspondence-rules
+        must_contain: "what must agree between this view and its neighbours"
+    forbidden:
+      - "a viewpoint with no view realising it"
+      - "notation listed with no concern it serves"
+    example: "docs/samples/page-classes/viewpoint.md"
+    checked_by: "manual-source-grounded-review"
+
+  repository_documentation:
+    question: "What does a newcomer need in order to run this?"
+    summary_semantics: "Explain documented scope, reader, and source identity."
+    detail_semantics: "Describe behavior, structure, interfaces, operations, limitations, and source traceability."
+    required_sections:
+      - id: scope-and-reader
+        must_contain: "what is documented and who it is written for"
+      - id: how-to-run
+        must_contain: "the commands, in order, that get it running"
+      - id: structure
+        must_contain: "the layout, and what lives where"
+      - id: known-limits
+        must_contain: "what does not work yet, stated plainly"
+      - id: sources
+        must_contain: "the files this description was derived from"
+    forbidden:
+      - "install steps that were never run as written"
+      - "a limits section that says 'none'"
+    example: "docs/samples/page-classes/repository-documentation.md"
+    checked_by: "manual-source-grounded-review"
+
+  blocking_finding:
+    content_page: false
+    question: "Why is this blocked, and what unblocks it?"
+    summary_semantics: "Explain why work is blocked."
+    detail_semantics: "Name missing evidence, affected files, owner, and exact resume condition."
+    required_sections:
+      - id: blocked-item
+        must_contain: "the slot, page, or decision that cannot proceed"
+      - id: missing-evidence
+        must_contain: "the specific evidence that is absent"
+      - id: owner
+        must_contain: "who owes it"
+      - id: resume-condition
+        must_contain: "the observable condition that reopens the work"
+      - id: cost-of-delay
+        must_contain: "what degrades while this stays open"
+    forbidden:
+      - "a block with no owner"
+      - "a resume condition that is not observable"
+    example: "docs/samples/page-classes/blocking-finding.md"
+    checked_by: "manual-source-grounded-review"
+
+  change_request:
+    question: "What changes, and who breaks?"
+    summary_semantics: "Explain requested semantic change and affected outcome."
+    detail_semantics: "Describe source, touched IDs, impact graph, decision, migration, regeneration, and verification."
+    required_sections:
+      - id: semantic-change
+        must_contain: "what the id meant before and what it means after"
+      - id: touched-ids
+        must_contain: "every stable id whose meaning or shape changes"
+      - id: impact-graph
+        must_contain: "the pages and modules reached from those ids"
+      - id: decision
+        must_contain: "accepted, rejected, or deferred, with the reason"
+      - id: migration
+        must_contain: "the steps that move existing content to the new meaning"
+      - id: verification
+        must_contain: "the command that proves nothing was left behind"
+    forbidden:
+      - "an impact graph computed by hand"
+      - "a change accepted with no migration step"
+    example: "docs/samples/page-classes/change-request.md"
+    checked_by: "manual-source-grounded-review"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Architect Runtime & 16-Command Dispatcher"
+  short_description: "Run 16 architecture commands, schedule bounded tasks, and verify gates"
+  default_prompt: "Use $architect-runtime to initialize, design, check, or review this architecture workspace."
+policy:
+  allow_implicit_invocation: true

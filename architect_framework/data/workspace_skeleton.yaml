@@ -1,0 +1,3157 @@
+catalogue_version: '2026.08'
+schema_version: '2026.08'
+kind: workspace-skeleton
+authority: sdd-workspace.yml#document_coverage
+pack_free_core_archetypes:
+- backend-service
+- frontend
+- ai-system
+- data-platform
+- identity-access
+- integration-adapter
+- infra-platform
+- observability
+core_archetype_clusters:
+  backend-service: 03_application_architecture
+  frontend: 01_frontend_architecture
+  ai-system: 04_ai_architecture
+  data-platform: 05_data_architecture
+  identity-access: 07_security_architecture
+  integration-adapter: 03_application_architecture
+  infra-platform: 06_infrastructure_architecture
+  observability: 08_quality_attribute_architecture
+cluster_default_archetypes:
+  01_business_architecture: business-capability
+  02_domain_architecture: domain-capability
+  03_application_architecture: backend-service
+  04_ai_architecture: ai-system
+  05_data_architecture: data-platform
+  06_infrastructure_architecture: infra-platform
+  07_security_architecture: infra-platform  # fallback only; primary Core Archetype for 07_security_architecture is identity-access (10/11 skills)
+  08_quality_attribute_architecture: quality-assurance
+  09_delivery_architecture: delivery-pipeline
+  10_documentation_architecture: documentation-surface
+module_folder_aliases:
+- was: 11-communication
+  now: 11-api
+  since: '2026-08-08'
+  reason: Split the conflated communication folder into 11-api / 12-events / 13-clients; the synchronous inbound surface kept
+    the slot
+waves:
+  w1: w1-global-strategy
+  w2: w2-shared-contracts
+  w3: w3-frontend-contexts
+  w4: w4-domain-contexts
+  w5: w5-cross-cutting-delivery
+  w6: w6-system-views-index
+shared_contracts_subfolders:
+- 00-core
+- 01-data
+- 02-apis
+- 03-messages
+- 04-external
+- 05-state-machines
+domain_clusters:
+- 01_business_architecture
+- 01_frontend_architecture
+- 02_domain_architecture
+- 03_application_architecture
+- 04_ai_architecture
+- 05_data_architecture
+- 06_infrastructure_architecture
+- 07_security_architecture
+- 08_quality_attribute_architecture
+- 09_delivery_architecture
+- 10_documentation_architecture
+bands:
+  00-plan:
+  - source-manifest.md
+  - concern-inventory.md
+  - document-tree-plan.md
+  00-system-views:
+  - 00-viewpoints
+  - 01-context
+  - 02-functional
+  - 03-structure
+  - 04-deployment
+  - 05-information
+  - 06-runtime
+  - visual-source-map.md
+  - generated
+  01-global-strategy:
+  - 00-context
+  - 01-requirements
+  - 02-strategy
+  - 03-standards
+  - 04-risks
+  - 05-governance
+  - architecture.md
+  - composition-root.md
+  02-domains:
+  - 00-overview
+  - _shared-contracts
+  - _shared-kernel
+  - _shared-adapters
+  - 01_business_architecture
+  - 01_frontend_architecture
+  - 02_domain_architecture
+  - 03_application_architecture
+  - 04_ai_architecture
+  - 05_data_architecture
+  - 06_infrastructure_architecture
+  - 07_security_architecture
+  - 08_quality_attribute_architecture
+  - 09_delivery_architecture
+  - 10_documentation_architecture
+  03-cross-cutting:
+  - 00-overview.md
+  - 01-mechanisms
+  - 02-security
+  - 03-infrastructure
+  - 04-fitness-functions
+  - 05-exceptions
+  - 06-reference-library
+  04-delivery:
+  - 00-planning
+  - 01-quality
+  - 02-release
+  - 02-operations
+  - 03-ops
+  - 04-audit
+  - defect-and-remediation-register.md
+slots:
+- id: WS-MARKER
+  path: sdd-workspace.yml
+  band: root
+  kind: workspace_marker
+  page_class: null
+  owner: orchestrator
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 0
+- id: REQ-BRIEF
+  path: brief.md
+  band: root
+  kind: overview
+  page_class: overview
+  owner: 00-requirement-clarifier
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: REQ-CLARIFIED
+  path: clarified-requirements.md
+  band: root
+  kind: requirement
+  page_class: requirement
+  owner: 00-requirement-clarifier
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: SYS-INDEX
+  path: architecture/index.md
+  band: root
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: derived
+  from_level: seed
+  when: always
+  wave: 6
+- id: SRC-MANIFEST
+  path: architecture/00-plan/source-manifest.md
+  band: 00-plan
+  kind: source_manifest
+  page_class: governance_record
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: CONCERN-INV
+  path: architecture/00-plan/concern-inventory.md
+  band: 00-plan
+  kind: concern_inventory
+  page_class: governance_record
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: TARGET-PLAN
+  path: architecture/00-plan/document-tree-plan.md
+  band: 00-plan
+  kind: target_plan
+  page_class: planning
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: VIEW-VIEWPOINTS
+  path: architecture/00-system-views/00-viewpoints/viewpoint-catalogue.md
+  band: 00-system-views
+  kind: overview
+  page_class: viewpoint
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 6
+  aliases:
+  - architecture/00-system-views/00-viewpoints/viewpoint-catalog.md
+- id: VIEW-STAKEHOLDER-MATRIX
+  path: architecture/00-system-views/00-viewpoints/stakeholder-concern-matrix.md
+  band: 00-system-views
+  kind: viewpoint
+  page_class: viewpoint
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 6
+- id: VIEW-CORRESPONDENCE
+  path: architecture/00-system-views/00-viewpoints/correspondence-rules.md
+  band: 00-system-views
+  kind: viewpoint
+  page_class: viewpoint
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 6
+- id: VIEW-C0-LANDSCAPE
+  path: architecture/00-system-views/01-context/c0-landscape.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: portfolio
+  when: workspace.level == 'portfolio'
+  wave: 6
+- id: VIEW-C1-CONTEXT
+  path: architecture/00-system-views/01-context/c1-system-context.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 6
+  whitebox_of: '@system'
+  aliases:
+  - architecture/00-system-views/01-context/c1-context.md
+  - architecture/00-system-views/01-context/c4-context-diagram-mermaid-plantuml.md
+- id: VIEW-SYSTEM-BOUNDARY
+  path: architecture/00-system-views/01-context/system-boundary-specification.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: context-diagram
+  obligation: conditional
+  from_level: minimal
+  when: always
+  wave: 6
+- id: VIEW-OPERATIONAL-CONTEXT
+  path: architecture/00-system-views/01-context/operational-context-profile.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: context-discovery
+  obligation: conditional
+  from_level: standard
+  when: always
+  wave: 6
+- id: VIEW-DEPENDENCY-MAP
+  path: architecture/00-system-views/01-context/dependency-map.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: dependency-discovery
+  obligation: conditional
+  from_level: standard
+  when: always
+  wave: 6
+- id: VIEW-USE-CASES
+  path: architecture/00-system-views/02-functional/use-case-map.md
+  band: 00-system-views
+  kind: use_case
+  page_class: overview
+  owner: 01-system-architect
+  obligation: derived
+  from_level: seed
+  when: always
+  wave: 6
+  aliases:
+  - architecture/00-system-views/02-functional/use-case-matrix.md
+- id: VIEW-USE-CASE-ITEM
+  path: architecture/00-system-views/02-functional/use-cases/UC-{NNN}-{slug}.md
+  band: 00-system-views
+  kind: use_case
+  page_class: use_case
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_use_case
+  from_level: seed
+  when: evidence.has('use_case')
+  wave: 6
+- id: VIEW-CAPABILITY-MAP
+  path: architecture/00-system-views/02-functional/business-capability-map.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: capability-mapping
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('business_rule')
+  wave: 6
+- id: VIEW-VALUE-STREAM
+  path: architecture/00-system-views/02-functional/value-stream-specification.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: value-stream-mapping
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('business_rule')
+  wave: 6
+- id: VIEW-BPMN-PROCESS
+  path: architecture/00-system-views/02-functional/processes/{process}/bpmn-2-0-process-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: business-process-modeling
+  obligation: conditional
+  cardinality: per_process
+  from_level: maximal
+  when: evidence.has('business_process')
+  wave: 6
+- id: VIEW-ACTIVITY-DIAGRAM
+  path: architecture/00-system-views/02-functional/activities/{use-case}/uml-activity-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: activity-diagram
+  obligation: conditional
+  cardinality: per_use_case
+  from_level: standard
+  when: evidence.has('use_case')
+  wave: 6
+- id: VIEW-C2-CONTAINERS
+  path: architecture/00-system-views/03-structure/c2-container-view.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 6
+  aliases:
+  - architecture/00-system-views/03-structure/c2-container.md
+  - architecture/00-system-views/03-structure/c4-container-diagram-mermaid-plantuml.md
+- id: VIEW-C3-COMPONENTS
+  path: architecture/00-system-views/03-structure/c3-component-and-module-map.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 6
+  aliases:
+  - architecture/00-system-views/03-structure/logical-l2-submodules.md
+  - architecture/00-system-views/03-structure/container-module-mapping.md
+- id: VIEW-COMPONENT-PER-CONTAINER
+  path: architecture/00-system-views/03-structure/components/{container}/c4-component-diagram-mermaid-plantuml.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: component-diagram
+  obligation: conditional
+  cardinality: per_container
+  from_level: standard
+  when: evidence.has('deployable_unit')
+  wave: 6
+- id: VIEW-CLASS-PER-CONTEXT
+  path: architecture/00-system-views/03-structure/classes/{context}/uml-class-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: class-diagram
+  obligation: conditional
+  cardinality: per_context
+  from_level: standard
+  when: evidence.has('domain_fact')
+  wave: 6
+- id: VIEW-SERVICE-BOUNDARY
+  path: architecture/00-system-views/03-structure/service-boundary-map.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: microservice-style
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('deployable_unit')
+  wave: 6
+- id: VIEW-DEPLOYMENT
+  path: architecture/00-system-views/04-deployment/deployment-topology.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('deployable_unit')
+  wave: 6
+  aliases:
+  - architecture/00-system-views/04-deployment/c4-deployment.md
+  - architecture/00-system-views/04-deployment/deployment-and-network-topology.md
+- id: VIEW-DEPLOYMENT-ENV
+  path: architecture/00-system-views/04-deployment/environments/{env}/uml-deployment-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: deployment-diagram
+  obligation: conditional
+  cardinality: per_environment
+  from_level: maximal
+  when: evidence.has('deployable_unit')
+  wave: 6
+- id: VIEW-NETWORK-ENV
+  path: architecture/00-system-views/04-deployment/environments/{env}/network-architecture-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: network-diagram
+  obligation: conditional
+  cardinality: per_environment
+  from_level: maximal
+  when: evidence.has('deployable_unit')
+  wave: 6
+- id: VIEW-INFORMATION-ERD
+  path: architecture/00-system-views/05-information/erd-and-information-model.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('persisted_dataset') or evidence.has('owned_state')
+  wave: 6
+  aliases:
+  - architecture/00-system-views/05-information/erd-diagram-mermaid-plantuml.md
+- id: VIEW-ENTITY-ATTRIBUTES
+  path: architecture/00-system-views/05-information/entity-attribute-spec.md
+  band: 00-system-views
+  kind: data_entity
+  page_class: data_entity
+  owner: erd-diagram
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('owned_state')
+  wave: 6
+- id: VIEW-INDEX-CANDIDATES
+  path: architecture/00-system-views/05-information/index-candidate-list.md
+  band: 00-system-views
+  kind: data_entity
+  page_class: data_entity
+  owner: erd-diagram
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('owned_state')
+  wave: 6
+- id: VIEW-RUNTIME-INDEX
+  path: architecture/00-system-views/06-runtime/00-runtime-scenario-index.md
+  band: 00-system-views
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: derived
+  from_level: standard
+  when: always
+  wave: 6
+  aliases:
+  - architecture/00-system-views/06-runtime/00-scenario-index.md
+- id: VIEW-RUNTIME-SCENARIO
+  path: architecture/00-system-views/06-runtime/SCN-{NNN}-{slug}.md
+  band: 00-system-views
+  kind: runtime_scenario
+  page_class: runtime_scenario
+  owner: 01-system-architect
+  obligation: mandatory
+  cardinality: per_scenario
+  from_level: standard
+  when: always
+  wave: 6
+- id: VIEW-SEQUENCE-PER-SCENARIO
+  path: architecture/00-system-views/06-runtime/sequences/{scenario}/uml-sequence-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: sequence-diagram
+  obligation: conditional
+  cardinality: per_scenario
+  from_level: standard
+  when: evidence.has('feature_cluster')
+  wave: 6
+- id: VIEW-STATE-PER-AGGREGATE
+  path: architecture/00-system-views/06-runtime/state-machines/{aggregate}/uml-state-diagram.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: state-diagram
+  obligation: conditional
+  cardinality: per_aggregate
+  from_level: standard
+  when: evidence.has('lifecycle_policy')
+  wave: 6
+- id: VIEW-VISUAL-SOURCE-MAP
+  path: architecture/00-system-views/visual-source-map.md
+  band: 00-system-views
+  kind: diagram
+  page_class: diagram
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: standard
+  when: always
+  wave: 6
+- id: STRAT-CONTEXT
+  path: architecture/01-global-strategy/00-context/problem-brief-and-goals.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/00-context/problem-brief.md
+  - architecture/01-global-strategy/00-context/goals-non-goals.md
+- id: STRAT-ASSUMPTIONS
+  path: architecture/01-global-strategy/00-context/assumptions.md
+  band: 01-global-strategy
+  kind: requirement
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/00-context/assumption-log.md
+- id: STRAT-GLOSSARY
+  path: architecture/01-global-strategy/00-context/glossary.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: STRAT-SCOPE
+  path: architecture/01-global-strategy/00-context/system-scope-specification.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: overview
+  owner: scope-definition
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 1
+- id: STRAT-REQUIREMENTS
+  path: architecture/01-global-strategy/01-requirements/requirements-baseline.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/01-requirements/requirements.md
+  - architecture/01-global-strategy/01-requirements/atomic-requirements-register.md
+- id: STRAT-CONSTRAINTS
+  path: architecture/01-global-strategy/01-requirements/constraints.md
+  band: 01-global-strategy
+  kind: requirement
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/01-requirements/constraint-matrix.md
+- id: STRAT-QUALITY-ATTRIBUTES
+  path: architecture/01-global-strategy/01-requirements/quality-attributes.md
+  band: 01-global-strategy
+  kind: requirement
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: STRAT-TRACEABILITY
+  path: architecture/01-global-strategy/01-requirements/traceability-matrix.md
+  band: 01-global-strategy
+  kind: requirement
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: derived
+  from_level: standard
+  when: always
+  wave: 1
+- id: STRAT-SOLUTION
+  path: architecture/01-global-strategy/02-strategy/solution-strategy.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+- id: STRAT-PRINCIPLES
+  path: architecture/01-global-strategy/02-strategy/architecture-principles.md
+  band: 01-global-strategy
+  kind: standard_entry
+  page_class: standard_entry
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 1
+- id: STRAT-TECH-SELECTION
+  path: architecture/01-global-strategy/02-strategy/technology-selection.md
+  band: 01-global-strategy
+  kind: decision
+  page_class: decision
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 1
+- id: STRAT-STYLE-ASSESSMENTS
+  path: architecture/01-global-strategy/02-strategy/style-assessments/{assessment}.md
+  band: 01-global-strategy
+  kind: decision
+  page_class: decision
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_assessment
+  from_level: standard
+  when: evidence.has('rejected_option')
+  wave: 1
+- id: STRAT-STANDARDS
+  path: architecture/01-global-strategy/03-standards/engineering-standards.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: standard_entry
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/03-standards/standards-register.md
+- id: STRAT-RISKS
+  path: architecture/01-global-strategy/04-risks/risk-and-debt-register.md
+  band: 01-global-strategy
+  kind: verification
+  page_class: requirement
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: seed
+  when: always
+  wave: 1
+  aliases:
+  - architecture/01-global-strategy/04-risks/risk-register.md
+- id: STRAT-COST-MODEL
+  path: architecture/01-global-strategy/04-risks/cost-model.md
+  band: 01-global-strategy
+  kind: planning
+  page_class: planning
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('billable_resource')
+  wave: 1
+- id: STRAT-ADR-ITEM
+  path: architecture/01-global-strategy/05-governance/decisions/{NNNN}-{slug}.md
+  band: 01-global-strategy
+  kind: adr
+  page_class: adr
+  owner: 01-system-architect
+  obligation: mandatory
+  cardinality: per_decision
+  from_level: seed
+  when: always
+  wave: 1
+- id: STRAT-ADR-DEFERRED
+  path: architecture/01-global-strategy/05-governance/decisions/0000-deferred-register.md
+  band: 01-global-strategy
+  kind: adr
+  page_class: adr
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: standard
+  when: always
+  wave: 1
+- id: STRAT-CHANGE-REQUEST
+  path: architecture/01-global-strategy/05-governance/change-requests/CR-{NNN}-{slug}.md
+  band: 01-global-strategy
+  kind: change_request
+  page_class: change_request
+  owner: change-impact-analysis
+  obligation: conditional
+  cardinality: per_change_request
+  from_level: standard
+  when: evidence.has('change_request')
+  wave: 1
+- id: STRAT-REVIEWS
+  path: architecture/01-global-strategy/05-governance/reviews/{review}.md
+  band: 01-global-strategy
+  kind: audit_report
+  page_class: audit_report
+  owner: 02-spec-critic
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('quality_expectation')
+  wave: 1
+- id: STRAT-GAP-REGISTER
+  path: architecture/01-global-strategy/05-governance/gap-register/{gap}.md
+  band: 01-global-strategy
+  kind: blocking_finding
+  page_class: blocking_finding
+  owner: 01-system-architect
+  obligation: derived
+  from_level: standard
+  when: always
+  wave: 1
+- id: STRAT-ARCHITECTURE-TOPOLOGY
+  path: architecture/01-global-strategy/architecture.md
+  band: 01-global-strategy
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: standard
+  when: always
+  wave: 1
+- id: STRAT-COMPOSITION-ROOT
+  path: architecture/01-global-strategy/composition-root.md
+  band: 01-global-strategy
+  kind: mechanism
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: maximal
+  when: always
+  wave: 1
+- id: DOM-OVERVIEW
+  path: architecture/02-domains/00-overview/domain-landscape.md
+  band: 02-domains
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: always
+  wave: 2
+  aliases:
+  - architecture/02-domains/00-overview/domains-index.md
+- id: DOM-CONTEXT-MAP
+  path: architecture/02-domains/00-overview/context-map.md
+  band: 02-domains
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 2
+- id: DOM-SEGMENTS
+  path: architecture/02-domains/00-overview/segments.md
+  band: 02-domains
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: portfolio
+  when: workspace.level == 'portfolio'
+  wave: 2
+- id: SHARED-CORE-TYPES
+  path: architecture/02-domains/_shared-contracts/00-core/core-types-and-error-envelope.md
+  band: 02-domains
+  kind: data_entity
+  page_class: data_entity
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('domain_fact') or evidence.has('owned_state')
+  wave: 2
+- id: SHARED-DATA-SCHEMAS
+  path: architecture/02-domains/_shared-contracts/01-data/shared-data-entities.md
+  band: 02-domains
+  kind: data_entity
+  page_class: data_entity
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('owned_state')
+  wave: 2
+- id: SHARED-DATA-ENTITY-ITEM
+  path: architecture/02-domains/_shared-contracts/01-data/ENT-{slug}.md
+  band: 02-domains
+  kind: data_entity
+  page_class: data_entity
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_entity_group
+  from_level: maximal
+  when: evidence.has('owned_state')
+  wave: 2
+- id: SHARED-API-CONTRACTS
+  path: architecture/02-domains/_shared-contracts/02-apis/cross-domain-api-contracts.md
+  band: 02-domains
+  kind: api_contract
+  page_class: api_contract
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('inbound_port') or evidence.has('outbound_call')
+  wave: 2
+- id: SHARED-API-FOLDER
+  path: architecture/02-domains/_shared-contracts/02-apis/{api}/{api}.md
+  band: 02-domains
+  kind: api_contract
+  page_class: api_contract
+  owner: rest-api-design
+  obligation: conditional
+  cardinality: per_api
+  from_level: maximal
+  when: evidence.has('inbound_port')
+  wave: 2
+- id: SHARED-EVENT-MESSAGES
+  path: architecture/02-domains/_shared-contracts/03-messages/domain-events-and-messages.md
+  band: 02-domains
+  kind: event_message
+  page_class: event_message
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('published_event')
+  wave: 2
+- id: SHARED-EXTERNAL-CONTRACTS
+  path: architecture/02-domains/_shared-contracts/04-external/external-provider-contracts.md
+  band: 02-domains
+  kind: api_contract
+  page_class: api_contract
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: evidence.has('external_provider') or evidence.has('outbound_call')
+  wave: 2
+- id: SHARED-STATE-MACHINES
+  path: architecture/02-domains/_shared-contracts/05-state-machines/cross-context-state-machines.md
+  band: 02-domains
+  kind: flow
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('lifecycle_policy')
+  wave: 2
+- id: SHARED-STATE-MACHINE-ITEM
+  path: architecture/02-domains/_shared-contracts/05-state-machines/SM-{slug}.md
+  band: 02-domains
+  kind: flow
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_state_machine
+  from_level: maximal
+  when: evidence.has('lifecycle_policy')
+  wave: 2
+- id: XCUT-OVERVIEW
+  path: architecture/03-cross-cutting/00-overview.md
+  band: 03-cross-cutting
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: always
+  wave: 5
+- id: XCUT-MECHANISMS
+  path: architecture/03-cross-cutting/01-mechanisms/resilience-and-idempotency.md
+  band: 03-cross-cutting
+  kind: mechanism
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('cross_module_mechanism')
+  wave: 5
+- id: XCUT-SECURITY
+  path: architecture/03-cross-cutting/02-security/security-and-tenancy-model.md
+  band: 03-cross-cutting
+  kind: mechanism
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('trust_boundary')
+  wave: 5
+  aliases:
+  - architecture/03-cross-cutting/02-security/security-and-auth.md
+  - architecture/03-cross-cutting/02-security/secrets-and-key-management.md
+  - architecture/03-cross-cutting/02-security/threat-model.md
+- id: XCUT-INFRA
+  path: architecture/03-cross-cutting/03-infrastructure/runtime-and-network-baseline.md
+  band: 03-cross-cutting
+  kind: mechanism
+  page_class: overview
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('managed_resource') or evidence.has('deployable_unit')
+  wave: 5
+- id: XCUT-FITNESS
+  path: architecture/03-cross-cutting/04-fitness-functions/fitness-functions-catalog.md
+  band: 03-cross-cutting
+  kind: verification
+  page_class: test_strategy
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: minimal
+  when: evidence.has('quality_expectation')
+  wave: 5
+  aliases:
+  - architecture/03-cross-cutting/04-fitness-functions/00-overview.md
+- id: XCUT-FITNESS-ITEM
+  path: architecture/03-cross-cutting/04-fitness-functions/FIT-{NNN}-{slug}.md
+  band: 03-cross-cutting
+  kind: verification
+  page_class: verification
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_fitness_rule
+  from_level: maximal
+  when: evidence.has('quality_expectation')
+  wave: 5
+- id: XCUT-EXCEPTIONS
+  path: architecture/03-cross-cutting/05-exceptions/exception-handling-and-error-codes.md
+  band: 03-cross-cutting
+  kind: mechanism
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('provider_error')
+  wave: 5
+- id: XCUT-REFERENCE-LIBRARY
+  path: architecture/03-cross-cutting/06-reference-library/{pattern}.md
+  band: 03-cross-cutting
+  kind: overview
+  page_class: overview
+  owner: 01-system-architect
+  obligation: conditional
+  cardinality: per_pattern
+  from_level: maximal
+  when: evidence.has('domain_fact')
+  wave: 5
+- id: DELIV-PLANNING
+  path: architecture/04-delivery/00-planning/implementation-roadmap-and-wbs.md
+  band: 04-delivery
+  kind: planning
+  page_class: planning
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('release_surface')
+  wave: 5
+- id: DELIV-QUALITY
+  path: architecture/04-delivery/01-quality/verification-and-acceptance-gates.md
+  band: 04-delivery
+  kind: verification
+  page_class: test_strategy
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: standard
+  when: evidence.has('release_surface')
+  wave: 5
+- id: DELIV-RELEASE
+  path: architecture/04-delivery/02-release/release-and-rollback-strategy.md
+  band: 04-delivery
+  kind: mechanism
+  page_class: mechanism
+  owner: 01-system-architect
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('deployable_unit')
+  wave: 5
+- id: DELIV-OPERATIONS
+  path: architecture/04-delivery/02-operations/operational-runbook-and-dr.md
+  band: 04-delivery
+  kind: mechanism
+  page_class: repository_documentation
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: maximal
+  when: evidence.has('release_surface')
+  wave: 5
+  aliases:
+  - architecture/04-delivery/03-ops/operational-runbook-document.md
+- id: DELIV-AUDIT
+  path: architecture/04-delivery/04-audit/traceability-and-gap-audit.md
+  band: 04-delivery
+  kind: audit_report
+  page_class: audit_report
+  owner: 01-system-architect
+  obligation: mandatory
+  from_level: maximal
+  when: evidence.has('release_surface')
+  wave: 5
+- id: DELIV-REMEDIATION-REGISTER
+  path: architecture/04-delivery/defect-and-remediation-register.md
+  band: 04-delivery
+  kind: audit_report
+  page_class: audit_report
+  owner: 02-spec-critic
+  obligation: conditional
+  from_level: standard
+  when: evidence.has('audit_mode')
+  wave: 5
+module_slots:
+- slot: README.md
+  path: README.md
+  page_class: repository_documentation
+  kind: overview
+  obligation: mandatory
+  when: always
+  description: Module entry README naming owner, boundaries, and navigation
+- slot: source-map.yml
+  path: source-map.yml
+  page_class: null
+  kind: ledger
+  obligation: mandatory
+  when: module_count >= 1
+  description: Typed upstream/downstream provenance and dependency ledger
+- slot: 00-overview
+  path: 00-overview/{slug}-overview.md
+  page_class: overview
+  kind: overview
+  obligation: mandatory
+  when: always
+  whitebox: true
+  description: Bounded context overview, responsibilities, boundaries, and non-goals
+- slot: 01-module-design
+  path: 01-{module}/{module}-design.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: mandatory
+  cardinality: per_module
+  when: module_count >= 1
+  description: Core business module design, runtime flow, decisions, and failure modes
+- slot: 01-configuration
+  path: 01-configuration/auto-configuration.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: conditional
+  when: evidence.has('configuration_surface')
+  description: Static configuration surface, conditional matrix, and defaults
+- slot: 02-core-engine
+  path: 02-core-engine/{mechanism}.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: conditional
+  when: evidence.has('core_mechanism')
+  aliases:
+  - 02-domain-model
+  description: Core mechanisms, patterns, algorithms, or tactical DDD aggregates/invariants
+- slot: 03-extension-points
+  path: 03-extension-points/spi-contracts.md
+  page_class: api_contract
+  kind: api_contract
+  obligation: conditional
+  when: evidence.has('extension_point')
+  description: Public SPI, Fluid Builder DSL, and customizer callback contracts
+- slot: 04-diagrams-specs
+  path: 04-diagrams-specs/class-diagram.md
+  page_class: diagram
+  kind: diagram
+  obligation: conditional
+  when: evidence.has('visual_view_required')
+  description: Context-scoped UML class, sequence, and state diagrams
+- slot: 05-dependencies
+  path: 05-dependencies/dependency-management.md
+  page_class: standard_entry
+  kind: standard_entry
+  obligation: conditional
+  when: evidence.has('dependency_policy')
+  aliases:
+  - 05-classpath-dependencies
+  - 05-node-modules-dependencies
+  - 05-crate-dependencies
+  description: Stack-neutral BOM, dependency management, and transitive exclusions
+- slot: 10-lifecycle
+  path: 10-lifecycle/lifecycle-state-machine.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: conditional
+  when: evidence.has('lifecycle_policy')
+  description: State machines, startup/shutdown ordering, and hot-reload
+- slot: 11-communication
+  path: 11-communication/message-passing-protocol.md
+  page_class: event_message
+  kind: event_message
+  obligation: conditional
+  when: evidence.has('published_event') or evidence.has('inbound_port')
+  description: Message passing, RPC, and event contracts
+- slot: 20-security
+  path: 20-security/{slug}-security.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: required_seam
+  when: evidence.has('trust_boundary')
+  description: Authentication, authorization, encryption, secrets, and sandboxing
+- slot: 21-observability
+  path: 21-observability/{slug}-observability.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: required_seam
+  when: evidence.has('operational_target')
+  description: Logs, metrics, traces, SLIs/SLOs, and MDC keys
+- slot: 22-resilience
+  path: 22-resilience/{slug}-resilience.md
+  page_class: mechanism
+  kind: mechanism
+  obligation: required_seam
+  when: evidence.has('failure_mode') or evidence.has('outbound_call')
+  description: Retry, backoff, circuit breaker, bulkhead, and timeout budgets
+- slot: 30-packaging
+  path: 30-packaging/packaging-distribution.md
+  page_class: artifact
+  kind: artifact
+  obligation: conditional
+  when: evidence.has('release_surface')
+  description: Artifact layout, entry points, and distribution manifest
+- slot: 31-versioning
+  path: 31-versioning/versioning-compatibility.md
+  page_class: standard_entry
+  kind: standard_entry
+  obligation: conditional
+  when: evidence.has('compatibility_window')
+  description: SemVer policy, deprecation window, and migration guides
+- slot: 90-appendices
+  path: 90-appendices/glossary.md
+  page_class: overview
+  kind: overview
+  obligation: conditional
+  when: evidence.has('domain_fact')
+  description: Module glossary, alternatives considered, and external references
+- slot: tests/submodule.feature
+  path: tests/submodule.feature
+  page_class: null
+  kind: verification
+  obligation: mandatory
+  when: workspace.level in ['maximal', 'portfolio']
+  description: Executable BDD acceptance scenarios for the bounded context
+- slot: verification/fitness-self-check.md
+  path: verification/fitness-self-check.md
+  page_class: verification
+  kind: verification
+  obligation: mandatory
+  when: always
+  description: Automated module fitness self-check rules and verification commands
+- slot: 99-self-audit
+  path: self-audit.md
+  page_class: verification
+  kind: audit_report
+  obligation: mandatory
+  when: workspace.level in ['maximal', 'portfolio']
+  description: Module completeness, depth witness self-audit, and open seam ledger
+archetypes:
+  ai-system:
+    id: ai-system
+    is_pack_free_core: true
+    default_workspace_cluster: 04_ai_architecture
+    modules:
+    - id: model-invocation
+      path: 01-{module}/11-model-invocation/{module}-model-invocation.md
+      slot_folder: 11-model-invocation
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('model_invocation') or evidence.has('outbound_call') or evidence.has('external_provider')
+      consumers:
+      - application-teams
+      - cost-owners
+      cadence: provider-driven
+      approver: ai-system-architect
+    - id: prompt-assets
+      path: 01-{module}/12-prompt-assets/{module}-prompt-assets.md
+      slot_folder: 12-prompt-assets
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: PROMPT
+      obligation: required_seam
+      when: evidence.has('prompt_asset') or evidence.has('external_provider') or evidence.has('derived_dataset')
+      consumers:
+      - application-teams
+      - evaluation-owners
+      cadence: prompt-revision-driven
+      approver: prompt-architect
+    - id: retrieval
+      path: 01-{module}/13-retrieval/{module}-retrieval.md
+      slot_folder: 13-retrieval
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('retrieval_corpus') or evidence.has('embedding_space') or evidence.has('derived_dataset') or evidence.has('query_consumer')
+      consumers:
+      - application-teams
+      - data-governance
+      cadence: corpus-driven
+      approver: rag-architect
+    - id: memory
+      path: 01-{module}/14-memory/{module}-memory.md
+      slot_folder: 14-memory
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: MEMORY
+      obligation: required_seam
+      when: evidence.has('owned_state') or evidence.has('retention_policy')
+      consumers:
+      - application-teams
+      - privacy-review
+      cadence: session-driven
+      approver: memory-architect
+    - id: guardrails
+      path: 01-{module}/20-guardrails/{module}-guardrails.md
+      slot_folder: 20-guardrails
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('agent_autonomy') or evidence.has('tool_surface') or evidence.has('untrusted_code') or evidence.has('access_control')
+      consumers:
+      - security-review
+      - application-teams
+      cadence: threat-driven
+      approver: ai-system-architect
+    - id: evaluation
+      path: 01-{module}/21-evaluation/{module}-evaluation.md
+      slot_folder: 21-evaluation
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: EVAL
+      obligation: required_seam
+      when: evidence.has('eval_criterion') or evidence.has('quality_expectation')
+      consumers:
+      - evaluation-owners
+      - application-teams
+      cadence: release-driven
+      approver: evaluation-architect
+    - id: token-budget
+      path: 01-{module}/22-token-budget/{module}-token-budget.md
+      slot_folder: 22-token-budget
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: FIT
+      obligation: required_seam
+      when: evidence.has('token_budget') or evidence.has('billable_resource') or evidence.has('render_budget')
+      consumers:
+      - cost-owners
+      - operators
+      cadence: cost-driven
+      approver: cost-optimization-architect
+  appendix:
+    id: appendix
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: glossary
+      path: 01-{module}/11-glossary/{module}-glossary.md
+      slot_folder: 11-glossary
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('ambiguous_term')
+      consumers:
+      - all-readers
+      cadence: language-driven
+      approver: documentation-architect
+    - id: alternatives
+      path: 01-{module}/12-alternatives/{module}-alternatives.md
+      slot_folder: 12-alternatives
+      page_class: decision
+      sdd_kind: decision
+      template: _shared/assets/output-template-decision.md
+      id_prefix: ADR
+      obligation: required_seam
+      when: evidence.has('rejected_option')
+      consumers:
+      - future-maintainers
+      - reviewers
+      cadence: decision-driven
+      approver: architecture-decision-architect
+    - id: deprecations
+      path: 01-{module}/20-deprecations/{module}-deprecations.md
+      slot_folder: 20-deprecations
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('superseded_element')
+      consumers:
+      - consumers-of-the-superseded-element
+      cadence: removal-driven
+      approver: modernization-architect
+  backend-service:
+    id: backend-service
+    is_pack_free_core: true
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: api
+      path: 01-{module}/11-api/{module}-api.md
+      slot_folder: 11-api
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('inbound_port')
+      consumers:
+      - caller-teams
+      cadence: caller-driven
+      approver: api-architect
+    - id: events
+      path: 01-{module}/12-events/{module}-events.md
+      slot_folder: 12-events
+      page_class: event_message
+      sdd_kind: event_message
+      template: _shared/assets/output-template-event-message.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('published_event') or evidence.has('consumed_event')
+      consumers:
+      - subscriber-teams
+      - data-governance
+      cadence: domain-fact-driven
+      approver: event-driven-architect
+    - id: clients
+      path: 01-{module}/13-clients/{module}-clients.md
+      slot_folder: 13-clients
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('outbound_call')
+      consumers:
+      - dependency-owners
+      - operators
+      cadence: dependency-driven
+      approver: integration-adapter-architect
+    - id: data
+      path: 01-{module}/14-data/{module}-data.md
+      slot_folder: 14-data
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('owned_state')
+      consumers:
+      - data-governance
+      - reporting-consumers
+      cadence: schema-driven
+      approver: database-architect
+    - id: security
+      path: 01-{module}/20-security/{module}-security.md
+      slot_folder: 20-security
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('trust_boundary')
+      consumers:
+      - security-review
+      cadence: threat-driven
+      approver: security-architect
+    - id: observability
+      path: 01-{module}/21-observability/{module}-observability.md
+      slot_folder: 21-observability
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('runtime_signal')
+      consumers:
+      - operators
+      - sre
+      cadence: incident-driven
+      approver: observability-architect
+    - id: resilience
+      path: 01-{module}/22-resilience/{module}-resilience.md
+      slot_folder: 22-resilience
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('external_dependency')
+      consumers:
+      - operators
+      cadence: dependency-behaviour-driven
+      approver: reliability-architect
+  business-capability:
+    id: business-capability
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: capabilities
+      path: 01-{module}/11-capabilities/{module}-capabilities.md
+      slot_folder: 11-capabilities
+      page_class: overview
+      sdd_kind: overview
+      template: _shared/assets/output-template-overview.md
+      id_prefix: CAP
+      obligation: required_seam
+      when: evidence.has('business_rule') or evidence.has('domain_fact')
+      consumers:
+      - business-owners
+      - architecture-review
+      cadence: strategy-driven
+      approver: business-capability-architect
+    - id: value-streams
+      path: 01-{module}/12-value-streams/{module}-value-streams.md
+      slot_folder: 12-value-streams
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: STREAM
+      obligation: required_seam
+      when: evidence.has('user_journey') or evidence.has('feature_cluster')
+      consumers:
+      - business-owners
+      - product
+      cadence: journey-driven
+      approver: business-capability-architect
+    - id: org-topology
+      path: 01-{module}/13-org-topology/{module}-org-topology.md
+      slot_folder: 13-org-topology
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('external_dependency')
+      consumers:
+      - business-owners
+      - engineering-leads
+      cadence: reorg-driven
+      approver: business-capability-architect
+  data-platform:
+    id: data-platform
+    is_pack_free_core: true
+    default_workspace_cluster: 05_data_architecture
+    modules:
+    - id: ingest
+      path: 01-{module}/11-ingest/{module}-ingest.md
+      slot_folder: 11-ingest
+      page_class: event_message
+      sdd_kind: event_message
+      template: _shared/assets/output-template-event-message.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('source_feed')
+      consumers:
+      - platform-operators
+      - source-owners
+      cadence: source-driven
+      approver: data-pipeline-architect
+    - id: storage
+      path: 01-{module}/12-storage/{module}-storage.md
+      slot_folder: 12-storage
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('persisted_dataset')
+      consumers:
+      - data-governance
+      cadence: schema-driven
+      approver: database-architect
+    - id: serving
+      path: 01-{module}/13-serving/{module}-serving.md
+      slot_folder: 13-serving
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('query_consumer')
+      consumers:
+      - analytics-consumers
+      - application-teams
+      cadence: consumer-driven
+      approver: api-architect
+    - id: lineage
+      path: 01-{module}/14-lineage/{module}-lineage.md
+      slot_folder: 14-lineage
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('derived_dataset')
+      consumers:
+      - auditors
+      - data-governance
+      cadence: topology-driven
+      approver: metadata-architect
+    - id: retention
+      path: 01-{module}/20-retention/{module}-retention.md
+      slot_folder: 20-retention
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('regulated_field')
+      consumers:
+      - compliance
+      - privacy-review
+      cadence: regulation-driven
+      approver: privacy-architect
+    - id: quality
+      path: 01-{module}/21-quality/{module}-quality.md
+      slot_folder: 21-quality
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('quality_expectation')
+      consumers:
+      - data-consumers
+      - platform-operators
+      cadence: incident-driven
+      approver: data-governance-architect
+  delivery-pipeline:
+    id: delivery-pipeline
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: pipeline
+      path: 01-{module}/11-pipeline/{module}-pipeline.md
+      slot_folder: 11-pipeline
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: STAGE
+      obligation: required_seam
+      when: evidence.has('distribution_artifact') or evidence.has('release_surface')
+      consumers:
+      - engineering-teams
+      - release-managers
+      cadence: commit-driven
+      approver: deployment-architect
+    - id: environments
+      path: 01-{module}/12-environments/{module}-environments.md
+      slot_folder: 12-environments
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('deployable_unit') or evidence.has('managed_resource')
+      consumers:
+      - operators
+      - engineering-teams
+      cadence: topology-driven
+      approver: deployment-architect
+    - id: release-strategy
+      path: 01-{module}/13-release-strategy/{module}-release-strategy.md
+      slot_folder: 13-release-strategy
+      page_class: decision
+      sdd_kind: decision
+      template: _shared/assets/output-template-decision.md
+      id_prefix: ADR
+      obligation: required_seam
+      when: evidence.has('release_channel') or evidence.has('release_surface')
+      consumers:
+      - release-managers
+      - product
+      cadence: release-driven
+      approver: release-architect
+    - id: rollback
+      path: 01-{module}/20-rollback/{module}-rollback.md
+      slot_folder: 20-rollback
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('release_surface') or evidence.has('provider_error') or evidence.has('cutover_step')
+      consumers:
+      - operators
+      - release-managers
+      cadence: incident-driven
+      approver: release-architect
+  documentation-surface:
+    id: documentation-surface
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: audience
+      path: 01-{module}/11-audience/{module}-audience.md
+      slot_folder: 11-audience
+      page_class: viewpoint
+      sdd_kind: viewpoint
+      template: _shared/assets/output-template-viewpoint.md
+      id_prefix: REQ
+      obligation: required_seam
+      when: evidence.has('ambiguous_term') or evidence.has('user_journey')
+      consumers:
+      - documentation-owners
+      - engineering-teams
+      cadence: reader-driven
+      approver: documentation-architect
+    - id: information-architecture
+      path: 01-{module}/12-information-architecture/{module}-information-architecture.md
+      slot_folder: 12-information-architecture
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('ambiguous_term')
+      consumers:
+      - documentation-owners
+      cadence: structure-driven
+      approver: documentation-architect
+    - id: freshness
+      path: 01-{module}/20-freshness/{module}-freshness.md
+      slot_folder: 20-freshness
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('superseded_element') or evidence.has('stored_telemetry')
+      consumers:
+      - documentation-owners
+      - engineering-teams
+      cadence: drift-driven
+      approver: documentation-architect
+    - id: alternatives
+      path: 01-{module}/21-alternatives/{module}-alternatives.md
+      slot_folder: 21-alternatives
+      page_class: decision
+      sdd_kind: decision
+      template: _shared/assets/output-template-decision.md
+      id_prefix: ADR
+      obligation: required_seam
+      when: evidence.has('rejected_option')
+      consumers:
+      - documentation-owners
+      - architecture-review
+      cadence: decision-driven
+      approver: architecture-decision-architect
+  domain-capability:
+    id: domain-capability
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: aggregates
+      path: 01-{module}/11-aggregates/{module}-aggregates.md
+      slot_folder: 11-aggregates
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('consistency_boundary')
+      consumers:
+      - domain-owners
+      - implementing-teams
+      cadence: model-driven
+      approver: domain-model-architect
+    - id: domain-events
+      path: 01-{module}/12-domain-events/{module}-domain-events.md
+      slot_folder: 12-domain-events
+      page_class: event_message
+      sdd_kind: event_message
+      template: _shared/assets/output-template-event-message.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('domain_fact')
+      consumers:
+      - data-governance
+      - subscriber-contexts
+      cadence: domain-fact-driven
+      approver: domain-event-architect
+    - id: invariants
+      path: 01-{module}/13-invariants/{module}-invariants.md
+      slot_folder: 13-invariants
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: REQ
+      obligation: required_seam
+      when: evidence.has('business_rule')
+      consumers:
+      - domain-owners
+      - quality-engineering
+      cadence: rule-driven
+      approver: ddd-architect
+    - id: policies
+      path: 01-{module}/20-policies/{module}-policies.md
+      slot_folder: 20-policies
+      page_class: decision
+      sdd_kind: decision
+      template: _shared/assets/output-template-decision.md
+      id_prefix: ADR
+      obligation: required_seam
+      when: evidence.has('reactive_rule')
+      consumers:
+      - compliance
+      - domain-owners
+      cadence: policy-driven
+      approver: rule-engine-architect
+  frontend:
+    id: frontend
+    is_pack_free_core: true
+    default_workspace_cluster: 01_frontend_architecture
+    modules:
+    - id: ui-surface
+      path: 01-{module}/11-ui-surface/{module}-ui-surface.md
+      slot_folder: 11-ui-surface
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('user_facing_view')
+      consumers:
+      - product-owners
+      - design-system-owners
+      cadence: user-journey-driven
+      approver: frontend-architect
+    - id: state
+      path: 01-{module}/12-state/{module}-state.md
+      slot_folder: 12-state
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('client_state')
+      consumers:
+      - frontend-maintainers
+      cadence: interaction-driven
+      approver: frontend-architect
+    - id: api-consumption
+      path: 01-{module}/13-api-consumption/{module}-api-consumption.md
+      slot_folder: 13-api-consumption
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('backend_call')
+      consumers:
+      - backend-teams
+      cadence: provider-driven
+      approver: api-architect
+    - id: accessibility
+      path: 01-{module}/20-accessibility/{module}-accessibility.md
+      slot_folder: 20-accessibility
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('interactive_control')
+      consumers:
+      - accessibility-review
+      - compliance
+      cadence: standard-driven
+      approver: accessibility-reviewer
+    - id: performance
+      path: 01-{module}/21-performance/{module}-performance.md
+      slot_folder: 21-performance
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('render_budget')
+      consumers:
+      - operators
+      - product-owners
+      cadence: budget-driven
+      approver: performance-architect
+  identity-access:
+    id: identity-access
+    is_pack_free_core: true
+    default_workspace_cluster: 07_security_architecture
+    modules:
+    - id: authn
+      path: 01-{module}/11-authn/{module}-authn.md
+      slot_folder: 11-authn
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('authentication_rule') or evidence.has('identity_provider')
+      consumers:
+      - caller-teams
+      - security-review
+      cadence: authn-driven
+      approver: identity-access-architect
+    - id: authz
+      path: 01-{module}/12-authz/{module}-authz.md
+      slot_folder: 12-authz
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: REQ
+      obligation: required_seam
+      when: evidence.has('authorization_policy') or evidence.has('access_control') or evidence.has('tenancy_boundary')
+      consumers:
+      - security-review
+      - auditors
+      cadence: policy-driven
+      approver: identity-access-architect
+    - id: session
+      path: 01-{module}/13-session/{module}-session.md
+      slot_folder: 13-session
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('session_management') or evidence.has('token_lifecycle')
+      consumers:
+      - frontend-teams
+      - security-review
+      cadence: session-driven
+      approver: identity-access-architect
+    - id: secrets
+      path: 01-{module}/20-secrets/{module}-secrets.md
+      slot_folder: 20-secrets
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('credential_or_key')
+      consumers:
+      - security-review
+      - platform-operators
+      cadence: rotation-driven
+      approver: secret-management-architect
+    - id: audit
+      path: 01-{module}/21-audit/{module}-audit.md
+      slot_folder: 21-audit
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('audit_trail') or evidence.has('security_log')
+      consumers:
+      - compliance
+      - auditors
+      - security-review
+      cadence: compliance-driven
+      approver: compliance-architect
+    - id: crypto
+      path: 01-{module}/14-crypto/{module}-crypto.md
+      slot_folder: 14-crypto
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: CRYPTO
+      obligation: required_seam
+      when: evidence.has('credential_or_key') or evidence.has('trust_boundary')
+      consumers:
+      - security-review
+      - platform-operators
+      cadence: trust-chain-driven
+      approver: security-architect
+    - id: threat-model
+      path: 01-{module}/22-threat-model/{module}-threat-model.md
+      slot_folder: 22-threat-model
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: THREAT
+      obligation: required_seam
+      when: evidence.has('trust_boundary')
+      consumers:
+      - security-review
+      - auditors
+      cadence: threat-driven
+      approver: security-architect
+  infra-platform:
+    id: infra-platform
+    is_pack_free_core: true
+    default_workspace_cluster: 06_infrastructure_architecture
+    modules:
+    - id: topology
+      path: 01-{module}/11-topology/{module}-topology.md
+      slot_folder: 11-topology
+      page_class: diagram
+      sdd_kind: diagram
+      template: _shared/assets/output-template-diagram.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('deployable_unit')
+      consumers:
+      - platform-operators
+      - service-owners
+      cadence: environment-driven
+      approver: infra-platform-architect
+    - id: provisioning
+      path: 01-{module}/12-provisioning/{module}-provisioning.md
+      slot_folder: 12-provisioning
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('managed_resource')
+      consumers:
+      - platform-operators
+      cadence: change-driven
+      approver: iac-architect
+    - id: networking
+      path: 01-{module}/13-networking/{module}-networking.md
+      slot_folder: 13-networking
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('network_path')
+      consumers:
+      - network-security-review
+      - service-owners
+      cadence: reachability-driven
+      approver: network-architect
+    - id: secrets
+      path: 01-{module}/20-secrets/{module}-secrets.md
+      slot_folder: 20-secrets
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('credential_or_key')
+      consumers:
+      - security-review
+      cadence: rotation-driven
+      approver: secret-management-architect
+    - id: cost
+      path: 01-{module}/21-cost/{module}-cost.md
+      slot_folder: 21-cost
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('billable_resource')
+      consumers:
+      - cost-owners
+      - finance
+      cadence: budget-driven
+      approver: cost-optimization-architect
+  integration-adapter:
+    id: integration-adapter
+    is_pack_free_core: true
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: provider-contract
+      path: 01-{module}/11-provider-contract/{module}-provider-contract.md
+      slot_folder: 11-provider-contract
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('external_provider')
+      consumers:
+      - caller-teams
+      - provider-owners
+      cadence: provider-driven
+      approver: integration-adapter-architect
+    - id: translation
+      path: 01-{module}/12-translation/{module}-translation.md
+      slot_folder: 12-translation
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('field_mapping')
+      consumers:
+      - domain-owners
+      cadence: schema-driven
+      approver: domain-model-architect
+    - id: failure-mapping
+      path: 01-{module}/13-failure-mapping/{module}-failure-mapping.md
+      slot_folder: 13-failure-mapping
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('provider_error')
+      consumers:
+      - caller-teams
+      - operators
+      cadence: provider-behaviour-driven
+      approver: reliability-architect
+    - id: credentials
+      path: 01-{module}/20-credentials/{module}-credentials.md
+      slot_folder: 20-credentials
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('provider_credential')
+      consumers:
+      - security-review
+      cadence: rotation-driven
+      approver: secret-management-architect
+    - id: idempotency
+      path: 01-{module}/21-idempotency/{module}-idempotency.md
+      slot_folder: 21-idempotency
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('non_idempotent_call')
+      consumers:
+      - caller-teams
+      - operators
+      cadence: replay-driven
+      approver: event-driven-architect
+  library-sdk:
+    id: library-sdk
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: public-api
+      path: 01-{module}/11-public-api/{module}-public-api.md
+      slot_folder: 11-public-api
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('exported_symbol')
+      consumers:
+      - integrating-teams
+      cadence: consumer-driven
+      approver: library-sdk-architect
+    - id: extension-points
+      path: 01-{module}/12-extension-points/{module}-extension-points.md
+      slot_folder: 12-extension-points
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('extension_point')
+      consumers:
+      - extension-authors
+      cadence: capability-driven
+      approver: plugin-extension-architect
+    - id: packaging
+      path: 01-{module}/13-packaging/{module}-packaging.md
+      slot_folder: 13-packaging
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('distribution_artifact')
+      consumers:
+      - integrating-teams
+      - release-engineering
+      cadence: release-driven
+      approver: release-architect
+    - id: versioning
+      path: 01-{module}/20-versioning/{module}-versioning.md
+      slot_folder: 20-versioning
+      page_class: decision
+      sdd_kind: decision
+      template: _shared/assets/output-template-decision.md
+      id_prefix: ADR
+      obligation: required_seam
+      when: evidence.has('release_channel')
+      consumers:
+      - integrating-teams
+      - release-engineering
+      cadence: policy-driven
+      approver: library-sdk-architect
+    - id: compatibility
+      path: 01-{module}/21-compatibility/{module}-compatibility.md
+      slot_folder: 21-compatibility
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('supported_version_range')
+      consumers:
+      - integrating-teams
+      cadence: deprecation-driven
+      approver: modernization-architect
+  observability:
+    id: observability
+    is_pack_free_core: true
+    default_workspace_cluster: 08_quality_attribute_architecture
+    modules:
+    - id: signals
+      path: 01-{module}/11-signals/{module}-signals.md
+      slot_folder: 11-signals
+      page_class: event_message
+      sdd_kind: event_message
+      template: _shared/assets/output-template-event-message.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('emitted_signal')
+      consumers:
+      - operators
+      - sre
+      cadence: instrumentation-driven
+      approver: observability-architect
+    - id: slo
+      path: 01-{module}/12-slo/{module}-slo.md
+      slot_folder: 12-slo
+      page_class: requirement
+      sdd_kind: nfr
+      template: _shared/assets/output-template-requirement.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('user_journey')
+      consumers:
+      - product-owners
+      - service-owners
+      cadence: objective-driven
+      approver: reliability-architect
+    - id: alerting
+      path: 01-{module}/20-alerting/{module}-alerting.md
+      slot_folder: 20-alerting
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('actionable_condition')
+      consumers:
+      - on-call
+      cadence: incident-driven
+      approver: sre-architect
+    - id: retention
+      path: 01-{module}/21-retention/{module}-retention.md
+      slot_folder: 21-retention
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('stored_telemetry')
+      consumers:
+      - compliance
+      - cost-owners
+      cadence: regulation-and-cost-driven
+      approver: data-governance-architect
+  plugin-extension:
+    id: plugin-extension
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: host-contract
+      path: 01-{module}/11-host-contract/{module}-host-contract.md
+      slot_folder: 11-host-contract
+      page_class: api_contract
+      sdd_kind: api_contract
+      template: _shared/assets/output-template-api-contract.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('host_capability')
+      consumers:
+      - plugin-authors
+      cadence: capability-driven
+      approver: plugin-extension-architect
+    - id: lifecycle
+      path: 01-{module}/12-lifecycle/{module}-lifecycle.md
+      slot_folder: 12-lifecycle
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: MSG
+      obligation: required_seam
+      when: evidence.has('lifecycle_hook')
+      consumers:
+      - host-operators
+      - plugin-authors
+      cadence: runtime-driven
+      approver: plugin-extension-architect
+    - id: sandboxing
+      path: 01-{module}/20-sandboxing/{module}-sandboxing.md
+      slot_folder: 20-sandboxing
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('untrusted_code')
+      consumers:
+      - host-operators
+      - security-review
+      cadence: threat-driven
+      approver: application-security-architect
+    - id: distribution
+      path: 01-{module}/21-distribution/{module}-distribution.md
+      slot_folder: 21-distribution
+      page_class: artifact
+      sdd_kind: artifact
+      template: _shared/assets/output-template-artifact.md
+      id_prefix: DEP
+      obligation: required_seam
+      when: evidence.has('plugin_registry')
+      consumers:
+      - plugin-authors
+      - release-engineering
+      cadence: release-driven
+      approver: release-architect
+  quality-assurance:
+    id: quality-assurance
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: test-levels
+      path: 01-{module}/11-test-levels/{module}-test-levels.md
+      slot_folder: 11-test-levels
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: FIT
+      obligation: required_seam
+      when: evidence.has('quality_expectation')
+      consumers:
+      - engineering-teams
+      - release-managers
+      cadence: risk-driven
+      approver: testing-architect
+    - id: performance
+      path: 01-{module}/12-performance/{module}-performance.md
+      slot_folder: 12-performance
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('render_budget') or evidence.has('emitted_signal') or evidence.has('capacity_limit')
+      consumers:
+      - operators
+      - sre
+      cadence: budget-driven
+      approver: performance-architect
+    - id: resilience-drills
+      path: 01-{module}/13-resilience-drills/{module}-resilience-drills.md
+      slot_folder: 13-resilience-drills
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('provider_error') or evidence.has('external_dependency')
+      consumers:
+      - sre
+      - operators
+      cadence: incident-driven
+      approver: resilience-architect
+    - id: quality-gates
+      path: 01-{module}/20-quality-gates/{module}-quality-gates.md
+      slot_folder: 20-quality-gates
+      page_class: test_strategy
+      sdd_kind: test_strategy
+      template: _shared/assets/output-template-test-strategy.md
+      id_prefix: REQ
+      obligation: required_seam
+      when: evidence.has('quality_expectation')
+      consumers:
+      - release-managers
+      - engineering-teams
+      cadence: release-driven
+      approver: testing-architect
+  storage:
+    id: storage
+    is_pack_free_core: false
+    default_workspace_cluster: 03_application_architecture
+    modules:
+    - id: storage-class
+      path: 01-{module}/11-storage-class/{module}-storage-class.md
+      slot_folder: 11-storage-class
+      page_class: data_entity
+      sdd_kind: data_entity
+      template: _shared/assets/output-template-data-entity.md
+      id_prefix: ENTITY
+      obligation: required_seam
+      when: evidence.has('storage_tier')
+      consumers:
+      - platform-operators
+      - cost-owners
+      cadence: tier-driven
+      approver: storage-architect
+    - id: presigned-access
+      path: 01-{module}/12-presigned-access/{module}-presigned-access.md
+      slot_folder: 12-presigned-access
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: API
+      obligation: required_seam
+      when: evidence.has('presigned_url') or evidence.has('access_delegation')
+      consumers:
+      - application-teams
+      - security-review
+      cadence: delegation-driven
+      approver: storage-architect
+    - id: quota
+      path: 01-{module}/13-quota/{module}-quota.md
+      slot_folder: 13-quota
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: OBS
+      obligation: required_seam
+      when: evidence.has('storage_quota')
+      consumers:
+      - cost-owners
+      - operators
+      cadence: capacity-driven
+      approver: capacity-planning-architect
+    - id: lifecycle
+      path: 01-{module}/20-lifecycle/{module}-lifecycle.md
+      slot_folder: 20-lifecycle
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: RES
+      obligation: required_seam
+      when: evidence.has('lifecycle_policy')
+      consumers:
+      - storage-operators
+      - cost-owners
+      cadence: policy-driven
+      approver: storage-architect
+    - id: retention
+      path: 01-{module}/21-retention/{module}-retention.md
+      slot_folder: 21-retention
+      page_class: mechanism
+      sdd_kind: mechanism
+      template: _shared/assets/output-template-mechanism.md
+      id_prefix: SEC
+      obligation: required_seam
+      when: evidence.has('retention_policy')
+      consumers:
+      - compliance
+      - legal-review
+      cadence: regulation-driven
+      approver: privacy-architect
+task_family_default_page_classes:
+  01_discovery: requirement
+  02_business_analysis: overview
+  03_domain_modeling: data_entity
+  04_arch_style_selection: decision
+  05_tech_selection: decision
+  06_tradeoff_analysis: decision
+  07_system_modeling: diagram
+  08_api_design: api_contract
+  09_data_design: data_entity
+  10_security_design: mechanism
+  11_performance_design: mechanism
+  12_reliability_design: mechanism
+  13_infra_design: artifact
+  14_observability_design: mechanism
+  15_deployment_design: mechanism
+  16_testing_strategy: test_strategy
+  17_documentation: repository_documentation
+  18_governance: audit_report
+  19_cost_operations: decision
+  20_ai_tasks: mechanism
+  21_delivery_planning: planning
+task_output_page_class_overrides:
+  CR-{NNN}-{slug}.md: change_request
+  dependency-map.md: diagram
+  operational-context-profile.md: overview
+  risk-mitigation-plan.md: planning
+  stakeholder-concerns-map.md: viewpoint
+  stakeholder-influence-matrix.md: viewpoint
+  system-scope-specification.md: overview
+  bpmn-2-0-process-diagram.md: diagram
+  stakeholder-matrix.md: viewpoint
+  compensation-flow-diagram.md: diagram
+  context-map-diagram.md: diagram
+  domain-event-schema.md: event_message
+  domain-state-machine-spec.md: mechanism
+  repository-interface-spec.md: api_contract
+  saga-orchestration-spec.md: mechanism
+  saga-step-sequence-diagram.md: diagram
+  inter-service-communication-plan.md: mechanism
+  service-boundary-map.md: overview
+  iso-25010-maintainability-spec.md: requirement
+  risk-mitigation-report.md: planning
+  scalability-limits-report.md: requirement
+  entity-attribute-spec.md: data_entity
+  index-candidate-list.md: data_entity
+  system-boundary-specification.md: overview
+  api-security-middleware-spec.md: mechanism
+  asyncapi-3-0-specification.md: event_message
+  event-message-schema-registry.md: event_message
+  db-backup-plan.md: mechanism
+  db-replication-spec.md: mechanism
+  data-encryption-spec.md: mechanism
+  data-retention-policy.md: standard_entry
+  normalization-rationale-spec.md: decision
+  schema-migration-plan.md: planning
+  sharding-architecture-spec.md: mechanism
+  dfd-diagram.md: diagram
+  chaos-experiment-plan.md: test_strategy
+  outbox-table-schema.md: data_entity
+  cluster-autoscaler-spec.md: mechanism
+  ingress-controller-spec.md: mechanism
+  service-mesh-configuration.md: mechanism
+  customer-sla-document.md: requirement
+  error-budget-report-template.md: requirement
+  grafana-dashboard-json-spec.md: artifact
+  health-check-spec.md: verification
+  otel-instrumentation-guide.md: repository_documentation
+  slo-sla-contract-spec.md: requirement
+  argo-rollouts-yaml.md: artifact
+  bottleneck-analysis-report.md: audit_report
+  can-i-deploy-pipeline-integration.md: verification
+  pact-broker-setup-guide.md: repository_documentation
+  k6-test-script.md: artifact
+  adr-index-log.md: overview
+  adr-markdown-document.md: adr
+  full-architecture-spec-document.md: overview
+  technical-rfc-document.md: adr
+  enterprise-architecture-policy.md: standard_entry
+  quality-gate-rule-config.md: standard_entry
+  standards-enforcement-manifest.md: standard_entry
+  engineering-resource-plan.md: planning
+  finops-optimization-action-plan.md: planning
+  infrastructure-capacity-model.md: artifact
+  license-audit-report.md: audit_report
+  monthly-cloud-cost-estimate.md: artifact
+  ai-eval-metric-suite-spec.md: verification
+  multi-agent-workflow-blueprint.md: runtime_scenario
+  system-prompt-template-spec.md: artifact
+task_output_paths:
+  3-year-tco-analysis-report.md:
+    page_class: decision
+    path: architecture/01-global-strategy/04-risks/3-year-tco-analysis-report.md
+  CR-{NNN}-{slug}.md:
+    page_class: change_request
+    path: architecture/01-global-strategy/05-governance/change-requests/CR-{NNN}-{slug}.md
+  TKT-{NNN}-{slug}.md:
+    page_class: planning
+    path: architecture/04-delivery/00-planning/tickets/TKT-{NNN}-{slug}.md
+  abac-policy-specification.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/abac-policy-specification.md
+  actor-model-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/actor-model-assessment.md
+  adr-index-log.md:
+    page_class: overview
+    path: architecture/01-global-strategy/05-governance/decisions/adr-index-log.md
+  adr-markdown-document.md:
+    page_class: adr
+    path: architecture/01-global-strategy/05-governance/decisions/adr-markdown-document.md
+  agent-memory-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/agent-memory-architecture-spec.md
+  aggregate-boundary-spec.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/aggregate-boundary-spec.md
+  ai-eval-metric-suite-spec.md:
+    page_class: verification
+    path: architecture/03-cross-cutting/01-mechanisms/ai-eval-metric-suite-spec.md
+  alerting-policy-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/alerting-policy-spec.md
+  api-endpoint-catalog.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/api-endpoint-catalog.md
+  api-filtering-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/api-filtering-spec.md
+  api-security-middleware-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/api-security-middleware-spec.md
+  api-versioning-policy.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/api-versioning-policy.md
+  architectural-risk-log.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/04-risks/architectural-risk-log.md
+  architectural-roi-financial-report.md:
+    page_class: decision
+    path: architecture/01-global-strategy/04-risks/architectural-roi-financial-report.md
+  architecture-comparison-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/architecture-comparison-matrix.md
+  architecture-review-report.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/05-governance/reviews/architecture-review-report.md
+  architecture-smell-report.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/05-governance/reviews/architecture-smell-report.md
+  argo-rollouts-yaml.md:
+    page_class: artifact
+    path: architecture/04-delivery/02-release/argo-rollouts-yaml.md
+  argocd-spec.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/argocd-spec.md
+  assumption-log.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/00-context/assumption-log.md
+  async-worker-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/async-worker-architecture-spec.md
+  asyncapi-3-0-specification.md:
+    page_class: event_message
+    path: architecture/02-domains/_shared-contracts/03-messages/asyncapi-3-0-specification.md
+  audit-logging-specification.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/audit-logging-specification.md
+  automated-rollback-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/automated-rollback-spec.md
+  autoscaling-configuration-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/autoscaling-configuration-spec.md
+  batch-processing-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/batch-processing-spec.md
+  blue-green-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/blue-green-architecture-spec.md
+  bottleneck-analysis-report.md:
+    page_class: audit_report
+    path: architecture/04-delivery/01-quality/bottleneck-analysis-report.md
+  bpmn-2-0-process-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/02-functional/processes/{process}/bpmn-2-0-process-diagram.md
+  bpmn-2-0-spec.md:
+    page_class: diagram
+    path: architecture/00-system-views/02-functional/processes/{process}/bpmn-2-0-spec.md
+  bulkhead-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/bulkhead-spec.md
+  burn-rate-alert-rules.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/burn-rate-alert-rules.md
+  business-capability-map.md:
+    page_class: overview
+    path: architecture/02-domains/00-overview/business-capability-map.md
+  business-goal-alignment-matrix.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/00-context/business-goal-alignment-matrix.md
+  c4-code-diagram-mermaid-plantuml.md:
+    page_class: diagram
+    path: architecture/00-system-views/generated/c4-code-diagram-mermaid-plantuml.md
+  c4-component-diagram-mermaid-plantuml.md:
+    page_class: diagram
+    path: architecture/00-system-views/03-structure/components/{container}/c4-component-diagram-mermaid-plantuml.md
+  c4-container-diagram-mermaid-plantuml.md:
+    page_class: diagram
+    path: architecture/00-system-views/03-structure/c4-container-diagram-mermaid-plantuml.md
+  c4-context-diagram-mermaid-plantuml.md:
+    page_class: diagram
+    path: architecture/00-system-views/01-context/c4-context-diagram-mermaid-plantuml.md
+  cache-key-design-document.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/cache-key-design-document.md
+  cache-selection-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/cache-selection-matrix.md
+  caching-strategy-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/caching-strategy-spec.md
+  can-i-deploy-pipeline-integration.md:
+    page_class: verification
+    path: architecture/04-delivery/01-quality/can-i-deploy-pipeline-integration.md
+  canary-deployment-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/canary-deployment-spec.md
+  cell-based-architecture-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/cell-based-architecture-spec.md
+  chaos-experiment-plan.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/chaos-experiment-plan.md
+  chaos-game-day-plan.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/chaos-game-day-plan.md
+  circuit-breaker-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/05-exceptions/circuit-breaker-spec.md
+  clean-architecture-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/clean-architecture-assessment.md
+  cloud-selection-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/cloud-selection-matrix.md
+  cluster-autoscaler-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/03-infrastructure/cluster-autoscaler-spec.md
+  compensation-flow-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/06-runtime/sequences/{saga}/compensation-flow-diagram.md
+  complexity-rating-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/complexity-rating-spec.md
+  compression-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/compression-spec.md
+  concurrency-control-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/concurrency-control-spec.md
+  constraint-matrix.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/constraint-matrix.md
+  constraint-specification.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/01-data/constraint-specification.md
+  container-runtime-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/container-runtime-spec.md
+  context-map-diagram.md:
+    page_class: diagram
+    path: architecture/02-domains/00-overview/context-map-diagram.md
+  context-optimization-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/context-optimization-spec.md
+  contract-test-plan.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/contract-test-plan.md
+  cqrs-architectural-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/cqrs-architectural-assessment.md
+  customer-sla-document.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/customer-sla-document.md
+  data-encryption-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/data-encryption-spec.md
+  data-mesh-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/data-mesh-assessment.md
+  data-retention-policy.md:
+    page_class: standard_entry
+    path: architecture/01-global-strategy/03-standards/data-retention-policy.md
+  database-indexing-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/database-indexing-spec.md
+  database-selection-report.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/database-selection-report.md
+  db-backup-plan.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/db-backup-plan.md
+  db-replication-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/db-replication-spec.md
+  ddd-aggregate-model.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/ddd-aggregate-model.md
+  dependency-map.md:
+    page_class: diagram
+    path: architecture/00-system-views/01-context/dependency-map.md
+  devsecops-test-strategy.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/devsecops-test-strategy.md
+  dfd-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/05-information/dfd-diagram.md
+  distributed-tracing-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/distributed-tracing-spec.md
+  dlq-management-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/05-exceptions/dlq-management-spec.md
+  domain-entity-specification.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/domain-entity-specification.md
+  domain-event-schema.md:
+    page_class: event_message
+    path: architecture/02-domains/_shared-contracts/domain-event-schema.md
+  domain-state-machine-spec.md:
+    page_class: mechanism
+    path: architecture/02-domains/_shared-contracts/domain-state-machine-spec.md
+  dr-playbook-document.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/03-ops/dr-playbook-document.md
+  e2e-test-plan.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/e2e-test-plan.md
+  eda-assessment-report.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/eda-assessment-report.md
+  engineering-resource-plan.md:
+    page_class: planning
+    path: architecture/01-global-strategy/04-risks/engineering-resource-plan.md
+  enterprise-architecture-policy.md:
+    page_class: standard_entry
+    path: architecture/01-global-strategy/05-governance/reviews/enterprise-architecture-policy.md
+  entity-attribute-spec.md:
+    page_class: data_entity
+    path: architecture/00-system-views/05-information/entity-attribute-spec.md
+  erd-diagram-mermaid-plantuml.md:
+    page_class: diagram
+    path: architecture/00-system-views/05-information/erd-diagram-mermaid-plantuml.md
+  error-budget-report-template.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/error-budget-report-template.md
+  error-code-registry.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/error-code-registry.md
+  event-message-schema-registry.md:
+    page_class: event_message
+    path: architecture/02-domains/_shared-contracts/03-messages/event-message-schema-registry.md
+  eviction-policy-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/eviction-policy-spec.md
+  fallback-strategy-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/05-exceptions/fallback-strategy-spec.md
+  feature-flag-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/feature-flag-architecture-spec.md
+  finops-optimization-action-plan.md:
+    page_class: planning
+    path: architecture/01-global-strategy/04-risks/finops-optimization-action-plan.md
+  framework-evaluation-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/framework-evaluation-matrix.md
+  full-architecture-spec-document.md:
+    page_class: overview
+    path: architecture/01-global-strategy/full-architecture-spec-document.md
+  grafana-dashboard-json-spec.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/grafana-dashboard-json-spec.md
+  graphql-schema-definition.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/{api}/graphql-schema-definition.md
+  hallucination-mitigation-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/hallucination-mitigation-spec.md
+  health-check-spec.md:
+    page_class: verification
+    path: architecture/03-cross-cutting/04-fitness-functions/health-check-spec.md
+  helm-chart-package-spec.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/helm-chart-package-spec.md
+  hexagonal-style-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/hexagonal-style-assessment.md
+  idempotency-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/idempotency-spec.md
+  idp-selection-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/idp-selection-matrix.md
+  index-candidate-list.md:
+    page_class: data_entity
+    path: architecture/00-system-views/05-information/index-candidate-list.md
+  index-design-document.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/01-data/index-design-document.md
+  infrastructure-capacity-model.md:
+    page_class: artifact
+    path: architecture/01-global-strategy/04-risks/infrastructure-capacity-model.md
+  ingress-controller-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/03-infrastructure/ingress-controller-spec.md
+  integration-test-spec.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/integration-test-spec.md
+  inter-service-communication-plan.md:
+    page_class: mechanism
+    path: architecture/01-global-strategy/02-strategy/style-assessments/inter-service-communication-plan.md
+  invariant-rules-documentation.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/invariant-rules-documentation.md
+  iso-25010-maintainability-spec.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/04-risks/iso-25010-maintainability-spec.md
+  iso-25010-nfr-specification.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/iso-25010-nfr-specification.md
+  jwt-security-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/jwt-security-spec.md
+  k6-test-script.md:
+    page_class: artifact
+    path: architecture/04-delivery/01-quality/k6-test-script.md
+  kubernetes-yaml-specs.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/kubernetes-yaml-specs.md
+  language-evaluation-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/language-evaluation-matrix.md
+  layered-style-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/layered-style-assessment.md
+  license-audit-report.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/04-risks/license-audit-report.md
+  llm-benchmark-selection-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/llm-benchmark-selection-matrix.md
+  llm-guardrail-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/llm-guardrail-spec.md
+  load-balancing-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/load-balancing-architecture-spec.md
+  load-test-scenario-spec.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/load-test-scenario-spec.md
+  microservices-tradeoff-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/microservices-tradeoff-assessment.md
+  migration-guide-document.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/03-ops/migration-guide-document.md
+  model-routing-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/model-routing-architecture-spec.md
+  modular-monolith-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/modular-monolith-assessment.md
+  monthly-cloud-cost-estimate.md:
+    page_class: artifact
+    path: architecture/01-global-strategy/04-risks/monthly-cloud-cost-estimate.md
+  mtls-security-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/mtls-security-spec.md
+  multi-agent-workflow-blueprint.md:
+    page_class: runtime_scenario
+    path: architecture/00-system-views/06-runtime/multi-agent-workflow-blueprint.md
+  mutation-testing-spec.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/mutation-testing-spec.md
+  network-architecture-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/04-deployment/environments/{env}/network-architecture-diagram.md
+  nfr-traceability-map.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/nfr-traceability-map.md
+  normalization-rationale-spec.md:
+    page_class: decision
+    path: architecture/02-domains/_shared-contracts/01-data/normalization-rationale-spec.md
+  oauth2-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/oauth2-architecture-spec.md
+  observability-stack-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/observability-stack-matrix.md
+  oidc-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/oidc-spec.md
+  openapi-3-1-specification.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/{api}/openapi-3-1-specification.md
+  operational-context-profile.md:
+    page_class: overview
+    path: architecture/00-system-views/01-context/operational-context-profile.md
+  operational-runbook-document.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/03-ops/operational-runbook-document.md
+  otel-instrumentation-guide.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/03-ops/otel-instrumentation-guide.md
+  outbox-table-schema.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/01-data/outbox-table-schema.md
+  pact-broker-setup-guide.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/01-quality/pact-broker-setup-guide.md
+  pagination-standard-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/pagination-standard-spec.md
+  partitioning-plan.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/01-data/partitioning-plan.md
+  pipeline-style-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/pipeline-style-assessment.md
+  pki-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/pki-architecture-spec.md
+  plugin-style-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/plugin-style-assessment.md
+  production-dockerfile-spec.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/production-dockerfile-spec.md
+  prometheus-metrics-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/prometheus-metrics-spec.md
+  pros-cons-breakdown.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/pros-cons-breakdown.md
+  protocol-buffer-spec-proto.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/{api}/protocol-buffer-spec-proto.md
+  pugh-weighted-decision-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/pugh-weighted-decision-matrix.md
+  quality-gate-pass-fail-audit.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/05-governance/reviews/quality-gate-pass-fail-audit.md
+  quality-gate-rule-config.md:
+    page_class: standard_entry
+    path: architecture/01-global-strategy/05-governance/reviews/quality-gate-rule-config.md
+  queue-performance-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/queue-performance-spec.md
+  queue-selection-report.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/queue-selection-report.md
+  rag-architecture-specification.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/rag-architecture-specification.md
+  rbac-permission-matrix.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/rbac-permission-matrix.md
+  read-write-model-separation-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/read-write-model-separation-spec.md
+  readme-md-document.md:
+    page_class: repository_documentation
+    path: architecture/04-delivery/03-ops/readme-md-document.md
+  regulatory-compliance-audit-report.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/05-governance/reviews/regulatory-compliance-audit-report.md
+  relay-process-design.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/relay-process-design.md
+  repository-interface-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/repository-interface-spec.md
+  requirement-specification-matrix.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/requirement-specification-matrix.md
+  retry-strategy-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/05-exceptions/retry-strategy-spec.md
+  rfc-7807-error-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/rfc-7807-error-spec.md
+  risk-mitigation-plan.md:
+    page_class: planning
+    path: architecture/01-global-strategy/04-risks/risk-mitigation-plan.md
+  risk-mitigation-report.md:
+    page_class: planning
+    path: architecture/01-global-strategy/04-risks/risk-mitigation-report.md
+  roadmap.md:
+    page_class: planning
+    path: architecture/04-delivery/00-planning/roadmap.md
+  rollback-trigger-conditions-doc.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/rollback-trigger-conditions-doc.md
+  rolling-deployment-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/rolling-deployment-spec.md
+  saga-orchestration-spec.md:
+    page_class: mechanism
+    path: architecture/02-domains/_shared-contracts/saga-orchestration-spec.md
+  saga-step-sequence-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/06-runtime/sequences/{saga}/saga-step-sequence-diagram.md
+  sampling-strategy-doc.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/sampling-strategy-doc.md
+  scalability-limits-report.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/04-risks/scalability-limits-report.md
+  schema-migration-plan.md:
+    page_class: planning
+    path: architecture/04-delivery/00-planning/schema-migration-plan.md
+  sdk-audit-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/sdk-audit-matrix.md
+  search-engine-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/search-engine-matrix.md
+  secrets-management-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/secrets-management-spec.md
+  serverless-feasibility-assessment.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/serverless-feasibility-assessment.md
+  service-boundary-map.md:
+    page_class: overview
+    path: architecture/01-global-strategy/02-strategy/style-assessments/service-boundary-map.md
+  service-mesh-configuration.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/03-infrastructure/service-mesh-configuration.md
+  shadow-deployment-spec.md:
+    page_class: mechanism
+    path: architecture/04-delivery/02-release/shadow-deployment-spec.md
+  sharding-architecture-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/sharding-architecture-spec.md
+  slo-sla-contract-spec.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/slo-sla-contract-spec.md
+  slo-sli-definition-document.md:
+    page_class: requirement
+    path: architecture/01-global-strategy/01-requirements/slo-sli-definition-document.md
+  soa-evaluation-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/soa-evaluation-spec.md
+  sql-ddl-nosql-schema-spec.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/01-data/sql-ddl-nosql-schema-spec.md
+  stakeholder-concerns-map.md:
+    page_class: viewpoint
+    path: architecture/00-system-views/00-viewpoints/stakeholder-concerns-map.md
+  stakeholder-influence-matrix.md:
+    page_class: viewpoint
+    path: architecture/00-system-views/00-viewpoints/stakeholder-influence-matrix.md
+  stakeholder-matrix.md:
+    page_class: viewpoint
+    path: architecture/00-system-views/00-viewpoints/stakeholder-matrix.md
+  standards-enforcement-manifest.md:
+    page_class: standard_entry
+    path: architecture/01-global-strategy/05-governance/reviews/standards-enforcement-manifest.md
+  storage-selection-spec.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/storage-selection-spec.md
+  stress-test-spec.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/stress-test-spec.md
+  stride-threat-model-report.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/stride-threat-model-report.md
+  structured-logging-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/structured-logging-spec.md
+  system-boundary-specification.md:
+    page_class: overview
+    path: architecture/00-system-views/01-context/system-boundary-specification.md
+  system-prompt-template-spec.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/01-mechanisms/system-prompt-template-spec.md
+  system-scope-specification.md:
+    page_class: overview
+    path: architecture/01-global-strategy/00-context/system-scope-specification.md
+  tco-cost-model.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/tco-cost-model.md
+  team-topology-map.md:
+    page_class: overview
+    path: architecture/02-domains/00-overview/team-topology-map.md
+  tech-benchmark-matrix.md:
+    page_class: decision
+    path: architecture/01-global-strategy/02-strategy/style-assessments/tech-benchmark-matrix.md
+  technical-rfc-document.md:
+    page_class: adr
+    path: architecture/01-global-strategy/05-governance/decisions/technical-rfc-document.md
+  terraform-module-manifests.md:
+    page_class: artifact
+    path: architecture/03-cross-cutting/03-infrastructure/terraform-module-manifests.md
+  threat-to-control-mapping-matrix.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/02-security/threat-to-control-mapping-matrix.md
+  timeout-matrix.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/05-exceptions/timeout-matrix.md
+  tool-routing-specification.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/tool-routing-specification.md
+  transactional-inbox-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/transactional-inbox-spec.md
+  transactional-outbox-spec.md:
+    page_class: mechanism
+    path: architecture/03-cross-cutting/01-mechanisms/transactional-outbox-spec.md
+  uml-activity-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/02-functional/activities/{use-case}/uml-activity-diagram.md
+  uml-class-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/03-structure/classes/{context}/uml-class-diagram.md
+  uml-deployment-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/04-deployment/environments/{env}/uml-deployment-diagram.md
+  uml-sequence-diagram.md:
+    page_class: diagram
+    path: architecture/00-system-views/06-runtime/sequences/{scenario}/uml-sequence-diagram.md
+  uml-state-diagram.md:
+    page_class: diagram
+    path: architecture/02-domains/_shared-contracts/05-state-machines/{aggregate}/uml-state-diagram.md
+  unit-test-standard-spec.md:
+    page_class: test_strategy
+    path: architecture/04-delivery/01-quality/unit-test-standard-spec.md
+  value-object-definitions.md:
+    page_class: data_entity
+    path: architecture/02-domains/_shared-contracts/value-object-definitions.md
+  value-stream-specification.md:
+    page_class: overview
+    path: architecture/00-system-views/02-functional/value-stream-specification.md
+  wbs.md:
+    page_class: planning
+    path: architecture/04-delivery/00-planning/wbs.md
+  webhook-architecture-spec.md:
+    page_class: api_contract
+    path: architecture/02-domains/_shared-contracts/02-apis/webhook-architecture-spec.md
+  well-architected-audit-scorecard.md:
+    page_class: audit_report
+    path: architecture/01-global-strategy/05-governance/reviews/well-architected-audit-scorecard.md

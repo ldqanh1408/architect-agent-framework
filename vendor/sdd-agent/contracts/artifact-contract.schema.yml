@@ -1,0 +1,13 @@
+schema_version: "1.0"
+title: SDD Artifact Contract Schema
+required: [artifact_class, owner_skill, output_glob, summary_semantics, detail_semantics, source_coverage, validation]
+fields:
+  artifact_class: {type: string}
+  owner_skill: {type: string}
+  output_glob: {type: string}
+  summary_semantics: {type: string}
+  detail_semantics: {type: string}
+  source_coverage: {type: list}
+  stable_ids: {type: list}
+  provenance_classes: {type: list}
+  validation: {type: list}

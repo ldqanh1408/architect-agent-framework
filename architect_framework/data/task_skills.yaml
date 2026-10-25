@@ -1,0 +1,1262 @@
+families:
+  - id: "01_discovery"
+    name: "01. Discovery Tasks"
+    core_activity: "Requirement analysis, assumption, constraint, and initial risk discovery"
+    expected_technical_output: "Constraint Matrix, Risk & Assumption Log"
+    tasks:
+      - id: "requirement-analysis"
+        name: "Requirement Analysis"
+        description: "Analyze and clarify functional and non-functional requirements."
+        compatible_domain_clusters: ["01_business_architecture", "02_domain_architecture", "03_application_architecture"]
+        procedural_steps:
+          - "Step 1 - Gather: Collect raw requirements from user stories, epics, and meeting notes."
+          - "Step 2 - Categorize: Split into Functional Requirements (FR) and Quality Attribute (NFR) buckets."
+          - "Step 3 - Quantify NFRs: Assign measurable targets to each NFR (e.g. p99 latency < 200ms, availability 99.9%)."
+          - "Step 4 - Validate: Cross-validate each requirement against a real stakeholder use case."
+          - "Step 5 - Conflict Resolution: Identify conflicting requirements and force-rank by business priority."
+          - "Step 6 - Traceability: Create a Requirement ID → Architecture Decision traceability matrix."
+        expected_outputs: ["Requirement Specification Matrix", "NFR Traceability Map"]
+      - id: "stakeholder-analysis"
+        name: "Stakeholder Analysis"
+        description: "Identify key stakeholders and their primary architectural concerns."
+        compatible_domain_clusters: ["01_business_architecture", "10_documentation_architecture"]
+        procedural_steps:
+          - "Step 1 - Identify: List all internal (product, engineering, ops) and external (customers, regulators) stakeholders."
+          - "Step 2 - Concerns Mapping: Map each stakeholder to their ISO 42010 concerns (Security, Performance, Cost, Compliance)."
+          - "Step 3 - Influence Matrix: Plot stakeholders on an Influence vs Interest quadrant grid."
+          - "Step 4 - Priority: Rank stakeholder concerns by frequency of conflict and business impact."
+          - "Step 5 - Communication Plan: Define architectural review format and frequency per stakeholder group."
+        expected_outputs: ["Stakeholder Concerns Map", "Stakeholder Influence Matrix"]
+      - id: "business-goal-analysis"
+        name: "Business Goal Analysis"
+        description: "Align technical objectives with business growth metrics."
+        procedural_steps:
+          - "Extract core KPIs and ROI objectives."
+          - "Translate business goals to target architecture metrics."
+        expected_outputs: ["Business Goal Alignment Matrix"]
+      - id: "constraint-analysis"
+        name: "Constraint Analysis"
+        description: "Identify technical, budget, regulatory, and organizational constraints."
+        procedural_steps:
+          - "Inventory hard constraints (legacy systems, compliance, cloud provider)."
+          - "Evaluate constraint impact on architectural options."
+        expected_outputs: ["Constraint Matrix"]
+      - id: "assumption-discovery"
+        name: "Assumption Discovery"
+        description: "Surface underlying assumptions and validate validity."
+        procedural_steps:
+          - "Log initial system assumptions."
+          - "Define validation criteria for each assumption."
+        expected_outputs: ["Assumption Log"]
+      - id: "dependency-discovery"
+        name: "Dependency Discovery"
+        description: "Map external and internal system dependencies."
+        procedural_steps:
+          - "Discover third-party APIs, vendor tools, and legacy systems."
+          - "Document dependency SLAs and failure modes."
+        expected_outputs: ["Dependency Map"]
+      - id: "scope-definition"
+        name: "Scope Definition"
+        description: "Delineate system in-scope and out-of-scope boundaries."
+        procedural_steps:
+          - "Draw system context boundary."
+          - "Document explicit out-of-scope exclusions."
+        expected_outputs: ["System Scope Specification"]
+      - id: "context-discovery"
+        name: "Context Discovery"
+        description: "Discover operating context and user personas."
+        procedural_steps:
+          - "Define environment contexts (Edge, Cloud, On-Prem)."
+          - "Analyze user load profiles."
+        expected_outputs: ["Operational Context Profile"]
+      - id: "nfr-discovery"
+        name: "NFR Discovery"
+        description: "Formulate quantitative Non-Functional Requirements."
+        compatible_domain_clusters: ["08_quality_attribute_architecture", "03_application_architecture"]
+        procedural_steps:
+          - "Step 1 - ISO 25010 Mapping: Map each quality concern to an ISO 25010 characteristic (Performance, Reliability, Security, Maintainability, Portability, etc.)."
+          - "Step 2 - SLI Definition: Define measurable SLIs (latency p50/p99, error rate, throughput, availability uptime)."
+          - "Step 3 - SLO Targets: Set SLO numeric targets with rationale (e.g. 99.9% availability = 8.7 hrs downtime/year max)."
+          - "Step 4 - Load Profile: Define peak concurrent users, daily active users, request rate (rps), and expected growth trajectory."
+          - "Step 5 - Error Budget: Compute per-SLO error budget and burn rate alerting thresholds."
+          - "Step 6 - Environment Context: Distinguish NFR targets by environment (dev/staging vs prod)."
+        expected_outputs: ["ISO 25010 NFR Specification", "SLO/SLI Definition Document"]
+      - id: "risk-discovery"
+        name: "Risk Discovery"
+        description: "Identify architectural risks and potential failure modes."
+        compatible_domain_clusters: ["07_security_architecture", "08_quality_attribute_architecture"]
+        procedural_steps:
+          - "Step 1 - Pre-mortem: Imagine the system has failed catastrophically. Work backwards to enumerate all plausible causes."
+          - "Step 2 - STRIDE Scan: Run a STRIDE pass over each system component to discover security risks."
+          - "Step 3 - Single Points of Failure: List every component where failure cascades to full system outage."
+          - "Step 4 - Risk Scoring: Rate each risk by Probability (1-5) x Impact (1-5) = Risk Score."
+          - "Step 5 - Mitigation: Define mitigation strategy for each High (score >= 12) risk."
+          - "Step 6 - Residual Risk: Document accepted residual risks with owner and review date."
+        expected_outputs: ["Architectural Risk Log", "Risk Mitigation Plan"]
+
+  - id: "02_business_analysis"
+    name: "02. Business Analysis Tasks"
+    core_activity: "Business capability, process, and value stream modeling"
+    expected_technical_output: "Business Capability Map, BPMN Diagram"
+    tasks:
+      - id: "capability-mapping"
+        name: "Capability Mapping"
+        description: "Map organizational business capabilities."
+        procedural_steps:
+          - "Decompose enterprise into level 1, 2, 3 capabilities."
+          - "Map software modules to capabilities."
+        expected_outputs: ["Business Capability Map"]
+      - id: "business-process-modeling"
+        name: "Business Process Modeling"
+        description: "Model business workflows with BPMN standard."
+        procedural_steps:
+          - "Map process triggers, steps, decision gateways, and outcomes."
+          - "Export BPMN 2.0 diagram format."
+        expected_outputs: ["BPMN 2.0 Process Diagram"]
+      - id: "value-stream-mapping"
+        name: "Value Stream Mapping"
+        description: "Analyze value delivery flow and friction points."
+        procedural_steps:
+          - "Identify value stream stages from customer request to fulfillment."
+          - "Highlight lead time bottlenecks."
+        expected_outputs: ["Value Stream Specification"]
+      - id: "organization-mapping"
+        name: "Organization Mapping"
+        description: "Map team topologies and communication channels."
+        procedural_steps:
+          - "Identify stream-aligned, platform, and enabling teams."
+          - "Apply Conway's Law alignment checks."
+        expected_outputs: ["Team Topology Map"]
+      - id: "stakeholder-mapping"
+        name: "Stakeholder Mapping"
+        description: "Create influence and interest matrix of business stakeholders."
+        procedural_steps:
+          - "Plot influence vs interest grid."
+          - "Formulate engagement strategy."
+        expected_outputs: ["Stakeholder Matrix"]
+
+  - id: "03_domain_modeling"
+    name: "03. Domain Modeling Tasks"
+    core_activity: "Domain-Driven Design bounded context, aggregate, and event modeling"
+    expected_technical_output: "Context Map, Domain Entity Model"
+    tasks:
+      - id: "entity-discovery"
+        name: "Entity Discovery"
+        description: "Discover core domain entities and identities."
+        procedural_steps:
+          - "Extract domain nouns with unique identity."
+          - "Define attributes and entity life cycle."
+        expected_outputs: ["Domain Entity Specification"]
+      - id: "aggregate-design"
+        name: "Aggregate Design"
+        description: "Design DDD Aggregate boundaries and invariant rules."
+        compatible_domain_clusters: ["02_domain_architecture"]
+        procedural_steps:
+          - "Step 1 - Identify Candidates: List all Entity candidates from the domain model that have unique identity."
+          - "Step 2 - Select Aggregate Root: Choose the root Entity that guards invariants for the cluster."
+          - "Step 3 - Define Invariants: Document all business rules that must remain consistent within one transaction."
+          - "Step 4 - Set Boundaries: Rule: reference other Aggregates only by ID, never by direct object reference."
+          - "Step 5 - Repository Interface: Define Repository interface for persistence operations on this Aggregate only."
+          - "Step 6 - Command/Event Model: Map each state-changing Command to a Domain Event emitted upon success."
+          - "Step 7 - Validate Size: Reject overly large aggregates. If an Aggregate spans more than 5 entities, re-evaluate boundaries."
+        expected_outputs: ["DDD Aggregate Model", "Aggregate Boundary Spec", "Invariant Rules Documentation"]
+      - id: "value-object-design"
+        name: "Value Object Design"
+        description: "Design immutable domain value objects."
+        procedural_steps:
+          - "Identify immutable concepts defined solely by attributes."
+          - "Implement equality and validation logic."
+        expected_outputs: ["Value Object Definitions"]
+      - id: "repository-design"
+        name: "Repository Design"
+        description: "Design persistence abstraction for Aggregates."
+        procedural_steps:
+          - "Define domain repository interfaces."
+          - "Decouple domain logic from DB storage."
+        expected_outputs: ["Repository Interface Spec"]
+      - id: "context-mapping"
+        name: "Context Mapping"
+        description: "Map relationships between Bounded Contexts."
+        procedural_steps:
+          - "Identify Upstream/Downstream context pairs."
+          - "Choose mapping pattern (ACL, Shared Kernel, Customer-Supplier)."
+        expected_outputs: ["Context Map Diagram"]
+      - id: "domain-event-design"
+        name: "Domain Event Design"
+        description: "Design domain event structures and state notifications."
+        procedural_steps:
+          - "Identify past-tense domain events."
+          - "Define event payload schema and metadata."
+        expected_outputs: ["Domain Event Schema"]
+      - id: "saga-design"
+        name: "Saga Design"
+        description: "Design distributed transaction Sagas with compensation steps."
+        compatible_domain_clusters: ["02_domain_architecture", "03_application_architecture"]
+        procedural_steps:
+          - "Step 1 - Use Case Trigger: Identify which multi-service business transactions cannot use ACID."
+          - "Step 2 - Orchestration vs Choreography: Decide pattern — Orchestration (central saga coordinator) vs Choreography (event-triggered reactions)."
+          - "Step 3 - Happy Path Steps: List all forward transaction steps in sequential order with owning service."
+          - "Step 4 - Compensating Transactions: For each step, define the compensating action that reverses its effect on failure."
+          - "Step 5 - Idempotency: Ensure each saga step and compensation is idempotent for safe retry."
+          - "Step 6 - Timeout & Failure Handling: Define timeout thresholds and fallback actions for each step."
+          - "Step 7 - Observability: Add distributed trace spans and structured log events at each saga step boundary."
+        expected_outputs: ["Saga Orchestration Spec", "Compensation Flow Diagram", "Saga Step Sequence Diagram"]
+      - id: "workflow-design"
+        name: "Workflow Design"
+        description: "Design complex domain state machine transitions."
+        procedural_steps:
+          - "Define valid state machine states and transitions."
+          - "Document state trigger conditions."
+        expected_outputs: ["Domain State Machine Spec"]
+
+  - id: "04_arch_style_selection"
+    name: "04. Architecture Style Selection Tasks"
+    core_activity: "Evaluating and choosing architectural styles"
+    expected_technical_output: "Architecture Style Decision Record"
+    tasks:
+      - id: "layered-style"
+        name: "Layered Architecture Evaluation"
+        description: "Evaluate traditional layered N-tier architectural style."
+        procedural_steps: ["Assess tier separation, coupling, and simplicity."]
+        expected_outputs: ["Layered Style Assessment"]
+      - id: "hexagonal-style"
+        name: "Hexagonal Architecture Evaluation"
+        description: "Evaluate Ports & Adapters / Hexagonal architectural style."
+        procedural_steps: ["Assess domain isolation, port interfaces, and adapter testability."]
+        expected_outputs: ["Hexagonal Style Assessment"]
+      - id: "clean-style"
+        name: "Clean Architecture Evaluation"
+        description: "Evaluate Clean Architecture (Onion / Concentric circles)."
+        procedural_steps: ["Validate Dependency Inversion Principle compliance across circles."]
+        expected_outputs: ["Clean Architecture Assessment"]
+      - id: "modular-monolith-style"
+        name: "Modular Monolith Evaluation"
+        description: "Evaluate modular monolith with enforced module boundaries."
+        procedural_steps: ["Assess module decoupling and build time isolation."]
+        expected_outputs: ["Modular Monolith Assessment"]
+      - id: "microservice-style"
+        name: "Microservice Evaluation"
+        description: "Evaluate microservices style feasibility and operational overhead."
+        compatible_domain_clusters: ["03_application_architecture", "06_infrastructure_architecture"]
+        procedural_steps:
+          - "Step 1 - Service Decomposition: Apply domain-driven decomposition to identify service boundaries."
+          - "Step 2 - Coupling Analysis: Measure degree of coupling — reject styles where >30% of requests require cross-service calls."
+          - "Step 3 - Operational Overhead: Estimate Kubernetes platform team FTE cost and tooling needs (CI/CD, service mesh, secrets)."
+          - "Step 4 - Data Isolation: Verify each service owns its own data store. Flag shared databases as architectural violation."
+          - "Step 5 - Communication Strategy: Select sync (REST/gRPC) vs async (Kafka/NATS) per service pair based on latency and consistency needs."
+          - "Step 6 - Independent Deployability: Validate each service can be deployed independently without contract breakage."
+          - "Step 7 - Tradeoff Summary: Quantify complexity cost vs scalability benefits."
+        expected_outputs: ["Microservices Tradeoff Assessment", "Service Boundary Map", "Inter-service Communication Plan"]
+      - id: "soa-style"
+        name: "SOA Evaluation"
+        description: "Evaluate Enterprise Service Bus (ESB) and SOA style."
+        procedural_steps: ["Assess legacy service bus integration."]
+        expected_outputs: ["SOA Evaluation Spec"]
+      - id: "cqrs-style"
+        name: "CQRS Style Evaluation"
+        description: "Evaluate Command Query Responsibility Segregation."
+        compatible_domain_clusters: ["02_domain_architecture", "05_data_architecture"]
+        procedural_steps:
+          - "Step 1 - Read/Write Ratio: Measure current read vs write throughput ratio. CQRS is beneficial when ratio > 10:1."
+          - "Step 2 - Write Model: Design Command side with domain model, aggregate roots, and event sourcing (optional)."
+          - "Step 3 - Read Model: Design denormalized Query side optimized for client view requirements."
+          - "Step 4 - Sync Mechanism: Choose projection mechanism (Event Sourcing, CDC, or domain events) to keep read side updated."
+          - "Step 5 - Consistency Boundary: Define acceptable eventual consistency lag between write and read models."
+          - "Step 6 - Complexity Budget: Only apply CQRS to domains with genuinely divergent read/write needs."
+        expected_outputs: ["CQRS Architectural Assessment", "Read/Write Model Separation Spec"]
+      - id: "eda-style"
+        name: "Event-Driven Architecture Evaluation"
+        description: "Evaluate publish-subscribe and event streaming styles."
+        procedural_steps: ["Analyze system decoupling, throughput, and event ordering."]
+        expected_outputs: ["EDA Assessment Report"]
+      - id: "serverless-style"
+        name: "Serverless Architecture Evaluation"
+        description: "Evaluate FaaS and managed cloud serverless style."
+        procedural_steps: ["Analyze cold start latency and vendor lock-in."]
+        expected_outputs: ["Serverless Feasibility Assessment"]
+      - id: "plugin-style"
+        name: "Plugin Architecture Evaluation"
+        description: "Evaluate Microkernel / Plugin architectural style."
+        procedural_steps: ["Analyze core framework vs dynamic plugin interfaces."]
+        expected_outputs: ["Plugin Style Assessment"]
+      - id: "actor-model-style"
+        name: "Actor Model Evaluation"
+        description: "Evaluate Akka / Ray / Erlang actor concurrent style."
+        procedural_steps: ["Analyze message-passing concurrency and actor state."]
+        expected_outputs: ["Actor Model Assessment"]
+      - id: "pipeline-style"
+        name: "Pipes & Filters Evaluation"
+        description: "Evaluate pipeline architecture style."
+        procedural_steps: ["Analyze sequential data transformation stages."]
+        expected_outputs: ["Pipeline Style Assessment"]
+      - id: "mesh-style"
+        name: "Data Mesh Evaluation"
+        description: "Evaluate decentralized domain-oriented data mesh style."
+        procedural_steps: ["Analyze data as a product governance model."]
+        expected_outputs: ["Data Mesh Assessment"]
+      - id: "cell-based-style"
+        name: "Cell-Based Architecture Evaluation"
+        description: "Evaluate fault-isolated Cellular architecture style."
+        procedural_steps: ["Analyze cell blast radius isolation and routing."]
+        expected_outputs: ["Cell-Based Architecture Spec"]
+
+  - id: "05_tech_selection"
+    name: "05. Technology Selection Tasks"
+    core_activity: "Evaluating and choosing technical solutions and frameworks"
+    expected_technical_output: "Technology Evaluation Matrix"
+    tasks:
+      - id: "language-selection"
+        name: "Programming Language Selection"
+        description: "Select backend/frontend languages (Python, Go, Rust, TypeScript, Java)."
+        procedural_steps: ["Evaluate memory management, ecosystem, performance, and developer availability."]
+        expected_outputs: ["Language Evaluation Matrix"]
+      - id: "framework-selection"
+        name: "Framework Selection"
+        description: "Select application frameworks (Spring Boot, FastAPI, Next.js, Gin)."
+        procedural_steps: ["Assess framework maturity, community support, and performance."]
+        expected_outputs: ["Framework Evaluation Matrix"]
+      - id: "database-selection"
+        name: "Database Selection"
+        description: "Select database engine (PostgreSQL, MongoDB, Cassandra, Spanner)."
+        procedural_steps: ["Analyze CAP theorem tradeoffs, query patterns, and ACID requirements."]
+        expected_outputs: ["Database Selection Report"]
+      - id: "cache-selection"
+        name: "Cache Selection"
+        description: "Select caching technology (Redis, Memcached, Dragonfly)."
+        procedural_steps: ["Evaluate data structures, replication, and eviction policies."]
+        expected_outputs: ["Cache Selection Matrix"]
+      - id: "queue-selection"
+        name: "Message Queue Selection"
+        description: "Select messaging broker (Apache Kafka, RabbitMQ, AWS SQS, NATS)."
+        procedural_steps: ["Evaluate ordering guarantees, throughput, and persistence."]
+        expected_outputs: ["Queue Selection Report"]
+      - id: "cloud-selection"
+        name: "Cloud Provider Selection"
+        description: "Evaluate cloud providers (AWS, GCP, Azure, Multi-cloud)."
+        procedural_steps: ["Compare managed service maturity, global footprint, and pricing."]
+        expected_outputs: ["Cloud Selection Matrix"]
+      - id: "container-selection"
+        name: "Container & Orchestration Selection"
+        description: "Select container runtime and orchestrator (Kubernetes, ECS, Nomad)."
+        procedural_steps: ["Evaluate cluster management complexity and scaling capabilities."]
+        expected_outputs: ["Container Runtime Spec"]
+      - id: "storage-selection"
+        name: "Storage Solution Selection"
+        description: "Select object and block storage solutions (S3, Ceph, EBS)."
+        procedural_steps: ["Evaluate throughput, IOPS, and durability guarantees."]
+        expected_outputs: ["Storage Selection Spec"]
+      - id: "auth-selection"
+        name: "Authentication Solution Selection"
+        description: "Select identity providers (Keycloak, Auth0, Okta, Cognito)."
+        procedural_steps: ["Assess OIDC compliance, custom protocol support, and SLA."]
+        expected_outputs: ["IdP Selection Matrix"]
+      - id: "monitoring-selection"
+        name: "Monitoring & Observability Stack Selection"
+        description: "Select MELT toolchain (Prometheus, Grafana, Datadog, Jaeger)."
+        procedural_steps: ["Evaluate OpenTelemetry support, retention cost, and alerting."]
+        expected_outputs: ["Observability Stack Matrix"]
+      - id: "search-selection"
+        name: "Search Engine Selection"
+        description: "Select search engine (Elasticsearch, OpenSearch, Meilisearch)."
+        procedural_steps: ["Evaluate indexing speed, relevance scoring, and cluster management."]
+        expected_outputs: ["Search Engine Matrix"]
+      - id: "sdk-selection"
+        name: "SDK & Library Selection"
+        description: "Select third-party SDKs and client libraries."
+        procedural_steps: ["Audit licensing, security vulnerabilities, and maintenance."]
+        expected_outputs: ["SDK Audit Matrix"]
+      - id: "ai-model-selection"
+        name: "AI Model Selection"
+        description: "Select LLM / SLM models (Claude 3.5, GPT-4o, Llama 3, DeepSeek)."
+        procedural_steps: ["Benchmark context length, reasoning accuracy, latency, and token cost."]
+        expected_outputs: ["LLM Benchmark & Selection Matrix"]
+
+  - id: "06_tradeoff_analysis"
+    name: "06. Trade-off Analysis Tasks"
+    core_activity: "ATAM methodology quality attribute tradeoff evaluation"
+    expected_technical_output: "ATAM Sensitivity & Tradeoff Report"
+    tasks:
+      - id: "architecture-comparison"
+        name: "Architecture Comparison"
+        description: "Side-by-side comparison of candidate architecture options."
+        procedural_steps: ["Formulate evaluation criteria.", "Score candidate architectures."]
+        expected_outputs: ["Architecture Comparison Matrix"]
+      - id: "technology-comparison"
+        name: "Technology Comparison"
+        description: "Benchmark and compare technology products."
+        procedural_steps: ["Run empirical performance benchmarks.", "Evaluate total cost of ownership."]
+        expected_outputs: ["Tech Benchmark Matrix"]
+      - id: "decision-matrix"
+        name: "Weighted Decision Matrix"
+        description: "Create objective decision matrix with weighted parameters."
+        procedural_steps: ["Assign parameter weights.", "Calculate weighted scores for options."]
+        expected_outputs: ["Pugh Weighted Decision Matrix"]
+      - id: "pros-cons-analysis"
+        name: "Pros & Cons Analysis"
+        description: "Detail qualitative pros and cons for architectural choices."
+        procedural_steps: ["List advantages and risks for each choice."]
+        expected_outputs: ["Pros & Cons Breakdown"]
+      - id: "risk-analysis"
+        name: "Architectural Risk Analysis"
+        description: "Analyze technical and project risks."
+        procedural_steps: ["Identify single points of failure.", "Define risk mitigation strategies."]
+        expected_outputs: ["Risk Mitigation Report"]
+      - id: "complexity-analysis"
+        name: "Cognitive & Operational Complexity Analysis"
+        description: "Evaluate maintenance complexity burden."
+        procedural_steps: ["Calculate cognitive load and operational complexity index."]
+        expected_outputs: ["Complexity Rating Spec"]
+      - id: "cost-analysis"
+        name: "Financial Cost Analysis"
+        description: "Perform cost-benefit and TCO analysis."
+        procedural_steps: ["Project infrastructure, licensing, and operational costs over 3 years."]
+        expected_outputs: ["TCO Cost Model"]
+      - id: "maintainability-analysis"
+        name: "Maintainability Analysis"
+        description: "Assess long-term code and system maintainability."
+        procedural_steps: ["Evaluate modularity, coupling, and automated test coverage feasibility."]
+        expected_outputs: ["ISO 25010 Maintainability Spec"]
+      - id: "scalability-analysis"
+        name: "Scalability Bottleneck Analysis"
+        description: "Identify scalability limits under 10x traffic increase."
+        procedural_steps: ["Simulate system bottlenecks at database, network, and application tiers."]
+        expected_outputs: ["Scalability Limits Report"]
+
+  - id: "07_system_modeling"
+    name: "07. System Modeling Tasks"
+    core_activity: "Visual modeling across C4, UML, BPMN, and ERD standards"
+    expected_technical_output: "C4 Context/Container/Component Diagrams"
+    tasks:
+      - id: "context-diagram"
+        name: "C4 Context Diagram Modeling"
+        description: "Create C4 Level 1 System Context Diagram."
+        compatible_domain_clusters: ["03_application_architecture", "10_documentation_architecture"]
+        procedural_steps:
+          - "Step 1 - Boundary: Draw the system boundary box as a single entity (the software system being built)."
+          - "Step 2 - Users: Add user personas (primary and secondary) outside the boundary with relationship arrows."
+          - "Step 3 - External Systems: Add all external systems (payment gateways, email SaaS, identity providers) the system integrates with."
+          - "Step 4 - Relationships: Draw directional arrows with labels describing data/protocol exchanged."
+          - "Step 5 - Notation: Use Mermaid C4Context or PlantUML C4 notation for tooling compatibility."
+          - "Step 6 - Review: Validate diagram with stakeholders that all users and external systems are captured."
+        expected_outputs: ["C4 Context Diagram (Mermaid/PlantUML)", "System Boundary Specification"]
+      - id: "container-diagram"
+        name: "C4 Container Diagram Modeling"
+        description: "Create C4 Level 2 Container Diagram."
+        procedural_steps: ["Decompose system into deployable containers (Web App, Mobile, API, DB)."]
+        expected_outputs: ["C4 Container Diagram (Mermaid/PlantUML)"]
+      - id: "component-diagram"
+        name: "C4 Component Diagram Modeling"
+        description: "Create C4 Level 3 Component Diagram."
+        procedural_steps: ["Decompose container into structural application components."]
+        expected_outputs: ["C4 Component Diagram (Mermaid/PlantUML)"]
+      - id: "code-diagram"
+        name: "C4 Code Diagram Modeling"
+        description: "Create C4 Level 4 Class/Code Diagram for critical packages."
+        procedural_steps: ["Model design patterns and class interfaces."]
+        expected_outputs: ["C4 Code Diagram (Mermaid/PlantUML)"]
+      - id: "deployment-diagram"
+        name: "Deployment Diagram Modeling"
+        description: "Model physical and cloud deployment topology."
+        procedural_steps: ["Map containers to nodes, Kubernetes pods, and cloud regions."]
+        expected_outputs: ["UML Deployment Diagram"]
+      - id: "sequence-diagram"
+        name: "Sequence Diagram Modeling"
+        description: "Model inter-service interaction sequences."
+        procedural_steps: ["Map synchronous and asynchronous message exchanges over timeline."]
+        expected_outputs: ["UML Sequence Diagram"]
+      - id: "erd-diagram"
+        name: "ERD Modeling"
+        description: "Model entity relationship database schemas."
+        compatible_domain_clusters: ["05_data_architecture", "02_domain_architecture"]
+        procedural_steps:
+          - "Step 1 - Entity Discovery: List all domain entities that require persistence."
+          - "Step 2 - Attribute Definition: Define column names, data types (VARCHAR, UUID, TIMESTAMP, BIGINT), and nullability."
+          - "Step 3 - PK/FK Constraints: Assign primary keys, foreign keys, and unique constraints."
+          - "Step 4 - Cardinality: Define relationship cardinalities (1:1, 1:N, M:N) for each entity pair."
+          - "Step 5 - Junction Tables: Create junction tables for M:N relationships with composite PK."
+          - "Step 6 - Indexing Hints: Annotate high-query-frequency columns for index candidates."
+          - "Step 7 - Mermaid Output: Render using Mermaid erDiagram syntax for documentation-as-code."
+        expected_outputs: ["ERD Diagram (Mermaid/PlantUML)", "Entity Attribute Spec", "Index Candidate List"]
+      - id: "state-diagram"
+        name: "State Diagram Modeling"
+        description: "Model system lifecycle states."
+        procedural_steps: ["Map state transitions, events, and guard conditions."]
+        expected_outputs: ["UML State Diagram"]
+      - id: "activity-diagram"
+        name: "Activity Diagram Modeling"
+        description: "Model procedural control flows."
+        procedural_steps: ["Map parallel branches, decision points, and join bars."]
+        expected_outputs: ["UML Activity Diagram"]
+      - id: "class-diagram"
+        name: "Class Diagram Modeling"
+        description: "Model object-oriented class hierarchies."
+        procedural_steps: ["Map class attributes, methods, inheritance, and interfaces."]
+        expected_outputs: ["UML Class Diagram"]
+      - id: "bpmn-diagram"
+        name: "BPMN Modeling"
+        description: "Model business workflows in BPMN standard."
+        procedural_steps: ["Map swimlanes, tasks, and gateway logic."]
+        expected_outputs: ["BPMN 2.0 Spec"]
+      - id: "network-diagram"
+        name: "Network Topology Modeling"
+        description: "Model cloud VPC networks and security subnets."
+        procedural_steps: ["Map VPCs, subnets, route tables, and gateways."]
+        expected_outputs: ["Network Architecture Diagram"]
+
+  - id: "08_api_design"
+    name: "08. API Design Tasks"
+    core_activity: "API contract definitions and interface design"
+    expected_technical_output: "OpenAPI / AsyncAPI Specifications"
+    tasks:
+      - id: "rest-api-design"
+        name: "RESTful API Design"
+        description: "Design RESTful HTTP endpoints and OpenAPI specs."
+        compatible_domain_clusters: ["03_application_architecture", "07_security_architecture"]
+        procedural_steps:
+          - "Step 1 - Resource Modeling: Identify REST resources as domain nouns (plural, kebab-case)."
+          - "Step 2 - HTTP Verbs: Map CRUD operations to HTTP verbs (GET=read, POST=create, PUT=replace, PATCH=partial update, DELETE=remove)."
+          - "Step 3 - URL Structure: Design hierarchical resource URLs (e.g. /orders/{orderId}/items)."
+          - "Step 4 - Request/Response: Define JSON request bodies and response schemas with field names and types."
+          - "Step 5 - HTTP Status Codes: Map 200/201/204 success codes and 400/401/403/404/409/422/500 error codes with RFC 7807 Problem Details body."
+          - "Step 6 - Authentication: Bind each endpoint to an accepted authentication decision; treat Bearer JWT and API keys as candidates, never implicit defaults."
+          - "Step 7 - OpenAPI: Generate OpenAPI 3.1 YAML spec from endpoint definitions."
+          - "Step 8 - Versioning: Select URL, header, media-type, or no explicit versioning from compatibility evidence and an accepted decision; do not force /v1 by default."
+        expected_outputs: ["OpenAPI 3.1 Specification", "API Endpoint Catalog", "Error Code Registry"]
+      - id: "graphql-api-design"
+        name: "GraphQL Schema Design"
+        description: "Design GraphQL schema types, queries, and mutations."
+        procedural_steps: ["Define GraphQL SDL, query types, mutation types, and resolvers."]
+        expected_outputs: ["GraphQL Schema Definition"]
+      - id: "grpc-api-design"
+        name: "gRPC & Protobuf Design"
+        description: "Design high-performance gRPC proto interfaces."
+        procedural_steps: ["Define Protobuf messages, RPC service definitions, and field tags."]
+        expected_outputs: ["Protocol Buffer Spec (.proto)"]
+      - id: "asyncapi-design"
+        name: "AsyncAPI Message Design"
+        description: "Design event-driven asynchronous messaging contracts."
+        compatible_domain_clusters: ["02_domain_architecture", "03_application_architecture", "05_data_architecture"]
+        procedural_steps:
+          - "Step 1 - Channel Identification: List all Kafka topics, SQS queues, or NATS subjects that carry domain events."
+          - "Step 2 - Operation Type: Classify each channel as PUBLISH (producer) or SUBSCRIBE (consumer)."
+          - "Step 3 - Message Schema: Define message payload schema with JSON Schema or Avro schema reference."
+          - "Step 4 - Headers: Define standard headers (correlationId, traceId, schemaVersion, timestamp)."
+          - "Step 5 - Bindings: Add Kafka-specific bindings (partition key, consumer group, offset reset policy)."
+          - "Step 6 - AsyncAPI 3.0 Spec: Generate asyncapi.yml with all channels, operations, and components."
+        expected_outputs: ["AsyncAPI 3.0 Specification", "Event Message Schema Registry"]
+      - id: "webhook-design"
+        name: "Webhook Architecture Design"
+        description: "Design outbound webhook subscription and delivery mechanism."
+        procedural_steps: ["Define payload signature validation, retry policies, and dead letter queues."]
+        expected_outputs: ["Webhook Architecture Spec"]
+      - id: "pagination-design"
+        name: "API Pagination & Filtering Strategy"
+        description: "Design cursor-based and offset-based API pagination."
+        procedural_steps: ["Standardize pagination query parameters and response metadata."]
+        expected_outputs: ["Pagination Standard Spec"]
+      - id: "api-filtering-design"
+        name: "API Filtering & Sorting Strategy"
+        description: "Design URL filtering syntax (RSQL, JSON:API filters)."
+        procedural_steps: ["Define filter query parameters and sorting syntax."]
+        expected_outputs: ["API Filtering Spec"]
+      - id: "api-versioning-design"
+        name: "API Versioning Strategy"
+        description: "Establish API lifecycle versioning policies (URI, Header, Media Type)."
+        procedural_steps: ["Choose versioning scheme and deprecation timeline rules."]
+        expected_outputs: ["API Versioning Policy"]
+      - id: "api-auth-design"
+        name: "API Auth Middleware Design"
+        description: "Design API token validation and scope authorization."
+        procedural_steps: ["Define JWT validation middleware and OAuth2 scopes."]
+        expected_outputs: ["API Security Middleware Spec"]
+      - id: "idempotency-design"
+        name: "API Idempotency Design"
+        description: "Design safe payment and write operation idempotency keys."
+        procedural_steps: ["Define Idempotency-Key header handling and Redis lock duration."]
+        expected_outputs: ["Idempotency Spec"]
+      - id: "error-handling-design"
+        name: "API Error Handling Design"
+        description: "Standardize RFC 7807 Problem Details error responses."
+        procedural_steps: ["Map exception codes to standard RFC 7807 JSON error responses."]
+        expected_outputs: ["RFC 7807 Error Spec"]
+
+  - id: "09_data_design"
+    name: "09. Data Design Tasks"
+    core_activity: "Database schema design, partitioning, and replication strategies"
+    expected_technical_output: "ERD, Database Schema, Partitioning Plan"
+    tasks:
+      - id: "schema-design"
+        name: "Database Schema Design"
+        description: "Design relational or NoSQL database schemas."
+        compatible_domain_clusters: ["05_data_architecture", "02_domain_architecture"]
+        procedural_steps:
+          - "Step 1 - Entity List: Enumerate all Aggregate Roots and entities that need a persistence schema."
+          - "Step 2 - Column Design: Define column names in snake_case, types (UUID, VARCHAR, BIGINT, JSONB, TIMESTAMPTZ), and default values."
+          - "Step 3 - Constraints: Add NOT NULL, UNIQUE, CHECK, and FK constraints to enforce data integrity."
+          - "Step 4 - PK Strategy: Choose UUID v7 (time-ordered) or BIGSERIAL for primary keys based on insert rate."
+          - "Step 5 - Audit Columns: Add created_at, updated_at, deleted_at (soft delete), and version (optimistic lock) columns."
+          - "Step 6 - Index Strategy: Create composite indexes for frequent query patterns (WHERE + ORDER BY columns)."
+          - "Step 7 - DDL Generation: Write SQL CREATE TABLE DDL with inline comments."
+          - "Step 8 - Review: Validate schema against DDD Aggregate model for alignment."
+        expected_outputs: ["SQL DDL / NoSQL Schema Spec", "Index Design Document", "Constraint Specification"]
+      - id: "normalization-design"
+        name: "Database Normalization / Denormalization"
+        description: "Apply 3NF normalization or strategic denormalization for read performance."
+        procedural_steps: ["Analyze read vs write throughput and denormalize selectively."]
+        expected_outputs: ["Normalization Rationale Spec"]
+      - id: "partition-design"
+        name: "Table Partitioning Strategy"
+        description: "Design range, hash, or list table partitioning."
+        procedural_steps: ["Select partition key to optimize large query pruning."]
+        expected_outputs: ["Partitioning Plan"]
+      - id: "sharding-design"
+        name: "Database Sharding Strategy"
+        description: "Design horizontal database sharding across clusters."
+        procedural_steps: ["Select shard key and design consistent hashing routing."]
+        expected_outputs: ["Sharding Architecture Spec"]
+      - id: "replication-design"
+        name: "Replication Strategy"
+        description: "Design primary-replica and multi-region DB replication."
+        procedural_steps: ["Choose synchronous vs asynchronous replication mode."]
+        expected_outputs: ["DB Replication Spec"]
+      - id: "backup-design"
+        name: "Backup & Recovery Strategy"
+        description: "Design automated backup snapshots and Point-in-Time Recovery (PITR)."
+        procedural_steps: ["Define backup frequency, retention windows, and PITR WAL archiving."]
+        expected_outputs: ["DB Backup Plan"]
+      - id: "data-migration-design"
+        name: "Schema Migration Strategy"
+        description: "Design zero-downtime database schema migration pipelines (Flyway/Liquibase)."
+        procedural_steps: ["Apply expand-contract pattern for breaking schema changes."]
+        expected_outputs: ["Schema Migration Plan"]
+      - id: "retention-design"
+        name: "Data Retention & Archival Strategy"
+        description: "Design data lifecycle archival and purging."
+        procedural_steps: ["Define TTL policies and cold storage offloading."]
+        expected_outputs: ["Data Retention Policy"]
+      - id: "data-encryption-design"
+        name: "Data Encryption at Rest Strategy"
+        description: "Design column-level and disk-level data encryption."
+        procedural_steps: ["Select AES-256 / Envelope encryption for sensitive fields."]
+        expected_outputs: ["Data Encryption Spec"]
+
+  - id: "10_security_design"
+    name: "10. Security Design Tasks"
+    core_activity: "Threat modeling, IAM policies, zero trust, and encryption"
+    expected_technical_output: "STRIDE Threat Model, IAM Policy Specs"
+    tasks:
+      - id: "oauth-design"
+        name: "OAuth2 Framework Design"
+        description: "Design OAuth2 grant flows (Authorization Code + PKCE, Client Credentials)."
+        procedural_steps: ["Select appropriate OAuth2 grant types for client types."]
+        expected_outputs: ["OAuth2 Architecture Spec"]
+      - id: "oidc-design"
+        name: "OIDC Identity Architecture"
+        description: "Design OpenID Connect user authentication."
+        procedural_steps: ["Define ID token claims and userinfo endpoint specifications."]
+        expected_outputs: ["OIDC Spec"]
+      - id: "jwt-design"
+        name: "JWT Token Architecture"
+        description: "Design JWT payload claims, signing algorithms, and expiration."
+        procedural_steps: ["Configure RS256/ES256 signing, token revocation list (JTI)."]
+        expected_outputs: ["JWT Security Spec"]
+      - id: "rbac-design"
+        name: "Role-Based Access Control (RBAC)"
+        description: "Design roles, permissions, and user assignment matrices."
+        procedural_steps: ["Define granular permission strings and role hierarchies."]
+        expected_outputs: ["RBAC Permission Matrix"]
+      - id: "abac-design"
+        name: "Attribute-Based Access Control (ABAC)"
+        description: "Design dynamic attribute-based evaluation rules."
+        procedural_steps: ["Define subject, resource, action, and environment policy evaluation."]
+        expected_outputs: ["ABAC Policy Specification"]
+      - id: "mtls-design"
+        name: "mTLS Mutual Authentication"
+        description: "Design service-to-service mutual TLS."
+        procedural_steps: ["Configure internal CA, X.509 certificate issuance, and rotation."]
+        expected_outputs: ["mTLS Security Spec"]
+      - id: "threat-modeling-task"
+        name: "STRIDE Threat Modeling"
+        description: "Perform STRIDE threat modeling on system components."
+        compatible_domain_clusters: ["07_security_architecture"]
+        procedural_steps:
+          - "Step 1 - Scope Definition: Define the system being modeled (specific service or entire system boundary)."
+          - "Step 2 - Data Flow Diagram: Draw a DFD with processes, data stores, external entities, and data flows."
+          - "Step 3 - Trust Boundaries: Draw trust boundary lines across all DFD flows that cross privilege levels."
+          - "Step 4 - STRIDE Matrix: For each element (process, data store, external entity, data flow), enumerate threats: Spoofing / Tampering / Repudiation / Information Disclosure / Denial of Service / Elevation of Privilege."
+          - "Step 5 - Risk Score: Assign DREAD or CVSS-based risk score to each identified threat."
+          - "Step 6 - Mitigations: Map each high-risk threat to a security control or architectural countermeasure."
+          - "Step 7 - Residual Risk: Document threats accepted without mitigation with owner and review date."
+        expected_outputs: ["STRIDE Threat Model Report", "DFD Diagram", "Threat-to-Control Mapping Matrix"]
+      - id: "pki-design"
+        name: "Public Key Infrastructure (PKI)"
+        description: "Design enterprise certificate authority hierarchy."
+        procedural_steps: ["Establish root CA, intermediate CAs, and CRL/OCSP revocation check."]
+        expected_outputs: ["PKI Architecture Spec"]
+      - id: "secrets-management-design"
+        name: "Secrets Management Architecture"
+        description: "Design Vault integration and secret injection."
+        procedural_steps: ["Configure dynamic DB credentials and Kubernetes secret sidecars."]
+        expected_outputs: ["Secrets Management Spec"]
+      - id: "audit-logging-design"
+        name: "Security Audit Logging"
+        description: "Design tamper-evident security audit logs."
+        procedural_steps: ["Define audit log schemas, cryptographic hashing, and SIEM forwarding."]
+        expected_outputs: ["Audit Logging Specification"]
+
+  - id: "11_performance_design"
+    name: "11. Performance Design Tasks"
+    core_activity: "Caching, indexing, async processing, and load balancing"
+    expected_technical_output: "Caching Strategy, Asynchronous Architecture"
+    tasks:
+      - id: "caching-design"
+        name: "Caching Strategy Design"
+        description: "Design Cache-Aside, Write-Through, Write-Behind patterns."
+        compatible_domain_clusters: ["05_data_architecture", "08_quality_attribute_architecture"]
+        procedural_steps:
+          - "Step 1 - Identify Hot Paths: Analyze query frequency to find read operations exceeding 100 rps."
+          - "Step 2 - Cache Pattern: Choose Cache-Aside (lazy load), Write-Through (sync on write), or Write-Behind (async write) based on consistency requirements."
+          - "Step 3 - Eviction Policy: Choose TTL (time-based expiry), LRU (least recently used), or LFU (least frequently used)."
+          - "Step 4 - Cache Stampede: Implement probabilistic early expiry or distributed lock to prevent thundering herd."
+          - "Step 5 - Cache Key Design: Define structured cache key format: '{service}:{entity}:{id}:{version}'."
+          - "Step 6 - Invalidation Strategy: Design explicit invalidation triggers on write operations."
+          - "Step 7 - Topology: Size Redis cluster based on cache hit rate target (>90%) and working set RAM."
+        expected_outputs: ["Caching Strategy Spec", "Cache Key Design Document", "Eviction Policy Spec"]
+      - id: "indexing-design"
+        name: "Database Indexing Strategy"
+        description: "Design B-Tree, GIN, GiST, and partial indexes."
+        procedural_steps: ["Analyze query execution plans and add composite indexes."]
+        expected_outputs: ["Database Indexing Spec"]
+      - id: "compression-design"
+        name: "Payload Compression Strategy"
+        description: "Design HTTP Gzip/Brotli and binary serialization (Protobuf/Avro)."
+        procedural_steps: ["Configure compression thresholds for network reduction."]
+        expected_outputs: ["Compression Spec"]
+      - id: "batching-design"
+        name: "Batch Processing Design"
+        description: "Design micro-batching and bulk write operations."
+        procedural_steps: ["Buffer writes in memory before flushing to persistent storage."]
+        expected_outputs: ["Batch Processing Spec"]
+      - id: "concurrency-design"
+        name: "Concurrency Control Strategy"
+        description: "Design optimistic vs pessimistic locking."
+        procedural_steps: ["Select locking scheme based on write contention frequency."]
+        expected_outputs: ["Concurrency Control Spec"]
+      - id: "async-design"
+        name: "Asynchronous Execution Design"
+        description: "Offload long-running operations to background workers."
+        procedural_steps: ["Design worker task queues (Celery, BullMQ, Sidekiq)."]
+        expected_outputs: ["Async Worker Architecture Spec"]
+      - id: "queue-performance-design"
+        name: "Queue Throughput Optimization"
+        description: "Tune message broker batch sizes and consumer concurrency."
+        procedural_steps: ["Optimize message prefetch counts and consumer group scaling."]
+        expected_outputs: ["Queue Performance Spec"]
+      - id: "autoscaling-design"
+        name: "Autoscaling Architecture"
+        description: "Design Horizontal Pod Autoscaler (HPA) and Cloud Auto Scaling."
+        procedural_steps: ["Set scale-up and scale-down thresholds based on CPU/RAM/Queue depth."]
+        expected_outputs: ["Autoscaling Configuration Spec"]
+      - id: "load-balancing-design"
+        name: "Load Balancing Topology"
+        description: "Design L4 (TCP) and L7 (HTTP) load balancing rules."
+        procedural_steps: ["Configure round-robin, least-connections, and session affinity."]
+        expected_outputs: ["Load Balancing Architecture Spec"]
+
+  - id: "12_reliability_design"
+    name: "12. Reliability Design Tasks"
+    core_activity: "Fault recovery, circuit breakers, outbox pattern, and chaos engineering"
+    expected_technical_output: "Resilience Spec (Circuit Breaker, Outbox)"
+    tasks:
+      - id: "retry-design"
+        name: "Retry & Exponential Backoff Strategy"
+        description: "Design smart retry loops with jitter."
+        procedural_steps: ["Configure max retry attempts, base backoff interval, and full jitter calculation."]
+        expected_outputs: ["Retry Strategy Spec"]
+      - id: "circuit-breaker-design"
+        name: "Circuit Breaker Pattern Design"
+        description: "Design Resilience4j / Envoy circuit breakers."
+        procedural_steps: ["Set failure rate threshold, sliding window size, and half-open reset timeout."]
+        expected_outputs: ["Circuit Breaker Spec"]
+      - id: "fallback-design"
+        name: "Fallback Mechanism Design"
+        description: "Design graceful degradation fallbacks."
+        procedural_steps: ["Define fallback data sources or degraded feature modes when downstream fails."]
+        expected_outputs: ["Fallback Strategy Spec"]
+      - id: "bulkhead-design"
+        name: "Bulkhead Isolation Design"
+        description: "Isolate thread pools and resources to prevent cascading failure."
+        procedural_steps: ["Allocate separate thread pools per critical dependency."]
+        expected_outputs: ["Bulkhead Spec"]
+      - id: "timeout-design"
+        name: "Timeout Configuration Strategy"
+        description: "Enforce strict call timeouts across system boundaries."
+        procedural_steps: ["Establish deadline propagation across microservice calls."]
+        expected_outputs: ["Timeout Matrix"]
+      - id: "outbox-design"
+        name: "Transactional Outbox Pattern Design"
+        description: "Ensure atomic DB writes and event publishing."
+        compatible_domain_clusters: ["02_domain_architecture", "03_application_architecture", "05_data_architecture"]
+        procedural_steps:
+          - "Step 1 - Problem Statement: Identify dual-write risk between database commit and event broker publish."
+          - "Step 2 - Outbox Table: Design outbox DB table with columns: id, aggregate_type, aggregate_id, event_type, payload (JSONB), published_at, status."
+          - "Step 3 - Atomic Write: Write domain state change + outbox event row in single DB transaction."
+          - "Step 4 - Relay Process: Implement outbox relay (polling or CDC Debezium WAL reader) to publish events to Kafka."
+          - "Step 5 - Idempotency: Ensure consumer can handle duplicate events via event ID deduplication."
+          - "Step 6 - Monitoring: Alert on growing outbox table rows (indicates relay lag or failure)."
+        expected_outputs: ["Transactional Outbox Spec", "Outbox Table Schema", "Relay Process Design"]
+      - id: "inbox-design"
+        name: "Transactional Inbox Pattern Design"
+        description: "Ensure idempotent event consumption."
+        procedural_steps: ["Design inbox event deduplication table and processing lock."]
+        expected_outputs: ["Transactional Inbox Spec"]
+      - id: "dlq-design"
+        name: "Dead Letter Queue (DLQ) Strategy"
+        description: "Design poison pill message handling."
+        procedural_steps: ["Configure max delivery attempts before routing messages to DLQ."]
+        expected_outputs: ["DLQ Management Spec"]
+      - id: "chaos-engineering-task"
+        name: "Chaos Engineering Strategy"
+        description: "Design chaos experiments (Chaos Mesh, Gremlin)."
+        procedural_steps: ["Formulate steady-state hypothesis, inject network latency and pod kills."]
+        expected_outputs: ["Chaos Experiment Plan"]
+
+  - id: "13_infra_design"
+    name: "13. Infrastructure Design Tasks"
+    core_activity: "Infrastructure manifests, Kubernetes charts, and Terraform modules"
+    expected_technical_output: "Terraform Manifests, Helm Charts"
+    tasks:
+      - id: "docker-design"
+        name: "Docker Container Spec"
+        description: "Architect multi-stage production Dockerfiles."
+        procedural_steps: ["Optimize container layer caching and non-root execution."]
+        expected_outputs: ["Production Dockerfile Spec"]
+      - id: "k8s-design"
+        name: "Kubernetes Manifest Design"
+        description: "Design Kubernetes Deployments, Services, ConfigMaps, Secrets."
+        procedural_steps: ["Specify resource requests/limits and liveness/readiness probes."]
+        expected_outputs: ["Kubernetes YAML Specs"]
+      - id: "terraform-design"
+        name: "Terraform Module Architecture"
+        description: "Design modular Terraform / OpenTofu infrastructure code."
+        procedural_steps: ["Define module inputs, outputs, state locking, and provider configs."]
+        expected_outputs: ["Terraform Module Manifests"]
+      - id: "helm-design"
+        name: "Helm Chart Design"
+        description: "Package applications into configurable Helm charts."
+        procedural_steps: ["Design values.yaml schema and Kubernetes template manifests."]
+        expected_outputs: ["Helm Chart Package Spec"]
+      - id: "argocd-design"
+        name: "ArgoCD Application Spec"
+        description: "Design ArgoCD Application and App-of-Apps manifests."
+        procedural_steps: ["Configure sync policies, automated pruning, and revision targets."]
+        expected_outputs: ["ArgoCD Spec"]
+      - id: "ingress-design"
+        name: "Ingress Controller Configuration"
+        description: "Design NGINX / Traefik / ALB ingress rules."
+        procedural_steps: ["Configure TLS termination, URL rewriting, and CORS rules."]
+        expected_outputs: ["Ingress Controller Spec"]
+      - id: "service-mesh-design"
+        name: "Service Mesh MeshConfig"
+        description: "Design Istio VirtualServices and DestinationRules."
+        procedural_steps: ["Configure mTLS STRICT mode, traffic splitting, and circuit breaking."]
+        expected_outputs: ["Service Mesh Configuration"]
+      - id: "infra-autoscaling-design"
+        name: "Cluster Autoscaling (Karpenter/CAS)"
+        description: "Design Kubernetes cluster node autoscaling."
+        procedural_steps: ["Configure Karpenter NodePools and EC2 instance types selection."]
+        expected_outputs: ["Cluster Autoscaler Spec"]
+
+  - id: "14_observability_design"
+    name: "14. Observability Design Tasks"
+    core_activity: "MELT pillars: Metrics, Logs, Traces, Alerts, dashboards"
+    expected_technical_output: "Metric Dashboards, SLO/SLA Definitions"
+    tasks:
+      - id: "logging-design"
+        name: "Structured Logging Design"
+        description: "Design JSON structured logging and trace context correlation."
+        procedural_steps: ["Standardize JSON fields (trace_id, span_id, timestamp, severity, message)."]
+        expected_outputs: ["Structured Logging Spec"]
+      - id: "metrics-design"
+        name: "Prometheus Metrics Strategy"
+        description: "Design RED (Rate, Errors, Duration) and USE (Utilization, Saturation, Errors) metrics."
+        procedural_steps: ["Define custom Prometheus counter, gauge, and histogram metrics."]
+        expected_outputs: ["Prometheus Metrics Spec"]
+      - id: "traces-design"
+        name: "Distributed Tracing Architecture"
+        description: "Design OpenTelemetry distributed trace context propagation."
+        compatible_domain_clusters: ["08_quality_attribute_architecture"]
+        procedural_steps:
+          - "Step 1 - Instrumentation: Add OTel SDK to all services (auto-instrumentation for HTTP, DB, messaging)."
+          - "Step 2 - Context Propagation: Enable W3C TraceContext headers across all HTTP and gRPC calls."
+          - "Step 3 - Span Design: Define meaningful span names ({service}.{operation}) and add custom attributes (userId, orderId, etc.)."
+          - "Step 4 - Sampling: Configure head-based sampling (e.g. 10% baseline) with tail-based sampling for error traces (100%)."
+          - "Step 5 - Collector: Deploy OTel Collector as daemonset; configure OTLP exporter to Jaeger/Tempo."
+          - "Step 6 - Correlation: Inject traceId into structured logs and link traces in Grafana dashboards."
+          - "Step 7 - SLO Alerting: Create trace-based SLO alerts for p99 latency breaches."
+        expected_outputs: ["Distributed Tracing Spec", "OTel Instrumentation Guide", "Sampling Strategy Doc"]
+      - id: "dashboard-design"
+        name: "Grafana Dashboard Architecture"
+        description: "Design executive and engineer Grafana dashboards."
+        procedural_steps: ["Layout golden signals: latency, error rates, traffic, saturation."]
+        expected_outputs: ["Grafana Dashboard JSON Spec"]
+      - id: "alerting-design"
+        name: "Alerting Strategy Design"
+        description: "Design PagerDuty / Opsgenie alert escalation policies."
+        procedural_steps: ["Define P1/P2/P3 alert severity levels and alert suppression rules."]
+        expected_outputs: ["Alerting Policy Spec"]
+      - id: "health-check-design"
+        name: "Health Check Architecture"
+        description: "Design liveness, readiness, and startup probes."
+        procedural_steps: ["Implement deep health check endpoints verifying database & cache connectivity."]
+        expected_outputs: ["Health Check Spec"]
+      - id: "sli-slo-design"
+        name: "SLI / SLO Definition"
+        description: "Define Service Level Indicators and Service Level Objectives."
+        compatible_domain_clusters: ["08_quality_attribute_architecture", "09_delivery_architecture"]
+        procedural_steps:
+          - "Step 1 - Identify SLIs: Choose measurable indicators from Four Golden Signals (latency, traffic, errors, saturation)."
+          - "Step 2 - Set SLO Targets: Define numeric targets with rationale (99.9% availability = 8.7h downtime/year)."
+          - "Step 3 - Error Budget: Calculate monthly error budget = (1 - SLO) * hours * 60 minutes."
+          - "Step 4 - Burn Rate Alerts: Define fast burn (>14x) and slow burn (>1x) alerting thresholds."
+          - "Step 5 - Measurement Window: Define rolling 30-day window for SLO compliance tracking."
+          - "Step 6 - Stakeholder Agreement: Review targets with Product Owner and CTO; record in SLA contract."
+        expected_outputs: ["SLO / SLA Contract Spec", "Error Budget Report Template", "Burn Rate Alert Rules"]
+      - id: "sla-design"
+        name: "SLA Customer Contract Design"
+        description: "Formulate customer Service Level Agreements and financial penalties."
+        procedural_steps: ["Define uptime commitment percentages and breach compensation terms."]
+        expected_outputs: ["Customer SLA Document"]
+
+  - id: "15_deployment_design"
+    name: "15. Deployment Design Tasks"
+    core_activity: "Release strategies (Canary, Blue-Green) and CI/CD pipelines"
+    expected_technical_output: "CI/CD Pipeline Spec, Canary Strategy"
+    tasks:
+      - id: "rolling-deployment-design"
+        name: "Rolling Update Strategy"
+        description: "Design Kubernetes rolling update parameters."
+        procedural_steps: ["Configure maxSurge and maxUnavailable settings."]
+        expected_outputs: ["Rolling Deployment Spec"]
+      - id: "blue-green-design"
+        name: "Blue-Green Deployment Strategy"
+        description: "Design zero-downtime Blue-Green environment switching."
+        procedural_steps: ["Configure router traffic flip between Blue and Green deployments."]
+        expected_outputs: ["Blue-Green Architecture Spec"]
+      - id: "canary-design"
+        name: "Canary Release Strategy"
+        description: "Design automated Argo Rollouts canary deployment."
+        compatible_domain_clusters: ["06_infrastructure_architecture", "09_delivery_architecture"]
+        procedural_steps:
+          - "Step 1 - Traffic Split: Define progressive traffic weights (5% -> 20% -> 50% -> 100%) with step intervals."
+          - "Step 2 - Analysis Template: Define Argo Rollouts AnalysisTemplate with success metrics (error rate < 1%, p99 < 500ms)."
+          - "Step 3 - Automated Rollback: Configure automated rollback trigger when analysis fails at any step."
+          - "Step 4 - Smoke Tests: Run automated smoke test suite against canary before traffic increase."
+          - "Step 5 - Observation Window: Allow sufficient time at each step for meaningful metric collection (min 5 minutes)."
+          - "Step 6 - Database Compatibility: Verify new version is backward compatible with current DB schema before canary start."
+          - "Step 7 - Communication: Define stakeholder notification plan for canary promotion and rollback events."
+        expected_outputs: ["Canary Deployment Spec", "Argo Rollouts YAML", "Rollback Trigger Conditions Doc"]
+      - id: "shadow-deployment-design"
+        name: "Shadow / Dark Deployment Strategy"
+        description: "Replicate live traffic to test new release in shadow mode."
+        procedural_steps: ["Mirror incoming HTTP requests using Envoy/Nginx without returning shadow response to user."]
+        expected_outputs: ["Shadow Deployment Spec"]
+      - id: "rollback-design"
+        name: "Automated Rollback Strategy"
+        description: "Design instant rollback triggers upon metric breach."
+        procedural_steps: ["Configure automated rollback triggered by high HTTP 5xx error rate."]
+        expected_outputs: ["Automated Rollback Spec"]
+      - id: "feature-flag-design"
+        name: "Feature Flag Management"
+        description: "Design LaunchDarkly / Unleash feature flag system."
+        procedural_steps: ["Configure targeted rollout rules and kill switches."]
+        expected_outputs: ["Feature Flag Architecture Spec"]
+
+  - id: "16_testing_strategy"
+    name: "16. Testing Strategy Tasks"
+    core_activity: "Testing pyramid planning, contract testing, and quality gates"
+    expected_technical_output: "Test Strategy Plan, Chaos Test Suites"
+    tasks:
+      - id: "unit-testing-strategy"
+        name: "Unit Testing Strategy"
+        description: "Define unit testing standards and code coverage thresholds."
+        procedural_steps: ["Set minimum 80% line coverage and mocking standards."]
+        expected_outputs: ["Unit Test Standard Spec"]
+      - id: "integration-testing-strategy"
+        name: "Integration Testing Strategy"
+        description: "Design component and containerized DB integration tests."
+        procedural_steps: ["Configure Testcontainers for real database and queue test executions."]
+        expected_outputs: ["Integration Test Spec"]
+      - id: "contract-testing-strategy"
+        name: "Consumer-Driven Contract Testing"
+        description: "Design Pact contract testing between microservices."
+        compatible_domain_clusters: ["03_application_architecture", "09_delivery_architecture"]
+        procedural_steps:
+          - "Step 1 - Consumer First: Consumer team defines expected interactions (request + expected response) in Pact test."
+          - "Step 2 - Pact Broker: Set up Pact Broker (or PactFlow) to share contract files between teams."
+          - "Step 3 - Provider Verification: Provider runs Pact verification against published consumer contract in CI."
+          - "Step 4 - Can-I-Deploy: Use pact-broker can-i-deploy before every production deployment to verify compatibility."
+          - "Step 5 - Schema Evolution: Use consumer contract tests as automated guard against breaking API changes."
+          - "Step 6 - Reporting: Publish contract test results to Pact Broker with build metadata for traceability."
+        expected_outputs: ["Contract Test Plan", "Pact Broker Setup Guide", "Can-I-Deploy Pipeline Integration"]
+      - id: "e2e-testing-strategy"
+        name: "End-to-End (E2E) Testing Strategy"
+        description: "Design automated E2E user flow tests (Playwright, Cypress)."
+        procedural_steps: ["Select critical user paths for synthetic test automation."]
+        expected_outputs: ["E2E Test Plan"]
+      - id: "load-testing-strategy"
+        name: "Load & Performance Testing"
+        description: "Design k6 / Locust load testing scenarios."
+        compatible_domain_clusters: ["08_quality_attribute_architecture", "09_delivery_architecture"]
+        procedural_steps:
+          - "Step 1 - Baseline: Establish p50/p99 latency and throughput baseline from production metrics."
+          - "Step 2 - Scenarios: Define test scenarios: Ramp-up (gradual), Spike (sudden burst), Soak (sustained hours)."
+          - "Step 3 - Target RPS: Set test target RPS = 3x peak production RPS as load goal."
+          - "Step 4 - k6 Script: Write k6 scenarios with HTTP virtual users, think time, and stages config."
+          - "Step 5 - SLO Thresholds: Define pass/fail criteria using k6 thresholds (p99 < 500ms, error_rate < 0.01)."
+          - "Step 6 - Environment: Run tests in staging environment with production-equivalent data volume."
+          - "Step 7 - Analysis: Document bottleneck findings (CPU saturation, DB connection pool exhaustion, GC pressure)."
+        expected_outputs: ["Load Test Scenario Spec", "k6 Test Script", "Bottleneck Analysis Report"]
+      - id: "stress-testing-strategy"
+        name: "Stress & Endurance Testing"
+        description: "Test system breaking points and memory leaks over time."
+        procedural_steps: ["Push traffic beyond capacity until system fails; check recovery."]
+        expected_outputs: ["Stress Test Spec"]
+      - id: "security-testing-strategy"
+        name: "Security Testing Strategy"
+        description: "Integrate SAST, DAST, and dependency scanning into CI."
+        procedural_steps: ["Configure SonarQube, Trivy, and OWASP ZAP automated gates."]
+        expected_outputs: ["DevSecOps Test Strategy"]
+      - id: "chaos-testing-strategy"
+        name: "Chaos Testing Execution Plan"
+        description: "Plan game days and automated fault injection."
+        procedural_steps: ["Inject network partitions and observe system recovery."]
+        expected_outputs: ["Chaos Game Day Plan"]
+      - id: "mutation-testing-strategy"
+        name: "Mutation Testing Strategy"
+        description: "Assess test suite quality using code mutation."
+        procedural_steps: ["Mutate code branches to verify unit test assertion strength."]
+        expected_outputs: ["Mutation Testing Spec"]
+
+  - id: "17_documentation"
+    name: "17. Documentation Tasks"
+    core_activity: "Architecture decision records, specifications, runbooks, and RFCs"
+    expected_technical_output: "ADRs, RFCs, Architecture Specs"
+    tasks:
+      - id: "adr-authoring"
+        name: "Architecture Decision Record (ADR) Authoring"
+        description: "Author formal ADR for significant architectural decisions."
+        procedural_steps: ["Fill Title, Status, Context, Decision, Consequences using Nygard/MADR template."]
+        expected_outputs: ["ADR Markdown Document"]
+      - id: "rfc-authoring"
+        name: "Request for Comments (RFC) Authoring"
+        description: "Author technical proposal for peer feedback."
+        procedural_steps: ["Outline proposal summary, motivation, detailed design, and alternatives."]
+        expected_outputs: ["Technical RFC Document"]
+      - id: "arch-spec-authoring"
+        name: "Architecture Specification Authoring"
+        description: "Write full System Architecture Specification document."
+        procedural_steps: ["Structure arc42 compliant software architecture description."]
+        expected_outputs: ["Full Architecture Spec Document"]
+      - id: "readme-authoring"
+        name: "Repository README Authoring"
+        description: "Write developer onboarding README."
+        procedural_steps: ["Document setup instructions, architecture summary, and commands."]
+        expected_outputs: ["README.md Document"]
+      - id: "runbook-authoring"
+        name: "Operational Runbook Authoring"
+        description: "Write step-by-step incident response runbooks."
+        procedural_steps: ["Document alert triggers, diagnostic commands, and remediation steps."]
+        expected_outputs: ["Operational Runbook Document"]
+      - id: "playbook-authoring"
+        name: "Disaster Recovery Playbook Authoring"
+        description: "Write step-by-step DR failover manual."
+        procedural_steps: ["Document database failover commands and DNS record switching."]
+        expected_outputs: ["DR Playbook Document"]
+      - id: "decision-log-authoring"
+        name: "Architecture Decision Log Maintenance"
+        description: "Maintain searchable index of all project ADRs."
+        procedural_steps: ["Update index table of ADR statuses (Proposed, Accepted, Deprecated)."]
+        expected_outputs: ["ADR Index Log"]
+      - id: "migration-guide-authoring"
+        name: "System Migration Guide Authoring"
+        description: "Write step-by-step developer migration guide."
+        procedural_steps: ["Document breaking API changes and code upgrade steps."]
+        expected_outputs: ["Migration Guide Document"]
+
+  - id: "18_governance"
+    name: "18. Governance Tasks"
+    core_activity: "Architecture reviews, smell detection, and compliance enforcement"
+    expected_technical_output: "Architecture Review Report, Compliance Rules"
+    tasks:
+      - id: "arch-review-task"
+        name: "Architecture Review Execution"
+        description: "Conduct formal architecture review against ISO 42010 standards."
+        procedural_steps: ["Inspect design against NFRs, security policies, and patterns."]
+        expected_outputs: ["Architecture Review Report"]
+      - id: "checklist-validation"
+        name: "Quality Gate Checklist Validation"
+        description: "Audit design against readiness checklist."
+        procedural_steps: ["Verify mandatory criteria (logging, security, tests) pass gate."]
+        expected_outputs: ["Quality Gate Pass/Fail Audit"]
+      - id: "quality-gate-enforcement"
+        name: "Quality Gate Rule Definition"
+        description: "Define mandatory CI build break rules."
+        procedural_steps: ["Set thresholds for security vulnerabilities, test coverage, and linting."]
+        expected_outputs: ["Quality Gate Rule Config"]
+      - id: "best-practice-audit"
+        name: "Best Practice Audit"
+        description: "Audit system against cloud well-architected framework."
+        procedural_steps: ["Evaluate 6 pillars of AWS Well-Architected / Cloud framework."]
+        expected_outputs: ["Well-Architected Audit Scorecard"]
+      - id: "arch-smell-detection"
+        name: "Architecture Smell Detection"
+        description: "Detect architectural anti-patterns (God Component, Circular Dependency)."
+        procedural_steps: ["Scan dependency graphs for cycles and bloated responsibilities."]
+        expected_outputs: ["Architecture Smell Report"]
+      - id: "compliance-review"
+        name: "Regulatory Compliance Review"
+        description: "Audit compliance with GDPR, HIPAA, PCI-DSS standards."
+        procedural_steps: ["Verify data encryption, PII handling, and access log retention."]
+        expected_outputs: ["Regulatory Compliance Audit Report"]
+      - id: "policy-definition"
+        name: "Architecture Policy Definition"
+        description: "Formalize enterprise architecture policies."
+        procedural_steps: ["Write binding engineering rules (e.g. 'No direct DB calls from Frontend')."]
+        expected_outputs: ["Enterprise Architecture Policy"]
+      - id: "standards-enforcement"
+        name: "Coding & Design Standards Enforcement"
+        description: "Enforce naming conventions and code style rules."
+        procedural_steps: ["Configure linter and static analyzer rulesets."]
+        expected_outputs: ["Standards Enforcement Manifest"]
+
+      - id: "change-impact-analysis"
+        name: "Change Request Impact Analysis"
+        description: "Record a change to a stable id as a change request whose impact graph is computed, not written."
+        procedural_steps:
+          - "Open a change request only for a concrete delta in behaviour, contract or structure; a question the specs already answer is a clarification, and vague discomfort is an exploration."
+          - "List every stable id whose meaning changes; a change request that touches no id is invalid, and numbering is append-only."
+          - "Derive the touched-ids, impact-graph and verification sections with the change-impact command; they are recomputed from the plan and the module relations, never edited by hand."
+          - "Write the semantic change, the decision (who approved it, when, and why) and the migration for each impacted module; a rejected request is kept with its reason."
+          - "Never edit a specification from the change request: the approved request is what the owning skill applies."
+        expected_outputs: ["CR-{NNN}-{slug}.md"]
+  - id: "19_cost_operations"
+    name: "19. Cost & Operations Tasks"
+    core_activity: "Capacity planning, FinOps cost estimation, and ROI analysis"
+    expected_technical_output: "TCO/ROI Analysis, Capacity Model"
+    tasks:
+      - id: "capacity-planning-task"
+        name: "Capacity Planning Modeling"
+        description: "Calculate required CPU, RAM, and disk storage sizing."
+        procedural_steps: ["Multiply load profiles by resource consumption per request."]
+        expected_outputs: ["Infrastructure Capacity Model"]
+      - id: "cost-estimation-task"
+        name: "Cloud Infrastructure Cost Estimation"
+        description: "Estimate monthly cloud infrastructure bill."
+        procedural_steps: ["Calculate compute, storage, data transfer, and managed service costs."]
+        expected_outputs: ["Monthly Cloud Cost Estimate"]
+      - id: "finops-optimization"
+        name: "FinOps Cost Optimization Plan"
+        description: "Identify reserved instance savings and spot instance opportunities."
+        procedural_steps: ["Analyze underutilized instances and recommend rightsizing."]
+        expected_outputs: ["FinOps Optimization Action Plan"]
+      - id: "roi-analysis"
+        name: "Return on Investment (ROI) Calculation"
+        description: "Calculate expected ROI for engineering refactoring projects."
+        procedural_steps: ["Compare refactoring cost against operational savings over 24 months."]
+        expected_outputs: ["Architectural ROI Financial Report"]
+      - id: "tco-analysis"
+        name: "Total Cost of Ownership (TCO) Analysis"
+        description: "Calculate total 3-year cost of building vs buying a solution."
+        procedural_steps: ["Sum development labor, hosting, maintenance, and licensing costs."]
+        expected_outputs: ["3-Year TCO Analysis Report"]
+      - id: "resource-planning-task"
+        name: "Engineering Resource Planning"
+        description: "Estimate headcount and team skill requirements."
+        procedural_steps: ["Determine engineering roles needed to build and operate target system."]
+        expected_outputs: ["Engineering Resource Plan"]
+      - id: "license-review"
+        name: "Software License & Legal Audit"
+        description: "Audit open-source software license compatibility (GPL, MIT, Apache)."
+        procedural_steps: ["Scan dependencies for restrictive copyleft licenses."]
+        expected_outputs: ["License Audit Report"]
+
+  - id: "20_ai_tasks"
+    name: "20. AI Specific Tasks"
+    core_activity: "Agent workflow, prompt engineering, RAG, and LLM guardrails"
+    expected_technical_output: "Agent Prompt System, RAG Architecture"
+    tasks:
+      - id: "prompt-engineering"
+        name: "System Prompt Architecture"
+        description: "Design structured system prompts with guardrails and role instructions."
+        procedural_steps: ["Formulate role persona, constraints, output format XML/JSON schemas."]
+        expected_outputs: ["System Prompt Template Spec"]
+      - id: "rag-design-task"
+        name: "RAG Architecture Design"
+        description: "Design end-to-end RAG chunking, embedding, and re-ranking pipeline."
+        procedural_steps: ["Select chunk size, overlap, embedding model, and vector DB."]
+        expected_outputs: ["RAG Architecture Specification"]
+      - id: "agent-workflow-design"
+        name: "Multi-Agent Workflow Design"
+        description: "Design agent DAG interaction and subagent delegation workflows."
+        procedural_steps: ["Define agent state, handoff triggers, and conversation loops."]
+        expected_outputs: ["Multi-Agent Workflow Blueprint"]
+      - id: "memory-strategy-design"
+        name: "AI Agent Memory Strategy"
+        description: "Design short-term windowing and long-term vector memory."
+        procedural_steps: ["Configure sliding context window, token pruning, and episodic search."]
+        expected_outputs: ["Agent Memory Architecture Spec"]
+      - id: "tool-routing-design"
+        name: "Tool Routing & Schema Design"
+        description: "Design tool call schemas and router classification."
+        procedural_steps: ["Define Pydantic tool schemas, function descriptions, and dispatcher."]
+        expected_outputs: ["Tool Routing Specification"]
+      - id: "ai-evaluation-design"
+        name: "AI Output Evaluation Design"
+        description: "Establish automated evaluation suites (Ragas, DeepEval)."
+        procedural_steps: ["Measure context precision, recall, faithfulness, and answer relevance."]
+        expected_outputs: ["AI Eval Metric Suite Spec"]
+      - id: "guardrail-design"
+        name: "LLM Guardrail & Safety Design"
+        description: "Design input/output guardrails (NeMo Guardrails, Llama Guard)."
+        procedural_steps: ["Set up prompt injection detection, PII masking, and topic policy filters."]
+        expected_outputs: ["LLM Guardrail Spec"]
+      - id: "hallucination-detection"
+        name: "Hallucination Detection Strategy"
+        description: "Design self-consistency and cross-reference verification."
+        procedural_steps: ["Implement self-reflection loop and source citation verification."]
+        expected_outputs: ["Hallucination Mitigation Spec"]
+      - id: "model-routing-design"
+        name: "Dynamic Model Routing Strategy"
+        description: "Route queries based on complexity to small vs large LLMs."
+        procedural_steps: ["Classify query complexity and route to cost-efficient model."]
+        expected_outputs: ["Model Routing Architecture Spec"]
+      - id: "context-optimization-design"
+        name: "Context Window Optimization"
+        description: "Optimize token budget allocation for large prompts."
+        procedural_steps: ["Compress long prompt contexts using summarization and selective pruning."]
+        expected_outputs: ["Context Optimization Spec"]
+  - id: "21_delivery_planning"
+    name: "21. Delivery Planning Tasks"
+    core_activity: "Phasing an architecture into incremental delivery, and decomposing a phase into sized work"
+    expected_technical_output: "Delivery Roadmap, Work Breakdown Structure"
+    tasks:
+      - id: "delivery-roadmap-planning"
+        name: "Delivery Roadmap Phasing"
+        description: "Divide the architecture into incremental delivery phases with quantitative exit criteria."
+        procedural_steps:
+          - "Phase 1 (MVP): core aggregate, main write path, database structure — the smallest slice that unblocks basic usage."
+          - "Phase 2 (Beta/Integration): non-core API routes, messaging integrations, third-party payments, observability dashboards."
+          - "Phase 3 (Scale & Ops): high availability, geo-replication, performance work, disaster recovery, automated backups."
+          - "Give every phase a quantitative exit criterion — a number a run can check, not a sentiment."
+        expected_outputs: ["Roadmap"]
+      - id: "work-breakdown-decomposition"
+        name: "Work Breakdown Structure Decomposition"
+        description: "Decompose each delivery phase into sized, dependency-ordered units of work."
+        procedural_steps:
+          - "Size every unit so one developer finishes it in 1 to 5 days; anything larger is split before it is listed."
+          - "State dependencies by id in both directions, so a blocked unit and its blocker each name the other."
+          - "Estimate complexity in Fibonacci story points (1, 2, 3, 5, 8)."
+          - "Give every unit an explicit definition of done: formatting, tests implemented, documentation updated."
+          - "Write one TKT-{NNN}-{slug}.md per unit — points, blockers both ways, definition of done — and list every ticket id in the WBS."
+        expected_outputs: ["WBS", "TKT-{NNN}-{slug}.md"]

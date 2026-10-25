@@ -1,0 +1,61 @@
+schema_version: '2026.07'
+skill: 02-spec-critic
+role: review specifications without editing them
+triggers:
+- a current task selects this skill under its accepted grant
+anti_triggers:
+- required upstream evidence is missing
+- the requested write belongs to another owner
+required_inputs:
+- sdd-workspace.yml
+- current source snapshot
+- accepted skill grant
+- artifact registry
+- source obligations
+optional_inputs:
+- stable_ids
+- skip_or_defer_reasons
+forbidden_inputs:
+- unaccepted proposals as execution authority
+owns: []
+read_only:
+- registered sources and current base candidate
+forbidden_writes:
+- foreign artifacts
+- direct engine state writes
+- human decision records
+required_outputs: []
+stable_ids_consumed:
+- upstream stable IDs when present
+stable_ids_produced:
+- artifact and clause IDs declared by the current registry
+completion_evidence:
+- isolated candidate and current deterministic checks
+- historical regression and independent review
+- separate signed human acceptance
+blocking_conditions:
+- missing evidence or authority
+- unresolved human questions
+- stale input or baseline
+resume_policy:
+  strategy: resume-from-validated-artifact-manifest
+  never_repeat_external_side_effect: true
+context_loading:
+  always_load:
+  - SKILL.md
+  - skill-contract.yml
+  - sdd-workspace.yml
+  - references/output-contract.md
+  load_when:
+    artifact-specific: only referenced template and source paths
+  never_load_as_authority:
+  - unaccepted policy or write grants
+  - foreign artifact ownership
+validators:
+- architect-runtime sdd check <workspace> --change <change-id>
+- architect-runtime sdd regression <workspace> --change <change-id>
+authority: workspace accepted grants and current registry; empty static output lists
+  are not permission to write
+generated_from:
+  path: contracts/foundation-workflows/02-spec-critic.yml
+  sha256: f0da45b29404325df22888b74fc78789a29e707cfadfa3486bc805785cd1b405

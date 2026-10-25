@@ -1,0 +1,136 @@
+schema_version: '2026.07'
+skill: adr-authoring
+role: Author formal ADR for significant architectural decisions.
+phase: phase-agnostic; caller must declare active phase
+triggers:
+- requested work is Architecture Decision Record (ADR) Authoring
+- orchestrator selects task adr-authoring
+anti_triggers:
+- required authority, scope, or ownership evidence is missing
+- requested write escapes output_root or belongs to another owner
+required_inputs:
+- workspace
+- output_root
+- source_paths
+- active_phase
+- scope
+- problem brief or scoped request
+- authoritative source paths
+optional_inputs:
+- stable_ids
+- accepted_decisions
+- technology_constraints
+- skip_or_defer_reasons
+forbidden_inputs:
+- future-phase material as current authority
+- unresolved examples as production defaults
+- sibling output as authority without a stable contract
+owns:
+- <output_root>/architecture/01-global-strategy/05-governance/decisions/adr-markdown-document.md
+read_only:
+- source_paths
+- accepted upstream contracts
+- sibling outputs
+forbidden_writes:
+- paths outside output_root
+- upstream source_paths
+- sibling-owned subtrees
+- secrets or credential files
+required_outputs:
+- path: architecture/01-global-strategy/05-governance/decisions/adr-markdown-document.md
+  page_class: adr
+completion_evidence:
+- all required outputs exist in the owned tree
+- source hashes and stable IDs resolve
+- declared validators exit 0 on final artifacts
+- no unresolved blocking condition remains hidden
+blocking_conditions:
+- missing authoritative source
+- unconfirmed load-bearing assumption
+- ownership collision
+- stale upstream artifact without accepted regeneration route
+resume_policy:
+  strategy: resume-from-validated-artifact-manifest
+  states:
+  - blocked
+  - resumable
+  - revising
+  - validating
+  - complete
+  complete_only_after_postflight: true
+  never_repeat_external_side_effect: true
+context_loading:
+  always_load:
+  - SKILL.md
+  - skill-contract.yml
+  - references/prompt-contract.md
+  load_when:
+    artifact-specific: only cited source paths and relevant references
+  never_load_as_authority:
+  - future phase
+  - uncited sibling prose
+  - historical sample
+engineering_discipline:
+  think_before_action:
+    required:
+    - state load-bearing assumptions
+    - surface materially different interpretations
+    - block unresolved ambiguity
+    forbidden:
+    - silent assumption
+    - hidden confusion
+    - unexplained trade-off selection
+  simplicity_first:
+    rule: produce the minimum sufficient owned artifact and mechanism set
+    forbidden:
+    - unrequested feature
+    - single-use abstraction
+    - speculative configurability
+    - impossible-case handling
+  surgical_scope:
+    rule: every changed artifact must trace to the routed request or cleanup caused
+      by that change
+    forbidden:
+    - adjacent refactor
+    - unrelated formatting
+    - pre-existing dead-code cleanup
+  goal_driven_execution:
+    required:
+    - convert request to observable success criteria
+    - pair each step with a check
+    - loop until fresh verification passes
+    forbidden:
+    - completion by presence
+    - weak make-it-work criterion
+    - unverified summary
+validators:
+- python scripts/check_skill_package.py .
+- python scripts/check_output_docs.py <output_root>
+kind: task
+family_id: 17_documentation
+compatible_domain_clusters: []
+provenance:
+  frontmatter:
+  - produced_by
+  - run
+  - source_digest
+  rule: every artifact carries the skill that wrote it, the run that produced it,
+    and the digest of the evidence it read; a page with no provenance cannot be re-derived
+    or blamed
+procedure:
+- Fill Title, Status, Context, Decision, Consequences using Nygard/MADR template.
+profile:
+  focus: maintainable documentation as code
+  mechanisms:
+  - audience
+  - source authority
+  - document structure
+  - freshness
+  failure_modes:
+  - duplicated truth
+  - unverifiable example
+  - orphan document
+  evidence:
+  - source map
+  - link check
+  - example execution

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "profile_id": "aaf-ste80-v1",
+  "standard_reference": "ASD-STE100 Issue 9",
+  "mapping_review": "UNVERIFIED_REQUIRES_INDEPENDENT_SOURCE_REVIEW",
+  "metric": "eligible sentences passing every declared rule / all eligible sentences; unknowns remain in denominator",
+  "target": 0.8,
+  "approval_authority": false,
+  "certification": "NOT_CERTIFIED",
+  "source_references": [
+    "https://www.asd-ste100.org/"
+  ],
+  "rules": [
+    {
+      "id": "sentence-length",
+      "criterion": "Project bound: at most 25 lexical words; not an independently verified ASD rule mapping",
+      "local": true,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "plain-terms",
+      "criterion": "Prefer the declared project plain-term substitutions",
+      "local": true,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "single-instruction-heuristic",
+      "criterion": "Flag semicolon-separated instructions",
+      "local": true,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "controlled-dictionary",
+      "criterion": "Require source-backed glossary authority for every eligible lexical word",
+      "local": false,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "part-of-speech",
+      "criterion": "Check authorized grammatical use against the supplied glossary",
+      "local": false,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "active-voice",
+      "criterion": "Check identified actor and active instructions where applicable",
+      "local": false,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "term-consistency",
+      "criterion": "Check canonical project terminology across the complete supplied candidate",
+      "local": false,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    },
+    {
+      "id": "ambiguity",
+      "criterion": "Check actors, scope, references, conditions and temporal order; insufficient context is unknown",
+      "local": false,
+      "independent_mapping": "PENDING_HUMAN_SOURCE_REVIEW"
+    }
+  ]
+}

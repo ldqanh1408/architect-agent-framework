@@ -1,0 +1,24 @@
+schema_version: sdd-skill/v2
+skill: 00-requirement-clarifier
+role: author
+capabilities:
+- author
+- configure
+workflow: references/workflow-v2.md
+state_authority: sdd_core.engine
+source_authority: user brief and confirmed stakeholder answers
+owned_scope: workspace grant for requirement/source artifacts and own obligations
+output: immutable candidate with stable clauses, sources, assumptions and open questions
+completion: deterministic result plus regression readiness; human acceptance is separate
+forbidden:
+- self approval
+- foreign artifact writes
+- direct engine state edits
+required_references:
+- references/clarification-method.md
+- references/document-style.md
+- references/output-contract.md
+conditional_references: []
+generated_from:
+  path: contracts/foundation-workflows/00-requirement-clarifier.yml
+  sha256: 6f007d02c6e33b5e756bc9d520465faf5cd4a889adf51ea767796331ff06d293

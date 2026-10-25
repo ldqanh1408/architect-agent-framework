@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdd-agent-core"
+version = "0.2.0"
+description = "Revision-bound specification lifecycle and cross-document regression engine"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6,<7", "markdown-it-py>=3,<5", "jsonschema>=4.20,<5", "httpx>=0.27,<1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "hypothesis>=6.100,<7", "build>=1,<2"]
+
+[project.scripts]
+sdd = "sdd_core.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["sdd_core*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/core"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = ["case(*ids): master-plan acceptance cases", "integration: process or HTTP integration"]

@@ -1,0 +1,17 @@
+Architect Agent Framework
+Copyright (c) 2026 Architect Agent Framework Team
+
+The framework in this repository — the Python package `architect_framework`, the
+vendored SDD agent under `vendor/sdd-agent`, the contracts, scripts, plugin and the
+skill slots under `exported_skills/` — is released under the MIT License (LICENSE).
+
+A skill slot is a skill's contract and workspace template. The content that briefs
+an agent for a slot (a skill's SKILL.md and references/) is not part of this
+repository, except for the four free skills: architect-skill-orchestrator,
+adr-authoring, agent-workflow-design and arch-review-task.
+
+Skill content bought separately is licensed by its seller under its own terms
+(personal licence, no redistribution). Installing it with `skills install` copies it
+into your own folder (~/.architect-framework/exported_skills/); the framework never
+copies it into a workspace, a ledger, a log or a checkpoint, and records only its
+SHA-256 in a page's provenance.

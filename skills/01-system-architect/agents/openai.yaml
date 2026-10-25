@@ -1,0 +1,6 @@
+interface:
+  display_name: "System Architect"
+  short_description: "Design linked specs with explicit mechanisms and ownership"
+  default_prompt: "Use $01-system-architect to design this system and assess its document dependencies."
+policy:
+  allow_implicit_invocation: true

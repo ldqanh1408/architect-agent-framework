@@ -1,0 +1,196 @@
+# Doc-ownership slot table — the home P2 did not have.
+#
+# WHY THIS FILE EXISTS
+#   Rule **P2** assigns "a path matching a
+#   declared slot outside `02-domains/` → the node that slot names", and then flags
+#   the hole: *"The slot table has no home since `WORKSPACE-TEMPLATE.md` was removed
+#   from `docs/`." This is that home.
+#
+# WHY *HERE*
+#   `architect_framework/data/` is where this repo already keeps the reference data
+#   its checkers read — `correspondence_rules.yaml`, `artifact_catalog.yaml`,
+#   `domain_skills.yaml`. The slot table is the same kind of thing: framework-level,
+#   versioned with the package, identical on every machine. The two alternatives
+#   were both worse:
+#     * back in a `docs/*.md` prose table — that is what got deleted, and a table a
+#       script cannot read is a table that drifts;
+#     * inside the workspace's own `sdd-context.yml` — circular. A workspace that
+#       declares its own slots can never produce an `ORPHAN`, which is the one
+#       finding P2 exists to produce.
+#   `check_doc_coverage.py` resolves this file relative to `__file__`, never to the
+#   cwd, and `--slots FILE` exists for the one legitimate
+#   override: pointing the gate at a candidate table without editing this one.
+#
+# PROVENANCE OF THE ROWS
+#   Every `pattern` below is a slot that already exists somewhere executable. The
+#   `from` field says where, so a reader can check the row rather than trust it:
+#     slot-coverage  → the slot vocabulary in `scripts/check_slot_coverage.py`
+#                      (the 293-skill assignment table; same paths, same names)
+#     sdd-produces   → `phases.phase_1.produces[]` in the sdd-agent workspace
+#                      contract (`sdd-context.yml`), which names the system-view and
+#                      cross-cutting pages `check_slot_coverage.py` does not carry
+#
+# WHAT `node` MEANS
+#   `@system` is the L1 system node — resolved at run time from the workspace's own
+#   project name, never hard-coded to a project. A future row may name a concrete
+#   L2 node id instead; the field is there so that is a data edit, not a code edit.
+#
+# PATTERN GRAMMAR (relative to `<workspace>/architecture/`)
+#   `*`  one path segment, no `/`
+#   `**` zero or more segments
+#   Two rows naming *different* nodes for the same path is a `DOUBLE-OWNER`
+#   finding (DC-1), not a silent precedence win — that is the check this table is
+#   here to make possible.
+
+schema_version: '2026.08'
+
+# ---------------------------------------------------------------- P0 structural
+# Owned implicitly by their folder's node; never content, never sliced (P0).
+structural_names:
+  - README.md
+  - index.md
+  - .gitkeep
+
+# ------------------------------------------------------------ P1 / P3 territory
+# `02-domains/` is the only subtree P2 must keep its hands off: inside it, P1
+# (path containment) and P3 (shared) decide, and a P2 row that reached in would
+# be exactly the double-owner this table is checked for.
+domains_root: 02-domains
+
+# P3 — single-writer, cross-container: these two live under `02-domains/` but
+# belong to L1, not to any container (P3).
+shared_prefixes:
+  - 02-domains/00-overview
+  - 02-domains/_shared-contracts
+  - 02-domains/_shared-kernel
+  - 02-domains/_shared-adapters
+
+# Immediate children of `domains_root` that are never containers. `_`-prefixed
+# names are excluded structurally (they are shared surfaces, not modules).
+non_container_names:
+  - 00-overview
+
+# ------------------------------------------------------------------ P2 the slots
+slots:
+  # --- system views (C4 / UML / the source map that licenses them) -------------
+  #
+  # These were eleven per-file rows naming `00-system-views/c1-context.md`
+  # and its flat siblings. The architecture groups the system tier into six viewpoint
+  # folders and moved the pages into them, which left this table as a third
+  # place naming the tree — and the one that decides whether a page is an `ORPHAN`.
+  # One row per view folder: a page added inside a view is owned by the view, which
+  # is what "grouped by viewpoint, not by notation" means when a machine reads it.
+  - pattern: 00-system-views/00-viewpoints/**
+    node: '@system'
+    from: slot-coverage
+  # The white box annotation stays on the page, not on the folder: `whitebox_of`
+  # names the one page that describes the system's insides, and a glob cannot be
+  # that page — the gate looked for it and reported WHITEBOX-MISSING against a
+  # pattern.
+  - pattern: 00-system-views/01-context/c1-context.md
+    node: '@system'
+    from: slot-coverage
+    whitebox_of: '@system'      # levels[].L1.whitebox — the L1 white box page
+  - pattern: 00-system-views/01-context/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 00-system-views/02-functional/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 00-system-views/03-structure/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 00-system-views/04-deployment/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 00-system-views/05-information/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 00-system-views/06-runtime/**
+    node: '@system'
+    from: slot-coverage
+  # Not views: a source map licenses the diagrams, `generated/` is a render cache.
+  - pattern: 00-system-views/visual-source-map.md
+    node: '@system'
+    from: sdd-produces
+  - pattern: 00-system-views/c4-coverage-overview.md
+    node: '@system'
+    from: sdd-produces
+  - pattern: 00-system-views/generated/**
+    node: '@system'
+    from: slot-coverage
+  # Legacy, and kept deliberately. The actor x goal matrix was retired in favour
+  # of one page per use case (`02-functional/use-cases/UC-{NNN}-{slug}.md`), so no
+  # live slot declares this path. The vendored `quickcart` example still carries a
+  # page there, and it is sample data illustrating the pre-V3 layout — deleting
+  # authored example content to satisfy a checker would be the checker rewriting
+  # the evidence. Folding the old tree samples into an acceptance case; this
+  # row is what keeps `ORPHAN` meaning "nobody owns this" until then.
+  - pattern: 00-system-views/use-case.md
+    node: '@system'
+    from: retired-slot
+  - pattern: 00-viewpoints/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 06-runtime/**
+    node: '@system'
+    from: slot-coverage
+
+  # --- global strategy: the arc42/ISO spine, all of it L1 ----------------------
+  - pattern: 01-global-strategy/architecture.md
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/composition-root.md
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/00-context/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/01-requirements/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/02-strategy/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/03-standards/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/04-risks/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: 01-global-strategy/05-governance/**
+    node: '@system'
+    from: slot-coverage
+
+  # --- business architecture (BIZBOK subtree, slot-coverage v3 rows) -----------
+  - pattern: 01-business/**
+    node: '@system'
+    from: slot-coverage
+
+  # --- cross-cutting: mechanisms, security, infra, fitness functions -----------
+  - pattern: 03-cross-cutting/**
+    node: '@system'
+    from: slot-coverage
+
+  # --- delivery: planning, quality, audit, ops, transition --------------------
+  - pattern: 04-delivery/**
+    node: '@system'
+    from: slot-coverage
+
+  # --- kernels and adapters shared across every container ---------------------
+  - pattern: _shared-kernel/**
+    node: '@system'
+    from: slot-coverage
+  - pattern: _shared-adapters/**
+    node: '@system'
+    from: slot-coverage
+
+# ------------------------------------------------- whitebox convention, per node
+# DC-3: every node's white box must exist and be in its own `owns[]`. For an L2
+# container the white box is the module overview the child skill is contracted to
+# write (`workspace-template.yml` marks it `whitebox: true`); the patterns below
+# are tried in order against the container's own subtree.
+container_whitebox_patterns:
+  - 00-overview/{slug}-overview.md
+  - 00-overview/00-overview.md
+  - 00-overview/overview.md

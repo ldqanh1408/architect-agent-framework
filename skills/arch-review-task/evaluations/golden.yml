@@ -1,0 +1,40 @@
+schema_version: '2026.07'
+scenario_id: arch-review-task-golden
+skill: arch-review-task
+package_kind: technical-task
+kind: golden
+tags:
+- artifact
+- postflight
+setup:
+  workspace_isolation: temporary-copy
+  network: none
+  environment_allowlist: []
+  secrets: []
+  writable_roots:
+  - '{workspace}'
+request:
+  prompt: Conduct formal architecture review against ISO 42010 standards. Produce
+    the owned Architecture Review Report under the assigned output root, classify
+    every claim's source, and run postflight.
+  expected_route: arch-review-task
+expect:
+  status: complete
+  agent_exit: 0
+  required_artifacts:
+  - '**/*.md'
+  forbidden_artifacts: []
+  diagnostic_codes: []
+  max_steps: 50
+oracle:
+  argv:
+  - '{python}'
+  - '{catalog}/_shared/scripts/check_output_docs.py'
+  - '{workspace}'
+  expected_exit: 0
+  shell: false
+limits:
+  timeout_seconds: 300
+  max_tool_calls: 50
+  max_cost_usd: null
+evidence_class: contract-only until executed by fixture or live-agent harness

@@ -1,0 +1,20 @@
+{
+  "name": "architect-agent-framework",
+  "interface": {
+    "displayName": "Architect Agent Framework"
+  },
+  "plugins": [
+    {
+      "name": "architect-agent-framework",
+      "source": {
+        "source": "local",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

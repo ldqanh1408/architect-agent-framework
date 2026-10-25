@@ -1,0 +1,117 @@
+[build-system]
+requires = ["setuptools==84.0.0", "PyYAML==6.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "architect-agent-framework"
+version = "2.0.0"
+description = "Revision-bound specification candidates, skill routing, bounded core task scheduling and signed human review."
+readme = "README.md"
+authors = [{ name = "Le Dac Quoc Anh" }]
+license = "MIT"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "packaging>=24",
+]
+
+keywords = ["software-architecture", "iso-42010", "agent-skills", "claude-code", "multi-agent"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Documentation",
+]
+
+[project.urls]
+Homepage = "https://github.com/ldqanh1408/Architect-Agent-Framework"
+Repository = "https://github.com/ldqanh1408/Architect-Agent-Framework"
+Changelog = "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/CHANGELOG.md"
+Issues = "https://github.com/ldqanh1408/Architect-Agent-Framework/issues"
+
+[project.optional-dependencies]
+dev = [
+    "setuptools>=77",
+    "wheel",
+    "pytest>=8,<10",
+    "build>=1,<2",
+    "ruff>=0.14",
+    "twine>=6",
+    "hypothesis>=6.100,<7",
+    "markdown-it-py>=3,<5",
+    "jsonschema>=4.20,<5",
+    "httpx>=0.27,<1",
+    "cryptography>=42",
+]
+# The review console: verifying a passkey
+# signature needs it. Serving the console and the static export do not.
+console = [
+    "cryptography>=42",
+]
+# The console UX tests: a real browser, because
+# the exit criteria measure layout. Then `playwright install chromium`.
+ux = [
+    "playwright==1.56.0",
+]
+# The SDD engine: snapshots, the relation graph, cross-document
+# regression, and the model judge over HTTP.
+sdd = [
+    "markdown-it-py>=3,<5",
+    "jsonschema>=4.20,<5",
+    "httpx>=0.27,<1",
+]
+# Core scheduling uses the standard library. The extra name remains accepted for installers.
+runtime = []
+
+[project.scripts]
+architect-cli = "architect_framework.cli.main:main"
+architect-runtime = "architect_framework.launcher:main"
+architect-migrate = "architect_framework.migration_tool:main"
+sdd = "sdd_core.cli:main"
+
+[tool.setuptools.packages.find]
+# `sdd_core` is the revision-bound specification engine of the vendored SDD component (SV-03). It
+# stays under vendor/sdd-agent/ in the repository and installs as a top-level package.
+where = [".", "vendor/sdd-agent"]
+include = ["architect_framework*", "sdd_core*"]
+# The staged framework root is data, not a package.
+exclude = ["architect_framework._home*"]
+
+# Setuptools packs only `.py` unless told otherwise. The console's compiled
+# scripts and stylesheet, the data catalogues and page templates, and the adapter
+# configs are read at run time; without them the wheel dies on import. The
+# TypeScript sources and tsconfig.json are build inputs and stay out.
+# `_home/` is the framework root a wheel runs from, staged by
+# scripts/stage_package_home.py before the build; a checkout never has one.
+[tool.setuptools.package-data]
+"architect_framework" = ["data/*.yaml", "data/*.yml", "data/shared_assets/assets/*.md",
+                         "_home/**/*", "_home/.staged.json"]
+"architect_framework.adapters" = ["configs/*.yaml"]
+"architect_framework.console" = ["static/*.js", "static/*.css", "static/css_modules/*.css", "static/graph_modules/*.js"]
+
+# Lint blocks on what is a bug, not on taste. E9 syntax errors, F63 and F7 misused
+# comparisons and statements, F82 undefined names: all zero today. Style rules (and a
+# repository-wide reformat of 168 files) are a separate decision.
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "."
+]
+testpaths = [
+    "tests"
+]
+
+

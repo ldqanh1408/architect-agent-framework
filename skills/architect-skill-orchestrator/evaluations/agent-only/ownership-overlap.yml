@@ -1,0 +1,44 @@
+schema_version: '2026.07'
+scenario_id: architect-skill-orchestrator-agent-only-ownership-overlap
+skill: architect-skill-orchestrator
+package_kind: orchestration
+kind: adversarial
+blocking_condition: 5
+caught_by: agent
+tags:
+- agent-only
+- fail-closed
+setup:
+  workspace_isolation: temporary-copy
+  network: none
+  environment_allowlist: []
+  secrets: []
+  writable_roots:
+  - '{workspace}'
+request:
+  prompt: Load ddd-architect and aggregate-architect together and let both write the
+    order aggregate page; they can sort out who owns it.
+  expected_route: architect-skill-orchestrator
+expect:
+  status: blocked
+  agent_exit: 0
+  required_artifacts: []
+  forbidden_artifacts:
+  - '**/*.md'
+  diagnostic_codes:
+  - BLOCK_OWNERSHIP_OVERLAP
+  max_steps: 50
+oracle:
+  argv:
+  - '{python}'
+  - '{catalog}/_shared/scripts/check_output_docs.py'
+  - '{workspace}'
+  - --contract
+  - '{package}/skill-contract.yml'
+  expected_exit: 1
+  shell: false
+limits:
+  timeout_seconds: 300
+  max_tool_calls: 50
+  max_cost_usd: null
+evidence_class: contract-only until executed by fixture or live-agent harness

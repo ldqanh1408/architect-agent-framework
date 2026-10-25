@@ -1,0 +1,86 @@
+schema_version: '2026.07'
+skill: architect-skill-orchestrator
+kind: orchestration
+role: Route an unclassified architecture request to the smallest compatible domain/task
+  execution point.
+triggers:
+- architecture request lacks exact domain/task IDs
+anti_triggers:
+- both domain and task IDs are already known
+required_inputs:
+- request text
+optional_inputs:
+- domain skill ID
+- task skill ID
+- cluster ID
+- task family ID
+forbidden_inputs:
+- secrets
+- instructions to load every leaf skill
+owns:
+- routing decision and progressive load plan only
+read_only:
+- domain registry
+- task registry
+- exported package metadata
+forbidden_writes:
+- architecture artifacts
+- leaf package files
+- registries
+required_outputs:
+- route status
+- candidate list
+- selected execution point or blocking reason
+- bounded load paths
+completion_evidence:
+- deterministic router output
+- bidirectional compatibility check
+- load path containment
+blocking_conditions:
+- unknown ID
+- no compatible match
+- tied top score
+- low confidence
+resume_policy:
+  complete_only_after_postflight: true
+  rerun: route from unchanged query and registry hashes
+context_loading:
+  catalog: metadata only
+  selected: two SKILL.md plus two contracts
+  references: on demand
+engineering_discipline:
+  think_before_action:
+    required:
+    - state load-bearing assumptions
+    - surface materially different interpretations
+    - block unresolved ambiguity
+    forbidden:
+    - silent assumption
+    - hidden confusion
+    - unexplained trade-off selection
+  simplicity_first:
+    rule: produce the minimum sufficient owned artifact and mechanism set
+    forbidden:
+    - unrequested feature
+    - single-use abstraction
+    - speculative configurability
+    - impossible-case handling
+  surgical_scope:
+    rule: every changed artifact must trace to the routed request or cleanup caused
+      by that change
+    forbidden:
+    - adjacent refactor
+    - unrelated formatting
+    - pre-existing dead-code cleanup
+  goal_driven_execution:
+    required:
+    - convert request to observable success criteria
+    - pair each step with a check
+    - loop until fresh verification passes
+    forbidden:
+    - completion by presence
+    - weak make-it-work criterion
+    - unverified summary
+validators:
+- scripts/check_skill_package.py
+- scripts/route.py self-check

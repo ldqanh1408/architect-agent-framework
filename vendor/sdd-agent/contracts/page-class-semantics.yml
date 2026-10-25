@@ -1,0 +1,31 @@
+schema_version: '1.0'
+page_classes:
+  mapping:
+    path_markers: [02-data-mappings]
+    required_signal_groups:
+      - [source, provider, input, native]
+      - [target, canonical, maps, translate]
+      - [unknown, loss, unrecognised, malformed]
+      - [test, assert, verify, matrix]
+    diagnostic: DEPTH-ROLE-MAPPING
+  invariant:
+    path_markers: [03-invariants]
+    required_signal_groups:
+      - [predicate, '==', must, requires]
+      - [aggregate, owner, enforces]
+      - [when, trigger, command]
+      - [violation, returns, rejects, error]
+      - [test, assert, oracle, boundary]
+    diagnostic: DEPTH-ROLE-INVARIANT
+  state_machine:
+    path_markers: [04-state-machine]
+    required_signal_groups:
+      - [state, pending, accepted, rejected, closed]
+      - ['->', transition, moves]
+      - [guard, when, if]
+      - [illegal, invalid, conflict, rejects]
+      - [terminal, non-terminal, final]
+    diagnostic: DEPTH-ROLE-STATE
+  self_audit:
+    filenames: [self-audit.md]
+    diagnostic: DEPTH-ROLE-AUDIT

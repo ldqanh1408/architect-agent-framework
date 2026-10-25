@@ -1,0 +1,40 @@
+{
+  "name": "architect-agent-framework",
+  "displayName": "Architect Agent Framework",
+  "version": "2.0.0",
+  "description": "Architecture routing and specification workflows: four free catalog skills, three SDD foundation skills, an optional runtime, revision-bound document regression and signed human acceptance.",
+  "icon": "./assets/icon.svg",
+  "author": {
+    "name": "Le Dac Quoc Anh",
+    "url": "https://github.com/ldqanh1408"
+  },
+  "homepage": "https://github.com/ldqanh1408/Architect-Agent-Framework",
+  "documentationUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/plugins/architect-agent-framework/README.md",
+  "supportUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/issues",
+  "privacyPolicyUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/plugins/architect-agent-framework/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/LICENSE",
+  "repository": "https://github.com/ldqanh1408/Architect-Agent-Framework",
+  "license": "MIT",
+  "keywords": [
+    "architecture",
+    "software-architecture",
+    "iso-42010",
+    "togaf",
+    "domain-driven-design",
+    "c4-model",
+    "arc42",
+    "atam",
+    "agent-skills",
+    "multi-agent",
+    "human-in-the-loop"
+  ],
+  "userConfig": {
+    "judge_api_key": {
+      "type": "string",
+      "title": "Independent judge API key",
+      "description": "Optional API key for an explicitly configured SDD judge. Model, endpoint and budget are declared in the workspace.",
+      "required": false,
+      "sensitive": true
+    }
+  }
+}

@@ -1,0 +1,2200 @@
+clusters:
+- id: 01_business_architecture
+  name: 01. Business Architecture
+  iso_aspect: Strategy, Motivation, Structure
+  description: Aligning software architecture with enterprise goals, capabilities,
+    and value streams.
+  skills:
+  - id: business-architect
+    name: Business Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Strategy
+    - Motivation
+    concerns:
+    - Business Alignment
+    - ROI
+    - Market Agility
+    viewpoints:
+    - Business Viewpoint
+    recommended_patterns:
+    - value-stream-mapping
+    - data-mesh
+    recommended_artifacts:
+    - nygard-adr
+    - atam-report-spec
+    - architecture-spec
+    description: Defines overall business architecture strategy and aligns IT with
+      business goals.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: product-architect
+    name: Product Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Motivation
+    concerns:
+    - Feature Roadmap
+    - User Experience
+    - Product Capabilities
+    viewpoints:
+    - Product Viewpoint
+    description: Architects product features, value propositions, and capability maps.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: enterprise-architect
+    name: Enterprise Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Strategy
+    - Structure
+    concerns:
+    - Enterprise Alignment
+    - Standards Governance
+    - Tech Stack Lifecycle
+    viewpoints:
+    - Enterprise Viewpoint
+    description: Manages enterprise-wide architecture landscapes, standards, and roadmaps.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: solution-architect
+    name: Solution Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - System Feasibility
+    - End-to-End Delivery
+    - NFR Compliance
+    viewpoints:
+    - Solution Viewpoint
+    description: Designs holistic solutions bridging business requirements and technical
+      specs.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: reference-architecture
+    name: Reference Architecture Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Reusability
+    - Standardization
+    - Best Practices
+    viewpoints:
+    - Reference Viewpoint
+    description: Establishes standardized blueprint architectures across projects.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: industry-architecture
+    name: Industry Architecture Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Constraint
+    concerns:
+    - Domain Compliance
+    - Industry Benchmarks
+    - Regulatory Standards
+    viewpoints:
+    - Industry Viewpoint
+    description: Applies industry-specific frameworks (FinTech, HealthTech, E-commerce).
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: business-capability-architect
+    name: Business Capability Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Capability Mapping
+    - Modular Enterprise
+    viewpoints:
+    - Business Capability Viewpoint
+    description: Maps enterprise business capabilities and identifies functional gaps.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: business-process-architect
+    name: Business Process Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Behavior
+    concerns:
+    - Process Efficiency
+    - BPMN Modeling
+    - Workflow Automation
+    viewpoints:
+    - Business Process Viewpoint
+    description: Models and optimizes end-to-end business workflows and process flows.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: value-stream-architect
+    name: Value Stream Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Behavior
+    - Strategy
+    concerns:
+    - Time to Market
+    - Value Delivery
+    - Bottleneck Elimination
+    viewpoints:
+    - Value Stream Viewpoint
+    description: Analyzes value streams to accelerate software delivery and ROI.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+  - id: organization-architect
+    name: Organization Architect
+    cluster_id: 01_business_architecture
+    cluster_name: 01. Business Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Conway Law Alignment
+    - Team Topology
+    - Organizational Structure
+    viewpoints:
+    - Organization Viewpoint
+    description: Aligns organizational team structures with software architecture
+      boundaries.
+    compatible_task_families:
+    - 01_discovery
+    - 04_arch_style_selection
+- id: 02_domain_architecture
+  name: 02. Domain Architecture
+  iso_aspect: Structure, Behavior, Information
+  description: Domain-Driven Design (DDD) strategic and tactical domain modeling.
+  skills:
+  - id: domain-capability-architect
+    name: Domain Capability Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Domain Scope
+    - Core vs Supporting Subdomains
+    viewpoints:
+    - Domain Viewpoint
+    recommended_patterns:
+    - anti-corruption-layer
+    - published-language
+    - aggregate-root
+    recommended_artifacts:
+    - c4-context-spec
+    - nygard-adr
+    - architecture-spec
+    description: Decomposes business problems into core, supporting, and generic subdomains.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: domain-model-architect
+    name: Domain Model Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Information
+    - Structure
+    concerns:
+    - Ubiquitous Language
+    - Domain Models
+    - Business Entities
+    viewpoints:
+    - Domain Viewpoint
+    description: Establishes Ubiquitous Language and models domain entities and logic.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: ddd-architect
+    name: DDD Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - DDD Alignment
+    - Strategic DDD
+    - Tactical DDD
+    viewpoints:
+    - DDD Viewpoint
+    description: Oversees Domain-Driven Design execution across strategic and tactical
+      tiers.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: bounded-context-architect
+    name: Bounded Context Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Context Boundaries
+    - Autonomy
+    - Domain Isolation
+    viewpoints:
+    - Bounded Context Viewpoint
+    recommended_patterns:
+    - anti-corruption-layer
+    - published-language
+    - cqrs
+    - event-sourcing
+    recommended_artifacts:
+    - c4-context-spec
+    - c4-container-spec
+    - nygard-adr
+    description: Delineates bounded context boundaries and context ownership.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: aggregate-architect
+    name: Aggregate Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Structure
+    - Information
+    concerns:
+    - Transaction Boundaries
+    - Aggregate Roots
+    - Invariants
+    viewpoints:
+    - Tactical DDD Viewpoint
+    recommended_patterns:
+    - aggregate-root
+    - event-sourcing
+    - saga
+    - transactional-outbox
+    recommended_artifacts:
+    - erd-spec
+    - data-schema-spec
+    - nygard-adr
+    description: Designs DDD aggregates, aggregate roots, and transactional invariants.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: domain-event-architect
+    name: Domain Event Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Behavior
+    - Information
+    concerns:
+    - Event-Driven Domain
+    - State Changes
+    - Event Schemas
+    viewpoints:
+    - Event Viewpoint
+    recommended_patterns:
+    - domain-events
+    - event-sourcing
+    - transactional-outbox
+    - saga
+    recommended_artifacts:
+    - asyncapi-spec
+    - sequence-diagram-spec
+    - nygard-adr
+    description: Models domain events representing state transitions in the business.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: workflow-architect
+    name: Workflow Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Behavior
+    concerns:
+    - Long-Running Tasks
+    - Saga Orchestration
+    - State Machines
+    viewpoints:
+    - Workflow Viewpoint
+    description: Designs domain workflows, state machines, and saga orchestrations.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: rule-engine-architect
+    name: Rule Engine Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Behavior
+    concerns:
+    - Business Rules Decoupling
+    - Policy Engine
+    - Rule Evaluation
+    viewpoints:
+    - Rule Engine Viewpoint
+    description: Architects business rule engines and dynamic decision tables.
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+  - id: context-mapping-architect
+    name: Context Mapping Architect
+    cluster_id: 02_domain_architecture
+    cluster_name: 02. Domain Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - Upstream/Downstream Relations
+    - ACL
+    - Shared Kernel
+    viewpoints:
+    - Context Map Viewpoint
+    description: Maps relationships between Bounded Contexts (ACL, Customer-Supplier,
+      Shared Kernel).
+    compatible_task_families:
+    - 03_domain_modeling
+    - 08_api_design
+- id: 03_application_architecture
+  name: 03. Application Architecture
+  iso_aspect: Structure, Behavior, Connectivity
+  description: Designing software structure, microservices, APIs, and application
+    topologies.
+  skills:
+  - id: frontend-architect
+    name: Frontend Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - Micro-frontends
+    - UI Performance
+    - State Management
+    viewpoints:
+    - Frontend Viewpoint
+    description: Designs client-side application architecture and component systems.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: backend-service-architect
+    name: Backend Service Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - Service Boundaries
+    - Concurrency
+    - Throughput
+    viewpoints:
+    - Backend Viewpoint
+    description: Designs backend service layers, business logic, and API controllers.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: mobile-architect
+    name: Mobile Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Environment
+    concerns:
+    - Offline First
+    - Battery Efficiency
+    - Mobile Security
+    viewpoints:
+    - Mobile Viewpoint
+    description: Architects native and cross-platform mobile application frameworks.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: desktop-architect
+    name: Desktop Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Environment
+    concerns:
+    - OS Integration
+    - Native Performance
+    - Local Storage
+    viewpoints:
+    - Desktop Viewpoint
+    description: Designs desktop software solutions (Electron, Tauri, Native).
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: api-architect
+    name: API Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Connectivity
+    concerns:
+    - REST/GraphQL/gRPC
+    - API Contracts
+    - Versioning
+    viewpoints:
+    - API Viewpoint
+    recommended_patterns:
+    - gateway-aggregation
+    - gateway-routing
+    - bff
+    - rate-limiting
+    recommended_artifacts:
+    - openapi-spec
+    - asyncapi-spec
+    - grpc-proto-spec
+    - graphql-schema-spec
+    - webhook-spec
+    description: Establishes API contracts, interface definitions, and governance.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: library-sdk-architect
+    name: Library SDK Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Connectivity
+    concerns:
+    - Developer Experience
+    - Backward Compatibility
+    - API Surface
+    viewpoints:
+    - SDK Viewpoint
+    description: Architects reusable client libraries, SDKs, and developer tools.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: microservice-architect
+    name: Microservice Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Behavior
+    concerns:
+    - Independent Deployability
+    - Service Granularity
+    - Resilience
+    viewpoints:
+    - Microservices Viewpoint
+    recommended_patterns:
+    - circuit-breaker
+    - saga
+    - transactional-outbox
+    - bff
+    - sidecar
+    - gateway-routing
+    recommended_artifacts:
+    - c4-container-spec
+    - c4-component-spec
+    - openapi-spec
+    - nygard-adr
+    - deployment-strategy-spec
+    description: Designs microservices architecture and inter-service communications.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: modular-monolith-architect
+    name: Modular Monolith Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Strict Encapsulation
+    - Clean Boundaries
+    - Low Operational Overhead
+    viewpoints:
+    - Modular Monolith Viewpoint
+    description: Architects highly structured, modular single-deployment monoliths.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: monolith-architect
+    name: Monolith Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    concerns:
+    - Simplicity
+    - Unified Codebase
+    - Rapid Prototyping
+    viewpoints:
+    - Monolith Viewpoint
+    description: Designs unified monolithic software structures optimized for speed.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: event-driven-architect
+    name: Event-Driven Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Behavior
+    - Connectivity
+    concerns:
+    - Event Sourcing
+    - Async Communication
+    - Publish-Subscribe
+    viewpoints:
+    - EDA Viewpoint
+    recommended_patterns:
+    - event-driven-architecture
+    - event-sourcing
+    - cqrs
+    - saga
+    - dead-letter-queue
+    - transactional-outbox
+    recommended_artifacts:
+    - asyncapi-spec
+    - c4-container-spec
+    - sequence-diagram-spec
+    - nygard-adr
+    description: Architects asynchronous, event-driven reactive systems.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: plugin-extension-architect
+    name: Plugin Extension Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Connectivity
+    concerns:
+    - Extensibility
+    - Plugin Isolation
+    - Dynamic Loading
+    viewpoints:
+    - Plugin Viewpoint
+    description: Designs plugin architectures and dynamic extension points.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: integration-adapter-architect
+    name: Integration Adapter Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Connectivity
+    concerns:
+    - Legacy Integration
+    - Protocol Transformation
+    - Enterprise Bus
+    viewpoints:
+    - Integration Viewpoint
+    description: Architects integration adapters, enterprise integration patterns
+      (EIP).
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: workflow-orchestration-architect
+    name: Workflow Orchestration Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Behavior
+    concerns:
+    - Orchestration vs Choreography
+    - State Persistence
+    - Distributed Transactions
+    viewpoints:
+    - Orchestration Viewpoint
+    description: Designs central orchestrators (Temporal, Camunda, Airflow) for app
+      workflows.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: gateway-architect
+    name: Gateway Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Connectivity
+    - Security
+    concerns:
+    - API Gateway
+    - Rate Limiting
+    - Routing & Auth
+    viewpoints:
+    - Gateway Viewpoint
+    description: Designs API Gateways, ingress routing, rate limiting, and SSL termination.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: bff-architect
+    name: BFF Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Structure
+    - Connectivity
+    concerns:
+    - Backend for Frontend
+    - Client Customization
+    - Data Aggregation
+    viewpoints:
+    - BFF Viewpoint
+    description: Architects Backend-For-Frontend layers tailored for specific clients.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+  - id: edge-architect
+    name: Edge Architect
+    cluster_id: 03_application_architecture
+    cluster_name: 03. Application Architecture
+    iso_aspects:
+    - Computation
+    - Environment
+    concerns:
+    - Edge Computing
+    - CDN Workers
+    - Low Latency
+    viewpoints:
+    - Edge Viewpoint
+    description: Architects edge computing nodes and serverless edge functions.
+    compatible_task_families:
+    - 04_arch_style_selection
+    - 08_api_design
+    - 11_performance_design
+- id: 04_ai_architecture
+  name: 04. AI Architecture
+  iso_aspect: Intelligence, Behavior, Computation
+  description: Designing LLM, Multi-Agent Systems, RAG, and Vector Retrieval pipelines.
+  skills:
+  - id: ai-system-architect
+    name: AI System Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Intelligence
+    - Computation
+    concerns:
+    - LLM Integration
+    - AI System Lifecycle
+    - Latency vs Quality
+    viewpoints:
+    - AI System Viewpoint
+    recommended_patterns:
+    - rag-pipeline
+    - agentic-loop
+    - multi-agent-orchestration
+    - guardrail-pattern
+    - hierarchical-memory
+    recommended_artifacts:
+    - architecture-spec
+    - nygard-adr
+    - atam-report-spec
+    description: Designs holistic AI-native application architectures.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: agent-architect
+    name: Agent Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Intelligence
+    - Behavior
+    concerns:
+    - Multi-Agent Systems
+    - Agent Autonomy
+    - Subagent Delegation
+    viewpoints:
+    - Agent Viewpoint
+    recommended_patterns:
+    - agentic-loop
+    - multi-agent-orchestration
+    - tool-use-pattern
+    - guardrail-pattern
+    - hierarchical-memory
+    recommended_artifacts:
+    - sequence-diagram-spec
+    - nygard-adr
+    - architecture-spec
+    description: Architects single and multi-agent autonomous decision loops.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: rag-architect
+    name: RAG Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Intelligence
+    - Information
+    concerns:
+    - Retrieval Quality
+    - Embedding Models
+    - Chunking Strategy
+    viewpoints:
+    - RAG Viewpoint
+    recommended_patterns:
+    - rag-pipeline
+    - hierarchical-memory
+    recommended_artifacts:
+    - data-pipeline-spec
+    - architecture-spec
+    - nygard-adr
+    description: Designs Retrieval-Augmented Generation indexing and retrieval pipelines.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: mcp-architect
+    name: MCP Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Connectivity
+    - Intelligence
+    concerns:
+    - Model Context Protocol
+    - Tool Server Protocol
+    - Resource Sharing
+    viewpoints:
+    - MCP Viewpoint
+    description: Architects Model Context Protocol (MCP) servers, tools, and resources.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: prompt-architect
+    name: Prompt Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Intelligence
+    concerns:
+    - System Prompt Design
+    - Context Window Optimization
+    - Guardrails
+    viewpoints:
+    - Prompt Viewpoint
+    description: Architects system prompts, few-shot structures, and dynamic prompt
+      templates.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: memory-architect
+    name: Memory Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Intelligence
+    - Information
+    concerns:
+    - Short-term Memory
+    - Long-term Vector Memory
+    - Conversation Truncation
+    viewpoints:
+    - Memory Viewpoint
+    description: Architects stateful conversation memory and episodic retrieval systems.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: tool-calling-architect
+    name: Tool Calling Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Behavior
+    - Connectivity
+    concerns:
+    - Function Calling
+    - Schema Validation
+    - Tool Dispatch Safety
+    viewpoints:
+    - Tool Viewpoint
+    description: Designs tool schemas, argument parsers, and tool execution engines.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: model-serving-architect
+    name: Model Serving Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Computation
+    - Resource
+    concerns:
+    - GPU Inference
+    - vLLM / Ollama
+    - Model Quantization
+    viewpoints:
+    - Model Serving Viewpoint
+    description: Architects self-hosted LLM model serving, batching, and GPU acceleration.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: evaluation-architect
+    name: Evaluation Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Quality
+    - Intelligence
+    concerns:
+    - Evals Framework
+    - Hallucination Benchmark
+    - LLM-as-a-Judge
+    viewpoints:
+    - Evaluation Viewpoint
+    description: Designs continuous evaluation and benchmark suits for LLM outputs.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+  - id: vector-search-architect
+    name: Vector Search Architect
+    cluster_id: 04_ai_architecture
+    cluster_name: 04. AI Architecture
+    iso_aspects:
+    - Information
+    - Computation
+    concerns:
+    - HNSW Indexing
+    - Cosine Similarity
+    - Hybrid Search (BM25 + Dense)
+    viewpoints:
+    - Vector Search Viewpoint
+    description: Architects high-performance vector search and hybrid indexing engines.
+    compatible_task_families:
+    - 20_ai_tasks
+    - 10_security_design
+- id: 05_data_architecture
+  name: 05. Data Architecture
+  iso_aspect: Information, Data, Storage
+  description: Designing data storage, streaming, ETL pipelines, and data governance.
+  skills:
+  - id: data-platform-architect
+    name: Data Platform Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Information
+    - Structure
+    concerns:
+    - Data Strategy
+    - Platform Scalability
+    - Multi-tenant Storage
+    viewpoints:
+    - Data Platform Viewpoint
+    recommended_patterns:
+    - lambda-architecture
+    - kappa-architecture
+    - data-mesh
+    - lakehouse
+    - change-data-capture
+    recommended_artifacts:
+    - data-pipeline-spec
+    - erd-spec
+    - architecture-spec
+    - nygard-adr
+    description: Designs enterprise data platform ecosystems.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: database-architect
+    name: Database Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Storage
+    - Information
+    concerns:
+    - Relational / NoSQL
+    - Schema Normalization
+    - ACID vs BASE
+    viewpoints:
+    - Database Viewpoint
+    recommended_patterns:
+    - cqrs
+    - read-replica
+    - write-ahead-log
+    - event-sourcing
+    recommended_artifacts:
+    - erd-spec
+    - data-schema-spec
+    - nygard-adr
+    description: Architects relational and NoSQL database schemas, indexing, and storage
+      engine.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: cache-architect
+    name: Cache Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Storage
+    - Quality
+    concerns:
+    - In-memory Cache
+    - Cache Invalidation
+    - Cache Stampede
+    viewpoints:
+    - Cache Viewpoint
+    description: Designs caching topology (Redis, Memcached) and invalidation strategies.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: search-architect
+    name: Search Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Information
+    - Computation
+    concerns:
+    - Full-text Search
+    - Inverted Index
+    - Facet Search
+    viewpoints:
+    - Search Viewpoint
+    description: Architects full-text search systems (Elasticsearch, OpenSearch).
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: vector-database-architect
+    name: Vector Database Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Storage
+    - Information
+    concerns:
+    - Vector DB Topology
+    - Dimensionality
+    - Index Sharding
+    viewpoints:
+    - Vector DB Viewpoint
+    description: Architects dedicated vector databases (Pinecone, Qdrant, Milvus,
+      pgvector).
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: data-pipeline-architect
+    name: Data Pipeline Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Behavior
+    - Information
+    concerns:
+    - Batch Processing
+    - DAG Workflows
+    - Data Quality
+    viewpoints:
+    - Data Pipeline Viewpoint
+    description: Designs batch data pipelines, DAG orchestrations (Airflow, Dagster).
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: streaming-architect
+    name: Streaming Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Behavior
+    - Connectivity
+    concerns:
+    - Real-time Streaming
+    - Kafka/Flink
+    - Windowing & Watermarks
+    viewpoints:
+    - Streaming Viewpoint
+    description: Architects low-latency stream processing systems (Kafka, Flink, Spark
+      Streaming).
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: etl-architect
+    name: ETL Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Behavior
+    - Information
+    concerns:
+    - Extract-Transform-Load
+    - Schema Evolution
+    - Idempotency
+    viewpoints:
+    - ETL Viewpoint
+    description: Designs robust ETL and ELT data transformation pipelines.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: cdc-architect
+    name: CDC Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Behavior
+    - Data
+    concerns:
+    - Change Data Capture
+    - WAL Replication
+    - Debezium
+    viewpoints:
+    - CDC Viewpoint
+    description: Architects Change Data Capture (CDC) systems for real-time DB replication.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: data-lake-architect
+    name: Data Lake Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Storage
+    - Information
+    concerns:
+    - Raw Storage (S3/GCS)
+    - Parquet/ORC
+    - Data Partitioning
+    viewpoints:
+    - Data Lake Viewpoint
+    description: Designs scalable raw data lakes and object storage partitioning.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: data-warehouse-architect
+    name: Data Warehouse Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Information
+    - Structure
+    concerns:
+    - Star / Snowflake Schema
+    - OLAP Querying
+    - BigQuery/Snowflake
+    viewpoints:
+    - Data Warehouse Viewpoint
+    description: Architects enterprise data warehouses and analytical dimensional
+      schemas.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: lakehouse-architect
+    name: Lakehouse Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Storage
+    - Information
+    concerns:
+    - Delta Lake / Iceberg
+    - ACID on Object Storage
+    - Time Travel
+    viewpoints:
+    - Lakehouse Viewpoint
+    description: Architects unified Data Lakehouse tables (Delta Lake, Apache Iceberg).
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: metadata-architect
+    name: Metadata Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Information
+    concerns:
+    - Data Lineage
+    - Cataloging
+    - Data Dictionary
+    viewpoints:
+    - Metadata Viewpoint
+    description: Architects metadata management and data lineage tracking.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: master-data-architect
+    name: Master Data Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Information
+    concerns:
+    - Single Source of Truth
+    - Deduplication
+    - MDM Strategy
+    viewpoints:
+    - MDM Viewpoint
+    description: Architects Master Data Management (MDM) and entity resolution systems.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+  - id: data-governance-architect
+    name: Data Governance Architect
+    cluster_id: 05_data_architecture
+    cluster_name: 05. Data Architecture
+    iso_aspects:
+    - Policy
+    - Security
+    concerns:
+    - GDPR / HIPAA Compliance
+    - Data Masking
+    - Access Control
+    viewpoints:
+    - Governance Viewpoint
+    description: Designs data governance, privacy policies, and compliance guardrails.
+    compatible_task_families:
+    - 09_data_design
+    - 10_security_design
+    - 11_performance_design
+- id: 06_infrastructure_architecture
+  name: 06. Infrastructure Architecture
+  iso_aspect: Environment, Resource, Structure
+  description: Designing cloud infrastructure, Kubernetes, platform engineering, and
+    IaC.
+  skills:
+  - id: infra-platform-architect
+    name: Infra Platform Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Resource
+    concerns:
+    - Hybrid / Multi-cloud
+    - Infra Standard
+    - Resource Limits
+    viewpoints:
+    - Infrastructure Viewpoint
+    recommended_patterns:
+    - infrastructure-as-code
+    - immutable-infrastructure
+    - gitops
+    recommended_artifacts:
+    - terraform-module-spec
+    - kubernetes-manifest-spec
+    - deployment-diagram-spec
+    - nygard-adr
+    description: Designs high-level infrastructure platform strategies.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: cloud-architect
+    name: Cloud Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Resource
+    concerns:
+    - AWS / GCP / Azure
+    - Cloud Well-Architected
+    - Cost Efficiency
+    viewpoints:
+    - Cloud Viewpoint
+    description: Architects public and private cloud environments according to Well-Architected
+      principles.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: network-architect
+    name: Network Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Structure
+    concerns:
+    - VPC / Subnets
+    - BGP / Routing
+    - VPN / DirectConnect
+    viewpoints:
+    - Network Viewpoint
+    description: Architects cloud and physical network topologies, CIDR blocks, and
+      firewalls.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: storage-architect
+    name: Storage Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Resource
+    - Storage
+    concerns:
+    - Block / File / Object Storage
+    - IOPS
+    - Backup Replication
+    viewpoints:
+    - Storage Viewpoint
+    description: Designs high-performance block, file, and object storage systems.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: container-architect
+    name: Container Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Resource
+    concerns:
+    - OCI Standards
+    - Base Image Security
+    - Multi-stage Builds
+    viewpoints:
+    - Container Viewpoint
+    description: Architects containerization standards and OCI image optimizations.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: kubernetes-architect
+    name: Kubernetes Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Resource
+    concerns:
+    - K8s Cluster Design
+    - Control Plane
+    - HPA / VPA
+    - CRDs
+    viewpoints:
+    - Kubernetes Viewpoint
+    recommended_patterns:
+    - immutable-infrastructure
+    - gitops
+    - sidecar
+    - service-mesh
+    recommended_artifacts:
+    - kubernetes-manifest-spec
+    - helm-chart-spec
+    - network-policy-spec
+    - deployment-diagram-spec
+    - nygard-adr
+    description: Architects production Kubernetes cluster topology, networking (CNI),
+      and CRDs.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: serverless-architect
+    name: Serverless Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Computation
+    - Resource
+    concerns:
+    - Cold Starts
+    - FaaS Orchestration
+    - Pay-per-use Cost
+    viewpoints:
+    - Serverless Viewpoint
+    description: Designs serverless computing architectures (Lambda, Cloud Run).
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: service-mesh-architect
+    name: Service Mesh Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Connectivity
+    - Security
+    concerns:
+    - Istio / Linkerd
+    - mTLS Traffic Routing
+    - Sidecar Proxy
+    viewpoints:
+    - Service Mesh Viewpoint
+    recommended_patterns:
+    - service-mesh
+    - sidecar
+    - zero-trust
+    - circuit-breaker
+    recommended_artifacts:
+    - network-policy-spec
+    - deployment-diagram-spec
+    - nygard-adr
+    description: Architects service mesh control plane and data plane proxies.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: platform-engineering-architect
+    name: Platform Engineering Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Process
+    - Resource
+    concerns:
+    - Internal Developer Platform (IDP)
+    - Self-service API
+    - Developer Golden Paths
+    viewpoints:
+    - IDP Viewpoint
+    description: Designs Internal Developer Platforms (IDP) and developer self-service
+      tooling.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: devops-architect
+    name: DevOps Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Process
+    - Environment
+    concerns:
+    - Automation Pipelines
+    - CI/CD Infrastructure
+    - Infrastructure Reliability
+    viewpoints:
+    - DevOps Viewpoint
+    description: Architects DevOps automation tools, CI/CD runners, and environment
+      promotion.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: gitops-architect
+    name: GitOps Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Process
+    - Environment
+    concerns:
+    - ArgoCD / Flux
+    - Declarative Infra State
+    - Reconciliation Loop
+    viewpoints:
+    - GitOps Viewpoint
+    description: Architects continuous deployment powered by GitOps reconciliation
+      loops.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: iac-architect
+    name: IaC Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Representation
+    - Resource
+    concerns:
+    - Terraform / Pulumi / OpenTofu
+    - State Locking
+    - Modular IaC
+    viewpoints:
+    - IaC Viewpoint
+    description: Architects Infrastructure as Code (IaC) modular frameworks and state
+      management.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: runtime-architect
+    name: Runtime Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Computation
+    concerns:
+    - JVM / Node.js / Go / Rust Runtime
+    - Memory Management
+    - Garbage Collection
+    viewpoints:
+    - Runtime Viewpoint
+    description: Optimizes execution runtime engines, GC tuning, and native compilation.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+  - id: edge-infrastructure-architect
+    name: Edge Infrastructure Architect
+    cluster_id: 06_infrastructure_architecture
+    cluster_name: 06. Infrastructure Architecture
+    iso_aspects:
+    - Environment
+    - Resource
+    concerns:
+    - Edge Data Centers
+    - PoP Routing
+    - IoT Gateways
+    viewpoints:
+    - Edge Infra Viewpoint
+    description: Architects physical and virtual edge infrastructure and CDN PoP distribution.
+    compatible_task_families:
+    - 13_infra_design
+    - 15_deployment_design
+- id: 07_security_architecture
+  name: 07. Security Architecture
+  iso_aspect: Security, Policy, Traceability
+  description: Designing security, Zero Trust, IAM, encryption, and threat modeling.
+  skills:
+  - id: security-architect
+    name: Security Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Policy
+    concerns:
+    - Holistic Security
+    - Defense in Depth
+    - Risk Mitigation
+    viewpoints:
+    - Security Viewpoint
+    recommended_patterns:
+    - defense-in-depth
+    - zero-trust
+    - threat-modeling-stride
+    - secrets-management
+    - data-classification
+    recommended_artifacts:
+    - stride-threat-spec
+    - iam-policy-spec
+    - data-classification-spec
+    - nygard-adr
+    - architecture-spec
+    description: Designs enterprise-wide security frameworks and defense-in-depth
+      posture.
+    compatible_task_families:
+    - 10_security_design
+  - id: identity-access-architect
+    name: Identity & Access Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Policy
+    concerns:
+    - IAM / Keycloak
+    - OAuth2 / OIDC
+    - RBAC & ABAC
+    viewpoints:
+    - IAM Viewpoint
+    recommended_patterns:
+    - oauth2-oidc
+    - zero-trust
+    - secrets-management
+    recommended_artifacts:
+    - iam-policy-spec
+    - stride-threat-spec
+    - nygard-adr
+    description: Architects authentication, authorization, single sign-on (SSO), and
+      identity federation.
+    compatible_task_families:
+    - 10_security_design
+  - id: zero-trust-architect
+    name: Zero Trust Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Policy
+    concerns:
+    - Never Trust Always Verify
+    - Microsegmentation
+    - Continuous Auth
+    viewpoints:
+    - Zero Trust Viewpoint
+    description: Designs Zero Trust Network Architecture (ZTNA) across identity, device,
+      and network.
+    compatible_task_families:
+    - 10_security_design
+  - id: application-security-architect
+    name: Application Security Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    concerns:
+    - OWASP Top 10
+    - SAST / DAST
+    - Secure Coding Standards
+    viewpoints:
+    - AppSec Viewpoint
+    description: Architects secure application design patterns and guards against
+      software vulnerabilities.
+    compatible_task_families:
+    - 10_security_design
+  - id: cloud-security-architect
+    name: Cloud Security Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Environment
+    concerns:
+    - CSPM / CWPP
+    - Cloud Guardrails
+    - IAM Roles & SCPs
+    viewpoints:
+    - Cloud Security Viewpoint
+    description: Architects cloud security posture management, IAM policies, and VPC
+      perimeter defense.
+    compatible_task_families:
+    - 10_security_design
+  - id: network-security-architect
+    name: Network Security Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Environment
+    concerns:
+    - WAF / DDoS Mitigation
+    - Egress Filtering
+    - NIDS / NIPS
+    viewpoints:
+    - NetSec Viewpoint
+    description: Designs network security, WAF, firewalls, and DDoS protection.
+    compatible_task_families:
+    - 10_security_design
+  - id: threat-modeling-architect
+    name: Threat Modeling Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    - Traceability
+    concerns:
+    - STRIDE Methodology
+    - Attack Surface Analysis
+    - Mitigation Mapping
+    viewpoints:
+    - Threat Model Viewpoint
+    recommended_patterns:
+    - threat-modeling-stride
+    - defense-in-depth
+    - zero-trust
+    recommended_artifacts:
+    - stride-threat-spec
+    - nygard-adr
+    description: Executes STRIDE threat modeling and attack surface vulnerability
+      analysis.
+    compatible_task_families:
+    - 10_security_design
+  - id: secret-management-architect
+    name: Secret Management Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    concerns:
+    - HashiCorp Vault
+    - Secret Rotation
+    - Zero Hardcoded Credentials
+    viewpoints:
+    - Secrets Viewpoint
+    description: Architects dynamic secret management, automated credential rotation,
+      and Vault integration.
+    compatible_task_families:
+    - 10_security_design
+  - id: key-management-architect
+    name: Key Management Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Security
+    concerns:
+    - KMS / HSM
+    - AES-256 / RSA Encryption
+    - Enclave Security
+    viewpoints:
+    - KMS Viewpoint
+    description: Designs Key Management Service (KMS), hardware security modules (HSM),
+      and encryption at rest/in transit.
+    compatible_task_families:
+    - 10_security_design
+  - id: privacy-architect
+    name: Privacy Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Policy
+    - Information
+    concerns:
+    - Privacy by Design
+    - PII Pseudonymization
+    - Right to be Forgotten
+    viewpoints:
+    - Privacy Viewpoint
+    description: Architects data privacy protections, anonymization, and PII lifecycle
+      compliance.
+    compatible_task_families:
+    - 10_security_design
+  - id: compliance-architect
+    name: Compliance Architect
+    cluster_id: 07_security_architecture
+    cluster_name: 07. Security Architecture
+    iso_aspects:
+    - Policy
+    - Traceability
+    concerns:
+    - SOC 2 / ISO 27001
+    - HIPAA / PCI-DSS
+    - Audit Trail Verification
+    viewpoints:
+    - Compliance Viewpoint
+    description: Designs security compliance controls, continuous automated auditing,
+      and regulatory evidence collection.
+    compatible_task_families:
+    - 10_security_design
+- id: 08_quality_attribute_architecture
+  name: 08. Quality Attribute Architecture
+  iso_aspect: Quality, Parameter, Constraint
+  description: 'Optimizing ISO 25010 NFRs: Performance, Reliability, Observability,
+    Cost.'
+  skills:
+  - id: performance-architect
+    name: Performance Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    - Parameter
+    concerns:
+    - Latency Tuning
+    - Response Time Bottlenecks
+    - Throughput
+    viewpoints:
+    - Performance Viewpoint
+    description: Designs system-wide latency reduction and response time optimization
+      strategies.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: scalability-architect
+    name: Scalability Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    - Resource
+    concerns:
+    - Horizontal vs Vertical Scaling
+    - Stateless Architecture
+    - Sharding
+    viewpoints:
+    - Scalability Viewpoint
+    description: Architects systems to scale seamlessly from 100 to 10M+ concurrent
+      requests.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: availability-architect
+    name: Availability Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    concerns:
+    - 99.999% Uptime
+    - Multi-Region Failover
+    - Active-Active Setup
+    viewpoints:
+    - Availability Viewpoint
+    description: Designs high availability architectures and multi-region fault tolerance.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: reliability-architect
+    name: Reliability Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    concerns:
+    - Fault Recovery
+    - Error Budgets
+    - MTTR Minimization
+    viewpoints:
+    - Reliability Viewpoint
+    description: Architects reliable system recovery mechanisms and MTTR mitigation.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: resilience-architect
+    name: Resilience Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    - Behavior
+    concerns:
+    - Circuit Breakers
+    - Bulkheads
+    - Graceful Degradation
+    viewpoints:
+    - Resilience Viewpoint
+    recommended_patterns:
+    - circuit-breaker
+    - bulkhead
+    - retry-with-backoff
+    - dead-letter-queue
+    - chaos-engineering
+    - rate-limiting
+    recommended_artifacts:
+    - atam-report-spec
+    - slo-sla-spec
+    - runbook-spec
+    - nygard-adr
+    description: Architects self-healing mechanisms, rate limiting, and fault isolation.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: observability-architect
+    name: Observability Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    - Traceability
+    concerns:
+    - MELT (Metrics Logs Traces)
+    - OpenTelemetry
+    - Distributed Tracing
+    viewpoints:
+    - Observability Viewpoint
+    recommended_patterns:
+    - distributed-tracing
+    - structured-logging
+    - four-golden-signals
+    - health-endpoint
+    - slo-driven-design
+    recommended_artifacts:
+    - slo-sla-spec
+    - dashboard-spec
+    - runbook-spec
+    - nygard-adr
+    description: Designs full-stack observability with OpenTelemetry, Prometheus,
+      and Grafana.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: capacity-planning-architect
+    name: Capacity Planning Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Parameter
+    - Resource
+    concerns:
+    - Load Projection
+    - CPU/RAM Sizing
+    - Peak Demand Forecast
+    viewpoints:
+    - Capacity Viewpoint
+    description: Models capacity requirements and computes resource growth projections.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: cost-optimization-architect
+    name: Cost Optimization Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Constraint
+    - Resource
+    concerns:
+    - FinOps
+    - Cloud Cost Reduction
+    - Spot Instance Efficiency
+    viewpoints:
+    - FinOps Viewpoint
+    description: Architects FinOps cloud cost optimization and unit economics reduction.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: sustainability-architect
+    name: Sustainability Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Constraint
+    - Quality
+    concerns:
+    - Green Software Engineering
+    - Carbon Footprint
+    - Energy Efficiency
+    viewpoints:
+    - Sustainability Viewpoint
+    description: Architects energy-efficient compute models to minimize carbon footprint.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+  - id: disaster-recovery-architect
+    name: Disaster Recovery Architect
+    cluster_id: 08_quality_attribute_architecture
+    cluster_name: 08. Quality Attribute Architecture
+    iso_aspects:
+    - Quality
+    - Environment
+    concerns:
+    - RPO & RTO
+    - Backup Strategy
+    - Cross-region Recovery
+    viewpoints:
+    - DR Viewpoint
+    description: Designs Disaster Recovery (DR) plans, RPO/RTO targets, and automated
+      failover.
+    compatible_task_families:
+    - 11_performance_design
+    - 12_reliability_design
+    - 14_observability_design
+- id: 09_delivery_architecture
+  name: 09. Delivery Architecture
+  iso_aspect: Process, Evolution, Roadmap
+  description: Designing CI/CD release strategies, testing pyramids, and modernization
+    roadmaps.
+  skills:
+  - id: testing-architect
+    name: Testing Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Process
+    - Quality
+    concerns:
+    - Testing Pyramid
+    - Contract Testing (Pact)
+    - Chaos Testing
+    viewpoints:
+    - Testing Viewpoint
+    description: Architects continuous automated testing strategies across all pyramid
+      tiers.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: deployment-architect
+    name: Deployment Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Process
+    concerns:
+    - Canary / Blue-Green
+    - Zero-downtime Release
+    - Feature Flags
+    viewpoints:
+    - Deployment Viewpoint
+    recommended_patterns:
+    - canary-release
+    - blue-green-deployment
+    - feature-flags
+    - gitops
+    recommended_artifacts:
+    - deployment-strategy-spec
+    - cicd-pipeline-spec
+    - rollback-spec
+    - nygard-adr
+    description: Designs zero-downtime deployment strategies and progressive delivery
+      pipelines.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: release-architect
+    name: Release Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Process
+    - Evolution
+    concerns:
+    - Release Governance
+    - Semantic Versioning
+    - Change Management
+    viewpoints:
+    - Release Viewpoint
+    description: Architects release engineering processes and software release governance.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: migration-architect
+    name: Migration Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Evolution
+    concerns:
+    - Strangler Fig Pattern
+    - Data Migration
+    - Phased Transition
+    viewpoints:
+    - Migration Viewpoint
+    description: Designs migration strategies for transitioning legacy systems to
+      modern target states.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: modernization-architect
+    name: Modernization Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Evolution
+    - Strategy
+    concerns:
+    - Legacy Refactoring
+    - Re-architecture
+    - Cloud-native Evolution
+    viewpoints:
+    - Modernization Viewpoint
+    description: Architects legacy system modernization, re-platforming, and decomposition.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: operability-architect
+    name: Operability Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Process
+    concerns:
+    - Runbooks
+    - Operational Readiness
+    - Incident Response
+    viewpoints:
+    - Operability Viewpoint
+    description: Ensures systems are designed for ease of operational maintenance
+      and debugging.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: sre-architect
+    name: SRE Architect
+    cluster_id: 09_delivery_architecture
+    cluster_name: 09. Delivery Architecture
+    iso_aspects:
+    - Process
+    - Quality
+    concerns:
+    - SLO / SLA / SLI
+    - Error Budget Management
+    - Chaos Engineering
+    viewpoints:
+    - SRE Viewpoint
+    recommended_patterns:
+    - slo-driven-design
+    - chaos-engineering
+    - four-golden-signals
+    - health-endpoint
+    recommended_artifacts:
+    - slo-sla-spec
+    - runbook-spec
+    - dashboard-spec
+    - nygard-adr
+    description: Designs Site Reliability Engineering (SRE) practices, error budgets,
+      and chaos drills.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+- id: 10_documentation_architecture
+  name: 10. Documentation Architecture
+  iso_aspect: Representation, Traceability
+  description: Knowledge governance, ADR management, diagrams, and spec standardization.
+  skills:
+  - id: documentation-architect
+    name: Documentation Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    concerns:
+    - Docs-as-Code
+    - Arc42 Framework
+    - Architecture Knowledge Base
+    viewpoints:
+    - Documentation Viewpoint
+    description: Architects documentation-as-code pipelines and enterprise knowledge
+      repositories.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: architecture-decision-architect
+    name: Architecture Decision Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    - Traceability
+    concerns:
+    - ADR Management
+    - Decision Rationale
+    - Traceability Matrix
+    viewpoints:
+    - ADR Viewpoint
+    recommended_patterns: []
+    recommended_artifacts:
+    - nygard-adr
+    - madr-adr
+    - rfc-template
+    - architecture-spec
+    description: Establishes ADR (Architecture Decision Record) processes and decision
+      logs.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: review-architect
+    name: Review Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Quality
+    - Traceability
+    concerns:
+    - Architecture Review Board (ARB)
+    - Consistency Checks
+    - Smell Detection
+    viewpoints:
+    - Review Viewpoint
+    description: Conducts peer architecture reviews, cross-viewpoint checks, and smell
+      audits.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: appendix-architect
+    name: Appendix Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    concerns:
+    - Glossary
+    - References
+    - Supplementary Data
+    viewpoints:
+    - Appendix Viewpoint
+    description: Manages technical appendices, glossaries, and external standards
+      mapping.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: diagram-architect
+    name: Diagram Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    concerns:
+    - C4 Model Notation
+    - PlantUML / Mermaid
+    - Diagram Governance
+    viewpoints:
+    - Diagram Viewpoint
+    description: Standardizes visual diagramming using C4 Model, PlantUML, and Mermaid
+      notation.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: template-architect
+    name: Template Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    concerns:
+    - Standardized Templates
+    - Markdown Schemas
+    - RFC Templates
+    viewpoints:
+    - Template Viewpoint
+    description: Designs standardized document templates (RFCs, ADRs, Architecture
+      Specs).
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: specification-architect
+    name: Specification Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Representation
+    - Traceability
+    concerns:
+    - Formal Specifications
+    - OpenAPI / AsyncAPI
+    - Protocol Buffers
+    viewpoints:
+    - Specification Viewpoint
+    description: Architects formal machine-readable API and data schema specifications.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance
+  - id: checklist-architect
+    name: Checklist Architect
+    cluster_id: 10_documentation_architecture
+    cluster_name: 10. Documentation Architecture
+    iso_aspects:
+    - Quality
+    - Traceability
+    concerns:
+    - Quality Gates
+    - Deployment Readiness Checklist
+    - Security Checklist
+    viewpoints:
+    - Checklist Viewpoint
+    description: Builds comprehensive architecture verification checklists and quality
+      gates.
+    compatible_task_families:
+    - 01_discovery
+    - 18_governance

@@ -1,0 +1,16 @@
+adapter_name: hermes
+model_name: hermes-3-llama-3.1-405b
+provider: nousresearch
+temperature: 0.3
+max_tokens: 4096
+top_p: 0.9
+system_prompt_format: chatml
+enable_structured_outputs: false
+stop_sequences:
+  - "<|im_end|>"
+extra_params:
+  repetition_penalty: 1.1
+  endpoint: http://localhost:8000/v1
+  chatml_tokens:
+    bos: "<|im_start|>"
+    eos: "<|im_end|>"

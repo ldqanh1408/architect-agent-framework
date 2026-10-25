@@ -1,0 +1,152 @@
+# ==========================================
+# Architect Agent Framework - .gitignore
+# Prepared for Public GitHub Release
+# ==========================================
+
+# --- Python Bytecode & Cache Files ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+*.dll
+
+# --- Caches & Test Outputs ---
+.pytest_cache/
+# Scratch / working dirs — not deliverables
+.auto/
+.tests/*
+# Except the phase-1 fixture 28 test files read, and archive_requirement: the PRD its
+# clauses cite (CLR-SOURCE-MISMATCH) and the workspace a gate row checks. Without
+# them a clean clone fails ~185 tests.
+!.tests/requirement/
+!.tests/archive_requirement/
+# Stray scaffold-test artifact under the seed fixture (the real seed is documents/)
+vendor/sdd-agent/examples/seed/architecture/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.nox/
+.tox/
+.coverage
+.coverage.*
+coverage.xml
+nosetests.xml
+htmlcov/
+.cache/
+
+# --- Build, Distribution & Package Artifacts ---
+# Note: `scripts/build_release.py --in-repo` writes a flat ./skills/ tree so that
+# repo-scanning installers can find packages by name. That output is deliberately
+# NOT ignored -- if you run --in-repo you probably mean to commit the result.
+# If you ran it by accident, `rm -rf skills/` before committing.
+build/
+site/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# --- Agent, Framework & Local Scratch Workspaces ---
+architect-agent-per-skill/
+scratch/
+
+
+# --- OS & System Temporary / Junk Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.stackdump
+# ({*
+
+# --- IDE & Editor Settings ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# --- Environment Variables & Sensitive Credentials ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.secret
+id_rsa
+id_ed25519
+secrets.json
+credentials.json
+*-budget.sqlite
+*-budget.sqlite-journal
+
+# --- Logs & Temporary Files ---
+*.log
+logs/
+tmp/
+temp/.agy-prompts/last-run-*.log
+
+# --- Catalog eval runs ---
+# `scripts/run_catalog_eval.py` appends one JSONL per live-agent run. The results
+# are evidence of a particular run on a particular day, not repository state --
+# committing them would make the tree differ for everyone who runs an eval.
+tests/evals/catalog-results/
+
+# --- Private / machine-local (kept out of the public tree) ---
+# Personal Claude Code settings and preview launchers; the shared project
+# policy lives in .claude/settings.json.
+.claude/settings.local.json
+.claude/launch.json
+.claude/worktrees/
+.code-review-graph/
+.agy-prompts/
+tree_preview.txt
+# Commercial edition and its tooling live outside this repository.
+agensi_skills/
+scripts/agensi_*
+docs/*AGENSI*
+tests/test_agensi_*
+# Runtime state written into example workspaces by a local run.
+.architect-runtime/
+node_modules/
+
+# Input archives, not product: the SDD v2 source zip and the
+# handoff bundle stay on disk for whoever unpacks them, never in the index.
+vendor/*.zip
+/handoff.zip
+/handoff/
+# Staged at build time by scripts/stage_package_home.py; a checkout reads the repository.
+architect_framework/_home/
+
+# Duplicate original vendor input stays outside the canonical source.
+vendor/sdd-agentv1/

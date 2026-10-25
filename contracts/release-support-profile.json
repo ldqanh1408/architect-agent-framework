@@ -1,0 +1,53 @@
+{
+  "format": "aaf-release-support-profile/v1",
+  "candidate": "2.0.0",
+  "release_status": "NOT_QUALIFIED",
+  "advertised_native_tuples": [],
+  "local_verification_tuple": {
+    "os": "Linux x86_64 container",
+    "python": "3.12.14",
+    "node": "24.19.0",
+    "browser": "Playwright 1.56 Chromium 141",
+    "execution_level": "software-only",
+    "status": "PENDING_FINAL_RUN"
+  },
+  "channels": {
+    "github": "requires native/device/corpus qualification and channel-scoped operator approval",
+    "pypi": "same exact-byte gates; separate channel approval",
+    "testpypi": "same exact-byte gates; separate testpypi approval"
+  },
+  "claims": [
+    {
+      "id": "free-core",
+      "scope": "Four bundled free skills; missing private packages report PACK_NOT_INSTALLED",
+      "evidence": "source/public/installed cohorts",
+      "external_qualification": "NOT_QUALIFIED"
+    },
+    {
+      "id": "private-install",
+      "scope": "User-supplied descriptors and bodies remain local; hash inventory verified; grants remain engine-controlled",
+      "evidence": "synthetic install/tamper/crash tests",
+      "external_qualification": "Native upgrade/migration evidence required"
+    },
+    {
+      "id": "human-acceptance",
+      "scope": "Detached signatures and grants retain authority; browser fixtures prove software behavior only",
+      "evidence": "synthetic browser/protocol negative tests",
+      "external_qualification": "Physical-device ceremony required"
+    },
+    {
+      "id": "judge-language",
+      "scope": "Advisory safeguards only; no measured cost or qualified model/style claim",
+      "evidence": "existing deterministic safeguards; research simulation excluded from payload",
+      "external_qualification": "600 human-labeled cases, live semantic/style/meaning qualification still required"
+    }
+  ],
+  "stable_obligations": [
+    "native host and physical authority ceremony",
+    "complete original paid corpus with negative control",
+    "live judge and inherited STE-80 qualification",
+    "human usability, downstream and independent contributors",
+    "recovery/capacity and active pilot observations",
+    "protected accounts and detached publication approval"
+  ]
+}

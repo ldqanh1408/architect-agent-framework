@@ -1,0 +1,15 @@
+name: adr-authoring
+description: Author formal ADR for significant architectural decisions.
+system_prompt_path: ../SKILL.md
+temperature: 0.2
+tools:
+- read_file
+- search_files
+- write_file
+- terminal
+interface:
+  display_name: "Adr Authoring"
+  short_description: "Execute adr-authoring architectural workflow"
+  default_prompt: "Use $adr-authoring for this architectural task."
+policy:
+  allow_implicit_invocation: true

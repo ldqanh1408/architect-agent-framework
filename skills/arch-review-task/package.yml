@@ -1,0 +1,43 @@
+schema_version: '2026.07'
+skill: arch-review-task
+kind: task
+group: 18_governance
+license_expression: MIT
+entrypoint: SKILL.md
+contract:
+  path: skill-contract.yml
+  sha256: f78b1f860fc775b50852f4f78367e2550b63a319822d7978e3a67549934ecdbd
+evaluations:
+- evaluations/golden.yml
+- evaluations/adversarial.yml
+validator_policy:
+  schema_version: '2026.07'
+  fail_closed: true
+files:
+- path: README.md
+  sha256: 1a3d94d922141a70a77ead545924b77ad9be1a7270828e7260f2be643879c25a
+  bytes: 1027
+- path: SKILL.md
+  sha256: 0e3c667656ad126ad84796ff84a92c73bf174f22d2506d19d1bdcf0801ee3d17
+  bytes: 21205
+- path: agents/openai.yaml
+  sha256: 3e5a35f7f42324fed98e7814d6d4515ec9e115b514ab127a8db2058cfe96ac47
+  bytes: 437
+- path: evaluations/adversarial.yml
+  sha256: bf857ea0a661616f9c4e19fd751297eb659ec1ede022308866270a1369192d7d
+  bytes: 1093
+- path: evaluations/golden.yml
+  sha256: cbe86875df819277bb4bc0858a8cada43fcb1afa518fd67cbdc83b18cf59d975
+  bytes: 983
+- path: references/domain-rules.md
+  sha256: 05d4704bc461ef82a30e4c725008216f1d1a4ba28a55fa4f430790800a5a338e
+  bytes: 1070
+- path: references/output-contract.md
+  sha256: 31e72c3cf1404efa29bfab2e920e6a1a72bf05b6cae4b45be5832f4010878d1a
+  bytes: 751
+- path: references/research-basis.md
+  sha256: 7fddf811856b2d68ea7dbede24cfb462fef064bfda6148e4f055510b2ef343e2
+  bytes: 1602
+- path: skill-contract.yml
+  sha256: f78b1f860fc775b50852f4f78367e2550b63a319822d7978e3a67549934ecdbd
+  bytes: 3950

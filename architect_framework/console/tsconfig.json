@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "moduleDetection": "legacy",
+    "rootDir": "ts",
+    "outDir": "static",
+    "removeComments": false,
+    "newLine": "lf",
+    "declaration": false,
+    "sourceMap": false
+  },
+  "include": ["ts/*.ts"]
+}

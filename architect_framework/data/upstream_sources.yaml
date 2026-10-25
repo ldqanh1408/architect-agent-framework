@@ -1,0 +1,55 @@
+schema_version: "2026.07"
+sources:
+  - id: agent-skills-spec
+    url: https://github.com/agentskills/agentskills
+    documentation_url: https://agentskills.io/specification
+    license_expression: Apache-2.0 AND CC-BY-4.0
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: anthropic-skills
+    url: https://github.com/anthropics/skills
+    license_expression: LicenseRef-Per-Skill
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+    notes: Some document skills are source-available, not open source.
+  - id: openai-plugins
+    url: https://github.com/openai/plugins
+    license_expression: LicenseRef-Per-Plugin
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: microsoft-agent-framework
+    url: https://github.com/microsoft/agent-framework
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+    notes: Agent Skills ADR was proposed when inspected.
+  - id: inspect-ai
+    url: https://github.com/UKGovernmentBEIS/inspect_ai
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: promptfoo
+    url: https://github.com/promptfoo/promptfoo
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: langgraph
+    url: https://github.com/langchain-ai/langgraph
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: crewai
+    url: https://github.com/crewAIInc/crewAI
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: deepeval
+    url: https://github.com/confident-ai/deepeval
+    license_expression: Apache-2.0
+    usage: idea-only
+    retrieved_at: "2026-07-28"
+  - id: openai-evals
+    url: https://github.com/openai/evals
+    license_expression: MIT
+    usage: idea-only
+    retrieved_at: "2026-07-28"

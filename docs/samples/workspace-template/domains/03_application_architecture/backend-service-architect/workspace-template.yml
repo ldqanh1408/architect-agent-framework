@@ -1,0 +1,119 @@
+# Per-skill workspace template — the manifest.
+#
+# WHAT THIS IS
+#   One exported skill's answer to "what folders and pages do I create, and when?"
+#   It lives beside the skill package, not in a central tree, so the skill that
+#   authors a page also owns the shape of that page's folder. Nothing here names a
+#   tier, an outer slot, or a project type.
+#
+# WHERE IT INSTALLS
+#   exported_skills/domains/<cluster>/<skill>/workspace-template.yml
+#
+# WHAT CONSUMES IT
+#   scripts/scaffold_skill_workspace.py  →  writes the tree into a workspace
+#   scripts/check_workspace_template.py  →  asserts the tree matches this manifest
+#   scripts/build_checklist.py           →  turns `slots` into CHECKLIST rows
+
+schema_version: '2026.08'
+skill: backend-service-architect
+cluster: 03_application_architecture
+kind: domain
+
+# The write root. Derived, never authored twice: <cluster>/<skill> comes from the
+# package's own path, {module} from the module charter. There is no {slot}.
+owns_root: architecture/02-domains/{cluster}/{skill}/
+
+# Slots this skill may create. `when` decides whether a slot is created at all —
+# an unconditional slot list is how empty folders get born.
+slots:
+
+  - path: README.md
+    kind: structural
+    when: always
+    template: templates/readme.md
+    checklist: "README names the module, the owning skill, and links the whitebox"
+
+  - path: source-map.yml
+    kind: graph
+    when: always
+    template: templates/source-map.yml
+    checklist: "source-map declares at least one TYPED relation (providesApi / consumesApi / dependsOn) — a `mappings:`-only file is a stub and fails"
+
+  - path: 00-overview/{skill}-overview.md
+    kind: content
+    page_class: overview
+    when: always
+    template: templates/overview.md
+    whitebox: true
+    checklist: "overview carries the 4-part spine and names the MODULE, not the skill"
+
+  - path: 01-{module}/
+    kind: folder
+    when: "module_count >= 1"
+    repeat: per_module          # one folder per module this skill owns (rule R4)
+    checklist: "one 01-<module>/ folder per module in the charter; folder name, overview title, and source-map subject agree"
+
+  - path: 01-{module}/{module}-design.md
+    kind: content
+    page_class: mechanism
+    when: "module_count >= 1"
+    repeat: per_module
+    template: templates/mechanism.md
+    checklist: "each module has a design page with a runtime flow and a failure policy"
+
+  - path: 02-core-engine/
+    kind: folder
+    when: "evidence.has('algorithm') or evidence.has('invariant')"
+    checklist: "02-core-engine exists only if an algorithm or invariant was routed here"
+
+  - path: 11-communication/
+    kind: folder
+    when: "evidence.has('inbound_port') or evidence.has('outbound_port')"
+    checklist: "11-communication exists only if this module owns an API surface"
+
+  - path: verification/fitness-self-check.md
+    kind: content
+    page_class: verification
+    when: always
+    template: templates/fitness-self-check.md
+    checklist: "every FIT row uses THIS skill's fitness_prefix (BSA-FIT) and one of the five legal verdicts"
+
+  - path: self-audit.md
+    kind: content
+    page_class: verification
+    when: "workspace.level in ['maximal', 'portfolio']"
+    template: templates/self-audit.md
+    checklist: "self-audit records the A5 self-ask pass; no row may say PASS"
+
+# Slots this skill must NEVER create, with where they belong instead. Naming the
+# owner is what makes a violation actionable rather than just forbidden.
+forbidden_slots:
+  - path: architecture/01-global-strategy/**
+    owner: 01-system-architect
+  - path: architecture/02-domains/_shared-contracts/**
+    owner: 01-system-architect
+  - path: architecture/03-cross-cutting/**
+    owner: 01-system-architect
+  - path: architecture/00-system-views/**
+    owner: exported_skills/tasks/07_system_modeling diagram skills
+  - path: architecture/02-domains/{cluster}/*/       # any sibling skill's tree
+    owner: the sibling skill named by the router
+
+# Consumed by build_checklist.py to emit the run checklist. `verify` is the argv
+# that decides the row, so a row cannot be closed by assertion.
+checklist_gates:
+  - id: WT-01
+    step: "Every `when: always` slot exists under owns_root"
+    verify: "python scripts/check_workspace_template.py {workspace} --skill backend-service-architect"
+  - id: WT-02
+    step: "No forbidden slot was written by this skill"
+    verify: "python vendor/sdd-agent/scripts/check_submodule_sequence.py {workspace}"
+  - id: WT-03
+    step: "Every created page validates against its page class"
+    verify: "python exported_skills/_shared/scripts/check_output_docs.py {owns_root} --contract {package}/skill-contract.yml"
+  - id: WT-04
+    step: "source-map.yml has ≥1 typed relation"
+    verify: "python scripts/check_source_map_typed.py {owns_root}/source-map.yml"
+  - id: WT-05
+    step: "Conditional slots that were skipped have a one-line reason in the overview"
+    verify: "python scripts/check_workspace_template.py {workspace} --skill backend-service-architect --explain-skips"

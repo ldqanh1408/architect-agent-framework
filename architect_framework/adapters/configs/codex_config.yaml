@@ -1,0 +1,11 @@
+adapter_name: codex
+model_name: gpt-4o
+provider: openai
+temperature: 0.2
+max_tokens: 4096
+top_p: 1.0
+system_prompt_format: markdown
+enable_structured_outputs: true
+stop_sequences: []
+extra_params:
+  seed: 42

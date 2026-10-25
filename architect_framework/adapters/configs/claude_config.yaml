@@ -1,0 +1,12 @@
+adapter_name: claude
+model_name: claude-3-5-sonnet-20241022
+provider: anthropic
+temperature: 0.2
+max_tokens: 8192
+top_p: 1.0
+system_prompt_format: xml
+enable_structured_outputs: false
+stop_sequences: []
+extra_params:
+  anthropic_version: "2023-06-01"
+  preferred_claude4_model: claude-sonnet-4-20250514

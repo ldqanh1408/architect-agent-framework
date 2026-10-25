@@ -1,0 +1,2253 @@
+domains:
+- id: business-architect
+  name: Business Architect
+  cluster_id: 01_business_architecture
+  description: Defines overall business architecture strategy and aligns IT with business
+    goals.
+  concerns:
+  - Business Alignment
+  - ROI
+  - Market Agility
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: product-architect
+  name: Product Architect
+  cluster_id: 01_business_architecture
+  description: Architects product features, value propositions, and capability maps.
+  concerns:
+  - Feature Roadmap
+  - User Experience
+  - Product Capabilities
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: enterprise-architect
+  name: Enterprise Architect
+  cluster_id: 01_business_architecture
+  description: Manages enterprise-wide architecture landscapes, standards, and roadmaps.
+  concerns:
+  - Enterprise Alignment
+  - Standards Governance
+  - Tech Stack Lifecycle
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: solution-architect
+  name: Solution Architect
+  cluster_id: 01_business_architecture
+  description: Designs holistic solutions bridging business requirements and technical
+    specs.
+  concerns:
+  - System Feasibility
+  - End-to-End Delivery
+  - NFR Compliance
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: reference-architecture
+  name: Reference Architecture Architect
+  cluster_id: 01_business_architecture
+  description: Establishes standardized blueprint architectures across projects.
+  concerns:
+  - Reusability
+  - Standardization
+  - Best Practices
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: industry-architecture
+  name: Industry Architecture Architect
+  cluster_id: 01_business_architecture
+  description: Applies industry-specific frameworks (FinTech, HealthTech, E-commerce).
+  concerns:
+  - Domain Compliance
+  - Industry Benchmarks
+  - Regulatory Standards
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: business-capability-architect
+  name: Business Capability Architect
+  cluster_id: 01_business_architecture
+  description: Maps enterprise business capabilities and identifies functional gaps.
+  concerns:
+  - Capability Mapping
+  - Modular Enterprise
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: business-process-architect
+  name: Business Process Architect
+  cluster_id: 01_business_architecture
+  description: Models and optimizes end-to-end business workflows and process flows.
+  concerns:
+  - Process Efficiency
+  - BPMN Modeling
+  - Workflow Automation
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: value-stream-architect
+  name: Value Stream Architect
+  cluster_id: 01_business_architecture
+  description: Analyzes value streams to accelerate software delivery and ROI.
+  concerns:
+  - Time to Market
+  - Value Delivery
+  - Bottleneck Elimination
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: organization-architect
+  name: Organization Architect
+  cluster_id: 01_business_architecture
+  description: Aligns organizational team structures with software architecture boundaries.
+  concerns:
+  - Conway Law Alignment
+  - Team Topology
+  - Organizational Structure
+  compatible_task_families:
+  - 01_discovery
+  - 04_arch_style_selection
+- id: domain-capability-architect
+  name: Domain Capability Architect
+  cluster_id: 02_domain_architecture
+  description: Decomposes business problems into core, supporting, and generic subdomains.
+  concerns:
+  - Domain Scope
+  - Core vs Supporting Subdomains
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: domain-model-architect
+  name: Domain Model Architect
+  cluster_id: 02_domain_architecture
+  description: Establishes Ubiquitous Language and models domain entities and logic.
+  concerns:
+  - Ubiquitous Language
+  - Domain Models
+  - Business Entities
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: ddd-architect
+  name: DDD Architect
+  cluster_id: 02_domain_architecture
+  description: Oversees Domain-Driven Design execution across strategic and tactical
+    tiers.
+  concerns:
+  - DDD Alignment
+  - Strategic DDD
+  - Tactical DDD
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: bounded-context-architect
+  name: Bounded Context Architect
+  cluster_id: 02_domain_architecture
+  description: Delineates bounded context boundaries and context ownership.
+  concerns:
+  - Context Boundaries
+  - Autonomy
+  - Domain Isolation
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: aggregate-architect
+  name: Aggregate Architect
+  cluster_id: 02_domain_architecture
+  description: Designs DDD aggregates, aggregate roots, and transactional invariants.
+  concerns:
+  - Transaction Boundaries
+  - Aggregate Roots
+  - Invariants
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: domain-event-architect
+  name: Domain Event Architect
+  cluster_id: 02_domain_architecture
+  description: Models domain events representing state transitions in the business.
+  concerns:
+  - Event-Driven Domain
+  - State Changes
+  - Event Schemas
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: workflow-architect
+  name: Workflow Architect
+  cluster_id: 02_domain_architecture
+  description: Designs domain workflows, state machines, and saga orchestrations.
+  concerns:
+  - Long-Running Tasks
+  - Saga Orchestration
+  - State Machines
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: rule-engine-architect
+  name: Rule Engine Architect
+  cluster_id: 02_domain_architecture
+  description: Architects business rule engines and dynamic decision tables.
+  concerns:
+  - Business Rules Decoupling
+  - Policy Engine
+  - Rule Evaluation
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: context-mapping-architect
+  name: Context Mapping Architect
+  cluster_id: 02_domain_architecture
+  description: Maps relationships between Bounded Contexts (ACL, Customer-Supplier,
+    Shared Kernel).
+  concerns:
+  - Upstream/Downstream Relations
+  - ACL
+  - Shared Kernel
+  compatible_task_families:
+  - 03_domain_modeling
+  - 08_api_design
+- id: frontend-architect
+  name: Frontend Architect
+  cluster_id: 03_application_architecture
+  description: Designs client-side application architecture and component systems.
+  concerns:
+  - Micro-frontends
+  - UI Performance
+  - State Management
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: backend-service-architect
+  name: Backend Service Architect
+  cluster_id: 03_application_architecture
+  description: Designs backend service layers, business logic, and API controllers.
+  concerns:
+  - Service Boundaries
+  - Concurrency
+  - Throughput
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: mobile-architect
+  name: Mobile Architect
+  cluster_id: 03_application_architecture
+  description: Architects native and cross-platform mobile application frameworks.
+  concerns:
+  - Offline First
+  - Battery Efficiency
+  - Mobile Security
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: desktop-architect
+  name: Desktop Architect
+  cluster_id: 03_application_architecture
+  description: Designs desktop software solutions (Electron, Tauri, Native).
+  concerns:
+  - OS Integration
+  - Native Performance
+  - Local Storage
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: api-architect
+  name: API Architect
+  cluster_id: 03_application_architecture
+  description: Establishes API contracts, interface definitions, and governance.
+  concerns:
+  - REST/GraphQL/gRPC
+  - API Contracts
+  - Versioning
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: library-sdk-architect
+  name: Library SDK Architect
+  cluster_id: 03_application_architecture
+  description: Architects reusable client libraries, SDKs, and developer tools.
+  concerns:
+  - Developer Experience
+  - Backward Compatibility
+  - API Surface
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: microservice-architect
+  name: Microservice Architect
+  cluster_id: 03_application_architecture
+  description: Designs microservices architecture and inter-service communications.
+  concerns:
+  - Independent Deployability
+  - Service Granularity
+  - Resilience
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: modular-monolith-architect
+  name: Modular Monolith Architect
+  cluster_id: 03_application_architecture
+  description: Architects highly structured, modular single-deployment monoliths.
+  concerns:
+  - Strict Encapsulation
+  - Clean Boundaries
+  - Low Operational Overhead
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: monolith-architect
+  name: Monolith Architect
+  cluster_id: 03_application_architecture
+  description: Designs unified monolithic software structures optimized for speed.
+  concerns:
+  - Simplicity
+  - Unified Codebase
+  - Rapid Prototyping
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: event-driven-architect
+  name: Event-Driven Architect
+  cluster_id: 03_application_architecture
+  description: Architects asynchronous, event-driven reactive systems.
+  concerns:
+  - Event Sourcing
+  - Async Communication
+  - Publish-Subscribe
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: plugin-extension-architect
+  name: Plugin Extension Architect
+  cluster_id: 03_application_architecture
+  description: Designs plugin architectures and dynamic extension points.
+  concerns:
+  - Extensibility
+  - Plugin Isolation
+  - Dynamic Loading
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: integration-adapter-architect
+  name: Integration Adapter Architect
+  cluster_id: 03_application_architecture
+  description: Architects integration adapters, enterprise integration patterns (EIP).
+  concerns:
+  - Legacy Integration
+  - Protocol Transformation
+  - Enterprise Bus
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: workflow-orchestration-architect
+  name: Workflow Orchestration Architect
+  cluster_id: 03_application_architecture
+  description: Designs central orchestrators (Temporal, Camunda, Airflow) for app
+    workflows.
+  concerns:
+  - Orchestration vs Choreography
+  - State Persistence
+  - Distributed Transactions
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: gateway-architect
+  name: Gateway Architect
+  cluster_id: 03_application_architecture
+  description: Designs API Gateways, ingress routing, rate limiting, and SSL termination.
+  concerns:
+  - API Gateway
+  - Rate Limiting
+  - Routing & Auth
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: bff-architect
+  name: BFF Architect
+  cluster_id: 03_application_architecture
+  description: Architects Backend-For-Frontend layers tailored for specific clients.
+  concerns:
+  - Backend for Frontend
+  - Client Customization
+  - Data Aggregation
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: edge-architect
+  name: Edge Architect
+  cluster_id: 03_application_architecture
+  description: Architects edge computing nodes and serverless edge functions.
+  concerns:
+  - Edge Computing
+  - CDN Workers
+  - Low Latency
+  compatible_task_families:
+  - 04_arch_style_selection
+  - 08_api_design
+  - 11_performance_design
+- id: ai-system-architect
+  name: AI System Architect
+  cluster_id: 04_ai_architecture
+  description: Designs holistic AI-native application architectures.
+  concerns:
+  - LLM Integration
+  - AI System Lifecycle
+  - Latency vs Quality
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: agent-architect
+  name: Agent Architect
+  cluster_id: 04_ai_architecture
+  description: Architects single and multi-agent autonomous decision loops.
+  concerns:
+  - Multi-Agent Systems
+  - Agent Autonomy
+  - Subagent Delegation
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: rag-architect
+  name: RAG Architect
+  cluster_id: 04_ai_architecture
+  description: Designs Retrieval-Augmented Generation indexing and retrieval pipelines.
+  concerns:
+  - Retrieval Quality
+  - Embedding Models
+  - Chunking Strategy
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: mcp-architect
+  name: MCP Architect
+  cluster_id: 04_ai_architecture
+  description: Architects Model Context Protocol (MCP) servers, tools, and resources.
+  concerns:
+  - Model Context Protocol
+  - Tool Server Protocol
+  - Resource Sharing
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: prompt-architect
+  name: Prompt Architect
+  cluster_id: 04_ai_architecture
+  description: Architects system prompts, few-shot structures, and dynamic prompt
+    templates.
+  concerns:
+  - System Prompt Design
+  - Context Window Optimization
+  - Guardrails
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: memory-architect
+  name: Memory Architect
+  cluster_id: 04_ai_architecture
+  description: Architects stateful conversation memory and episodic retrieval systems.
+  concerns:
+  - Short-term Memory
+  - Long-term Vector Memory
+  - Conversation Truncation
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: tool-calling-architect
+  name: Tool Calling Architect
+  cluster_id: 04_ai_architecture
+  description: Designs tool schemas, argument parsers, and tool execution engines.
+  concerns:
+  - Function Calling
+  - Schema Validation
+  - Tool Dispatch Safety
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: model-serving-architect
+  name: Model Serving Architect
+  cluster_id: 04_ai_architecture
+  description: Architects self-hosted LLM model serving, batching, and GPU acceleration.
+  concerns:
+  - GPU Inference
+  - vLLM / Ollama
+  - Model Quantization
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: evaluation-architect
+  name: Evaluation Architect
+  cluster_id: 04_ai_architecture
+  description: Designs continuous evaluation and benchmark suits for LLM outputs.
+  concerns:
+  - Evals Framework
+  - Hallucination Benchmark
+  - LLM-as-a-Judge
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: vector-search-architect
+  name: Vector Search Architect
+  cluster_id: 04_ai_architecture
+  description: Architects high-performance vector search and hybrid indexing engines.
+  concerns:
+  - HNSW Indexing
+  - Cosine Similarity
+  - Hybrid Search (BM25 + Dense)
+  compatible_task_families:
+  - 20_ai_tasks
+  - 10_security_design
+- id: data-platform-architect
+  name: Data Platform Architect
+  cluster_id: 05_data_architecture
+  description: Designs enterprise data platform ecosystems.
+  concerns:
+  - Data Strategy
+  - Platform Scalability
+  - Multi-tenant Storage
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: database-architect
+  name: Database Architect
+  cluster_id: 05_data_architecture
+  description: Architects relational and NoSQL database schemas, indexing, and storage
+    engine.
+  concerns:
+  - Relational / NoSQL
+  - Schema Normalization
+  - ACID vs BASE
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: cache-architect
+  name: Cache Architect
+  cluster_id: 05_data_architecture
+  description: Designs caching topology (Redis, Memcached) and invalidation strategies.
+  concerns:
+  - In-memory Cache
+  - Cache Invalidation
+  - Cache Stampede
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: search-architect
+  name: Search Architect
+  cluster_id: 05_data_architecture
+  description: Architects full-text search systems (Elasticsearch, OpenSearch).
+  concerns:
+  - Full-text Search
+  - Inverted Index
+  - Facet Search
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: vector-database-architect
+  name: Vector Database Architect
+  cluster_id: 05_data_architecture
+  description: Architects dedicated vector databases (Pinecone, Qdrant, Milvus, pgvector).
+  concerns:
+  - Vector DB Topology
+  - Dimensionality
+  - Index Sharding
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: data-pipeline-architect
+  name: Data Pipeline Architect
+  cluster_id: 05_data_architecture
+  description: Designs batch data pipelines, DAG orchestrations (Airflow, Dagster).
+  concerns:
+  - Batch Processing
+  - DAG Workflows
+  - Data Quality
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: streaming-architect
+  name: Streaming Architect
+  cluster_id: 05_data_architecture
+  description: Architects low-latency stream processing systems (Kafka, Flink, Spark
+    Streaming).
+  concerns:
+  - Real-time Streaming
+  - Kafka/Flink
+  - Windowing & Watermarks
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: etl-architect
+  name: ETL Architect
+  cluster_id: 05_data_architecture
+  description: Designs robust ETL and ELT data transformation pipelines.
+  concerns:
+  - Extract-Transform-Load
+  - Schema Evolution
+  - Idempotency
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: cdc-architect
+  name: CDC Architect
+  cluster_id: 05_data_architecture
+  description: Architects Change Data Capture (CDC) systems for real-time DB replication.
+  concerns:
+  - Change Data Capture
+  - WAL Replication
+  - Debezium
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: data-lake-architect
+  name: Data Lake Architect
+  cluster_id: 05_data_architecture
+  description: Designs scalable raw data lakes and object storage partitioning.
+  concerns:
+  - Raw Storage (S3/GCS)
+  - Parquet/ORC
+  - Data Partitioning
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: data-warehouse-architect
+  name: Data Warehouse Architect
+  cluster_id: 05_data_architecture
+  description: Architects enterprise data warehouses and analytical dimensional schemas.
+  concerns:
+  - Star / Snowflake Schema
+  - OLAP Querying
+  - BigQuery/Snowflake
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: lakehouse-architect
+  name: Lakehouse Architect
+  cluster_id: 05_data_architecture
+  description: Architects unified Data Lakehouse tables (Delta Lake, Apache Iceberg).
+  concerns:
+  - Delta Lake / Iceberg
+  - ACID on Object Storage
+  - Time Travel
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: metadata-architect
+  name: Metadata Architect
+  cluster_id: 05_data_architecture
+  description: Architects metadata management and data lineage tracking.
+  concerns:
+  - Data Lineage
+  - Cataloging
+  - Data Dictionary
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: master-data-architect
+  name: Master Data Architect
+  cluster_id: 05_data_architecture
+  description: Architects Master Data Management (MDM) and entity resolution systems.
+  concerns:
+  - Single Source of Truth
+  - Deduplication
+  - MDM Strategy
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: data-governance-architect
+  name: Data Governance Architect
+  cluster_id: 05_data_architecture
+  description: Designs data governance, privacy policies, and compliance guardrails.
+  concerns:
+  - GDPR / HIPAA Compliance
+  - Data Masking
+  - Access Control
+  compatible_task_families:
+  - 09_data_design
+  - 10_security_design
+  - 11_performance_design
+- id: infra-platform-architect
+  name: Infra Platform Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Designs high-level infrastructure platform strategies.
+  concerns:
+  - Hybrid / Multi-cloud
+  - Infra Standard
+  - Resource Limits
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: cloud-architect
+  name: Cloud Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects public and private cloud environments according to Well-Architected
+    principles.
+  concerns:
+  - AWS / GCP / Azure
+  - Cloud Well-Architected
+  - Cost Efficiency
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: network-architect
+  name: Network Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects cloud and physical network topologies, CIDR blocks, and
+    firewalls.
+  concerns:
+  - VPC / Subnets
+  - BGP / Routing
+  - VPN / DirectConnect
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: storage-architect
+  name: Storage Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Designs high-performance block, file, and object storage systems.
+  concerns:
+  - Block / File / Object Storage
+  - IOPS
+  - Backup Replication
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: container-architect
+  name: Container Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects containerization standards and OCI image optimizations.
+  concerns:
+  - OCI Standards
+  - Base Image Security
+  - Multi-stage Builds
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: kubernetes-architect
+  name: Kubernetes Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects production Kubernetes cluster topology, networking (CNI),
+    and CRDs.
+  concerns:
+  - K8s Cluster Design
+  - Control Plane
+  - HPA / VPA
+  - CRDs
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: serverless-architect
+  name: Serverless Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Designs serverless computing architectures (Lambda, Cloud Run).
+  concerns:
+  - Cold Starts
+  - FaaS Orchestration
+  - Pay-per-use Cost
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: service-mesh-architect
+  name: Service Mesh Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects service mesh control plane and data plane proxies.
+  concerns:
+  - Istio / Linkerd
+  - mTLS Traffic Routing
+  - Sidecar Proxy
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: platform-engineering-architect
+  name: Platform Engineering Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Designs Internal Developer Platforms (IDP) and developer self-service
+    tooling.
+  concerns:
+  - Internal Developer Platform (IDP)
+  - Self-service API
+  - Developer Golden Paths
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: devops-architect
+  name: DevOps Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects DevOps automation tools, CI/CD runners, and environment
+    promotion.
+  concerns:
+  - Automation Pipelines
+  - CI/CD Infrastructure
+  - Infrastructure Reliability
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: gitops-architect
+  name: GitOps Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects continuous deployment powered by GitOps reconciliation loops.
+  concerns:
+  - ArgoCD / Flux
+  - Declarative Infra State
+  - Reconciliation Loop
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: iac-architect
+  name: IaC Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects Infrastructure as Code (IaC) modular frameworks and state
+    management.
+  concerns:
+  - Terraform / Pulumi / OpenTofu
+  - State Locking
+  - Modular IaC
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: runtime-architect
+  name: Runtime Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Optimizes execution runtime engines, GC tuning, and native compilation.
+  concerns:
+  - JVM / Node.js / Go / Rust Runtime
+  - Memory Management
+  - Garbage Collection
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: edge-infrastructure-architect
+  name: Edge Infrastructure Architect
+  cluster_id: 06_infrastructure_architecture
+  description: Architects physical and virtual edge infrastructure and CDN PoP distribution.
+  concerns:
+  - Edge Data Centers
+  - PoP Routing
+  - IoT Gateways
+  compatible_task_families:
+  - 13_infra_design
+  - 15_deployment_design
+- id: security-architect
+  name: Security Architect
+  cluster_id: 07_security_architecture
+  description: Designs enterprise-wide security frameworks and defense-in-depth posture.
+  concerns:
+  - Holistic Security
+  - Defense in Depth
+  - Risk Mitigation
+  compatible_task_families:
+  - 10_security_design
+- id: identity-access-architect
+  name: Identity & Access Architect
+  cluster_id: 07_security_architecture
+  description: Architects authentication, authorization, single sign-on (SSO), and
+    identity federation.
+  concerns:
+  - IAM / Keycloak
+  - OAuth2 / OIDC
+  - RBAC & ABAC
+  compatible_task_families:
+  - 10_security_design
+- id: zero-trust-architect
+  name: Zero Trust Architect
+  cluster_id: 07_security_architecture
+  description: Designs Zero Trust Network Architecture (ZTNA) across identity, device,
+    and network.
+  concerns:
+  - Never Trust Always Verify
+  - Microsegmentation
+  - Continuous Auth
+  compatible_task_families:
+  - 10_security_design
+- id: application-security-architect
+  name: Application Security Architect
+  cluster_id: 07_security_architecture
+  description: Architects secure application design patterns and guards against software
+    vulnerabilities.
+  concerns:
+  - OWASP Top 10
+  - SAST / DAST
+  - Secure Coding Standards
+  compatible_task_families:
+  - 10_security_design
+- id: cloud-security-architect
+  name: Cloud Security Architect
+  cluster_id: 07_security_architecture
+  description: Architects cloud security posture management, IAM policies, and VPC
+    perimeter defense.
+  concerns:
+  - CSPM / CWPP
+  - Cloud Guardrails
+  - IAM Roles & SCPs
+  compatible_task_families:
+  - 10_security_design
+- id: network-security-architect
+  name: Network Security Architect
+  cluster_id: 07_security_architecture
+  description: Designs network security, WAF, firewalls, and DDoS protection.
+  concerns:
+  - WAF / DDoS Mitigation
+  - Egress Filtering
+  - NIDS / NIPS
+  compatible_task_families:
+  - 10_security_design
+- id: threat-modeling-architect
+  name: Threat Modeling Architect
+  cluster_id: 07_security_architecture
+  description: Executes STRIDE threat modeling and attack surface vulnerability analysis.
+  concerns:
+  - STRIDE Methodology
+  - Attack Surface Analysis
+  - Mitigation Mapping
+  compatible_task_families:
+  - 10_security_design
+- id: secret-management-architect
+  name: Secret Management Architect
+  cluster_id: 07_security_architecture
+  description: Architects dynamic secret management, automated credential rotation,
+    and Vault integration.
+  concerns:
+  - HashiCorp Vault
+  - Secret Rotation
+  - Zero Hardcoded Credentials
+  compatible_task_families:
+  - 10_security_design
+- id: key-management-architect
+  name: Key Management Architect
+  cluster_id: 07_security_architecture
+  description: Designs Key Management Service (KMS), hardware security modules (HSM),
+    and encryption at rest/in transit.
+  concerns:
+  - KMS / HSM
+  - AES-256 / RSA Encryption
+  - Enclave Security
+  compatible_task_families:
+  - 10_security_design
+- id: privacy-architect
+  name: Privacy Architect
+  cluster_id: 07_security_architecture
+  description: Architects data privacy protections, anonymization, and PII lifecycle
+    compliance.
+  concerns:
+  - Privacy by Design
+  - PII Pseudonymization
+  - Right to be Forgotten
+  compatible_task_families:
+  - 10_security_design
+- id: compliance-architect
+  name: Compliance Architect
+  cluster_id: 07_security_architecture
+  description: Designs security compliance controls, continuous automated auditing,
+    and regulatory evidence collection.
+  concerns:
+  - SOC 2 / ISO 27001
+  - HIPAA / PCI-DSS
+  - Audit Trail Verification
+  compatible_task_families:
+  - 10_security_design
+- id: performance-architect
+  name: Performance Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Designs system-wide latency reduction and response time optimization
+    strategies.
+  concerns:
+  - Latency Tuning
+  - Response Time Bottlenecks
+  - Throughput
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: scalability-architect
+  name: Scalability Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Architects systems to scale seamlessly from 100 to 10M+ concurrent
+    requests.
+  concerns:
+  - Horizontal vs Vertical Scaling
+  - Stateless Architecture
+  - Sharding
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: availability-architect
+  name: Availability Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Designs high availability architectures and multi-region fault tolerance.
+  concerns:
+  - 99.999% Uptime
+  - Multi-Region Failover
+  - Active-Active Setup
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: reliability-architect
+  name: Reliability Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Architects reliable system recovery mechanisms and MTTR mitigation.
+  concerns:
+  - Fault Recovery
+  - Error Budgets
+  - MTTR Minimization
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: resilience-architect
+  name: Resilience Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Architects self-healing mechanisms, rate limiting, and fault isolation.
+  concerns:
+  - Circuit Breakers
+  - Bulkheads
+  - Graceful Degradation
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: observability-architect
+  name: Observability Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Designs full-stack observability with OpenTelemetry, Prometheus, and
+    Grafana.
+  concerns:
+  - MELT (Metrics Logs Traces)
+  - OpenTelemetry
+  - Distributed Tracing
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: capacity-planning-architect
+  name: Capacity Planning Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Models capacity requirements and computes resource growth projections.
+  concerns:
+  - Load Projection
+  - CPU/RAM Sizing
+  - Peak Demand Forecast
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: cost-optimization-architect
+  name: Cost Optimization Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Architects FinOps cloud cost optimization and unit economics reduction.
+  concerns:
+  - FinOps
+  - Cloud Cost Reduction
+  - Spot Instance Efficiency
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: sustainability-architect
+  name: Sustainability Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Architects energy-efficient compute models to minimize carbon footprint.
+  concerns:
+  - Green Software Engineering
+  - Carbon Footprint
+  - Energy Efficiency
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: disaster-recovery-architect
+  name: Disaster Recovery Architect
+  cluster_id: 08_quality_attribute_architecture
+  description: Designs Disaster Recovery (DR) plans, RPO/RTO targets, and automated
+    failover.
+  concerns:
+  - RPO & RTO
+  - Backup Strategy
+  - Cross-region Recovery
+  compatible_task_families:
+  - 11_performance_design
+  - 12_reliability_design
+  - 14_observability_design
+- id: testing-architect
+  name: Testing Architect
+  cluster_id: 09_delivery_architecture
+  description: Architects continuous automated testing strategies across all pyramid
+    tiers.
+  concerns:
+  - Testing Pyramid
+  - Contract Testing (Pact)
+  - Chaos Testing
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: deployment-architect
+  name: Deployment Architect
+  cluster_id: 09_delivery_architecture
+  description: Designs zero-downtime deployment strategies and progressive delivery
+    pipelines.
+  concerns:
+  - Canary / Blue-Green
+  - Zero-downtime Release
+  - Feature Flags
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: release-architect
+  name: Release Architect
+  cluster_id: 09_delivery_architecture
+  description: Architects release engineering processes and software release governance.
+  concerns:
+  - Release Governance
+  - Semantic Versioning
+  - Change Management
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: migration-architect
+  name: Migration Architect
+  cluster_id: 09_delivery_architecture
+  description: Designs migration strategies for transitioning legacy systems to modern
+    target states.
+  concerns:
+  - Strangler Fig Pattern
+  - Data Migration
+  - Phased Transition
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: modernization-architect
+  name: Modernization Architect
+  cluster_id: 09_delivery_architecture
+  description: Architects legacy system modernization, re-platforming, and decomposition.
+  concerns:
+  - Legacy Refactoring
+  - Re-architecture
+  - Cloud-native Evolution
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: operability-architect
+  name: Operability Architect
+  cluster_id: 09_delivery_architecture
+  description: Ensures systems are designed for ease of operational maintenance and
+    debugging.
+  concerns:
+  - Runbooks
+  - Operational Readiness
+  - Incident Response
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: sre-architect
+  name: SRE Architect
+  cluster_id: 09_delivery_architecture
+  description: Designs Site Reliability Engineering (SRE) practices, error budgets,
+    and chaos drills.
+  concerns:
+  - SLO / SLA / SLI
+  - Error Budget Management
+  - Chaos Engineering
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: documentation-architect
+  name: Documentation Architect
+  cluster_id: 10_documentation_architecture
+  description: Architects documentation-as-code pipelines and enterprise knowledge
+    repositories.
+  concerns:
+  - Docs-as-Code
+  - Arc42 Framework
+  - Architecture Knowledge Base
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: architecture-decision-architect
+  name: Architecture Decision Architect
+  cluster_id: 10_documentation_architecture
+  description: Establishes ADR (Architecture Decision Record) processes and decision
+    logs.
+  concerns:
+  - ADR Management
+  - Decision Rationale
+  - Traceability Matrix
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: review-architect
+  name: Review Architect
+  cluster_id: 10_documentation_architecture
+  description: Conducts peer architecture reviews, cross-viewpoint checks, and smell
+    audits.
+  concerns:
+  - Architecture Review Board (ARB)
+  - Consistency Checks
+  - Smell Detection
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: appendix-architect
+  name: Appendix Architect
+  cluster_id: 10_documentation_architecture
+  description: Manages technical appendices, glossaries, and external standards mapping.
+  concerns:
+  - Glossary
+  - References
+  - Supplementary Data
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: diagram-architect
+  name: Diagram Architect
+  cluster_id: 10_documentation_architecture
+  description: Standardizes visual diagramming using C4 Model, PlantUML, and Mermaid
+    notation.
+  concerns:
+  - C4 Model Notation
+  - PlantUML / Mermaid
+  - Diagram Governance
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: template-architect
+  name: Template Architect
+  cluster_id: 10_documentation_architecture
+  description: Designs standardized document templates (RFCs, ADRs, Architecture Specs).
+  concerns:
+  - Standardized Templates
+  - Markdown Schemas
+  - RFC Templates
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: specification-architect
+  name: Specification Architect
+  cluster_id: 10_documentation_architecture
+  description: Architects formal machine-readable API and data schema specifications.
+  concerns:
+  - Formal Specifications
+  - OpenAPI / AsyncAPI
+  - Protocol Buffers
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+- id: checklist-architect
+  name: Checklist Architect
+  cluster_id: 10_documentation_architecture
+  description: Builds comprehensive architecture verification checklists and quality
+    gates.
+  concerns:
+  - Quality Gates
+  - Deployment Readiness Checklist
+  - Security Checklist
+  compatible_task_families:
+  - 01_discovery
+  - 18_governance
+tasks:
+- id: requirement-analysis
+  name: Requirement Analysis
+  family_id: 01_discovery
+  description: Analyze and clarify functional and non-functional requirements.
+  compatible_domain_clusters:
+  - 01_business_architecture
+  - 02_domain_architecture
+  - 03_application_architecture
+- id: stakeholder-analysis
+  name: Stakeholder Analysis
+  family_id: 01_discovery
+  description: Identify key stakeholders and their primary architectural concerns.
+  compatible_domain_clusters:
+  - 01_business_architecture
+  - 10_documentation_architecture
+- id: business-goal-analysis
+  name: Business Goal Analysis
+  family_id: 01_discovery
+  description: Align technical objectives with business growth metrics.
+  compatible_domain_clusters: []
+- id: constraint-analysis
+  name: Constraint Analysis
+  family_id: 01_discovery
+  description: Identify technical, budget, regulatory, and organizational constraints.
+  compatible_domain_clusters: []
+- id: assumption-discovery
+  name: Assumption Discovery
+  family_id: 01_discovery
+  description: Surface underlying assumptions and validate validity.
+  compatible_domain_clusters: []
+- id: dependency-discovery
+  name: Dependency Discovery
+  family_id: 01_discovery
+  description: Map external and internal system dependencies.
+  compatible_domain_clusters: []
+- id: scope-definition
+  name: Scope Definition
+  family_id: 01_discovery
+  description: Delineate system in-scope and out-of-scope boundaries.
+  compatible_domain_clusters: []
+- id: context-discovery
+  name: Context Discovery
+  family_id: 01_discovery
+  description: Discover operating context and user personas.
+  compatible_domain_clusters: []
+- id: nfr-discovery
+  name: NFR Discovery
+  family_id: 01_discovery
+  description: Formulate quantitative Non-Functional Requirements.
+  compatible_domain_clusters:
+  - 08_quality_attribute_architecture
+  - 03_application_architecture
+- id: risk-discovery
+  name: Risk Discovery
+  family_id: 01_discovery
+  description: Identify architectural risks and potential failure modes.
+  compatible_domain_clusters:
+  - 07_security_architecture
+  - 08_quality_attribute_architecture
+- id: capability-mapping
+  name: Capability Mapping
+  family_id: 02_business_analysis
+  description: Map organizational business capabilities.
+  compatible_domain_clusters: []
+- id: business-process-modeling
+  name: Business Process Modeling
+  family_id: 02_business_analysis
+  description: Model business workflows with BPMN standard.
+  compatible_domain_clusters: []
+- id: value-stream-mapping
+  name: Value Stream Mapping
+  family_id: 02_business_analysis
+  description: Analyze value delivery flow and friction points.
+  compatible_domain_clusters: []
+- id: organization-mapping
+  name: Organization Mapping
+  family_id: 02_business_analysis
+  description: Map team topologies and communication channels.
+  compatible_domain_clusters: []
+- id: stakeholder-mapping
+  name: Stakeholder Mapping
+  family_id: 02_business_analysis
+  description: Create influence and interest matrix of business stakeholders.
+  compatible_domain_clusters: []
+- id: entity-discovery
+  name: Entity Discovery
+  family_id: 03_domain_modeling
+  description: Discover core domain entities and identities.
+  compatible_domain_clusters: []
+- id: aggregate-design
+  name: Aggregate Design
+  family_id: 03_domain_modeling
+  description: Design DDD Aggregate boundaries and invariant rules.
+  compatible_domain_clusters:
+  - 02_domain_architecture
+- id: value-object-design
+  name: Value Object Design
+  family_id: 03_domain_modeling
+  description: Design immutable domain value objects.
+  compatible_domain_clusters: []
+- id: repository-design
+  name: Repository Design
+  family_id: 03_domain_modeling
+  description: Design persistence abstraction for Aggregates.
+  compatible_domain_clusters: []
+- id: context-mapping
+  name: Context Mapping
+  family_id: 03_domain_modeling
+  description: Map relationships between Bounded Contexts.
+  compatible_domain_clusters: []
+- id: domain-event-design
+  name: Domain Event Design
+  family_id: 03_domain_modeling
+  description: Design domain event structures and state notifications.
+  compatible_domain_clusters: []
+- id: saga-design
+  name: Saga Design
+  family_id: 03_domain_modeling
+  description: Design distributed transaction Sagas with compensation steps.
+  compatible_domain_clusters:
+  - 02_domain_architecture
+  - 03_application_architecture
+- id: workflow-design
+  name: Workflow Design
+  family_id: 03_domain_modeling
+  description: Design complex domain state machine transitions.
+  compatible_domain_clusters: []
+- id: layered-style
+  name: Layered Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate traditional layered N-tier architectural style.
+  compatible_domain_clusters: []
+- id: hexagonal-style
+  name: Hexagonal Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Ports & Adapters / Hexagonal architectural style.
+  compatible_domain_clusters: []
+- id: clean-style
+  name: Clean Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Clean Architecture (Onion / Concentric circles).
+  compatible_domain_clusters: []
+- id: modular-monolith-style
+  name: Modular Monolith Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate modular monolith with enforced module boundaries.
+  compatible_domain_clusters: []
+- id: microservice-style
+  name: Microservice Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate microservices style feasibility and operational overhead.
+  compatible_domain_clusters:
+  - 03_application_architecture
+  - 06_infrastructure_architecture
+- id: soa-style
+  name: SOA Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Enterprise Service Bus (ESB) and SOA style.
+  compatible_domain_clusters: []
+- id: cqrs-style
+  name: CQRS Style Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Command Query Responsibility Segregation.
+  compatible_domain_clusters:
+  - 02_domain_architecture
+  - 05_data_architecture
+- id: eda-style
+  name: Event-Driven Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate publish-subscribe and event streaming styles.
+  compatible_domain_clusters: []
+- id: serverless-style
+  name: Serverless Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate FaaS and managed cloud serverless style.
+  compatible_domain_clusters: []
+- id: plugin-style
+  name: Plugin Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Microkernel / Plugin architectural style.
+  compatible_domain_clusters: []
+- id: actor-model-style
+  name: Actor Model Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate Akka / Ray / Erlang actor concurrent style.
+  compatible_domain_clusters: []
+- id: pipeline-style
+  name: Pipes & Filters Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate pipeline architecture style.
+  compatible_domain_clusters: []
+- id: mesh-style
+  name: Data Mesh Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate decentralized domain-oriented data mesh style.
+  compatible_domain_clusters: []
+- id: cell-based-style
+  name: Cell-Based Architecture Evaluation
+  family_id: 04_arch_style_selection
+  description: Evaluate fault-isolated Cellular architecture style.
+  compatible_domain_clusters: []
+- id: language-selection
+  name: Programming Language Selection
+  family_id: 05_tech_selection
+  description: Select backend/frontend languages (Python, Go, Rust, TypeScript, Java).
+  compatible_domain_clusters: []
+- id: framework-selection
+  name: Framework Selection
+  family_id: 05_tech_selection
+  description: Select application frameworks (Spring Boot, FastAPI, Next.js, Gin).
+  compatible_domain_clusters: []
+- id: database-selection
+  name: Database Selection
+  family_id: 05_tech_selection
+  description: Select database engine (PostgreSQL, MongoDB, Cassandra, Spanner).
+  compatible_domain_clusters: []
+- id: cache-selection
+  name: Cache Selection
+  family_id: 05_tech_selection
+  description: Select caching technology (Redis, Memcached, Dragonfly).
+  compatible_domain_clusters: []
+- id: queue-selection
+  name: Message Queue Selection
+  family_id: 05_tech_selection
+  description: Select messaging broker (Apache Kafka, RabbitMQ, AWS SQS, NATS).
+  compatible_domain_clusters: []
+- id: cloud-selection
+  name: Cloud Provider Selection
+  family_id: 05_tech_selection
+  description: Evaluate cloud providers (AWS, GCP, Azure, Multi-cloud).
+  compatible_domain_clusters: []
+- id: container-selection
+  name: Container & Orchestration Selection
+  family_id: 05_tech_selection
+  description: Select container runtime and orchestrator (Kubernetes, ECS, Nomad).
+  compatible_domain_clusters: []
+- id: storage-selection
+  name: Storage Solution Selection
+  family_id: 05_tech_selection
+  description: Select object and block storage solutions (S3, Ceph, EBS).
+  compatible_domain_clusters: []
+- id: auth-selection
+  name: Authentication Solution Selection
+  family_id: 05_tech_selection
+  description: Select identity providers (Keycloak, Auth0, Okta, Cognito).
+  compatible_domain_clusters: []
+- id: monitoring-selection
+  name: Monitoring & Observability Stack Selection
+  family_id: 05_tech_selection
+  description: Select MELT toolchain (Prometheus, Grafana, Datadog, Jaeger).
+  compatible_domain_clusters: []
+- id: search-selection
+  name: Search Engine Selection
+  family_id: 05_tech_selection
+  description: Select search engine (Elasticsearch, OpenSearch, Meilisearch).
+  compatible_domain_clusters: []
+- id: sdk-selection
+  name: SDK & Library Selection
+  family_id: 05_tech_selection
+  description: Select third-party SDKs and client libraries.
+  compatible_domain_clusters: []
+- id: ai-model-selection
+  name: AI Model Selection
+  family_id: 05_tech_selection
+  description: Select LLM / SLM models (Claude 3.5, GPT-4o, Llama 3, DeepSeek).
+  compatible_domain_clusters: []
+- id: architecture-comparison
+  name: Architecture Comparison
+  family_id: 06_tradeoff_analysis
+  description: Side-by-side comparison of candidate architecture options.
+  compatible_domain_clusters: []
+- id: technology-comparison
+  name: Technology Comparison
+  family_id: 06_tradeoff_analysis
+  description: Benchmark and compare technology products.
+  compatible_domain_clusters: []
+- id: decision-matrix
+  name: Weighted Decision Matrix
+  family_id: 06_tradeoff_analysis
+  description: Create objective decision matrix with weighted parameters.
+  compatible_domain_clusters: []
+- id: pros-cons-analysis
+  name: Pros & Cons Analysis
+  family_id: 06_tradeoff_analysis
+  description: Detail qualitative pros and cons for architectural choices.
+  compatible_domain_clusters: []
+- id: risk-analysis
+  name: Architectural Risk Analysis
+  family_id: 06_tradeoff_analysis
+  description: Analyze technical and project risks.
+  compatible_domain_clusters: []
+- id: complexity-analysis
+  name: Cognitive & Operational Complexity Analysis
+  family_id: 06_tradeoff_analysis
+  description: Evaluate maintenance complexity burden.
+  compatible_domain_clusters: []
+- id: cost-analysis
+  name: Financial Cost Analysis
+  family_id: 06_tradeoff_analysis
+  description: Perform cost-benefit and TCO analysis.
+  compatible_domain_clusters: []
+- id: maintainability-analysis
+  name: Maintainability Analysis
+  family_id: 06_tradeoff_analysis
+  description: Assess long-term code and system maintainability.
+  compatible_domain_clusters: []
+- id: scalability-analysis
+  name: Scalability Bottleneck Analysis
+  family_id: 06_tradeoff_analysis
+  description: Identify scalability limits under 10x traffic increase.
+  compatible_domain_clusters: []
+- id: context-diagram
+  name: C4 Context Diagram Modeling
+  family_id: 07_system_modeling
+  description: Create C4 Level 1 System Context Diagram.
+  compatible_domain_clusters:
+  - 03_application_architecture
+  - 10_documentation_architecture
+- id: container-diagram
+  name: C4 Container Diagram Modeling
+  family_id: 07_system_modeling
+  description: Create C4 Level 2 Container Diagram.
+  compatible_domain_clusters: []
+- id: component-diagram
+  name: C4 Component Diagram Modeling
+  family_id: 07_system_modeling
+  description: Create C4 Level 3 Component Diagram.
+  compatible_domain_clusters: []
+- id: code-diagram
+  name: C4 Code Diagram Modeling
+  family_id: 07_system_modeling
+  description: Create C4 Level 4 Class/Code Diagram for critical packages.
+  compatible_domain_clusters: []
+- id: deployment-diagram
+  name: Deployment Diagram Modeling
+  family_id: 07_system_modeling
+  description: Model physical and cloud deployment topology.
+  compatible_domain_clusters: []
+- id: sequence-diagram
+  name: Sequence Diagram Modeling
+  family_id: 07_system_modeling
+  description: Model inter-service interaction sequences.
+  compatible_domain_clusters: []
+- id: erd-diagram
+  name: ERD Modeling
+  family_id: 07_system_modeling
+  description: Model entity relationship database schemas.
+  compatible_domain_clusters:
+  - 05_data_architecture
+  - 02_domain_architecture
+- id: state-diagram
+  name: State Diagram Modeling
+  family_id: 07_system_modeling
+  description: Model system lifecycle states.
+  compatible_domain_clusters: []
+- id: activity-diagram
+  name: Activity Diagram Modeling
+  family_id: 07_system_modeling
+  description: Model procedural control flows.
+  compatible_domain_clusters: []
+- id: class-diagram
+  name: Class Diagram Modeling
+  family_id: 07_system_modeling
+  description: Model object-oriented class hierarchies.
+  compatible_domain_clusters: []
+- id: bpmn-diagram
+  name: BPMN Modeling
+  family_id: 07_system_modeling
+  description: Model business workflows in BPMN standard.
+  compatible_domain_clusters: []
+- id: network-diagram
+  name: Network Topology Modeling
+  family_id: 07_system_modeling
+  description: Model cloud VPC networks and security subnets.
+  compatible_domain_clusters: []
+- id: rest-api-design
+  name: RESTful API Design
+  family_id: 08_api_design
+  description: Design RESTful HTTP endpoints and OpenAPI specs.
+  compatible_domain_clusters:
+  - 03_application_architecture
+  - 07_security_architecture
+- id: graphql-api-design
+  name: GraphQL Schema Design
+  family_id: 08_api_design
+  description: Design GraphQL schema types, queries, and mutations.
+  compatible_domain_clusters: []
+- id: grpc-api-design
+  name: gRPC & Protobuf Design
+  family_id: 08_api_design
+  description: Design high-performance gRPC proto interfaces.
+  compatible_domain_clusters: []
+- id: asyncapi-design
+  name: AsyncAPI Message Design
+  family_id: 08_api_design
+  description: Design event-driven asynchronous messaging contracts.
+  compatible_domain_clusters:
+  - 02_domain_architecture
+  - 03_application_architecture
+  - 05_data_architecture
+- id: webhook-design
+  name: Webhook Architecture Design
+  family_id: 08_api_design
+  description: Design outbound webhook subscription and delivery mechanism.
+  compatible_domain_clusters: []
+- id: pagination-design
+  name: API Pagination & Filtering Strategy
+  family_id: 08_api_design
+  description: Design cursor-based and offset-based API pagination.
+  compatible_domain_clusters: []
+- id: api-filtering-design
+  name: API Filtering & Sorting Strategy
+  family_id: 08_api_design
+  description: Design URL filtering syntax (RSQL, JSON:API filters).
+  compatible_domain_clusters: []
+- id: api-versioning-design
+  name: API Versioning Strategy
+  family_id: 08_api_design
+  description: Establish API lifecycle versioning policies (URI, Header, Media Type).
+  compatible_domain_clusters: []
+- id: api-auth-design
+  name: API Auth Middleware Design
+  family_id: 08_api_design
+  description: Design API token validation and scope authorization.
+  compatible_domain_clusters: []
+- id: idempotency-design
+  name: API Idempotency Design
+  family_id: 08_api_design
+  description: Design safe payment and write operation idempotency keys.
+  compatible_domain_clusters: []
+- id: error-handling-design
+  name: API Error Handling Design
+  family_id: 08_api_design
+  description: Standardize RFC 7807 Problem Details error responses.
+  compatible_domain_clusters: []
+- id: schema-design
+  name: Database Schema Design
+  family_id: 09_data_design
+  description: Design relational or NoSQL database schemas.
+  compatible_domain_clusters:
+  - 05_data_architecture
+  - 02_domain_architecture
+- id: normalization-design
+  name: Database Normalization / Denormalization
+  family_id: 09_data_design
+  description: Apply 3NF normalization or strategic denormalization for read performance.
+  compatible_domain_clusters: []
+- id: partition-design
+  name: Table Partitioning Strategy
+  family_id: 09_data_design
+  description: Design range, hash, or list table partitioning.
+  compatible_domain_clusters: []
+- id: sharding-design
+  name: Database Sharding Strategy
+  family_id: 09_data_design
+  description: Design horizontal database sharding across clusters.
+  compatible_domain_clusters: []
+- id: replication-design
+  name: Replication Strategy
+  family_id: 09_data_design
+  description: Design primary-replica and multi-region DB replication.
+  compatible_domain_clusters: []
+- id: backup-design
+  name: Backup & Recovery Strategy
+  family_id: 09_data_design
+  description: Design automated backup snapshots and Point-in-Time Recovery (PITR).
+  compatible_domain_clusters: []
+- id: data-migration-design
+  name: Schema Migration Strategy
+  family_id: 09_data_design
+  description: Design zero-downtime database schema migration pipelines (Flyway/Liquibase).
+  compatible_domain_clusters: []
+- id: retention-design
+  name: Data Retention & Archival Strategy
+  family_id: 09_data_design
+  description: Design data lifecycle archival and purging.
+  compatible_domain_clusters: []
+- id: data-encryption-design
+  name: Data Encryption at Rest Strategy
+  family_id: 09_data_design
+  description: Design column-level and disk-level data encryption.
+  compatible_domain_clusters: []
+- id: oauth-design
+  name: OAuth2 Framework Design
+  family_id: 10_security_design
+  description: Design OAuth2 grant flows (Authorization Code + PKCE, Client Credentials).
+  compatible_domain_clusters: []
+- id: oidc-design
+  name: OIDC Identity Architecture
+  family_id: 10_security_design
+  description: Design OpenID Connect user authentication.
+  compatible_domain_clusters: []
+- id: jwt-design
+  name: JWT Token Architecture
+  family_id: 10_security_design
+  description: Design JWT payload claims, signing algorithms, and expiration.
+  compatible_domain_clusters: []
+- id: rbac-design
+  name: Role-Based Access Control (RBAC)
+  family_id: 10_security_design
+  description: Design roles, permissions, and user assignment matrices.
+  compatible_domain_clusters: []
+- id: abac-design
+  name: Attribute-Based Access Control (ABAC)
+  family_id: 10_security_design
+  description: Design dynamic attribute-based evaluation rules.
+  compatible_domain_clusters: []
+- id: mtls-design
+  name: mTLS Mutual Authentication
+  family_id: 10_security_design
+  description: Design service-to-service mutual TLS.
+  compatible_domain_clusters: []
+- id: threat-modeling-task
+  name: STRIDE Threat Modeling
+  family_id: 10_security_design
+  description: Perform STRIDE threat modeling on system components.
+  compatible_domain_clusters:
+  - 07_security_architecture
+- id: pki-design
+  name: Public Key Infrastructure (PKI)
+  family_id: 10_security_design
+  description: Design enterprise certificate authority hierarchy.
+  compatible_domain_clusters: []
+- id: secrets-management-design
+  name: Secrets Management Architecture
+  family_id: 10_security_design
+  description: Design Vault integration and secret injection.
+  compatible_domain_clusters: []
+- id: audit-logging-design
+  name: Security Audit Logging
+  family_id: 10_security_design
+  description: Design tamper-evident security audit logs.
+  compatible_domain_clusters: []
+- id: caching-design
+  name: Caching Strategy Design
+  family_id: 11_performance_design
+  description: Design Cache-Aside, Write-Through, Write-Behind patterns.
+  compatible_domain_clusters:
+  - 05_data_architecture
+  - 08_quality_attribute_architecture
+- id: indexing-design
+  name: Database Indexing Strategy
+  family_id: 11_performance_design
+  description: Design B-Tree, GIN, GiST, and partial indexes.
+  compatible_domain_clusters: []
+- id: compression-design
+  name: Payload Compression Strategy
+  family_id: 11_performance_design
+  description: Design HTTP Gzip/Brotli and binary serialization (Protobuf/Avro).
+  compatible_domain_clusters: []
+- id: batching-design
+  name: Batch Processing Design
+  family_id: 11_performance_design
+  description: Design micro-batching and bulk write operations.
+  compatible_domain_clusters: []
+- id: concurrency-design
+  name: Concurrency Control Strategy
+  family_id: 11_performance_design
+  description: Design optimistic vs pessimistic locking.
+  compatible_domain_clusters: []
+- id: async-design
+  name: Asynchronous Execution Design
+  family_id: 11_performance_design
+  description: Offload long-running operations to background workers.
+  compatible_domain_clusters: []
+- id: queue-performance-design
+  name: Queue Throughput Optimization
+  family_id: 11_performance_design
+  description: Tune message broker batch sizes and consumer concurrency.
+  compatible_domain_clusters: []
+- id: autoscaling-design
+  name: Autoscaling Architecture
+  family_id: 11_performance_design
+  description: Design Horizontal Pod Autoscaler (HPA) and Cloud Auto Scaling.
+  compatible_domain_clusters: []
+- id: load-balancing-design
+  name: Load Balancing Topology
+  family_id: 11_performance_design
+  description: Design L4 (TCP) and L7 (HTTP) load balancing rules.
+  compatible_domain_clusters: []
+- id: retry-design
+  name: Retry & Exponential Backoff Strategy
+  family_id: 12_reliability_design
+  description: Design smart retry loops with jitter.
+  compatible_domain_clusters: []
+- id: circuit-breaker-design
+  name: Circuit Breaker Pattern Design
+  family_id: 12_reliability_design
+  description: Design Resilience4j / Envoy circuit breakers.
+  compatible_domain_clusters: []
+- id: fallback-design
+  name: Fallback Mechanism Design
+  family_id: 12_reliability_design
+  description: Design graceful degradation fallbacks.
+  compatible_domain_clusters: []
+- id: bulkhead-design
+  name: Bulkhead Isolation Design
+  family_id: 12_reliability_design
+  description: Isolate thread pools and resources to prevent cascading failure.
+  compatible_domain_clusters: []
+- id: timeout-design
+  name: Timeout Configuration Strategy
+  family_id: 12_reliability_design
+  description: Enforce strict call timeouts across system boundaries.
+  compatible_domain_clusters: []
+- id: outbox-design
+  name: Transactional Outbox Pattern Design
+  family_id: 12_reliability_design
+  description: Ensure atomic DB writes and event publishing.
+  compatible_domain_clusters:
+  - 02_domain_architecture
+  - 03_application_architecture
+  - 05_data_architecture
+- id: inbox-design
+  name: Transactional Inbox Pattern Design
+  family_id: 12_reliability_design
+  description: Ensure idempotent event consumption.
+  compatible_domain_clusters: []
+- id: dlq-design
+  name: Dead Letter Queue (DLQ) Strategy
+  family_id: 12_reliability_design
+  description: Design poison pill message handling.
+  compatible_domain_clusters: []
+- id: chaos-engineering-task
+  name: Chaos Engineering Strategy
+  family_id: 12_reliability_design
+  description: Design chaos experiments (Chaos Mesh, Gremlin).
+  compatible_domain_clusters: []
+- id: docker-design
+  name: Docker Container Spec
+  family_id: 13_infra_design
+  description: Architect multi-stage production Dockerfiles.
+  compatible_domain_clusters: []
+- id: k8s-design
+  name: Kubernetes Manifest Design
+  family_id: 13_infra_design
+  description: Design Kubernetes Deployments, Services, ConfigMaps, Secrets.
+  compatible_domain_clusters: []
+- id: terraform-design
+  name: Terraform Module Architecture
+  family_id: 13_infra_design
+  description: Design modular Terraform / OpenTofu infrastructure code.
+  compatible_domain_clusters: []
+- id: helm-design
+  name: Helm Chart Design
+  family_id: 13_infra_design
+  description: Package applications into configurable Helm charts.
+  compatible_domain_clusters: []
+- id: argocd-design
+  name: ArgoCD Application Spec
+  family_id: 13_infra_design
+  description: Design ArgoCD Application and App-of-Apps manifests.
+  compatible_domain_clusters: []
+- id: ingress-design
+  name: Ingress Controller Configuration
+  family_id: 13_infra_design
+  description: Design NGINX / Traefik / ALB ingress rules.
+  compatible_domain_clusters: []
+- id: service-mesh-design
+  name: Service Mesh MeshConfig
+  family_id: 13_infra_design
+  description: Design Istio VirtualServices and DestinationRules.
+  compatible_domain_clusters: []
+- id: infra-autoscaling-design
+  name: Cluster Autoscaling (Karpenter/CAS)
+  family_id: 13_infra_design
+  description: Design Kubernetes cluster node autoscaling.
+  compatible_domain_clusters: []
+- id: logging-design
+  name: Structured Logging Design
+  family_id: 14_observability_design
+  description: Design JSON structured logging and trace context correlation.
+  compatible_domain_clusters: []
+- id: metrics-design
+  name: Prometheus Metrics Strategy
+  family_id: 14_observability_design
+  description: Design RED (Rate, Errors, Duration) and USE (Utilization, Saturation,
+    Errors) metrics.
+  compatible_domain_clusters: []
+- id: traces-design
+  name: Distributed Tracing Architecture
+  family_id: 14_observability_design
+  description: Design OpenTelemetry distributed trace context propagation.
+  compatible_domain_clusters:
+  - 08_quality_attribute_architecture
+- id: dashboard-design
+  name: Grafana Dashboard Architecture
+  family_id: 14_observability_design
+  description: Design executive and engineer Grafana dashboards.
+  compatible_domain_clusters: []
+- id: alerting-design
+  name: Alerting Strategy Design
+  family_id: 14_observability_design
+  description: Design PagerDuty / Opsgenie alert escalation policies.
+  compatible_domain_clusters: []
+- id: health-check-design
+  name: Health Check Architecture
+  family_id: 14_observability_design
+  description: Design liveness, readiness, and startup probes.
+  compatible_domain_clusters: []
+- id: sli-slo-design
+  name: SLI / SLO Definition
+  family_id: 14_observability_design
+  description: Define Service Level Indicators and Service Level Objectives.
+  compatible_domain_clusters:
+  - 08_quality_attribute_architecture
+  - 09_delivery_architecture
+- id: sla-design
+  name: SLA Customer Contract Design
+  family_id: 14_observability_design
+  description: Formulate customer Service Level Agreements and financial penalties.
+  compatible_domain_clusters: []
+- id: rolling-deployment-design
+  name: Rolling Update Strategy
+  family_id: 15_deployment_design
+  description: Design Kubernetes rolling update parameters.
+  compatible_domain_clusters: []
+- id: blue-green-design
+  name: Blue-Green Deployment Strategy
+  family_id: 15_deployment_design
+  description: Design zero-downtime Blue-Green environment switching.
+  compatible_domain_clusters: []
+- id: canary-design
+  name: Canary Release Strategy
+  family_id: 15_deployment_design
+  description: Design automated Argo Rollouts canary deployment.
+  compatible_domain_clusters:
+  - 06_infrastructure_architecture
+  - 09_delivery_architecture
+- id: shadow-deployment-design
+  name: Shadow / Dark Deployment Strategy
+  family_id: 15_deployment_design
+  description: Replicate live traffic to test new release in shadow mode.
+  compatible_domain_clusters: []
+- id: rollback-design
+  name: Automated Rollback Strategy
+  family_id: 15_deployment_design
+  description: Design instant rollback triggers upon metric breach.
+  compatible_domain_clusters: []
+- id: feature-flag-design
+  name: Feature Flag Management
+  family_id: 15_deployment_design
+  description: Design LaunchDarkly / Unleash feature flag system.
+  compatible_domain_clusters: []
+- id: unit-testing-strategy
+  name: Unit Testing Strategy
+  family_id: 16_testing_strategy
+  description: Define unit testing standards and code coverage thresholds.
+  compatible_domain_clusters: []
+- id: integration-testing-strategy
+  name: Integration Testing Strategy
+  family_id: 16_testing_strategy
+  description: Design component and containerized DB integration tests.
+  compatible_domain_clusters: []
+- id: contract-testing-strategy
+  name: Consumer-Driven Contract Testing
+  family_id: 16_testing_strategy
+  description: Design Pact contract testing between microservices.
+  compatible_domain_clusters:
+  - 03_application_architecture
+  - 09_delivery_architecture
+- id: e2e-testing-strategy
+  name: End-to-End (E2E) Testing Strategy
+  family_id: 16_testing_strategy
+  description: Design automated E2E user flow tests (Playwright, Cypress).
+  compatible_domain_clusters: []
+- id: load-testing-strategy
+  name: Load & Performance Testing
+  family_id: 16_testing_strategy
+  description: Design k6 / Locust load testing scenarios.
+  compatible_domain_clusters:
+  - 08_quality_attribute_architecture
+  - 09_delivery_architecture
+- id: stress-testing-strategy
+  name: Stress & Endurance Testing
+  family_id: 16_testing_strategy
+  description: Test system breaking points and memory leaks over time.
+  compatible_domain_clusters: []
+- id: security-testing-strategy
+  name: Security Testing Strategy
+  family_id: 16_testing_strategy
+  description: Integrate SAST, DAST, and dependency scanning into CI.
+  compatible_domain_clusters: []
+- id: chaos-testing-strategy
+  name: Chaos Testing Execution Plan
+  family_id: 16_testing_strategy
+  description: Plan game days and automated fault injection.
+  compatible_domain_clusters: []
+- id: mutation-testing-strategy
+  name: Mutation Testing Strategy
+  family_id: 16_testing_strategy
+  description: Assess test suite quality using code mutation.
+  compatible_domain_clusters: []
+- id: adr-authoring
+  name: Architecture Decision Record (ADR) Authoring
+  family_id: 17_documentation
+  description: Author formal ADR for significant architectural decisions.
+  compatible_domain_clusters: []
+- id: rfc-authoring
+  name: Request for Comments (RFC) Authoring
+  family_id: 17_documentation
+  description: Author technical proposal for peer feedback.
+  compatible_domain_clusters: []
+- id: arch-spec-authoring
+  name: Architecture Specification Authoring
+  family_id: 17_documentation
+  description: Write full System Architecture Specification document.
+  compatible_domain_clusters: []
+- id: readme-authoring
+  name: Repository README Authoring
+  family_id: 17_documentation
+  description: Write developer onboarding README.
+  compatible_domain_clusters: []
+- id: runbook-authoring
+  name: Operational Runbook Authoring
+  family_id: 17_documentation
+  description: Write step-by-step incident response runbooks.
+  compatible_domain_clusters: []
+- id: playbook-authoring
+  name: Disaster Recovery Playbook Authoring
+  family_id: 17_documentation
+  description: Write step-by-step DR failover manual.
+  compatible_domain_clusters: []
+- id: decision-log-authoring
+  name: Architecture Decision Log Maintenance
+  family_id: 17_documentation
+  description: Maintain searchable index of all project ADRs.
+  compatible_domain_clusters: []
+- id: migration-guide-authoring
+  name: System Migration Guide Authoring
+  family_id: 17_documentation
+  description: Write step-by-step developer migration guide.
+  compatible_domain_clusters: []
+- id: arch-review-task
+  name: Architecture Review Execution
+  family_id: 18_governance
+  description: Conduct formal architecture review against ISO 42010 standards.
+  compatible_domain_clusters: []
+- id: checklist-validation
+  name: Quality Gate Checklist Validation
+  family_id: 18_governance
+  description: Audit design against readiness checklist.
+  compatible_domain_clusters: []
+- id: quality-gate-enforcement
+  name: Quality Gate Rule Definition
+  family_id: 18_governance
+  description: Define mandatory CI build break rules.
+  compatible_domain_clusters: []
+- id: best-practice-audit
+  name: Best Practice Audit
+  family_id: 18_governance
+  description: Audit system against cloud well-architected framework.
+  compatible_domain_clusters: []
+- id: arch-smell-detection
+  name: Architecture Smell Detection
+  family_id: 18_governance
+  description: Detect architectural anti-patterns (God Component, Circular Dependency).
+  compatible_domain_clusters: []
+- id: compliance-review
+  name: Regulatory Compliance Review
+  family_id: 18_governance
+  description: Audit compliance with GDPR, HIPAA, PCI-DSS standards.
+  compatible_domain_clusters: []
+- id: policy-definition
+  name: Architecture Policy Definition
+  family_id: 18_governance
+  description: Formalize enterprise architecture policies.
+  compatible_domain_clusters: []
+- id: standards-enforcement
+  name: Coding & Design Standards Enforcement
+  family_id: 18_governance
+  description: Enforce naming conventions and code style rules.
+  compatible_domain_clusters: []
+- id: change-impact-analysis
+  name: Change Request Impact Analysis
+  family_id: 18_governance
+  description: Record a change to a stable id as a change request whose impact graph
+    is computed, not written.
+  compatible_domain_clusters: []
+- id: capacity-planning-task
+  name: Capacity Planning Modeling
+  family_id: 19_cost_operations
+  description: Calculate required CPU, RAM, and disk storage sizing.
+  compatible_domain_clusters: []
+- id: cost-estimation-task
+  name: Cloud Infrastructure Cost Estimation
+  family_id: 19_cost_operations
+  description: Estimate monthly cloud infrastructure bill.
+  compatible_domain_clusters: []
+- id: finops-optimization
+  name: FinOps Cost Optimization Plan
+  family_id: 19_cost_operations
+  description: Identify reserved instance savings and spot instance opportunities.
+  compatible_domain_clusters: []
+- id: roi-analysis
+  name: Return on Investment (ROI) Calculation
+  family_id: 19_cost_operations
+  description: Calculate expected ROI for engineering refactoring projects.
+  compatible_domain_clusters: []
+- id: tco-analysis
+  name: Total Cost of Ownership (TCO) Analysis
+  family_id: 19_cost_operations
+  description: Calculate total 3-year cost of building vs buying a solution.
+  compatible_domain_clusters: []
+- id: resource-planning-task
+  name: Engineering Resource Planning
+  family_id: 19_cost_operations
+  description: Estimate headcount and team skill requirements.
+  compatible_domain_clusters: []
+- id: license-review
+  name: Software License & Legal Audit
+  family_id: 19_cost_operations
+  description: Audit open-source software license compatibility (GPL, MIT, Apache).
+  compatible_domain_clusters: []
+- id: prompt-engineering
+  name: System Prompt Architecture
+  family_id: 20_ai_tasks
+  description: Design structured system prompts with guardrails and role instructions.
+  compatible_domain_clusters: []
+- id: rag-design-task
+  name: RAG Architecture Design
+  family_id: 20_ai_tasks
+  description: Design end-to-end RAG chunking, embedding, and re-ranking pipeline.
+  compatible_domain_clusters: []
+- id: agent-workflow-design
+  name: Multi-Agent Workflow Design
+  family_id: 20_ai_tasks
+  description: Design agent DAG interaction and subagent delegation workflows.
+  compatible_domain_clusters: []
+- id: memory-strategy-design
+  name: AI Agent Memory Strategy
+  family_id: 20_ai_tasks
+  description: Design short-term windowing and long-term vector memory.
+  compatible_domain_clusters: []
+- id: tool-routing-design
+  name: Tool Routing & Schema Design
+  family_id: 20_ai_tasks
+  description: Design tool call schemas and router classification.
+  compatible_domain_clusters: []
+- id: ai-evaluation-design
+  name: AI Output Evaluation Design
+  family_id: 20_ai_tasks
+  description: Establish automated evaluation suites (Ragas, DeepEval).
+  compatible_domain_clusters: []
+- id: guardrail-design
+  name: LLM Guardrail & Safety Design
+  family_id: 20_ai_tasks
+  description: Design input/output guardrails (NeMo Guardrails, Llama Guard).
+  compatible_domain_clusters: []
+- id: hallucination-detection
+  name: Hallucination Detection Strategy
+  family_id: 20_ai_tasks
+  description: Design self-consistency and cross-reference verification.
+  compatible_domain_clusters: []
+- id: model-routing-design
+  name: Dynamic Model Routing Strategy
+  family_id: 20_ai_tasks
+  description: Route queries based on complexity to small vs large LLMs.
+  compatible_domain_clusters: []
+- id: context-optimization-design
+  name: Context Window Optimization
+  family_id: 20_ai_tasks
+  description: Optimize token budget allocation for large prompts.
+  compatible_domain_clusters: []
+- id: delivery-roadmap-planning
+  name: Delivery Roadmap Phasing
+  family_id: 21_delivery_planning
+  description: Divide the architecture into incremental delivery phases with quantitative
+    exit criteria.
+  compatible_domain_clusters: []
+- id: work-breakdown-decomposition
+  name: Work Breakdown Structure Decomposition
+  family_id: 21_delivery_planning
+  description: Decompose each delivery phase into sized, dependency-ordered units
+    of work.
+  compatible_domain_clusters: []

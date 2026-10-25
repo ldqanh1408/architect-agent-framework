@@ -1,0 +1,78 @@
+schema_version: '2026.10'
+allow:
+- path: vendor/sdd-agent/00-requirement-clarifier/references/inter-skill-pipelines.md
+  token: 07-test-bootstrapper
+  reason: byte-identical copy of _shared-master/inter-skill-pipelines.md (same retired-seam
+    sentence)
+- path: vendor/sdd-agent/01-system-architect/references/inter-skill-pipelines.md
+  token: 07-test-bootstrapper
+  reason: byte-identical copy of _shared-master/inter-skill-pipelines.md (same retired-seam
+    sentence)
+- path: vendor/sdd-agent/02-spec-critic/references/inter-skill-pipelines.md
+  token: 07-test-bootstrapper
+  reason: byte-identical copy of _shared-master/inter-skill-pipelines.md (same retired-seam
+    sentence)
+- path: vendor/sdd-agent/CHANGELOG.md
+  token: 03-c4-modeler
+  reason: release history; past entries name the stages as they were then
+- path: vendor/sdd-agent/CHANGELOG.md
+  token: 04-uml-modeler
+  reason: release history; past entries name the stages as they were then
+- path: vendor/sdd-agent/CHANGELOG.md
+  token: 07-test-bootstrapper
+  reason: release history; past entries name the stages as they were then
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 03-c4-modeler
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 04-uml-modeler
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 05-project-phaser
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 06-task-decomposer
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 07-test-bootstrapper
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 08-handoff-gate
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 09-github-delivery-operator
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 10-acceptance-auditor
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 11-code-to-doc-mapper
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 12-repository-documenter
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/PROVENANCE.md
+  token: 13-spec-change-manager
+  reason: 'provenance record of the port: lists the stages as they were ported and
+    when each was retired'
+- path: vendor/sdd-agent/_shared-master/inter-skill-pipelines.md
+  token: 07-test-bootstrapper
+  reason: one sentence recording the retired seam to 07 (pinned by test_retired_seam_is_recorded_not_silently_dropped)
+- path: vendor/sdd-agent/docs/LEGACY_INTEGRATION.md
+  token: 03-c4-modeler
+  reason: the upstream 0.2.0 note on legacy integration records which stages the old
+    workflow retired
+- path: vendor/sdd-agent/docs/LEGACY_INTEGRATION.md
+  token: 04-uml-modeler
+  reason: the upstream 0.2.0 note on legacy integration records which stages the old
+    workflow retired

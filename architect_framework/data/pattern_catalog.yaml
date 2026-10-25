@@ -1,0 +1,473 @@
+patterns:
+  # ─────────────────── 01. Business & Domain Architecture Patterns ───────────────────
+  - id: "cqrs"
+    name: "Command Query Responsibility Segregation (CQRS)"
+    category: "Data & Architecture"
+    problem: "Read and write workloads have drastically different performance, scaling, and data model requirements."
+    solution: "Separate read and write paths into distinct data models and services."
+    tradeoffs: ["Increases system complexity", "Requires eventual consistency management"]
+    applicable_domains: ["02_domain_architecture", "03_application_architecture", "05_data_architecture"]
+
+  - id: "event-sourcing"
+    name: "Event Sourcing"
+    category: "Data & Architecture"
+    problem: "Auditability and complete history of state transitions are lost when storing only current state."
+    solution: "Store all mutations as an append-only sequence of immutable events."
+    tradeoffs: ["Requires snapshotting for fast replay", "Schema evolution of events is complex"]
+    applicable_domains: ["02_domain_architecture", "05_data_architecture"]
+
+  - id: "saga"
+    name: "Saga Pattern"
+    category: "Distributed Transactions"
+    problem: "Distributed transactions across microservices cannot use 2PC without locking and performance bottlenecks."
+    solution: "Coordinate a series of local transactions with compensating actions on failure."
+    tradeoffs: ["Complex debugging", "Lack of isolation during execution"]
+    applicable_domains: ["02_domain_architecture", "03_application_architecture"]
+
+  - id: "domain-events"
+    name: "Domain Events"
+    category: "DDD Tactical"
+    problem: "State changes in a bounded context need to be communicated to other contexts without tight coupling."
+    solution: "Publish immutable Domain Event objects describing business state transitions."
+    tradeoffs: ["Eventual consistency", "Event schema versioning complexity"]
+    applicable_domains: ["02_domain_architecture"]
+
+  - id: "aggregate-root"
+    name: "Aggregate Root Pattern"
+    category: "DDD Tactical"
+    problem: "Maintaining invariants across a cluster of related objects is difficult with individual repository access."
+    solution: "Designate one Entity as the Aggregate Root; all external access must go through it."
+    tradeoffs: ["Large aggregates become performance bottlenecks", "Requires careful boundary identification"]
+    applicable_domains: ["02_domain_architecture"]
+
+  - id: "anti-corruption-layer"
+    name: "Anti-Corruption Layer (ACL)"
+    category: "DDD Strategic"
+    problem: "Integrating with a legacy or external system risks polluting the domain model with foreign concepts."
+    solution: "Build a translation layer that adapts external data/behavior to the bounded context's own model."
+    tradeoffs: ["Additional code to maintain", "Potential data latency from translation overhead"]
+    applicable_domains: ["02_domain_architecture", "03_application_architecture"]
+
+  - id: "published-language"
+    name: "Published Language"
+    category: "DDD Strategic"
+    problem: "Different bounded contexts need a neutral exchange format to avoid coupling to each other's model."
+    solution: "Define a shared, well-documented interchange language (schema, protocol) between contexts."
+    tradeoffs: ["Schema governance overhead", "Versioning contract management"]
+    applicable_domains: ["02_domain_architecture", "08_api_design"]
+
+  - id: "value-stream-mapping"
+    name: "Value Stream Mapping"
+    category: "Business Architecture"
+    problem: "Organizational waste and bottlenecks hidden in end-to-end delivery process reduce time-to-market."
+    solution: "Visualize and map the entire value stream from request to delivery, identifying waste points."
+    tradeoffs: ["Requires cross-team collaboration", "Map becomes stale without continuous updates"]
+    applicable_domains: ["01_business_architecture"]
+
+  # ─────────────────── 02. Application Architecture Patterns ───────────────────
+  - id: "circuit-breaker"
+    name: "Circuit Breaker"
+    category: "Resiliency"
+    problem: "Cascading failures occur when calling a failing remote dependency continuously."
+    solution: "Wrap calls in a circuit breaker that trips OPEN on high failure rates, preventing downstream calls."
+    tradeoffs: ["Requires tuning threshold parameters", "Requires fallback handling"]
+    applicable_domains: ["03_application_architecture", "08_quality_attribute_architecture"]
+
+  - id: "transactional-outbox"
+    name: "Transactional Outbox"
+    category: "Integration & Data"
+    problem: "Publishing events directly to message broker inside database transaction risks dual-write inconsistency."
+    solution: "Save events to an outbox table in the local DB transaction and publish via an asynchronous CDC process."
+    tradeoffs: ["Requires background publisher worker", "At-least-once message delivery"]
+    applicable_domains: ["03_application_architecture", "05_data_architecture"]
+
+  - id: "strangler-fig"
+    name: "Strangler Fig Pattern"
+    category: "Migration & Modernization"
+    problem: "Replacing a legacy monolith with microservices in a single rewrite carries high risk."
+    solution: "Incrementally replace legacy features by routing requests to new microservices via an API gateway."
+    tradeoffs: ["Dual system maintenance during migration", "Gateway routing overhead"]
+    applicable_domains: ["03_application_architecture", "09_delivery_architecture"]
+
+  - id: "bff"
+    name: "Backend For Frontend (BFF)"
+    category: "Application & API"
+    problem: "Different client types (Web, Mobile, IoT) require different API shapes and data aggregations."
+    solution: "Create custom backend services tailored specifically for each frontend client type."
+    tradeoffs: ["Duplication of API aggregation code", "More backend services to maintain"]
+    applicable_domains: ["03_application_architecture"]
+
+  - id: "sidecar"
+    name: "Sidecar Pattern"
+    category: "Infrastructure & Security"
+    problem: "Cross-cutting concerns (mTLS, tracing, logging) clutter application code."
+    solution: "Deploy a separate helper container alongside the main application container in the same pod."
+    tradeoffs: ["Higher memory footprint per pod", "Pod initialization order management"]
+    applicable_domains: ["03_application_architecture", "06_infrastructure_architecture"]
+
+  - id: "gateway-aggregation"
+    name: "Gateway Aggregation"
+    category: "Application & API"
+    problem: "Clients make multiple calls to different services to fulfill a single user request, increasing latency."
+    solution: "Use an API Gateway to aggregate multiple backend service calls into a single response to the client."
+    tradeoffs: ["Gateway becomes a bottleneck", "Tight coupling between gateway and backend services"]
+    applicable_domains: ["03_application_architecture"]
+
+  - id: "gateway-routing"
+    name: "Gateway Routing"
+    category: "Application & API"
+    problem: "Clients need to know addresses of multiple backend services, making API management complex."
+    solution: "Use a gateway as single entry point that routes requests to appropriate backend services."
+    tradeoffs: ["Single point of failure if gateway is down", "Gateway configuration complexity"]
+    applicable_domains: ["03_application_architecture"]
+
+  - id: "ambassador"
+    name: "Ambassador Pattern"
+    category: "Infrastructure"
+    problem: "Services need to handle tasks like monitoring, logging, and circuit breaking separately from business logic."
+    solution: "Use a helper container to offload these tasks, acting as an ambassador proxy for the service."
+    tradeoffs: ["Extra network hop", "Complexity of proxy configuration"]
+    applicable_domains: ["03_application_architecture", "06_infrastructure_architecture"]
+
+  - id: "hexagonal-architecture"
+    name: "Hexagonal Architecture (Ports & Adapters)"
+    category: "Application Structure"
+    problem: "Business logic is tightly coupled to infrastructure (UI, database, messaging) making it untestable."
+    solution: "Define clear ports (interfaces) and adapters (implementations) to isolate business logic from I/O."
+    tradeoffs: ["More interfaces and boilerplate", "Learning curve for teams unfamiliar with the pattern"]
+    applicable_domains: ["03_application_architecture", "02_domain_architecture"]
+
+  - id: "clean-architecture"
+    name: "Clean Architecture"
+    category: "Application Structure"
+    problem: "Business rules depend on UI and infrastructure decisions, creating fragile and hard-to-test systems."
+    solution: "Organize code in concentric layers (Entities, Use Cases, Interface Adapters, Frameworks) with inward dependency rule."
+    tradeoffs: ["High initial ceremony", "Over-engineering for simple CRUD applications"]
+    applicable_domains: ["03_application_architecture"]
+
+  - id: "event-driven-architecture"
+    name: "Event-Driven Architecture (EDA)"
+    category: "Architecture Style"
+    problem: "Synchronous request/response coupling between services reduces resilience and scalability."
+    solution: "Services communicate via publishing and consuming immutable events through a message broker."
+    tradeoffs: ["Eventual consistency challenges", "Complex debugging and event ordering"]
+    applicable_domains: ["03_application_architecture", "02_domain_architecture", "05_data_architecture"]
+
+  - id: "pipes-and-filters"
+    name: "Pipes and Filters"
+    category: "Architecture Style"
+    problem: "Complex processing pipelines with multiple transformation steps are hard to scale independently."
+    solution: "Chain independent filter components via pipes, each consuming and producing a standard data format."
+    tradeoffs: ["Latency added by each filter", "Data format must be shared across filters"]
+    applicable_domains: ["03_application_architecture", "05_data_architecture"]
+
+  # ─────────────────── 03. AI Architecture Patterns ───────────────────
+  - id: "rag-pipeline"
+    name: "Retrieval-Augmented Generation (RAG)"
+    category: "AI & LLM"
+    problem: "LLMs suffer from context boundaries, stale data, and hallucinations on proprietary knowledge."
+    solution: "Retrieve relevant document chunks from a vector store and append them to the LLM prompt context."
+    tradeoffs: ["Retrieval latency", "Chunking and embedding quality dependency"]
+    applicable_domains: ["04_ai_architecture"]
+
+  - id: "agentic-loop"
+    name: "Agentic ReAct Loop"
+    category: "AI & LLM"
+    problem: "LLMs cannot solve complex multi-step tasks in a single response."
+    solution: "Implement Reason -> Act -> Observe execution loops with tool access."
+    tradeoffs: ["Non-deterministic execution paths", "High token cost"]
+    applicable_domains: ["04_ai_architecture"]
+
+  - id: "multi-agent-orchestration"
+    name: "Multi-Agent Orchestration"
+    category: "AI & LLM"
+    problem: "Single agents cannot efficiently handle tasks requiring parallel specialization across domains."
+    solution: "Coordinate a network of specialized agents, each with distinct skills and tools, orchestrated by a router agent."
+    tradeoffs: ["Communication overhead between agents", "Complex error propagation"]
+    applicable_domains: ["04_ai_architecture"]
+
+  - id: "tool-use-pattern"
+    name: "Tool Use / Function Calling Pattern"
+    category: "AI & LLM"
+    problem: "LLMs need to interact with external systems (APIs, databases, calculators) to complete tasks."
+    solution: "Define structured tool schemas that the LLM can invoke, with result fed back into the context."
+    tradeoffs: ["Requires robust schema design", "Tool call errors must be handled gracefully"]
+    applicable_domains: ["04_ai_architecture"]
+
+  - id: "hierarchical-memory"
+    name: "Hierarchical Agent Memory"
+    category: "AI & LLM"
+    problem: "AI agents lose context across long conversations and multiple sessions, reducing effectiveness."
+    solution: "Implement working memory (in-context), episodic memory (conversation history), and semantic memory (vector store)."
+    tradeoffs: ["Memory management complexity", "Vector search latency for semantic memory"]
+    applicable_domains: ["04_ai_architecture"]
+
+  - id: "guardrail-pattern"
+    name: "LLM Guardrail Pattern"
+    category: "AI & Safety"
+    problem: "LLMs may produce harmful, biased, or off-topic outputs without safety constraints."
+    solution: "Apply input/output guardrails using classifier models, regex patterns, and constitutional rules."
+    tradeoffs: ["False positives blocking legitimate requests", "Added latency from safety checks"]
+    applicable_domains: ["04_ai_architecture"]
+
+  # ─────────────────── 04. Data Architecture Patterns ───────────────────
+  - id: "lambda-architecture"
+    name: "Lambda Architecture"
+    category: "Big Data"
+    problem: "Need for both real-time stream processing and batch historical analysis creates conflicting requirements."
+    solution: "Separate batch layer (historical), speed layer (real-time), and serving layer (merged view)."
+    tradeoffs: ["Dual code paths for batch and stream", "Complex synchronization between layers"]
+    applicable_domains: ["05_data_architecture"]
+
+  - id: "kappa-architecture"
+    name: "Kappa Architecture"
+    category: "Big Data"
+    problem: "Lambda Architecture's dual batch/stream paths create code duplication and operational overhead."
+    solution: "Treat everything as streams; reprocess historical data from log replay when logic changes."
+    tradeoffs: ["Requires reprocessing all historical data on schema change", "Complex log retention management"]
+    applicable_domains: ["05_data_architecture"]
+
+  - id: "data-mesh"
+    name: "Data Mesh"
+    category: "Data Governance"
+    problem: "Centralized data teams become bottlenecks; domain teams cannot manage their own data effectively."
+    solution: "Decentralize data ownership to domain teams with self-serve data platform and federated governance."
+    tradeoffs: ["High organizational change management", "Risk of data silos without strong federation"]
+    applicable_domains: ["05_data_architecture", "01_business_architecture"]
+
+  - id: "lakehouse"
+    name: "Lakehouse Pattern"
+    category: "Data Storage"
+    problem: "Data Lakes are cheap but lack ACID transactions; Data Warehouses are costly and rigid."
+    solution: "Combine the low-cost storage of data lakes with ACID guarantees and schema enforcement via Delta/Iceberg format."
+    tradeoffs: ["Newer ecosystem with evolving tooling", "Compaction overhead for small file problem"]
+    applicable_domains: ["05_data_architecture"]
+
+  - id: "change-data-capture"
+    name: "Change Data Capture (CDC)"
+    category: "Data Integration"
+    problem: "Keeping multiple downstream systems in sync with primary database changes is complex and error-prone."
+    solution: "Capture row-level changes from the DB transaction log and publish them as events to downstream consumers."
+    tradeoffs: ["Dependency on database transaction log access", "Schema changes may break CDC pipelines"]
+    applicable_domains: ["05_data_architecture"]
+
+  - id: "write-ahead-log"
+    name: "Write-Ahead Log (WAL)"
+    category: "Data Reliability"
+    problem: "Database crashes can cause data loss or corruption if writes are not atomic."
+    solution: "Write changes to an append-only log before applying them to the database, enabling crash recovery."
+    tradeoffs: ["Write amplification", "WAL storage overhead"]
+    applicable_domains: ["05_data_architecture"]
+
+  - id: "read-replica"
+    name: "Read Replica Pattern"
+    category: "Data Scaling"
+    problem: "Read-heavy workloads overwhelm a single primary database, causing latency for both reads and writes."
+    solution: "Create read-only replicas that serve read queries, reducing load on the primary writer."
+    tradeoffs: ["Replication lag causes eventual consistency", "Replica lag monitoring overhead"]
+    applicable_domains: ["05_data_architecture"]
+
+  # ─────────────────── 05. Infrastructure Architecture Patterns ───────────────────
+  - id: "immutable-infrastructure"
+    name: "Immutable Infrastructure"
+    category: "Infrastructure"
+    problem: "Mutable server configurations drift over time, causing 'snowflake servers' that are unreproducible."
+    solution: "Build and deploy immutable artifacts (container images, AMIs) and replace rather than update servers."
+    tradeoffs: ["Requires robust CI/CD pipeline for image builds", "Stateful data must be externalized"]
+    applicable_domains: ["06_infrastructure_architecture"]
+
+  - id: "infrastructure-as-code"
+    name: "Infrastructure as Code (IaC)"
+    category: "Infrastructure"
+    problem: "Manual infrastructure provisioning is error-prone, untrackable, and non-reproducible."
+    solution: "Define and provision infrastructure using declarative code managed in version control."
+    tradeoffs: ["Learning curve for IaC tools", "State drift if infrastructure is modified manually"]
+    applicable_domains: ["06_infrastructure_architecture"]
+
+  - id: "blue-green-deployment"
+    name: "Blue-Green Deployment"
+    category: "Deployment"
+    problem: "Traditional deployments require downtime or risky hot-swap of production services."
+    solution: "Maintain two identical production environments; switch traffic from Blue (live) to Green (new) atomically."
+    tradeoffs: ["Requires double the infrastructure capacity", "Database schema changes must be backward compatible"]
+    applicable_domains: ["06_infrastructure_architecture", "09_delivery_architecture"]
+
+  - id: "canary-release"
+    name: "Canary Release"
+    category: "Deployment"
+    problem: "Deploying new versions to all users simultaneously risks widespread failure if bugs are present."
+    solution: "Route a small percentage of traffic to the new version and gradually increase if metrics are healthy."
+    tradeoffs: ["Requires traffic splitting capability", "Complex rollback coordination"]
+    applicable_domains: ["06_infrastructure_architecture", "09_delivery_architecture"]
+
+  - id: "service-mesh"
+    name: "Service Mesh"
+    category: "Infrastructure"
+    problem: "Managing mTLS, retries, circuit breaking, and telemetry in application code across all services is unscalable."
+    solution: "Inject sidecar proxies to handle inter-service communication, offloading network concerns from application code."
+    tradeoffs: ["Control plane complexity", "Significant resource overhead from sidecars"]
+    applicable_domains: ["06_infrastructure_architecture"]
+
+  - id: "gitops"
+    name: "GitOps"
+    category: "Delivery"
+    problem: "Manual or scripted deployments are hard to audit, rollback, and reproduce consistently."
+    solution: "Use Git as the single source of truth for declarative infrastructure and application state; automate reconciliation."
+    tradeoffs: ["Requires mature Git branching strategy", "Secrets management must be solved separately"]
+    applicable_domains: ["06_infrastructure_architecture", "09_delivery_architecture"]
+
+  # ─────────────────── 06. Security Architecture Patterns ───────────────────
+  - id: "zero-trust"
+    name: "Zero Trust Network Architecture"
+    category: "Security"
+    problem: "Traditional perimeter security fails when an attacker breaches the internal network."
+    solution: "Authenticate and authorize every request explicitly regardless of origin."
+    tradeoffs: ["Higher auth latency", "Complex PKI/mTLS management"]
+    applicable_domains: ["07_security_architecture"]
+
+  - id: "defense-in-depth"
+    name: "Defense in Depth"
+    category: "Security"
+    problem: "A single security control failure exposes the entire system to compromise."
+    solution: "Layer multiple independent security controls (network, application, data, identity) so that each acts as a failsafe."
+    tradeoffs: ["Increased operational complexity", "Potential redundant checks impacting performance"]
+    applicable_domains: ["07_security_architecture"]
+
+  - id: "secrets-management"
+    name: "Centralized Secrets Management"
+    category: "Security"
+    problem: "Hardcoded secrets in code or configuration files create critical security vulnerabilities."
+    solution: "Store and retrieve secrets via a dedicated vault service (HashiCorp Vault, AWS Secrets Manager) with short-lived tokens."
+    tradeoffs: ["Availability dependency on secrets service", "Vault operational overhead"]
+    applicable_domains: ["07_security_architecture"]
+
+  - id: "oauth2-oidc"
+    name: "OAuth2 + OIDC Authorization"
+    category: "Security & IAM"
+    problem: "Delegated authorization across services is complex without a standard protocol."
+    solution: "Use OAuth2 for delegated authorization and OIDC for identity federation with JWT tokens."
+    tradeoffs: ["Token refresh management", "Authorization server becomes critical dependency"]
+    applicable_domains: ["07_security_architecture"]
+
+  - id: "threat-modeling-stride"
+    name: "STRIDE Threat Modeling"
+    category: "Security"
+    problem: "Architectural decisions may introduce security vulnerabilities that are only discovered in production."
+    solution: "Systematically enumerate threats using STRIDE: Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation of Privilege."
+    tradeoffs: ["Time-intensive", "Risk of false sense of security if not continuously updated"]
+    applicable_domains: ["07_security_architecture"]
+
+  - id: "data-classification"
+    name: "Data Classification Pattern"
+    category: "Security & Compliance"
+    problem: "Not all data has the same sensitivity level, but blanket protections are costly and impractical."
+    solution: "Classify data into sensitivity tiers (Public, Internal, Confidential, Restricted) and apply controls per tier."
+    tradeoffs: ["Classification maintenance overhead", "Edge cases in data that spans multiple tiers"]
+    applicable_domains: ["07_security_architecture", "05_data_architecture"]
+
+  # ─────────────────── 07. Quality & Resilience Patterns ───────────────────
+  - id: "bulkhead"
+    name: "Bulkhead Pattern"
+    category: "Resiliency"
+    problem: "One overloaded service component consumes all thread pools, crashing the entire application."
+    solution: "Isolate elements into pools so that if one fails, the others continue to function."
+    tradeoffs: ["Requires capacity planning per pool", "Potential resource underutilization"]
+    applicable_domains: ["03_application_architecture", "08_quality_attribute_architecture"]
+
+  - id: "retry-with-backoff"
+    name: "Retry with Exponential Backoff"
+    category: "Resiliency"
+    problem: "Transient failures in distributed systems cause permanent failures if not retried intelligently."
+    solution: "Retry failed operations with increasing wait intervals (exponential backoff) and jitter to avoid thundering herd."
+    tradeoffs: ["Increased latency during failures", "Non-idempotent operations risk double-execution"]
+    applicable_domains: ["03_application_architecture", "08_quality_attribute_architecture"]
+
+  - id: "health-endpoint"
+    name: "Health Endpoint Monitoring"
+    category: "Observability"
+    problem: "Orchestrators and load balancers need to know service health without application-level knowledge."
+    solution: "Expose standardized /health (liveness) and /ready (readiness) endpoints reporting component status."
+    tradeoffs: ["Health checks must not create additional load", "Shallow health checks miss downstream failures"]
+    applicable_domains: ["08_quality_attribute_architecture", "14_observability_design"]
+
+  - id: "slo-driven-design"
+    name: "SLO-Driven Design"
+    category: "Reliability"
+    problem: "Architecture decisions lack quantitative reliability targets, leading to over- or under-engineering."
+    solution: "Define Service Level Objectives (SLOs) for availability, latency, and error rate; design to meet them with error budgets."
+    tradeoffs: ["Requires mature monitoring to measure", "SLO agreement requires business stakeholder alignment"]
+    applicable_domains: ["08_quality_attribute_architecture"]
+
+  - id: "chaos-engineering"
+    name: "Chaos Engineering"
+    category: "Reliability"
+    problem: "Resilience assumptions are only validated under real failure conditions, often in production."
+    solution: "Proactively inject controlled failures in staging/production to verify system handles them gracefully."
+    tradeoffs: ["Risk of unintended production impact", "Requires mature observability before injection"]
+    applicable_domains: ["08_quality_attribute_architecture", "09_delivery_architecture"]
+
+  - id: "rate-limiting"
+    name: "Rate Limiting / Throttling"
+    category: "Protection"
+    problem: "Uncontrolled API consumption can lead to resource exhaustion and denial of service for other clients."
+    solution: "Limit request rate per client/API key using token bucket or sliding window algorithms at the gateway layer."
+    tradeoffs: ["Legitimate traffic may be throttled under burst conditions", "Requires distributed rate limit state store"]
+    applicable_domains: ["03_application_architecture", "08_quality_attribute_architecture"]
+
+  - id: "dead-letter-queue"
+    name: "Dead Letter Queue (DLQ)"
+    category: "Messaging"
+    problem: "Failed message processing in async systems silently drops data or causes infinite retry loops."
+    solution: "Route unprocessable messages to a separate dead letter queue for inspection, alerting, and reprocessing."
+    tradeoffs: ["Requires monitoring and operational process for DLQ", "Root cause analysis needed per dead-lettered message"]
+    applicable_domains: ["03_application_architecture", "05_data_architecture"]
+
+  # ─────────────────── 08. Testing & Quality Patterns ───────────────────
+  - id: "test-pyramid"
+    name: "Testing Pyramid"
+    category: "Testing Strategy"
+    problem: "Slow, brittle E2E tests dominate test suites, increasing feedback loop and reducing reliability."
+    solution: "Structure test suites in a pyramid: many fast unit tests, fewer integration tests, minimal E2E tests."
+    tradeoffs: ["Requires discipline to maintain correct ratio", "Mocking in unit tests can mask integration issues"]
+    applicable_domains: ["09_delivery_architecture"]
+
+  - id: "consumer-driven-contracts"
+    name: "Consumer-Driven Contract Testing"
+    category: "Testing"
+    problem: "Breaking API changes are only discovered when downstream services are deployed, causing integration failures."
+    solution: "Consumers publish contract expectations; provider verifies them automatically in CI before deployment."
+    tradeoffs: ["Requires Pact broker or similar tooling", "Contract test maintenance overhead"]
+    applicable_domains: ["09_delivery_architecture", "03_application_architecture"]
+
+  - id: "feature-flags"
+    name: "Feature Flags (Feature Toggles)"
+    category: "Deployment"
+    problem: "Deploying features requires code releases, making partial rollouts, A/B testing, and rollbacks difficult."
+    solution: "Wrap features in runtime flags that can be enabled/disabled per environment, user segment, or percentage."
+    tradeoffs: ["Flag lifecycle management overhead", "Technical debt if old flags are not cleaned up"]
+    applicable_domains: ["09_delivery_architecture"]
+
+  # ─────────────────── 09. Observability Patterns ───────────────────
+  - id: "distributed-tracing"
+    name: "Distributed Tracing"
+    category: "Observability"
+    problem: "Request flows across multiple microservices are invisible, making latency debugging impossible."
+    solution: "Propagate trace context (W3C TraceContext) across all service boundaries and collect spans centrally."
+    tradeoffs: ["Overhead from span collection", "Sampling must balance completeness vs storage cost"]
+    applicable_domains: ["08_quality_attribute_architecture"]
+
+  - id: "structured-logging"
+    name: "Structured Logging"
+    category: "Observability"
+    problem: "Unstructured log text is hard to query, alert on, and correlate across distributed services."
+    solution: "Emit logs as JSON objects with standard fields (timestamp, level, traceId, service, correlationId)."
+    tradeoffs: ["Larger log payload size than plaintext", "Requires log aggregation pipeline (Loki, Elasticsearch)"]
+    applicable_domains: ["08_quality_attribute_architecture"]
+
+  - id: "four-golden-signals"
+    name: "Four Golden Signals"
+    category: "Monitoring"
+    problem: "Too many metrics make it unclear what to alert on for service reliability."
+    solution: "Focus monitoring on Latency, Traffic, Errors, and Saturation as the four essential reliability signals."
+    tradeoffs: ["Requires custom instrumentation", "May miss application-specific signals"]
+    applicable_domains: ["08_quality_attribute_architecture"]

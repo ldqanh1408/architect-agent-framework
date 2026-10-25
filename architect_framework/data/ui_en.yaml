@@ -1,0 +1,685 @@
+schema_version: 1
+messages:
+  ' (suy ra, chưa rõ hướng)': ' (inferred, direction unclear)'
+  ' (đã đọc)': ' (read)'
+  ' Có ý kiến của model chấm {0}.': ' Level-judge opinion: {0}.'
+  ' Hồ sơ run {0} đã hơn 24 giờ không cập nhật; nếu run đó đã dừng hẳn, người dùng xóa tệp này trong terminal của mình.': ' The
+    run record {0} has not been updated for over 24 hours; if that run has stopped
+    for good, the user deletes this file in their own terminal.'
+  ' dưới {prefix}': ' under {prefix}'
+  ' hoặc ': ' or '
+  ' trang': ' pages'
+  ' và {0} mục khác': ' and {0} more'
+  ' · chưa áp: câu hỏi chưa được đo trên corpus có nhãn': ' · not applied: the question
+    has not been measured on a labelled corpus'
+  ' · {0} mục bắt buộc': ' · {0} required'
+  ' Ý kiến của model chấm đã cũ nên không dùng.': ' The level-judge opinion is out
+    of date, so it is not used.'
+  ' — bàn duyệt': ' — review console'
+  ' — bỏ điều kiện này': ' — drop this condition'
+  ' — đang mở': ' — open'
+  ' — đoạn này đã đổi': ' — this passage changed'
+  '## Góp ý trên trang này': '## Feedback on this page'
+  '(đã cắt: góp ý trên trang này vượt {BRIEF_LIMIT} ký tự)': '(truncated: the feedback
+    on this page is over {BRIEF_LIMIT} characters)'
+  ', lọc theo ': ', filtered by '
+  ', {0} đã xử lý': ', {0} handled'
+  ', đúng mức đếm được từ yêu cầu.': ', the level counted from the requirement.'
+  / hoặc Ctrl+K: / or Ctrl+K
+  '1) Tổng quan cho biết còn bao nhiêu trang chưa xong và đang chờ ai. ': '1) Overview
+    tells you how many pages are unfinished and who is being waited for. '
+  '2) Bấm một con số để lọc ra đúng các trang đó, rồi đọc lần lượt bằng “Trang sau”. ': '2)
+    Click a number to filter to exactly those pages, then read them one by one with
+    “Next page”. '
+  3) Chỗ chờ ở cột phải là nơi ký quyết định, bằng passkey, trên bàn duyệt.: 3) Waiting
+    items in the right column are where decisions are signed, with a passkey, on the
+    review console.
+  ; yêu cầu đếm ra mức {0}.: ; the requirement counts to level {0}.
+  <p>(trang rỗng)</p>: <p>(empty page)</p>
+  <p>Không tải được trang này từ máy chủ.</p>: <p>This page could not be loaded from
+    the server.</p>
+  Báo cáo kiểm toán: Audit report
+  Bước 1 · đăng ký passkey (một lần): Step 1 · register a passkey (once)
+  Bước 2 · đánh dấu từng mục đã xem ở trên, viết lý do, rồi ký: Step 2 · tick each
+    item you have reviewed above, write a reason, then sign
+  Bạn đã đọc {0}/{1} trang. Đánh dấu nằm trên trình duyệt này; trang được viết lại thì thành chưa đọc.: You
+    have read {0}/{1} pages. Marks are kept in this browser; a page that is rewritten
+    becomes unread.
+  Bấm một con số để lọc ra đúng các trang đó, rồi đọc lần lượt bằng “Trang sau”.: Click
+    a number to filter to exactly those pages, then read them one by one with “Next
+    page”.
+  Bắt đầu ở đây: Start here
+  'Bắt đầu ở đây. ': 'Start here. '
+  Bỏ qua: Skip
+  Bỏ qua tới nội dung: Skip to content
+  Bỏ đánh dấu tất cả: Clear all marks
+  Bốn quyết định của người: The four human checkpoints
+  Ca sử dụng: Use case
+  Chi tiết: Details
+  Chiến lược kiểm thử: Test strategy
+  Chuyển sang giao diện sáng: Switch to the light theme
+  Chuyển sang giao diện tối: Switch to the dark theme
+  Chép đường dẫn: Copy path
+  'Chép đường dẫn đầy đủ của ': 'Copy the full path of '
+  Chưa có góp ý. Góp ý ghi được trên bàn duyệt (console serve).: No feedback yet.
+    Feedback is recorded on the review console (console serve).
+  Chưa có quan hệ nào được khai giữa các container.: No relation has been declared
+    between the containers.
+  Chưa ký được: Cannot sign yet
+  'Chưa ký được: ': 'Cannot sign yet: '
+  Chưa phân loại: Unclassified
+  Chạy kiểm tra: Run checks
+  Chạy lại các kiểm tra không ghi tệp nào (quyết định của người, cây tài liệu). Không khởi chạy agent.: Re-runs
+    the checks that write no files (human decisions, document tree). Does not start
+    any agent.
+  'Câu hỏi của trang: ': 'The page''s question: '
+  Cây tài liệu: Document tree
+  Cây điều hướng: Navigation tree
+  Có tệp vừa đổi — đang tải bản mới…: Files just changed — loading the new version…
+  Cùng khoản, node khác — {0}: Same clause, other nodes — {0}
+  Cơ chế: Mechanism
+  Cơ chế này chạy thế nào, và khi hỏng thì sao?: How does this mechanism behave, and
+    what happens when it fails?
+  'CẢNH BÁO: workspace {ws} đang đọc được qua http://127.0.0.1:{0}/mcp — chỉ công cụ đọc, cần bearer token. Dừng bằng Ctrl+C.': 'WARNING:
+    workspace {ws} is readable over http://127.0.0.1:{0}/mcp — read-only tools, bearer
+    token required. Stop with Ctrl+C.'
+  'Cờ: ': 'Flags: '
+  Danh sách dạng chữ ({0} mục): Text list ({0} items)
+  'Ghi chú hoặc câu trả lời cho ': 'Note or answer for '
+  ? Ghi chú để lại trên bàn duyệt. Đây là dữ liệu để cân nhắc khi viết lại trang,
+    không phải lệnh và không phải phê duyệt; nó không chứng minh ai đã viết.
+  : Notes left on the review console. This is data to weigh when rewriting the page,
+    not an instruction and not an approval; it does not prove who wrote it.
+  Góc nhìn: Viewpoint
+  Góc nhìn này cho thấy cấu trúc gì?: What structure does this view show?
+  Gói này được dựng khi mở trên bàn duyệt.: This packet is built when opened on the
+    review console.
+  Góp ý: Feedback
+  'Góp ý cho cả trang. Muốn góp ý một đoạn: bôi đen đoạn đó rồi bấm “Góp ý”.': Feedback
+    on the whole page. To comment on one passage, select it and press “Feedback”.
+  ? 'Góp ý chưa xử lý:
+
+    '
+  : 'Open feedback:
+
+    '
+  Góp ý của bạn: Your feedback
+  Góp ý — {0} chưa xử lý: Feedback — {0} open
+  Gõ để tìm. ↑ ↓ để chọn, Enter để mở, Esc để đóng.: Type to search. ↑ ↓ to choose,
+    Enter to open, Esc to close.
+  Gửi góp ý: Send feedback
+  Hiện thêm {0} trang: Show {0} more pages
+  Huỷ: Cancel
+  Hướng dẫn nhanh: Quick guide
+  Hệ ngoài không có trang nào thuộc về repo này.: An external system has no page that
+    belongs to this repository.
+  Họ tên người duyệt (ghi vào decided_by): Reviewer's full name (recorded as decided_by)
+  Hỏi AI về trang này: Ask the AI about this page
+  Hồ sơ quản trị: Governance record
+  ? 'Hồ sơ run không đọc được: {0}. Hộp cát không xác định, nên không ghi. Nếu không
+    có run nào đang chạy, người dùng xóa tệp đó trong terminal của mình.'
+  : 'The run record cannot be read: {0}. The sandbox is undefined, so nothing is written.
+    If no run is in progress, the user deletes that file in their own terminal.'
+  Hợp đồng API: API contract
+  Khe skill đọc từ máy chạy bàn duyệt, nên bản xuất tĩnh không có.: Skill slots are
+    read on the machine that runs the review console, so a static export has none.
+  Khoản chưa có trang đứng đầu. Bấm số trang để lọc ra đúng các trang trả lời khoản đó.: This
+    clause has no lead page yet. Click the page count to filter to the pages that
+    answer it.
+  'Khoản yêu cầu: ': 'Requirement clause: '
+  Khu vực: Area
+  Không có bản lúc ký của quyết định này (ký trước khi bàn duyệt lưu bản), nên chỉ biết tệp nào đổi theo mã băm.: There
+    is no signing-time copy of this decision (signed before the console kept copies),
+    so only which files changed is known, by hash.
+  Không có chỗ chờ nào mang id này.: No waiting item carries this id.
+  Không có gì đang chờ.: Nothing is waiting.
+  'Không có gì đang chờ: mọi quyết định đã ký và còn hợp lệ.': 'Nothing is waiting:
+    every decision is signed and still valid.'
+  Không có kết quả: No results
+  'Không có kết quả cho “{0}”. Thử bỏ bớt từ, hoặc tìm theo tên tệp (ví dụ: routing-security).': 'No
+    results for “{0}”. Try fewer words, or search by file name (for example: routing-security).'
+  Không có quyết định nào đang chờ: No decision is waiting
+  Không có quyết định nào đang chờ và không có góp ý nào chưa xử lý.: No decision
+    is waiting and no feedback is open.
+  Không khoản nào khớp.: No clause matches.
+  'Không phải workspace v2: chưa có sdd-workspace.yml.': 'Not a v2 workspace: there
+    is no sdd-workspace.yml.'
+  Không trang nào khớp mọi điều kiện đang chọn. Bỏ bớt một điều kiện, hoặc xoá lọc.: No
+    page matches every selected condition. Remove a condition, or clear the filter.
+  'Không đọc được khe skill: ': 'Could not read the skill slots: '
+  Khớp sau ({0}/{1}): Next match ({0}/{1})
+  Kiểm tra chỉ-đọc: Read-only checks
+  Kiểm tra lỗi: Check for errors
+  Kiểm định: Verification
+  Kiểm định điều gì, đối chiếu với hợp đồng nào?: What is verified, and against which
+    contract?
+  Ký: Sign
+  Ký bằng passkey: Sign with passkey
+  Kế hoạch: Plan
+  Kết quả: Result
+  Kịch bản vận hành: Runtime scenario
+  Lý do — nhắc ít nhất một id bạn quyết: Reason — mention at least one id you are
+    deciding
+  Lưu: Save
+  Lịch sử quyết định: Decision history
+  Lọc trang: Filter pages
+  Màn: Screen
+  Mô tả kho mã: Repository description
+  'Mất kết nối với bàn duyệt — giao diện đang hiện bản lúc mất kết nối. ': 'Lost connection
+    to the review console — the interface shows the version from before it dropped. '
+  Mất kết nối với bàn duyệt; góp ý chưa được lưu.: Lost connection to the review console;
+    feedback was not saved.
+  ? Một job đang chạy trong hộp cát; lệnh shell này không nằm trong danh sách lệnh
+    chỉ đọc và có thể ghi tệp ngoài tầm kiểm của hook. Cho phép chỉ khi bạn đã đọc
+    lệnh.
+  : A job is running in its sandbox; this shell command is not on the read-only list
+    and may write files the hook cannot see. Allow it only if you have read the command.
+  Mở: Open
+  Mở bàn duyệt để ký: Open the review console to sign
+  Mở cây điều hướng: Open the navigation tree
+  Mở lại: Reopen
+  Mở sơ đồ {0}: Open diagram {0}
+  Mở {0}: Open {0}
+  Mục lục: Contents
+  Người duyệt: Reviewer
+  'Người dùng đang xem cây tài liệu của ': 'The user is looking at the document tree
+    of '
+  Nhánh này sở hữu những gì?: What does this branch own?
+  ? 'Những mục này cần NGƯỜI quyết định: đưa họ link bàn duyệt (`architect_console_url`)
+    để họ đọc gói và ký bằng passkey, hoặc lệnh terminal dự phòng `python -m architect_framework.cli.main
+    runtime approve|answer|defer ...`. Đừng tự quyết; hãy báo cho người dùng và dừng.'
+  : 'These items need a PERSON to decide: give them the review console link (`architect_console_url`)
+    so they can read the packet and sign with a passkey, or the terminal commands
+    `architect_runtime.py approve|answer|defer ...` if they have no authenticator. Do not decide
+    yourself; tell the user and stop.'
+  Node này chưa sở hữu trang nào.: This node does not own any page yet.
+  Nội dung: Content
+  Phát hiện chặn: Blocking finding
+  Phân trang: Pagination
+  Phím tắt: Shortcuts
+  Quan hệ giữa các container: Relations between containers
+  Quyết định: Decision
+  Quyết định (HG-1…HG-4) được ký trong cột bên phải, bằng passkey, trên bàn duyệt.: Decisions
+    (HG-1…HG-4) are signed in the right column, with a passkey, on the review console.
+  Quyết định chỉ ký được trên bàn duyệt, bằng passkey của bạn — không ký trong khung chat.: Decisions
+    can only be signed on the review console, with your passkey — not in the chat
+    window.
+  ? Quyết định của người (approve/answer/defer) và hai ledger quyết định chỉ do người
+    ghi, trong terminal của chính họ. Agent không được tự duyệt hay tự trả lời.
+  : Human decisions (approve/answer/defer) and the two decision ledgers are written
+    only by a person, in their own terminal. An agent may not approve or answer for
+    itself.
+  Quyết định kiến trúc (ADR): Architecture decision (ADR)
+  'Quyết định: ': 'Decisions: '
+  'RT-OUTSIDE-ROOT: {0} nằm ngoài workspace của job đang chạy.': 'RT-OUTSIDE-ROOT:
+    {0} is outside the workspace of the running job.'
+  Sao chép: Copy
+  Sao chép câu hỏi cho AI: Copy the question for the AI
+  Sao chép danh sách: Copy list
+  Sao chép lệnh: Copy command
+  Sao chép đường dẫn: Copy path
+  Sơ đồ: Diagram
+  Sửa: Edit
+  Thu nhỏ: Collapse
+  Thành phần: Artifact
+  Thêm người duyệt: Add a reviewer
+  Thông điệp sự kiện: Event message
+  Thư mục này chưa có trang nào. Trang được tạo khi run dựng khung cho node này.: This
+    folder has no page yet. Pages are created when a run builds the scaffold for this
+    node.
+  Thử lại ngay: Retry now
+  Thực thể dữ liệu: Data entity
+  Thực thể này là gì, ai sở hữu, vòng đời ra sao?: What is this entity, who owns it,
+    and what is its lifecycle?
+  Tiêu chuẩn: Standard
+  Tiến độ đọc của bạn: Your reading progress
+  'Toàn hệ: {0} trang, {1} trang chưa viết, {2} trang không có cờ.': 'Whole system:
+    {0} pages, {1} unwritten, {2} without a flag.'
+  Toàn màn hình: Full screen
+  Trang: Page
+  'Trang cũ theo mức: ': 'Older pages by level: '
+  Trang khớp lọc — {0}: Pages matching the filter — {0}
+  Trang liên quan: Related pages
+  Trang này chưa liên kết tới trang nào, và chưa trang nào khác trả lời cùng khoản.: This
+    page links to no page, and no other page answers the same clause.
+  Trang này chứa gì về {0}?: What does this page contain about {0}?
+  Trang này chứa gì?: What does this page contain?
+  Trang này không thuộc node nào trong site model.: This page belongs to no node in
+    the site model.
+  Trang này nhắc tới — {0}: This page mentions — {0}
+  'Trang này phải trả lời: ': 'This page must answer: '
+  'Trang này vừa được viết lại. Bạn đang xem bản lúc mở. ': 'This page was just rewritten.
+    You are looking at the version from when you opened it. '
+  Trang sau: Next page
+  Trang theo node. Bấm một số để lọc ra đúng các trang đó.: Pages by node. Click a
+    number to filter to exactly those pages.
+  Trang theo trạng thái: Pages by status
+  Trang trước: Previous page
+  Trang {0} ({1}) của node {2} còn thiếu gì so với câu hỏi nó phải trả lời?: What
+    does page {0} ({1}) of node {2} still lack compared with the question it must
+    answer?
+  Truy vết: Trace
+  Truy vết khoản yêu cầu: Trace a requirement clause
+  Trình duyệt chặn tải tệp: The browser blocked the download
+  Trạng thái run chỉ đọc được trên bàn duyệt chạy ở máy có workspace.: The run state
+    can only be read on a review console running on a machine that has the workspace.
+  Trợ giúp: Help
+  Trợ giúp và phím tắt (phím ?): Help and shortcuts (key ?)
+  Tìm: Search
+  Tìm (phím /): Search (key /)
+  Tìm kiếm: Search
+  Tìm mã khoản: Find a clause code
+  Tìm trang, thư mục, node, mã khoản, chỗ chờ…: Search pages, folders, nodes, clause
+    codes, waiting items…
+  Tải CSV: Download CSV
+  'Tầng 0 chưa có quan hệ khai kiểu giữa hệ và hệ ngoài: quan hệ được khai ở sơ đồ của hệ.': 'Level
+    0 has no typed relation between the system and external systems: relations are
+    declared in the system''s diagram.'
+  Tổng quan: Overview
+  Tổng quan cho biết còn bao nhiêu trang chưa xong và có quyết định nào đang chờ bạn.: Overview
+    tells you how many pages are unfinished and which decisions are waiting for you.
+  Từ chối: Reject
+  Từ trên trang này: From this page
+  Việc chờ bạn: Waiting for you
+  Vận hành: Operations
+  Về gói quyết định: About the decision packet
+  Về sơ đồ {0}: About diagram {0}
+  Vị trí: Position
+  'Vừa cập nhật: quyết định hoặc chỗ chờ đổi': 'Just updated: a decision or waiting
+    item changed'
+  'Vừa cập nhật: {0} trang đổi': 'Just updated: {0} pages changed'
+  Xem bản mới: See the new version
+  Xem màn Vận hành: See the Operations screen
+  Xem đổi gì: See what changed
+  'Xong: {0} kiểm tra': 'Done: {0} checks'
+  Xoá: Delete
+  Xoá lọc: Clear filter
+  Yêu cầu: Requirement
+  Yêu cầu thay đổi: Change request
+  '[ và ]': '[ and ]'
+  agent chạy tiếp sau khi đầu vào được ghi vào brief: the agent continues once the
+    input is recorded in the brief
+  agent dừng; phần phụ thuộc giả định mở seam: the agent stops; what depends on the
+    assumption opens a seam
+  agent ở blocked cho tới khi có câu trả lời: the agent stays blocked until there
+    is an answer
+  agent ở trạng thái blocked; trang của nó chưa được viết: the agent stays blocked;
+    its pages are not written
+  artifact ghi vào đích đã chọn: the artifact is written to the chosen target
+  artifact ghi vào đích đầu; đích còn lại không có trang: the artifact is written
+    to the first target; the other target gets no page
+  bàn duyệt · localhost: review console · localhost
+  bác bỏ: reject
+  'bản ': 'version '
+  bản ghi hỏng: corrupt record
+  bản xuất tĩnh · chỉ đọc: static export · read-only
+  bảng quan hệ: relations table
+  bảng truy vết: trace table
+  bảng {0}: table {0}
+  bắt buộc: required
+  bắt buộc, chờ bằng chứng: required, waiting for evidence
+  bị từ chối: rejected
+  bị từ chối khi khởi động: refused at start
+  bị xoá: deleted
+  bỏ agent khỏi lần chạy: drop the agent from this run
+  bổ sung evidence: add evidence
+  charter build chạy lại với đề xuất đã tách: charter build runs again with the split
+    proposal
+  chưa có run nào: no run yet
+  chưa có trang nào: no page yet
+  chưa giao chủ: no owner assigned
+  chưa quyết: undecided
+  chưa trang nào trả lời khoản này: no page answers this clause yet
+  chưa tới hạn: not due yet
+  chưa viết: unwritten
+  chưa xử lý: open
+  chưa điền mẫu: unfilled template
+  'chưa đánh dấu đã xem: {0}': 'not yet marked as reviewed: {0}'
+  chỉ có ở bàn duyệt: only on the review console
+  chọn tay một ứng viên: choose a candidate by hand
+  chọn đích khác: choose another target
+  chọn đích đầu tiên: choose the first target
+  chỗ chờ: waiting item
+  'chỗ chờ ': 'waiting item '
+  chỗ khớp sau, khi trang mở từ kết quả tìm: later matches, when the page is opened
+    from a search result
+  chủ {0} · {1} · router {2} · điểm {3} cách {4} · {5}: owner {0} · {1} · router {2}
+    · score {3}, margin {4} · {5}
+  chữ ký: signature
+  cung cấp API cho: provides an API to
+  cung cấp đầu vào: provide the input
+  'cv-{0}|Chưa xem xét: {1}': 'cv-{0}|Not reviewed: {1}'
+  câu hỏi mở: open question
+  câu hỏi {0} · {1}: question {0} · {1}
+  còn chữ hướng dẫn: template text left
+  có góp ý chưa xử lý: has open feedback
+  có trang chưa viết: has unwritten pages
+  có trang khung trống hoặc chưa điền mẫu: has empty scaffold or unfilled-template
+    pages
+  có điều kiện: conditional
+  căn cứ: basis
+  cũ — tài liệu đổi sau khi ký: out of date — documents changed after signing
+  cũ — tệp đã đổi: out of date — the file changed
+  cảnh báo của skills doctor — {0}: skills doctor warnings — {0}
+  cờ: flag
+  danh mục: portfolio
+  duyệt tree plan: approve tree plan
+  ghi lý do vào human-gate-ledger; scorecard đếm nó là skipped: the reason goes into
+    the human-gate ledger; the scorecard counts it as skipped
+  ghi trên bàn duyệt: recorded on the review console
+  giao lại cho orchestrator: hand back to the orchestrator
+  giả định: assumption
+  giả định thành ràng buộc đã chấp nhận, agent chạy tiếp: the assumption becomes an
+    accepted constraint and the agent continues
+  gói quyết định: decision packet
+  gói quyết định đã đổi kể từ lúc bạn mở; mở lại gói rồi ký: the decision packet changed
+    since you opened it; reopen the packet and sign
+  gói quyết định, nguyên văn: decision packet, verbatim
+  góp ý: feedback
+  góp ý · {0}: feedback · {0}
+  gọi API của: calls the API of
+  gợi ý: suggested
+  hiện {0} bậc bị gập: '{0} levels collapsed'
+  hoãn (defer): defer
+  hoãn agent: defer the agent
+  hoãn có lý do: defer, with a reason
+  hoãn {0}: defer {0}
+  hạt giống: seed
+  hệ ngoài: external system
+  hệ thống: system
+  hợp lệ: valid
+  hợp đồng khai đây là điều kiện chặn: the contract declares this a blocking condition
+  hợp đồng khai đây là điều kiện từ chối nhận việc: the contract declares this a condition
+    for refusing the work
+  hợp đồng khai đầu vào này là bắt buộc; thiếu nó agent không có nguồn để viết: the
+    contract declares this input required; without it the agent has no source to write
+    from
+  khe rỗng: empty slot
+  khoản: clause
+  khoản yêu cầu: requirement clause
+  khoảng trống: gap
+  khung trống: empty scaffold
+  không bắt buộc có trang: a page is not required
+  không có bản so: no copy to compare
+  không có cờ: no flag
+  không có page class: no page class
+  không có passkey nào được dùng: no passkey was used
+  không có trang trong repo: no page in the repo
+  không khớp: does not match
+  không ký: do not sign
+  không rõ ai ghi: author unknown
+  không rõ nguồn: source unknown
+  không tạo được passkey: could not create a passkey
+  không đạt: failed
+  không đọc được (thiếu phần runtime): cannot be read (runtime part missing)
+  ký khi cần — {0}: sign when needed — {0}
+  ký khi muốn bàn giao bộ tài liệu này: sign when you want to hand this document set
+    over
+  liên kết trong trang: links in the page
+  liên kết tới trang này: links to this page
+  liên quan tới: relates to
+  loại: type
+  loại trang: page class
+  lúc: at
+  lý do: reason
+  lý do phải nhắc ít nhất một id đã đánh dấu, ví dụ {0}: the reason must mention at
+    least one ticked id, for example {0}
+  lệnh tiếp theo: next command
+  lịch sử quyết định: decision history
+  'lọc ': 'filter '
+  lỗi khi đọc: error while reading
+  'màn ': 'screen '
+  mất kết nối với bàn duyệt: lost connection to the review console
+  mốc: milestone
+  một artifact chỉ được có một chỗ đứng trong cây: an artifact may have only one place
+    in the tree
+  mới: new
+  mở bên trong: open inside
+  mở bảng này: open this table
+  mở mục đang chọn: open the selected item
+  mở rộng scope có ghi lý do: widen the scope, with a reason
+  mở seam thiếu evidence: open a seam for the missing evidence
+  mở trang để đọc: open the page to read it
+  mở ô tìm: open the search box
+  mức: level
+  mức cây tài liệu: document-tree level
+  ngoài kế hoạch: out of plan
+  ngoài phạm vi: out of scope
+  nhận sự kiện từ: receives events from
+  nội dung: content
+  orchestrator định tuyến lại hoặc thu hẹp scope: the orchestrator reroutes or narrows
+    the scope
+  phiên bản trang mà khung chat đang hiện: the page version the chat window is showing
+  phát sự kiện tới: publishes events to
+  phải qua cổng approve vì bán kính ghi thay đổi: must pass the approve gate because
+    the write radius changes
+  phụ thuộc vào: depends on
+  'phụ trách: ': 'owner: '
+  quan hệ: relation
+  quyết định: decision
+  router không phân định được, và charter build từ chối đoán: the router cannot decide,
+    and charter build refuses to guess
+  ruột bên ngoài: external content
+  ruột miễn phí: free content
+  sb-enroll-name|Chưa có người duyệt nào đăng ký passkey: sb-enroll-name|No reviewer
+    has registered a passkey yet
+  sb-enroll-name|Điền họ tên người duyệt trước khi đăng ký passkey: sb-enroll-name|Enter
+    the reviewer's full name before registering a passkey
+  sb-rationale|Lý do còn trống: sb-rationale|The reason is empty
+  sb-rationale|Lý do phải nhắc ít nhất một id đã đánh dấu, ví dụ {0}: sb-rationale|The
+    reason must mention at least one ticked id, for example {0}
+  ? 'scorecard khớp artifact
+
+    '
+  : 'scorecard matches the artifact
+
+    '
+  ? 'scorecard khớp ledger
+
+    '
+  : 'scorecard matches the ledger
+
+    '
+  ? 'scorecard lệch artifact hoặc chưa sinh
+
+    '
+  : 'scorecard differs from the artifact or has not been generated
+
+    '
+  ? 'scorecard lệch ledger hoặc chưa sinh
+
+    '
+  : 'scorecard differs from the ledger or has not been generated
+
+    '
+  'skill phụ trách: ': 'owning skill: '
+  slot đích chỉ mở khi evidence có token này: the target slot opens only when the
+    evidence has this token
+  sở hữu: owns
+  tham chiếu — {0} trang của node khác cùng khoản: references — {0} pages of other
+    nodes with the same clause
+  thêm clause cho token rồi dựng lại evidence ledger: add a clause for the token,
+    then rebuild the evidence ledger
+  thư mục: folder
+  thư mục {0} — {1} trang: folder {0} — {1} pages
+  tiêu chuẩn: standard
+  toàn hệ thống: whole system
+  trang: page
+  'trang ': 'page '
+  trang cấp hệ thống: system-level pages
+  trang của node đang đứng: pages of the current node
+  trang không viết; seam có tên và chủ: the page is not written; the seam has a name
+    and an owner
+  'trang liên quan: ': 'related page: '
+  trang sau: next page
+  trang theo node: pages by node
+  trang trước: previous page
+  trang trước, trang sau trong danh sách đã lọc: previous and next page in the filtered
+    list
+  trang {0}: page {0}
+  trang {0}/{1} · {2} mục: page {0}/{1} · {2} items
+  trang đang đọc: the page being read
+  trang-khop-loc.csv: matching-pages.csv
+  trong khung chat · chỉ đọc: in the chat window · read-only
+  trong ranh giới hệ: inside the system boundary
+  trình duyệt không trả khoá công khai (getPublicKey): the browser did not return
+    the public key (getPublicKey)
+  trạng thái: status
+  trả lời {0}: answer {0}
+  tách module: split the module
+  tầng: tier
+  tối thiểu: minimal
+  tới: to
+  từ: from
+  tự sinh: generated
+  verdict thành selected do người chọn; ghi vào ledger: the verdict becomes selected
+    by a person's choice; recorded in the ledger
+  'về đoạn “{quote}”: ': 'on the passage “{quote}”: '
+  xác nhận: confirm
+  yêu cầu: requirement
+  ? '{0}
+
+
+    vì sao chặn: {1}
+
+    '
+  : '{0}
+
+
+    why it blocks: {1}
+
+    '
+  ? '{0}
+
+    vì sao chặn: {1}
+
+    '
+  : '{0}
+
+    why it blocks: {1}
+
+    '
+  '{0} ({1}): {2} trang': '{0} ({1}): {2} pages'
+  '{0} chỉ do người ghi, qua lệnh runtime chạy trong terminal của họ.': '{0} is written
+    only by a person, through a runtime command run in their own terminal.'
+  ? '{0} câu trả lời không phải của người
+
+    '
+  : '{0} answers were not given by a person
+
+    '
+  '{0} ghi vào {1}': '{0} is written to {1}'
+  '{0} góp ý chưa xử lý': '{0} open feedback'
+  '{0} khoản bắt buộc chưa có trang nào': '{0} required clauses have no page at all'
+  '{0} khoản · {1} có trang · ': '{0} clauses · {1} have a page · '
+  '{0} khoản; {1} khoản bắt buộc chưa có trang': '{0} clauses; {1} required clauses
+    have no page'
+  '{0} kết quả': '{0} results'
+  '{0} là quyết định của người hoặc danh sách khoá của người duyệt; chỉ bàn duyệt (passkey) hoặc terminal của người được ghi.': '{0}
+    is a human decision or the reviewers'' key list; only the review console (passkey)
+    or a person''s terminal may write it.'
+  '{0} node · {1} trang · {2} quan hệ': '{0} nodes · {1} pages · {2} relations'
+  '{0} phát hiện; đầu tiên: ': '{0} findings; the first: '
+  '{0} quan hệ · "căn cứ" là khoản yêu cầu, hoặc tệp khai quan hệ đó': '{0} relations
+    · “basis” is the requirement clause, or the file that declares the relation'
+  '{0} quyết định đang chờ người duyệt': '{0} decisions are waiting for a reviewer'
+  '{0} quyết định đang chờ người ký trên bàn duyệt (không ký trong chat).': '{0} decisions
+    are waiting for a person to sign on the review console (not in the chat).'
+  '{0} thuộc ~/.architect-framework; chỉ lệnh của framework được ghi vào đó.': '{0}
+    belongs to ~/.architect-framework; only the framework''s own commands write there.'
+  '{0} trang': '{0} pages'
+  '{0} trang chưa viết (khung trống hoặc chưa điền mẫu) · {1} trang không có cờ': '{0}
+    unwritten pages (empty scaffold or unfilled template) · {1} pages without a flag'
+  '{0} trang thuộc node này': '{0} pages belong to this node'
+  '{0} trang trong cây con': '{0} pages in the subtree'
+  '{0} trang trả lời {1}: lọc ra các trang này': '{0} pages answering {1}: filter
+    to these pages'
+  '{0} trang {1} của {2}: lọc': '{0} pages {1} of {2}: filter'
+  '{0} trang {1}: lọc ra các trang này': '{0} pages {1}: filter to these pages'
+  '{0} trang · {1} node · {2} quan hệ · ': '{0} pages · {1} nodes · {2} relations
+    · '
+  '{0} trang · {1}%': '{0} pages · {1}%'
+  '{0} trong {1} trang khớp: {2}': '{0} of {1} matching pages: {2}'
+  '{0} từ · {1} byte': '{0} words · {1} bytes'
+  '{0} {1} {2}: làm sáng dây trên sơ đồ': '{0} {1} {2}: highlight the line on the
+    diagram'
+  '{0} · {1} từ': '{0} · {1} words'
+  '{0} · {1}: {2}. Xử lý thế nào?': '{0} · {1}: {2}. How should it be handled?'
+  '{0} · độ tin {1}': '{0} · confidence {1}'
+  '{0} — {1} trang': '{0} — {1} pages'
+  '{0}/{1} khe đã có skill.': '{0}/{1} slots have a skill.'
+  '{0}/{1} trang khớp': '{0}/{1} pages match'
+  '{0}/{1} trang khớp lọc': '{0}/{1} pages match the filter'
+  '{0}: {1} nằm ngoài hộp cát của {who} ({2}). Chỉ ghi các tệp trong danh sách allow của brief.': '{0}:
+    {1} is outside the sandbox of {who} ({2}). Write only the files on the brief''s
+    allow list.'
+  ? '{what}
+
+    Gõ 8 ký tự đầu của digest ({0}…) để xác nhận: '
+  : '{what}
+
+    Type the first 8 characters of the digest ({0}…) to confirm: '
+  '|Không đăng ký được: ': '|Could not register: '
+  '|Máy chủ từ chối: ': '|The server refused: '
+  · {0} trang chưa viết: · {0} unwritten pages
+  ít nội dung: thin
+  Đang chạy kiểm tra…: Running checks…
+  Đang dùng mức {0}: Using level {0}
+  Đang dựng gói quyết định trên máy bạn…: Building the decision packet on your machine…
+  Đang tải trang…: Loading the page…
+  Điều kiện, mỗi dòng một điều kiện: Conditions, one per line
+  Đánh dấu đã đọc: Mark as read
+  'Đây là bản chỉ đọc. Mở bàn duyệt để ký: python -m architect_framework.cli.main console serve <workspace>': 'This
+    is a read-only copy. Open the review console to sign: architect-runtime
+    console serve <workspace>'
+  'Đây là cây tài liệu của node, không phải sơ đồ: quan hệ giữa các module nằm ở sơ đồ của hệ.': 'This
+    is the node''s document tree, not a diagram: relations between modules are in
+    the system''s diagram.'
+  Đã hiểu: Got it
+  Đã ký {0} lúc {1}. Bản ghi nằm trong decisions/.: Signed {0} at {1}. The record
+    is in decisions/.
+  Đã lưu góp ý: Feedback saved
+  Đã sao chép: Copied
+  'Đã tải ': 'Downloaded '
+  Đã xem xét tất cả: All reviewed
+  Đã xử lý: Handled
+  Đã đọc: Read
+  Đóng: Close
+  Đóng gói quyết định (Esc): Close the decision packet (Esc)
+  Đóng trang (Esc): Close the page (Esc)
+  Đăng ký passkey cho người duyệt này: Register a passkey for this reviewer
+  Được nhắc bởi — {0}: Mentioned by — {0}
+  'Để ký: đánh dấu các mục bắt buộc ở trên, viết lý do có nhắc một id, rồi bấm ký.': 'To
+    sign: tick the required items above, write a reason that mentions an id, then
+    press Sign.'
+  Đồng ý: Approve
+  Đồng ý kèm điều kiện: Approve with conditions
+  Đủ điều kiện ký.: Ready to sign.
+  đang chờ: waiting
+  đang chờ ký: waiting to be signed
+  đang chờ người: waiting for a person
+  đang chờ người — {0}: waiting for a person — {0}
+  đang chờ — {0}: waiting — {0}
+  đang kẹt: stalled
+  đi kèm khung: ships with the framework
+  đi trong cây điều hướng: move around the navigation tree
+  đã ký: signed
+  đã mua, đã cài: bought and installed
+  đã nâng: raised
+  đã quyết: decided
+  đã quyết — {0}: decided — {0}
+  đã xem xét mục này: reviewed this item
+  đã xong: finished
+  đã xử lý: handled
+  đóng trang, gói quyết định, hộp thoại; lùi một bậc: close the page, the decision
+    packet or a dialog; go back one level
+  đạt: passed
+  đầy đủ: full
+  đổi: changed
+  đổi gì kể từ lần ký trước: what changed since the last signing
+  'đổi gì trong ': 'what changed in '
+  Ẩn: Hide
+  … và {0} trang nữa; khung trình xem hiện đủ.: … and {0} more pages; the viewer frame
+    shows them all.
+  Xác nhận khoá mới ở terminal đang chạy bàn duyệt…: Confirm the new key in the console
+    operator terminal…

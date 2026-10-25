@@ -1,0 +1,22 @@
+# Gate suppressions — false-positive register with per-gate thresholds.
+#
+# A finding an agent believes is false is not "fixed" by editing the document the
+# gate fired on: that is how 136 checklist Status cells would have been rewritten to
+# silence a regex. The agent records the false positive here, with its reason, and
+# moves on. Suppressions are counted: a code that reaches the threshold is itself
+# up for review — fix the rule, or have the owner reclassify it `heuristic`.
+#
+# `python scripts/check_suppressions.py` (GATE-SUPPRESSIONS) fails on a row without
+# a `reason`, on a code no registered gate emits, and on a path that does not exist.
+# `python -m architect_framework.cli.main gate list --over-suppressed` lists the codes
+# at or over the threshold.
+#
+# Row schema:
+#   code        a finding code a registered gate emits (`gate explain <code>` answers)
+#   path        the repository-relative file the finding fired on
+#   reason      why the finding is false here — prose, checkable by a reader
+#   raised_by   the work order or report that recorded it
+schema_version: "2026.09"
+kind: gate-suppressions
+threshold: 5
+suppressions: []

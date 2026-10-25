@@ -1,0 +1,10 @@
+# Human decision records — layer 4 workflow governance.
+#
+# Every file under a workspace's decisions/ is a person's decision at a pipeline checkpoint
+# (HG-1 … HG-4). With branch protection requiring code-owner review, none reaches `main`
+# without this owner's review. The owner is the repository owner (remote github.com/ldqanh1408).
+**/decisions/** @ldqanh1408
+
+# The passkey trust root: forging a signature means editing this file,
+# and that edit needs the owner's review.
+.architect/reviewers.yml @ldqanh1408

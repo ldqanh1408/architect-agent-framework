@@ -1,0 +1,82 @@
+workflow_contract:
+  schema_version: sdd-skill/v2
+  skill: 02-spec-critic
+  role: review
+  capabilities:
+  - review
+  workflow: references/workflow-v2.md
+  state_authority: sdd_core.engine
+  source_authority: frozen candidate, accepted baseline and obligation inventory
+  owned_scope: no spec writes; review records are persisted by the engine
+  output: exact evidence and routed findings, separate from human adjudication
+  completion: verified review coverage; never self issue human acceptance
+  forbidden:
+  - spec rewrites
+  - self approval
+  - direct engine state edits
+  required_references:
+  - references/review-method.md
+  - references/document-style.md
+  - references/output-contract.md
+  conditional_references:
+  - path: references/shape-review.md
+    when: evaluate applicable boundary shapes during review
+runtime_contract:
+  schema_version: '2026.07'
+  skill: 02-spec-critic
+  role: review specifications without editing them
+  triggers:
+  - a current task selects this skill under its accepted grant
+  anti_triggers:
+  - required upstream evidence is missing
+  - the requested write belongs to another owner
+  required_inputs:
+  - sdd-workspace.yml
+  - current source snapshot
+  - accepted skill grant
+  - artifact registry
+  - source obligations
+  optional_inputs:
+  - stable_ids
+  - skip_or_defer_reasons
+  forbidden_inputs:
+  - unaccepted proposals as execution authority
+  owns: []
+  read_only:
+  - registered sources and current base candidate
+  forbidden_writes:
+  - foreign artifacts
+  - direct engine state writes
+  - human decision records
+  required_outputs: []
+  stable_ids_consumed:
+  - upstream stable IDs when present
+  stable_ids_produced:
+  - artifact and clause IDs declared by the current registry
+  completion_evidence:
+  - isolated candidate and current deterministic checks
+  - historical regression and independent review
+  - separate signed human acceptance
+  blocking_conditions:
+  - missing evidence or authority
+  - unresolved human questions
+  - stale input or baseline
+  resume_policy:
+    strategy: resume-from-validated-artifact-manifest
+    never_repeat_external_side_effect: true
+  context_loading:
+    always_load:
+    - SKILL.md
+    - skill-contract.yml
+    - sdd-workspace.yml
+    - references/output-contract.md
+    load_when:
+      artifact-specific: only referenced template and source paths
+    never_load_as_authority:
+    - unaccepted policy or write grants
+    - foreign artifact ownership
+  validators:
+  - architect-runtime sdd check <workspace> --change <change-id>
+  - architect-runtime sdd regression <workspace> --change <change-id>
+  authority: workspace accepted grants and current registry; empty static output lists
+    are not permission to write

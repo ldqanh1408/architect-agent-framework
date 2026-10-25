@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell|apply_patch|write_file|edit_file|shell|exec_command|local_shell|pwsh|bash|sh|write|edit|multiedit|create_file|replace_in_file|notebookedit|zsh|cmd|terminal",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/architect_runtime.py\" --bootstrap hook pre-tool-use",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

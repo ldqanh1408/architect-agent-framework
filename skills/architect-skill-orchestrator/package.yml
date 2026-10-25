@@ -1,0 +1,73 @@
+schema_version: '2026.07'
+skill: architect-skill-orchestrator
+kind: orchestration
+group: orchestration
+license_expression: MIT
+entrypoint: SKILL.md
+contract:
+  path: skill-contract.yml
+  sha256: 0693a98c2f39a2c35c06b5e9f2ffdad5312bf41aca60cccbd89fc222b3f98747
+evaluations:
+- evaluations/golden.yml
+- evaluations/adversarial.yml
+validator_policy:
+  schema_version: '2026.07'
+  fail_closed: true
+files:
+- path: README.md
+  sha256: e8098583ed18f71546df1cf6dc941630eae6e0de97b6d4ed3a0ad8658e73bb02
+  bytes: 1048
+- path: SKILL.md
+  sha256: 7bd2143bf4e53151851948b748c16b4da5e4ae657b7c4d49971ded870ee68f57
+  bytes: 20089
+- path: agents/openai.yaml
+  sha256: 4af3da39b8f13e8e0154fc0f435c77f658db804631f7eda049907ce04e02c1b9
+  bytes: 648
+- path: evaluations/adversarial.yml
+  sha256: c9c4bb23c4c83d9ec8541b6b33fbb2d4e400c7593145338797e352b0eca4431e
+  bytes: 1092
+- path: evaluations/agent-only/authority-unresolved.yml
+  sha256: fd2532c70c7cdb23630e34d4abc17b345fd354cb53080302e30732b86bb4a6ee
+  bytes: 1124
+- path: evaluations/agent-only/dependency-cycle.yml
+  sha256: e20ca27e9886ff7ddcab6674af2d11828ee866c702af7f7e5f13fdbc67923c9d
+  bytes: 1095
+- path: evaluations/agent-only/full-library-load.yml
+  sha256: 282324d82cc10960a872e1400b537d5bf99a8f538436aeb9f6dabd184995f2ad
+  bytes: 1060
+- path: evaluations/agent-only/inferred-success.yml
+  sha256: 5a5125c4daaef1a2479a29a7ae22573ae6d02580d6afcf838c808323f2201fd9
+  bytes: 1055
+- path: evaluations/agent-only/ownership-overlap.yml
+  sha256: 79871f373ec8b0c2c38b7adb4f8a6c37d7be4a1c731fd4bc159adb65a129ab6c
+  bytes: 1093
+- path: evaluations/agent-only/reconstructed-producer.yml
+  sha256: 0361ef32e629ebfa56c6868e076353ea58521e8b646602c1f8d5217c260ffe07
+  bytes: 1097
+- path: evaluations/agent-only/stale-metadata.yml
+  sha256: 31a66d2cad2301c65259ebcfb06af2e909aa61ed5b66569e7f600fd46aff9b63
+  bytes: 1085
+- path: evaluations/agent-only/title-only-route.yml
+  sha256: a3c28298103ea6f53e34e012d27fe265151d5712a5ef12ecc6b7337a49a9782a
+  bytes: 1089
+- path: evaluations/golden.yml
+  sha256: 43548d144a1c184dec7aa5eae135b2e71c481751b828b9bde81b100f749da971
+  bytes: 1211
+- path: references/catalog.yml
+  sha256: bbdbcc6aec6ee602520034a05216265f3da2ac20fb822b7ab4063ed15d466150
+  bytes: 74802
+- path: references/domain-rules.md
+  sha256: 083262964698ba65875ade2913acadc9097d71246cd718dbf9ddeb0bdce12861
+  bytes: 671
+- path: references/output-contract.md
+  sha256: dac9caad1e31032ba40f4356374d1a3eeeb266db2b31157990d2696565b755a0
+  bytes: 396
+- path: references/research-basis.md
+  sha256: 3c27dece2ad89720d57b2245eaeaa5ad9e3dcfd984f77fe7a07ecf46b373aea1
+  bytes: 2342
+- path: scripts/route.py
+  sha256: 2c27e47a510864cb0913ac35fea284a702c60857879f1e19174b8fbb0cd88e19
+  bytes: 2371
+- path: skill-contract.yml
+  sha256: 0693a98c2f39a2c35c06b5e9f2ffdad5312bf41aca60cccbd89fc222b3f98747
+  bytes: 2319

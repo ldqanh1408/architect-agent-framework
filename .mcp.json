@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "architect-runtime": {
+      "command": "python",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/scripts/architect_runtime.py",
+        "--bootstrap",
+        "mcp"
+      ],
+      "env": {
+        "JEV_API_KEY": "${user_config.judge_api_key}",
+        "SDD_JUDGE_API_KEY": "${user_config.judge_api_key}"
+      }
+    }
+  }
+}

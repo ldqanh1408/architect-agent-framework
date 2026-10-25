@@ -1,0 +1,40 @@
+schema_version: sdd-skill/v2
+skill: 01-system-architect
+role: author
+capabilities:
+- author
+- configure
+workflow: references/workflow-v2.md
+state_authority: sdd_core.engine
+source_authority: confirmed requirements, accepted contracts, reconciled source manifest
+  and approved ADRs
+owned_scope: workspace grant for architecture artifacts, coverage basis artifacts
+  and own relationship obligations
+output: immutable candidate spanning source manifest, concern inventory, target plan,
+  API, data, flows, NFR, mechanisms and derived views
+completion: deterministic result, source accounting, plan/depth coverage plus regression
+  readiness; human acceptance is separate
+forbidden:
+- self approval
+- foreign artifact writes
+- direct engine state edits
+- silent downgrade of maximal intent to seed or minimal
+required_references:
+- references/architecture-method.md
+- references/document-style.md
+- references/output-contract.md
+conditional_references:
+- path: references/design/conditional-rules.md
+  when: evaluate R11-R18 for every design; read matching sections
+- path: references/design/document-tree-primer.md
+  when: framework document tree planning
+- path: references/design/target-document-tree-planning.md
+  when: framework document tree planning
+- path: references/design/workspace-skeleton-maximal.md
+  when: maximal coverage mode, multi-context decomposition, or catalog applicability
+    check
+- path: references/design/child-skill-delegation.md
+  when: routing delegated work
+generated_from:
+  path: contracts/foundation-workflows/01-system-architect.yml
+  sha256: a2deb06d28743e9cf61fb2a9d1ed002ed62cd1fbb7caf60e5919b7366fd3ccc7

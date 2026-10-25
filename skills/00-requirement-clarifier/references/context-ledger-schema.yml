@@ -1,0 +1,23 @@
+schema: sdd-core-context/v1
+purpose: Read-only reference; this file is not an executable workspace schema.
+workspace_schema: sdd_core.schema.WORKSPACE
+workspace_marker: sdd-workspace.yml
+authority:
+  documents: sdd_core.engine
+  scheduling: architect_framework.runtime.core_runs
+  grants: accepted workspace capabilities and write_scope
+  inputs: exact artifact IDs, revisions, source and candidate snapshots
+  skill_input: bounded package, contract and brief content digests
+separate_decisions:
+  - human task dispatch
+  - independent semantic review
+  - signed candidate acceptance
+  - publication of accepted candidate
+planning:
+  location: registered planning artifact
+  metadata: [catalogue_version, selected_profile, selection_evidence, module_ownership, source_coverage]
+  rule: Planning metadata is document content; do not add unsupported workspace fields.
+migration:
+  command: architect-migrate
+  destination: separate current workspace
+  rule: Preserve source facts, identifiers and unresolved questions; reuse no old approvals.

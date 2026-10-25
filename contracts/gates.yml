@@ -1,0 +1,1702 @@
+# Gate registry — declarative gate and tool catalog.
+#
+# A gate is an ID in this file. It is never a file path typed into a checklist:
+# 16 of 45 argv cited across docs/ and the workspaces did not resolve, and four
+# of the unresolvable ones were cited as the evidence that closed Phase 0.
+#
+# DERIVED FIELDS — regenerate, do not hand-edit:
+#     id · kind · entrypoint · scope · argv · usage · findings
+#     `architect-cli gate bootstrap --check` fails when they differ from a fresh
+#     derivation. `argv` and `scope` come from each script's own argparse usage
+#     line; `id` strips the leading verb so check_doc_coverage.py is
+#     GATE-DOC-COVERAGE.
+#
+# CURATED FIELDS — safe to edit, preserved across regeneration by id:
+#     title · timeout_s · roll_call · side_effects · phase · alias_of · codes · no_findings · stage
+#     `phase` is curated per workspace verification stage and is
+#     curated from here on: the runner now selects by phase, so re-deriving it
+#     from the runner would unassign every gate.
+#     `codes.<CODE>` gives each derived finding code its `class` (derived ·
+#     contract · heuristic · style — only the first two count toward an exit
+#     code) and its `remedy` (imperative; never "remove"/"delete"). An entry with
+#     no code declares `no_findings: {kind, reason}` instead. `gate bootstrap
+#     --check` fails while any code lacks a class or any entry lacks both.
+#
+# kind: native with a `.py` entrypoint is a script run in this process (
+# `architect_framework/gates/inprocess.py`): same argv, same parsers, no child
+# interpreter. kind: subprocess is left for `role: tool` entries.
+schema_version: '2026.08'
+kind: gate-registry
+retired:
+- id: GATE-SKILL-PACKAGE--03-C4-MODELER
+  successor: null
+  replacement: GATE-SKILL-PACKAGE on the vendored packages that remain
+  script: vendor/sdd-agent/03-c4-modeler/scripts/check_skill_package.py
+  reason: the package was deleted; its C4/UML views are written by the exported diagram task skills under
+    exported_skills/tasks/07_system_modeling/, which the catalogue checks cover
+- id: TOOL-DOC-RULES--03-C4-MODELER
+  successor: null
+  replacement: TOOL-DOC-RULES
+  script: vendor/sdd-agent/03-c4-modeler/scripts/doc_rules.py
+  reason: a per-package copy of the documentation-rules library; the package was deleted
+- id: GATE-SKILL-PACKAGE--04-UML-MODELER
+  successor: null
+  replacement: GATE-SKILL-PACKAGE on the vendored packages that remain
+  script: vendor/sdd-agent/04-uml-modeler/scripts/check_skill_package.py
+  reason: the package was deleted; its C4/UML views are written by the exported diagram task skills under
+    exported_skills/tasks/07_system_modeling/, which the catalogue checks cover
+- id: TOOL-DOC-RULES--04-UML-MODELER
+  successor: null
+  replacement: TOOL-DOC-RULES
+  script: vendor/sdd-agent/04-uml-modeler/scripts/doc_rules.py
+  reason: a per-package copy of the documentation-rules library; the package was deleted
+- id: GATE-WORKSPACE-ALL
+  successor: null
+  replacement: architect-cli gate run --scope workspace <workspace> [--phase N]
+  script: vendor/sdd-agent/scripts/check_workspace_all.py
+  reason: a gate that ran other gates from its own hard-coded list; the registry is the one list and `gate
+    run --scope workspace` runs every workspace gate in it
+- id: GATE-SOURCE-MAP-TYPED--SDD-AGENT
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_source_map_typed.py
+  reason: a wrapper that only delegated to scripts/check_source_map_typed.py; the eval allowlist now names
+    that script directly
+- id: GATE-SEAM-COVERAGE
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_seam_coverage.py
+  reason: inferred a seam's state from whether a file matched a glob — the weaker form of the typed seam
+    ledger, which now carries its finding codes
+- id: GATE-DENSITY
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/measure_density.py
+  reason: one rule of the question "is this real text"; runs in-process as a part of GATE-PAGE-DEPTH
+- id: GATE-CONTENT-DEPTH
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_content_depth.py
+  reason: one rule of the question "is this real text"; runs in-process as a part of GATE-PAGE-DEPTH
+- id: GATE-CLONE-PAGES
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_clone_pages.py
+  reason: one rule of the question "is this real text"; runs in-process as a part of GATE-PAGE-DEPTH
+- id: GATE-SEMANTIC-UNIQUENESS
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_semantic_uniqueness.py
+  reason: one rule of the question "is this real text"; runs in-process as a part of GATE-PAGE-DEPTH
+- id: GATE-REPO-DOCS
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_repo_docs.py
+  reason: one rule of the question "does every link resolve"; runs in-process as a part of GATE-LINKS
+- id: GATE-DEEPLINKS
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: scripts/check_deeplinks.py
+  reason: one rule of the question "does every link resolve"; runs in-process as a part of GATE-LINKS
+- id: GATE-WORKSPACE-LINKS
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: scripts/check_workspace_links.py
+  reason: one rule of the question "does every link resolve"; runs in-process as a part of GATE-LINKS
+- id: GATE-WORKSPACE-TEMPLATE
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_workspace_template.py
+  reason: one rule of the question "does the workspace match its template"; runs in-process as a part
+    of GATE-WORKSPACE-SHAPE
+- id: GATE-WORKSPACE-INSTANCE-TEMPLATE
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_workspace_instance_template.py
+  reason: one rule of the question "does the workspace match its template"; runs in-process as a part
+    of GATE-WORKSPACE-SHAPE
+- id: GATE-WORKSPACE-OUTPUT-ROOT
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_workspace_output_root.py
+  reason: one rule of the question "does the workspace match its template"; runs in-process as a part
+    of GATE-WORKSPACE-SHAPE
+- id: GATE-WORKSPACE-COMPLETION
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_workspace_completion.py
+  reason: one rule of the question "does the workspace match its template"; runs in-process as a part
+    of GATE-WORKSPACE-SHAPE
+- id: TOOL-DOMAIN-CONTRACTS
+  successor: null
+  replacement: architect-cli tool domain-contracts
+  script: scripts/rewrite_domain_contracts.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool domain-contracts`
+    now, so `architect-cli --help` names it
+- id: TOOL-GENERATE-CLAUDE-CODE-SKILLS
+  successor: null
+  replacement: architect-cli tool claude-code-skills
+  script: scripts/generate_claude_code_skills.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool claude-code-skills`
+    now, so `architect-cli --help` names it
+- id: TOOL-SDD-SOURCE
+  successor: null
+  replacement: architect-cli tool sdd-source
+  script: vendor/sdd-agent/scripts/classify_sdd_source.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool sdd-source`
+    now, so `architect-cli --help` names it
+- id: TOOL-SOURCE-INTAKE-STATUS
+  successor: null
+  replacement: architect-cli tool source-intake-status
+  script: vendor/sdd-agent/scripts/render_source_intake_status.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool source-intake-status`
+    now, so `architect-cli --help` names it
+- id: TOOL-SUBMODULE-DOCS
+  successor: null
+  replacement: architect-cli tool submodule-docs
+  script: vendor/sdd-agent/scripts/extract_submodule_docs.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool submodule-docs`
+    now, so `architect-cli --help` names it
+- id: TOOL-WORKFLOW-CONTRACT
+  successor: null
+  replacement: architect-cli tool workflow-contract
+  script: vendor/sdd-agent/scripts/render_workflow_contract.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool workflow-contract`
+    now, so `architect-cli --help` names it
+- id: TOOL-WORKSPACE-LAYOUT
+  successor: null
+  replacement: architect-cli tool workspace-layout
+  script: vendor/sdd-agent/scripts/migrate_workspace_layout.py
+  reason: a tier-D tool whose only caller was the roll-call; it is the CLI subcommand `tool workspace-layout`
+    now, so `architect-cli --help` names it
+- id: TOOL-DRIFT-RECONCILER
+  successor: null
+  replacement: none
+  script: vendor/sdd-agent/scripts/drift_reconciler.py
+  reason: a prototype for the retired acceptance and delivery stages; only a run_hooks flag called it
+- id: TOOL-GHERKIN-COMPILER
+  successor: null
+  replacement: none
+  script: vendor/sdd-agent/scripts/gherkin_compiler.py
+  reason: wrote feature files for the retired test stage; only a run_hooks flag called it
+- id: TOOL-SEMANTIC-VALIDATOR
+  successor: null
+  replacement: none
+  script: vendor/sdd-agent/scripts/semantic_validator.py
+  reason: parsed delivered source, outside this distribution; only a run_hooks flag called it
+- id: TOOL-TRACEABILITY-DASHBOARD
+  successor: null
+  replacement: GATE-TRACEABILITY-GRAPH
+  script: vendor/sdd-agent/scripts/traceability_dashboard.py
+  reason: an HTML report nothing read; only a run_hooks flag called it
+- id: TOOL-SEMANTIC-MERGE
+  successor: null
+  replacement: none
+  script: vendor/sdd-agent/scripts/semantic_merge.py
+  reason: a Markdown three-way merge prototype; only a run_hooks flag called it
+- id: TOOL-SPEC-FEDERATION
+  successor: null
+  replacement: GATE-TRACEABILITY-GRAPH
+  script: vendor/sdd-agent/scripts/spec_federation.py
+  reason: a requirements split and ID-range prototype; only a run_hooks flag called it
+- id: GATE-CHILD-OWNERSHIP
+  successor: GATE-SDD-CHECK
+  replacement: GATE-SDD-CHECK and GATE-SDD-REGRESSION over registered revision-bound artifacts; old protocol
+    retired in V2
+  script: vendor/sdd-agent/scripts/check_child_ownership.py
+  reason: asserted the retired tier-ownership model (not applicable on every workspace); its one live
+    check, nested module copies, targets the pre-D-1 flat layout
+- id: TOOL-README-SHOTS
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-DOC-SLOT-CLAIMS
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-PHASE-PRODUCER
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-SLOT-COVERAGE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-TABLE-RULE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-MAKE-MAXIMAL-FIXTURE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-SKILLSET-CONTRACTS
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-AGENT-METADATA
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-COHESION
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-DAG-CONTRACT
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-DOCS-AS-CODE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-MIGRATION-FIXTURE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-REQUIREMENT-FIDELITY
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-SKILL-CONTRACTS
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-SKILL-FIXTURE-MATRIX
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: GATE-SKILL-STRUCTURE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-CLARIFICATION-STATE
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-DAG-PROPAGATOR
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-PUML-PARSER
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-SKILL-EVAL
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-SDD-LAYOUT
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-SDD-WORKFLOW-MANAGER
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-SOURCE-INGESTION
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-SPEC-TEXT-NORMALIZATION
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-REGISTRY
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-DOC-RULES
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-DOC-RULES--01-SYSTEM-ARCHITECT
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-DOC-RULES--02-SPEC-CRITIC
+  successor: GATE-SDD-CHECK
+  replacement: Current core checks, explicit template preview and foundation compiler
+  reason: Obsolete fixed phase, direct writer, ledger or DOM protocol; see cutover dispositions
+- id: TOOL-CHECKLIST
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/build_checklist.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SITE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/build_site.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SITE-LAYOUT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/build_site_layout.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SITE-MODEL
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/build_site_model.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CATALOG-ISOMORPHISM
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_catalog_isomorphism.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CHECKLIST
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_checklist.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CLEAN-INSTALL
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_clean_install.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-DOC-COVERAGE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_doc_coverage.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-LAYER-COVERAGE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_layer_coverage.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-LEDGER-OWNER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_ledger_owner.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-MODULE-IDENTITY
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_module_identity.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PROJECTION-DRIFT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_projection_drift.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SOURCE-MAP-TYPED
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/check_source_map_typed.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-LAYOUT-PLAN
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/eval_layout_plan.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-LINT-CONTRACTS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/lint_contracts.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SKILL-WORKSPACE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: scripts/scaffold_skill_workspace.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-AUDIT-HONESTY
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_audit_honesty.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-BBB-SCOPE-FIXTURE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_bbb_scope_fixture.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-C4-CONSISTENCY
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_c4_consistency.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-COGNITIVE-LOAD
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_cognitive_load.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-EVIDENCE-DISCIPLINE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_evidence_discipline.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-FITNESS-CATALOG
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_fitness_catalog.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-MODULE-CHARTER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_module_charter.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PHASE-COVERAGE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_phase_coverage.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SDD-SEMANTIC-RULES
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_sdd_semantic_rules.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SOURCE-INGESTION
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_source_ingestion.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SUBMODULE-SEQUENCE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_submodule_sequence.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SUBMODULE-TAGGING
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_submodule_tagging.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TARGET-DOCUMENT-TREE-PLAN
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_target_document_tree_plan.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TARGET-TREE-CONFORMANCE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_target_tree_conformance.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TIER-BEHAVIOR
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_tier_behavior.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TRACEABILITY-GRAPH
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_traceability_graph.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-VISUALIZER-COVERAGE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/check_visualizer_coverage.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-GENERATE-LLMS-TXT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/generate_llms_txt.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SDD-PHASE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/run_sdd_phase.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-RUNTIME-WRITE-GUARD
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/runtime_write_guard.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: TOOL-SUBMODULE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/scripts/scaffold_submodule.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-OUTPUT-DOCS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: exported_skills/_shared/scripts/check_output_docs.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-OUTPUT-DOCS--00-REQUIREMENT-CLARIFIER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/00-requirement-clarifier/scripts/check_output_docs.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-OUTPUT-DOCS--01-SYSTEM-ARCHITECT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/01-system-architect/scripts/check_output_docs.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TIER-SKELETON
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/01-system-architect/scripts/check_tier_skeleton.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-OUTPUT-DOCS--02-SPEC-CRITIC
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: vendor/sdd-agent/02-spec-critic/scripts/check_output_docs.py
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-RESOLVE-LEVEL
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.resolve_level:ResolveLevelGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-EVIDENCE-LEDGER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.evidence_ledger:EvidenceLedgerGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CHARTER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.charter:CharterGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SEAM-LEDGER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.seam_ledger:SeamLedgerGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-WORKSPACE-PLAN
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.workspace_plan:WorkspacePlanGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PAGE-CLASS-SECTIONS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.page_class_sections:PageClassSectionsGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-INDEX-RENDER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.index_render:IndexRenderGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CHANGE-IMPACT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.change_impact:ChangeImpactGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-TREE-PLAN-RENDER
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.tree_plan_render:TreePlanRenderGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-REQUIREMENT-QUALITY
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.requirement_quality:RequirementQualityGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-CLAUSE-SUPPORT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.clause_support:ClauseSupportGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PAGE-SUBSTANCE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.page_substance:PageSubstanceGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-DOC-COHERENCE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.doc_coherence:DocCoherenceGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-LINK-KEPT
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.link_kept:LinkKeptGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-COMPLETENESS-MATRIX
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.completeness_matrix:CompletenessMatrixGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PAGE-DEPTH
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.absorbed:PageDepthGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-LINKS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.absorbed:LinksGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-WORKSPACE-SHAPE
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.absorbed:WorkspaceShapeGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SUBTREE-FULLNESS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.subtree_fullness:SubtreeFullnessGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-HUMAN-DECISION
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.human_decision:HumanDecisionGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-SHARED-CONTRACTS
+  successor: null
+  replacement: Current registered predicates; see REFERENCE-GATES.md. No automatic successor executes
+    this retired predicate.
+  script: architect_framework.gates.shared_contracts:SharedContractsGate
+  reason: V2 physical cutover of old phase/ledger/layout authority; original definition is recorded in
+    cutover-dispositions.json.
+- id: GATE-PLAN-STATUS
+  successor: null
+  replacement: Current release assurance and plan lifecycle check
+  reason: Historical phase-plan command measurements no longer describe the current API
+gates:
+- id: GATE-LEGACY
+  role: gate
+  kind: native
+  entrypoint: scripts/audit_legacy.py
+  scope: repo
+  argv: []
+  usage: 'usage: audit_legacy.py [-h] [--report REPORT]'
+  side_effects: read-only
+  findings:
+  - INVALID-PAYLOAD-CONTRACT
+  - INVALID-PAYLOAD-SOURCE
+  - LEGACY-CODE-FINGERPRINT
+  - LEGACY-IMPORT
+  - LEGACY-MEMBER
+  - LEGACY-PREDICATE
+  - LEGACY-PROMPT
+  phase: []
+  title: Remaining legacy inventory and parity closure
+  codes:
+    INVALID-PAYLOAD-CONTRACT:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    INVALID-PAYLOAD-SOURCE:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    LEGACY-IMPORT:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    LEGACY-MEMBER:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    LEGACY-PREDICATE:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    LEGACY-PROMPT:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    LEGACY-CODE-FINGERPRINT:
+      class: contract
+      remedy: Rebuild from current source and inspect the removed-code provenance before qualification
+  stage: ci
+- id: TOOL-DIST
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_dist.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_dist.py [-h] [--outdir OUTDIR] [--uv]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: stages the framework root, builds the wheel and sdist, and checks the wheel carries it; test_package_data.py
+      grades the contents
+- id: TOOL-DOCS-REFERENCE
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_docs_reference.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_docs_reference.py [-h] [--check] [--stdout]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: writes docs/REFERENCE-GATES.md from the registry; GATE-DOCS-CURRENT checks it is fresh
+- id: TOOL-PLUGIN-SKILLS
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_plugin_skills.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_plugin_skills.py [-h] [--check]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: rewrites plugins/ from the catalogue; CI diffs the result
+- id: TOOL-PUBLIC-TREE
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_public_tree.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_public_tree.py [-h] [--out OUT] [--pack-out PACK_OUT] [--check DIR] [--manifest
+    MANIFEST] [--write-source-manifest WRITE_SOURCE_MANIFEST] [--repo-url REPO_URL]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: a release builder that copies the public tree out; `--check` prints matches/differs
+- id: TOOL-RELEASE
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_release.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_release.py [-h] [--out OUT] [--version VERSION] [--no-zip] [--in-repo]'
+  side_effects: writes
+  findings: []
+  phase: []
+  timeout_s: 600
+  no_findings:
+    kind: tool
+    reason: builds the release archive and manifest; CI runs it
+- id: TOOL-SKILL-SLOTS
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/build_skill_slots.py
+  scope: repo
+  argv: []
+  usage: 'usage: build_skill_slots.py [-h] [--source SOURCE] [--check]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: copies prices and packs out of the private sales catalogue; `--check` prints PASSED/FAILED
+- id: GATE-ARCHETYPE-VOCABULARY
+  role: gate
+  kind: native
+  entrypoint: scripts/check_archetype_vocabulary.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_archetype_vocabulary.py [-h] [--check] [--emit]'
+  side_effects: read-only
+  findings: []
+  phase: []
+  no_findings:
+    kind: exit-code
+    reason: prints PASS, or FAILED with whether the vocabulary file is missing or differs from the derivation
+  stage: ci
+- id: GATE-AUTHORED-SECTIONS
+  role: gate
+  kind: native
+  entrypoint: scripts/check_authored_sections.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: check_authored_sections.py [-h] [--catalog CATALOG] [--cluster CLUSTER] [--similarity
+    SIMILARITY] [--json]'
+  side_effects: read-only
+  findings:
+  - example-boundary
+  - example-converged
+  - example-fence
+  - example-ids
+  - fast-path-exit
+  - fast-path-steps
+  - local-path
+  - missing-cluster
+  - missing-section
+  - placeholder
+  - routing-target
+  phase: []
+  codes:
+    example-boundary:
+      class: contract
+      remedy: Add the 'what it does not produce' note to the Worked Example, naming the neighbouring skill
+        that does.
+    example-converged:
+      class: derived
+      remedy: Write a Worked Example from a different real scenario than the sibling skill it resembles.
+    example-fence:
+      class: contract
+      remedy: Show real output in one fenced block of 8-40 lines in the Worked Example.
+    example-ids:
+      class: contract
+      remedy: Quote a bracketed stable id (for example [AE-1]) from the artifact the example shows.
+    fast-path-exit:
+      class: contract
+      remedy: Add the 'Leave the fast path' paragraph naming what pushes a request off it.
+    fast-path-steps:
+      class: contract
+      remedy: Rewrite the Fast Path as the allowed number of numbered steps.
+    local-path:
+      class: derived
+      remedy: Replace the machine-local path with a repository-relative one.
+    missing-cluster:
+      class: derived
+      remedy: Pass a cluster folder that exists under the catalog, or add it to AUTHORED_CLUSTERS.
+    missing-section:
+      class: contract
+      remedy: Write the missing authored section from a real case.
+    placeholder:
+      class: derived
+      remedy: Replace the placeholder text in the section with authored content.
+    routing-target:
+      class: contract
+      remedy: Route the Fast Path to a skill id that exists in the catalogue.
+  stage: ci
+- id: GATE-PLAN-LIFECYCLE
+  role: gate
+  kind: native
+  entrypoint: scripts/check_plan_lifecycle.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_plan_lifecycle.py [-h] [--root ROOT]'
+  side_effects: read-only
+  findings: []
+  phase: []
+  no_findings:
+    kind: exit-code
+    reason: Prints source plan ownership violations and returns a failing exit code; public distributions
+      report unavailable scope.
+  stage: manual
+- id: GATE-PUBLIC-TREE
+  role: gate
+  kind: native
+  entrypoint: scripts/check_public_tree.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_public_tree.py [-h] [--tree TREE] [--source SOURCE] [--fingerprints FINGERPRINTS]
+    [--write-fingerprints WRITE_FINGERPRINTS] [--require-paid-corpus] [--report REPORT]'
+  side_effects: read-only
+  findings:
+  - AGENSI-EDITION
+  - MACHINE-PATH
+  - PAID-CONTENT
+  - PAID-DISCOVERY-METADATA
+  - PAID-SKILL-MD
+  - PAID-SLOT-FILE
+  - PATH-TOO-LONG
+  - PRIVATE-QUALIFICATION-INPUT
+  - PROPRIETARY-LICENSE
+  - SECRET-TOKEN
+  phase: []
+  timeout_s: 900
+  codes:
+    AGENSI-EDITION:
+      class: contract
+      remedy: A bought (agensi edition) SKILL.md is in the tree; remove it, it belongs in a user's install
+        folder.
+    MACHINE-PATH:
+      class: derived
+      remedy: Add the path's shape to MACHINE_PATHS in scripts/build_public_tree.py, or write the path
+        relative.
+    PAID-CONTENT:
+      class: contract
+      remedy: A paragraph of a paid skill's content is in this file; remove or rewrite it.
+    PAID-DISCOVERY-METADATA:
+      class: contract
+      remedy: Private per-skill catalog metadata belongs only in a local installed package; keep the public
+        registry free-only.
+    PRIVATE-QUALIFICATION-INPUT:
+      class: contract
+      remedy: Keep original paid fingerprint inputs outside every distributable payload.
+    PAID-SKILL-MD:
+      class: contract
+      remedy: A paid skill's body is private; publish only the bundled free skill payloads.
+    PAID-SLOT-FILE:
+      class: contract
+      remedy: Every paid descriptor and body belongs in the private pack; remove it from the public tree.
+    PATH-TOO-LONG:
+      class: contract
+      remedy: Shorten the folder or file names, or leave a development-only tree out with EXCLUDED_PREFIXES
+        in scripts/build_public_tree.py; a Windows marketplace clone cannot check the file out.
+    PROPRIETARY-LICENSE:
+      class: contract
+      remedy: 'A file declares `license: Proprietary`; it is paid content, keep it out of the public tree.'
+    SECRET-TOKEN:
+      class: contract
+      remedy: Rotate the key or token, then read it from the environment instead of the file.
+  stage: ci
+- id: GATE-RELEASE-ARTIFACTS
+  role: gate
+  kind: native
+  entrypoint: scripts/check_release_artifacts.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_release_artifacts.py [-h] [--fingerprints FINGERPRINTS] [--require-paid-corpus]
+    [--report REPORT] [--legacy-rules LEGACY_RULES] [artifacts ...]'
+  side_effects: read-only
+  findings:
+  - ARTIFACT-CHANGED
+  - INVALID-ARCHIVE
+  phase: []
+  codes:
+    ARTIFACT-CHANGED:
+      class: contract
+      remedy: Inspect the input, restore the current declared contract and rerun before publication.
+    INVALID-ARCHIVE:
+      class: contract
+      remedy: Rebuild a canonical archive with bounded regular files without links, aliases or duplicate
+        names.
+  stage: manual
+- id: GATE-SKILL-CREATOR-CONFORMANCE
+  role: gate
+  kind: native
+  entrypoint: scripts/check_skill_creator_conformance.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_skill_creator_conformance.py [-h] [--root ROOT] [--strict] [--json]'
+  side_effects: read-only
+  findings:
+  - SC-BAD-YAML
+  - SC-BODY-LENGTH
+  - SC-DESC-ANGLE
+  - SC-DESC-EMPTY
+  - SC-DESC-LENGTH
+  - SC-DESC-SHAPE
+  - SC-EXTRA-KEY
+  - SC-MISSING-FIELD
+  - SC-NAME-LENGTH
+  - SC-NAME-MISMATCH
+  - SC-NAME-SHAPE
+  - SC-NO-FRONTMATTER
+  phase: []
+  codes:
+    SC-BAD-YAML:
+      class: contract
+      remedy: Fix the SKILL.md frontmatter so it parses as a YAML mapping.
+    SC-BODY-LENGTH:
+      class: style
+      remedy: Split the SKILL.md body into references/ pages so the triggered body stays small.
+    SC-DESC-ANGLE:
+      class: contract
+      remedy: Rewrite the description without angle brackets.
+    SC-DESC-EMPTY:
+      class: contract
+      remedy: 'Write the description: when the skill triggers and what it produces.'
+    SC-DESC-LENGTH:
+      class: contract
+      remedy: Shorten the description to the spec's limit.
+    SC-DESC-SHAPE:
+      class: contract
+      remedy: Make the description a single string.
+    SC-EXTRA-KEY:
+      class: style
+      remedy: Move the extra frontmatter key into the body or a sidecar file.
+    SC-MISSING-FIELD:
+      class: contract
+      remedy: Add the required frontmatter field.
+    SC-NAME-LENGTH:
+      class: contract
+      remedy: Shorten the skill name to the spec's limit.
+    SC-NAME-MISMATCH:
+      class: style
+      remedy: Rename the frontmatter `name` or the folder so they agree.
+    SC-NAME-SHAPE:
+      class: contract
+      remedy: Rename the skill to kebab-case without leading, trailing or doubled hyphens.
+    SC-NO-FRONTMATTER:
+      class: contract
+      remedy: Add the YAML frontmatter block to SKILL.md.
+  stage: ci
+- id: GATE-SUPPRESSIONS
+  role: gate
+  kind: native
+  entrypoint: scripts/check_suppressions.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_suppressions.py [-h] [--file FILE] [--over-threshold] [--ids-only] [--json]'
+  side_effects: read-only
+  findings:
+  - SUPPRESSION-NO-REASON
+  - SUPPRESSION-OVER-THRESHOLD
+  - SUPPRESSION-PATH-MISSING
+  - SUPPRESSION-UNKNOWN-CODE
+  - SUPPRESSIONS-UNPARSEABLE
+  phase: []
+  codes:
+    SUPPRESSION-NO-REASON:
+      class: contract
+      remedy: Write why the finding is false at that path, or fix the document instead of suppressing.
+    SUPPRESSION-OVER-THRESHOLD:
+      class: derived
+      remedy: Fix the rule that keeps misfiring, or have the owner reclassify the code.
+    SUPPRESSION-PATH-MISSING:
+      class: derived
+      remedy: Point the suppression at the file the finding fired on.
+    SUPPRESSION-UNKNOWN-CODE:
+      class: contract
+      remedy: Suppress a code a registered gate emits (`gate explain <code>`).
+    SUPPRESSIONS-UNPARSEABLE:
+      class: derived
+      remedy: 'Restore the register''s documented shape: a mapping with a `suppressions:` list.'
+  stage: ci
+- id: GATE-TEMPLATE-COVERAGE
+  role: gate
+  kind: native
+  entrypoint: scripts/check_template_coverage.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_template_coverage.py [-h] [--root ROOT] [--json]'
+  side_effects: read-only
+  findings:
+  - GENERIC-SHELL-ONLY
+  - NO-TEMPLATE-DECLARED
+  - TASK-SCOPE-OUT
+  - TEMPLATE-MISSING
+  phase: []
+  codes:
+    GENERIC-SHELL-ONLY:
+      class: contract
+      remedy: Add a per-class template to the package instead of relying on the shared generic shell.
+    NO-TEMPLATE-DECLARED:
+      class: contract
+      remedy: Declare the Starting templates in the package's workspace-template.yml.
+    TASK-SCOPE-OUT:
+      class: contract
+      remedy: 'Nothing to do for a task/orchestration package: it has no module vocabulary; confirm the
+        package kind is right.'
+    TEMPLATE-MISSING:
+      class: derived
+      remedy: Add the declared template file to the package, or correct the declaration.
+  stage: ci
+- id: GATE-VERSIONS
+  role: gate
+  kind: native
+  entrypoint: scripts/check_versions.py
+  scope: repo
+  argv: []
+  usage: 'usage: check_versions.py [-h] [--json]'
+  side_effects: read-only
+  findings: []
+  phase: []
+  no_findings:
+    kind: exit-code
+    reason: 'prints each version source with its value and `ERROR: …` lines for mismatches'
+  stage: ci
+- id: TOOL-FOUNDATION-CONTRACTS
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/compile_foundation_contracts.py
+  scope: repo
+  argv: []
+  usage: 'usage: compile_foundation_contracts.py [-h] [--check]'
+  side_effects: writes
+  findings: []
+  phase: []
+  title: Generate canonical foundation contract projections
+  no_findings:
+    kind: tool
+    reason: Default invocation writes projections. Use --check for a read-only drift check; it does not
+      qualify release.
+  stage: manual
+- id: GATE-CATALOG-BUDGET
+  role: gate
+  kind: native
+  entrypoint: scripts/eval_catalog_budget.py
+  scope: repo
+  argv: []
+  usage: 'usage: eval_catalog_budget.py [-h] [--max-tokens MAX_TOKENS] [--json]'
+  side_effects: read-only
+  findings:
+  - BUDGET-DRIFT
+  - SPINE-UNREACHABLE
+  phase: []
+  codes:
+    BUDGET-DRIFT:
+      class: derived
+      remedy: Trim the catalog descriptions back under the ratchet, or raise the ratchet with a reason.
+    SPINE-UNREACHABLE:
+      class: contract
+      remedy: Route a spine skill to the cluster.
+  stage: ci
+- id: GATE-ROUTING
+  role: gate
+  kind: native
+  entrypoint: scripts/eval_routing.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: eval_routing.py [-h] [--catalog CATALOG] [--json] [--threshold THRESHOLD] [--max-collisions
+    MAX_COLLISIONS] [--min-rank1 MIN_RANK1] [--max-sibling-failures MAX_SIBLING_FAILURES] [--top TOP]'
+  side_effects: read-only
+  findings: []
+  phase: []
+  no_findings:
+    kind: exit-code
+    reason: prints collision, rank-1 and sibling metrics against their thresholds
+  stage: ci
+- id: TOOL-RESEARCH-BASIS
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/extract_research_basis.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: extract_research_basis.py [-h] [--catalog CATALOG] [--dry-run]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: rewrites SKILL.md research-basis sections across the catalogue
+- id: TOOL-LINT-PROSE
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/lint_prose.py
+  scope: repo
+  argv: []
+  usage: 'usage: lint_prose.py [-h] [--target TARGET] [--json] [--strict]'
+  side_effects: writes
+  findings:
+  - EMPTY-SECTION
+  - HEADING-JUMP
+  - READ-ERROR
+  - REPEATED-WORD
+  - UNBOUND-TODO
+  - UNCLOSED-FENCE
+  phase: []
+  codes:
+    EMPTY-SECTION:
+      class: derived
+      remedy: Write content under the heading, or merge it into its neighbour.
+    HEADING-JUMP:
+      class: style
+      remedy: Use the next heading level down instead of skipping one.
+    READ-ERROR:
+      class: derived
+      remedy: Make the file readable as UTF-8.
+    REPEATED-WORD:
+      class: heuristic
+      remedy: Read the flagged words; fix the typo if it is one, or add the word to the rule's vocabulary
+        with the measured false positive.
+    UNBOUND-TODO:
+      class: heuristic
+      remedy: Bind the marker to a tracking id (ISSUE-n, WO-n, CLR-…), or record it in gate-suppressions.yml
+        if it is a mention rather than a marker.
+    UNCLOSED-FENCE:
+      class: derived
+      remedy: Close the code fence with the same character and length that opened it.
+- id: TOOL-DESCRIPTIONS
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/rewrite_descriptions.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: rewrite_descriptions.py [-h] [--catalog CATALOG] [--dry-run] [--check] [--verbose]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: rewrites skill descriptions across the catalogue
+- id: TOOL-CATALOG-EVAL
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/run_catalog_eval.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: run_catalog_eval.py [-h] [--catalog CATALOG] [--skill SKILLS] [--spine] [--kind {golden,adversarial}]
+    [--list] [--dry-run] [--agent-cmd AGENT_CMD] [--emit-evals-json DIR] [--results RESULTS]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: runs the live catalogue evaluation and writes JSONL results
+- id: TOOL-SCAN-VENDOR-LEGACY
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/scan_vendor_legacy.py
+  scope: repo
+  argv: []
+  usage: 'usage: scan_vendor_legacy.py [-h] [--strict]'
+  side_effects: writes
+  findings:
+  - RETIRED-BARE
+  - RETIRED-STAGE
+  phase: []
+  codes:
+    RETIRED-BARE:
+      class: contract
+      remedy: A live vendor file names a retired SDD stage without its number; give the work to a live
+        skill (or drop it), or add an allow-list row with the reason in contracts/vendor-legacy-allow.yml.
+    RETIRED-STAGE:
+      class: contract
+      remedy: A live vendor file names a retired SDD stage; give the work to a live skill (or drop it),
+        or add an allow-list row with the reason in contracts/vendor-legacy-allow.yml.
+- id: TOOL-SMOKE-WHEEL-INSTALL
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/smoke_wheel_install.py
+  scope: repo
+  argv: []
+  usage: 'usage: smoke_wheel_install.py [-h] [--wheel WHEEL] [--sdist SDIST] [--features] [--compare-wheel
+    COMPARE_WHEEL] [--parity-report PARITY_REPORT]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: installs the built wheel into a clean environment and runs it; CI reads its exit code
+- id: TOOL-STAGE-PACKAGE-HOME
+  role: tool
+  kind: subprocess
+  entrypoint: scripts/stage_package_home.py
+  scope: repo
+  argv: []
+  usage: 'usage: stage_package_home.py [-h] [--check | --clean]'
+  side_effects: writes
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: copies the framework root into the package for a wheel build; its own --check compares a fresh
+      copy
+- id: GATE-CATALOG
+  role: gate
+  kind: native
+  entrypoint: scripts/validate_catalog.py
+  scope: catalog
+  argv:
+  - --catalog
+  - '{catalog}'
+  usage: 'usage: validate_catalog.py [-h] [--catalog CATALOG] [--json] [--strict]'
+  side_effects: read-only
+  findings:
+  - body-length
+  - description-budget
+  - description-length
+  - duplicate-id
+  - empty-catalog
+  - fitness-prefix-collision
+  - frontmatter
+  - id-format
+  - manifest
+  - manifest-drift
+  - missing-authored-section
+  - missing-catalog
+  - missing-dir
+  - missing-file
+  - missing-section
+  - missing-shared
+  - name-mismatch
+  phase: []
+  timeout_s: 600
+  codes:
+    body-length:
+      class: style
+      remedy: 'Author the SKILL.md body past a stub: instructions, inputs, outputs.'
+    description-budget:
+      class: style
+      remedy: Tighten the cluster's descriptions under the metadata budget.
+    description-length:
+      class: contract
+      remedy: Rewrite the description within the catalog's length bounds.
+    duplicate-id:
+      class: contract
+      remedy: Give each skill a unique id.
+    empty-catalog:
+      class: derived
+      remedy: Point the validator at a catalog root that holds SKILL.md files.
+    fitness-prefix-collision:
+      class: contract
+      remedy: Give each skill in the cluster its own fitness prefix.
+    frontmatter:
+      class: contract
+      remedy: Fix the SKILL.md frontmatter to carry the required keys.
+    id-format:
+      class: contract
+      remedy: Rename the package directory to lowercase kebab-case.
+    manifest:
+      class: derived
+      remedy: Regenerate package.yml so it parses.
+    manifest-drift:
+      class: derived
+      remedy: Regenerate the package manifest so paths, hashes and sizes match.
+    missing-authored-section:
+      class: contract
+      remedy: Write the authored section the cluster carries, from a real case.
+    missing-catalog:
+      class: derived
+      remedy: Point the validator at the catalog root.
+    missing-dir:
+      class: contract
+      remedy: Add the expected directory to the package.
+    missing-file:
+      class: contract
+      remedy: Add the required file to the package.
+    missing-section:
+      class: contract
+      remedy: Add one of the accepted sections to SKILL.md.
+    missing-shared:
+      class: derived
+      remedy: Restore the shared directory every package references.
+    name-mismatch:
+      class: contract
+      remedy: Make the frontmatter name match the directory.
+  stage: ci
+- id: GATE-SKILL-PACKAGE
+  role: gate
+  kind: native
+  entrypoint: exported_skills/_shared/scripts/check_skill_package.py
+  scope: repo
+  argv:
+  - '{skill_dir}'
+  usage: 'usage: check_skill_package.py [-h] skill_dir'
+  side_effects: read-only
+  findings: []
+  phase: []
+  roll_call:
+    values:
+      skill_dir: exported_skills/domains/03_application_architecture/backend-service-architect
+  no_findings:
+    kind: exit-code
+    reason: prints each package integrity problem as prose, then PASSED/FAILED
+  stage: ci
+- id: TOOL-POSTFLIGHT
+  role: tool
+  kind: subprocess
+  entrypoint: exported_skills/_shared/scripts/run_postflight.py
+  scope: workspace
+  argv:
+  - '{workspace}'
+  usage: 'usage: run_postflight.py [-h] workspace'
+  side_effects: read-only
+  findings: []
+  phase: []
+  no_findings:
+    kind: tool
+    reason: reports canonical current core checks without phase, completion or approval writes
+- id: GATE-SKILL-PACKAGE--00-REQUIREMENT-CLARIFIER
+  role: gate
+  kind: native
+  entrypoint: vendor/sdd-agent/00-requirement-clarifier/scripts/check_skill_package.py
+  scope: repo
+  argv:
+  - '{skill_dir}'
+  usage: 'usage: check_skill_package.py [-h] skill_dir'
+  side_effects: read-only
+  findings: []
+  phase: []
+  alias_of: GATE-SKILL-PACKAGE
+  roll_call:
+    values:
+      skill_dir: vendor/sdd-agent/00-requirement-clarifier
+  no_findings:
+    kind: exit-code
+    reason: prints each package integrity problem as prose, then PASSED/FAILED
+  stage: ci
+- id: GATE-SKILL-PACKAGE--01-SYSTEM-ARCHITECT
+  role: gate
+  kind: native
+  entrypoint: vendor/sdd-agent/01-system-architect/scripts/check_skill_package.py
+  scope: repo
+  argv:
+  - '{skill_dir}'
+  usage: 'usage: check_skill_package.py [-h] skill_dir'
+  side_effects: read-only
+  findings: []
+  phase: []
+  alias_of: GATE-SKILL-PACKAGE
+  roll_call:
+    values:
+      skill_dir: vendor/sdd-agent/01-system-architect
+  no_findings:
+    kind: exit-code
+    reason: prints each package integrity problem as prose, then PASSED/FAILED
+  stage: ci
+- id: GATE-SKILL-PACKAGE--02-SPEC-CRITIC
+  role: gate
+  kind: native
+  entrypoint: vendor/sdd-agent/02-spec-critic/scripts/check_skill_package.py
+  scope: repo
+  argv:
+  - '{skill_dir}'
+  usage: 'usage: check_skill_package.py [-h] skill_dir'
+  side_effects: read-only
+  findings: []
+  phase: []
+  alias_of: GATE-SKILL-PACKAGE
+  roll_call:
+    values:
+      skill_dir: vendor/sdd-agent/02-spec-critic
+  no_findings:
+    kind: exit-code
+    reason: prints each package integrity problem as prose, then PASSED/FAILED
+  stage: ci
+- id: GATE-EVIDENCE-VOCAB
+  role: gate
+  kind: native
+  entrypoint: architect_framework.gates.evidence_vocabulary:EvidenceVocabularyGate
+  scope: catalog
+  argv: []
+  usage: 'usage: GATE-EVIDENCE-VOCAB (catalog-scoped; no argv)'
+  side_effects: read-only
+  findings:
+  - VOCAB-MISSING
+  - VOCAB-UNPARSEABLE
+  - VOCAB-UNDEFINED
+  - VOCAB-UNUSED
+  - VOCAB-EXAMPLES-THIN
+  - VOCAB-EXAMPLE-DISAGREES
+  - VOCAB-DETECTOR-SHAPE
+  - VOCAB-PROPOSED-NO-DECISION
+  - VOCAB-PROPOSED-IN-USE
+  title: the evidence vocabulary and the 110 manifests agree, both ways
+  codes:
+    VOCAB-MISSING:
+      class: derived
+      remedy: Restore the evidence vocabulary contract.
+    VOCAB-UNPARSEABLE:
+      class: derived
+      remedy: Fix the manifest so it parses.
+    VOCAB-UNDEFINED:
+      class: contract
+      remedy: Define the token in the evidence vocabulary, or stop gating slots on it.
+    VOCAB-UNUSED:
+      class: contract
+      remedy: Gate a slot on the token, or retire its definition with a reason.
+    VOCAB-EXAMPLES-THIN:
+      class: contract
+      remedy: Add negative examples so the detector is shown not to over-fire.
+    VOCAB-EXAMPLE-DISAGREES:
+      class: derived
+      remedy: Fix the detector or the example so the token fires on its own positive example.
+    VOCAB-DETECTOR-SHAPE:
+      class: contract
+      remedy: Give the detector the keys the vocabulary schema declares.
+    VOCAB-PROPOSED-NO-DECISION:
+      class: contract
+      remedy: Record the decision the proposed token awaits.
+    VOCAB-PROPOSED-IN-USE:
+      class: contract
+      remedy: Decide the proposed token before any manifest gates a slot on it.
+  stage: ci
+  phase: []
+- id: GATE-DOCS-CURRENT
+  role: gate
+  kind: native
+  entrypoint: architect_framework.gates.docs_current:DocsCurrentGate
+  scope: repo
+  argv: []
+  usage: 'usage: GATE-DOCS-CURRENT'
+  side_effects: read-only
+  phase: []
+  findings:
+  - DOCS-LINK-BROKEN
+  - DOCS-GATE-UNKNOWN
+  - DOCS-CODE-UNKNOWN
+  - DOCS-CLI-UNKNOWN
+  - DOCS-REFERENCE-DRIFT
+  title: the documentation names only gates, codes and commands that exist
+  codes:
+    DOCS-LINK-BROKEN:
+      class: derived
+      remedy: Point the link at a file that exists, or cite the path as inline code.
+    DOCS-GATE-UNKNOWN:
+      class: contract
+      remedy: Cite a registered gate ID or declared finding code, or declare the token in _ILLUSTRATIVE
+        with its reason.
+    DOCS-CODE-UNKNOWN:
+      class: contract
+      remedy: Present only codes a registered gate declares.
+    DOCS-CLI-UNKNOWN:
+      class: contract
+      remedy: Cite a command the CLI parser defines.
+    DOCS-REFERENCE-DRIFT:
+      class: derived
+      remedy: Regenerate REFERENCE-GATES.md with `python scripts/build_docs_reference.py`.
+  stage: ci
+- id: GATE-SDD-CHECK
+  role: gate
+  stage: manual
+  kind: native
+  entrypoint: architect_framework.gates.sdd:SddCheckGate
+  scope: workspace
+  argv:
+  - '{workspace}'
+  usage: 'usage: GATE-SDD-CHECK {workspace}'
+  side_effects: read-only
+  phase: []
+  findings:
+  - SDD-CHECK-FAIL
+  - SDD-CHECK-INCOMPLETE
+  - SDD-CHECK-FINDING
+  - SDD-ENGINE-UNAVAILABLE
+  title: the SDD engine's deterministic check of a v2 workspace against its accepted baseline
+  codes:
+    SDD-CHECK-FAIL:
+      class: contract
+      remedy: Read the engine's findings, fix the documents they name, then run the check again.
+    SDD-CHECK-INCOMPLETE:
+      class: contract
+      remedy: Reconcile the workspace so the engine has a current snapshot, then run the check again.
+    SDD-CHECK-FINDING:
+      class: derived
+      remedy: Fix the document the finding names; the engine's own code is at the start of the message.
+    SDD-ENGINE-UNAVAILABLE:
+      class: contract
+      remedy: Install the engine (`pip install "architect-agent-framework[sdd]"`) or run through the plugin
+        launcher.
+- id: GATE-SDD-REGRESSION
+  role: gate
+  stage: manual
+  kind: native
+  entrypoint: architect_framework.gates.sdd:SddRegressionGate
+  scope: workspace
+  argv:
+  - '{workspace}'
+  usage: 'usage: GATE-SDD-REGRESSION {workspace}'
+  side_effects: read-only
+  phase: []
+  findings:
+  - SDD-REGRESSION-FAIL
+  - SDD-REGRESSION-INCOMPLETE
+  - SDD-REGRESSION-FINDING
+  title: the SDD engine's readiness of a v2 workspace; incomplete until a person accepts the snapshot
+  codes:
+    SDD-REGRESSION-FAIL:
+      class: contract
+      remedy: Fix what the engine reports as a regression against the accepted baseline.
+    SDD-REGRESSION-INCOMPLETE:
+      class: contract
+      remedy: Have a person review and accept the snapshot on the review console; an agent never accepts.
+    SDD-REGRESSION-FINDING:
+      class: derived
+      remedy: Fix the document the finding names; the engine's own code is at the start of the message.

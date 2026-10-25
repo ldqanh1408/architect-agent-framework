@@ -1,0 +1,25 @@
+schema_version: sdd-skill/v2
+skill: 02-spec-critic
+role: review
+capabilities:
+- review
+workflow: references/workflow-v2.md
+state_authority: sdd_core.engine
+source_authority: frozen candidate, accepted baseline and obligation inventory
+owned_scope: no spec writes; review records are persisted by the engine
+output: exact evidence and routed findings, separate from human adjudication
+completion: verified review coverage; never self issue human acceptance
+forbidden:
+- spec rewrites
+- self approval
+- direct engine state edits
+required_references:
+- references/review-method.md
+- references/document-style.md
+- references/output-contract.md
+conditional_references:
+- path: references/shape-review.md
+  when: evaluate applicable boundary shapes during review
+generated_from:
+  path: contracts/foundation-workflows/02-spec-critic.yml
+  sha256: f0da45b29404325df22888b74fc78789a29e707cfadfa3486bc805785cd1b405

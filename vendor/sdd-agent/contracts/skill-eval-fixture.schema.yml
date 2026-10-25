@@ -1,0 +1,9 @@
+schema_version: "1.0"
+required: [schema_version, skill, prompt_kind, prompt, setup, required_artifacts, forbidden_artifacts, expected_status, expected_diagnostics, oracle]
+prompt_kinds: [golden, bad, missing_source, stale_source, resume, over_generation, shallow_content, ownership_violation]
+expected_statuses: [complete, blocked, resumable, revising, rejected]
+oracle:
+  required: [argv, expected_exit]
+  optional: [expected_diagnostics]
+  execution: "argv array, shell disabled"
+  allowed_placeholders: [workspace, skill, repo_root]
