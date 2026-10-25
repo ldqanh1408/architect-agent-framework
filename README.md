@@ -1,6 +1,6 @@
 # Architect Agent Framework plugin
 
-Candidate: 2.0.0. Release status: NOT_QUALIFIED.
+Candidate: 1.0.0. Release status: hihi.
 
 [English](README.md) · [Tiếng Việt](README.vi.md) · [Install Guide](INSTALL.md) · [Hướng dẫn cài đặt](INSTALL.vi.md) · [Contributing](CONTRIBUTING.md) · [Hướng dẫn đóng góp](CONTRIBUTING.vi.md) · [Changelog](CHANGELOG.md)
 
