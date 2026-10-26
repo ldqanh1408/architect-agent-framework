@@ -1,19 +1,19 @@
 {
   "name": "architect-agent-framework",
   "displayName": "Architect Agent Framework",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Architecture routing and specification workflows: four free catalog skills, three SDD foundation skills, an optional runtime, revision-bound document regression and signed human acceptance.",
   "icon": "./assets/icon.svg",
   "author": {
     "name": "Le Dac Quoc Anh",
     "url": "https://github.com/ldqanh1408"
   },
-  "homepage": "https://github.com/ldqanh1408/Architect-Agent-Framework",
-  "documentationUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/plugins/architect-agent-framework/README.md",
-  "supportUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/issues",
-  "privacyPolicyUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/plugins/architect-agent-framework/PRIVACY.md",
-  "termsOfServiceUrl": "https://github.com/ldqanh1408/Architect-Agent-Framework/blob/main/LICENSE",
-  "repository": "https://github.com/ldqanh1408/Architect-Agent-Framework",
+  "homepage": "https://github.com/ldqanh1408/architect-agent-framework",
+  "documentationUrl": "https://github.com/ldqanh1408/architect-agent-framework/blob/main/README.md",
+  "supportUrl": "https://github.com/ldqanh1408/architect-agent-framework/issues",
+  "privacyPolicyUrl": "https://github.com/ldqanh1408/architect-agent-framework/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/ldqanh1408/architect-agent-framework/blob/main/LICENSE",
+  "repository": "https://github.com/ldqanh1408/architect-agent-framework",
   "license": "MIT",
   "keywords": [
     "architecture",
